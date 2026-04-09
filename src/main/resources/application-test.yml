@@ -1,0 +1,93 @@
+spring:
+  # 数据库连接配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qisi_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234
+
+  # Redis 基础配置
+  data:
+    redis:
+      host: 192.168.198.131
+      port: 6379
+      password: 1234
+      lettuce:
+        pool:
+          max-active: 10
+          maxIdle: 10
+          minIdle: 1
+          time-between-eviction-runs: 10s
+
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
+  output:
+    ansi:
+      enabled: always
+
+
+jwt:
+  secret: 7sK9$pR2!vG5^nQ8&bT1*dF6@hJ3%mL0#cX7    # 密钥
+  expiration: 7                       # Token 有效期：7天
+
+
+
+
+
+# MyBatis-Plus配置
+mybatis-plus:
+  configuration:
+    # 开启MyBatis-Plus日志
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      # 主键生成策略（雪花算法/自增等）
+      id-type: ASSIGN_ID
+
+# 测试环境日志：打印SQL、调试信息
+logging:
+  level:
+    root: INFO                      # 全局默认 INFO
+    com.sc.qisisystem: INFO         # 关闭你自己项目中的 DEBUG 日志（如果不需要）
+    org.springframework: INFO        # 关闭 Spring 框架的 DEBUG
+    org.springframework.web: INFO
+    org.springframework.boot: INFO
+    org.apache.catalina: WARN
+    org.mybatis: INFO
+    com.baomidou: INFO
+    io.lettuce.core: INFO            # Redis 客户端
+    com.zaxxer.hikari: WARN
+  file:
+    name: ./logs/qisi.log        # 日志文件路径
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(%-40.40logger{39}){cyan} : %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 30
+
+
+# MinIO 对象存储配置
+minio:
+  endpoint: http://127.0.0.1:9000       # MinIO服务端地址
+  access-key: admin                     # 访问密钥（对应MinIO的账号）
+  secret-key: 12345678                  # 秘钥（对应MinIO的密码）
+  read-timeout: 6000                    # 读取超时时间（毫秒）
+  connect-timeout: 6000                 # 连接超时时间（毫秒）
+  write-timeout: 6000
+  bucket:
+    avatar: qisi-system-avatar           # 头像桶
+    attachment: qisi-system-attachment   # 附件桶
+
+
+
+captcha:
+  width: 120
+  height: 40
+  length: 4
+  ttl: 60
+  ip-lock-ttl: 3
