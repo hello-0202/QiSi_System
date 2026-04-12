@@ -1,4 +1,4 @@
-package com.sc.qisi_system.config.security;
+package com.sc.qisi_system.module.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sc.qisi_system.common.enums.UserTypeEnum;

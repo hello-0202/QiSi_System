@@ -16,7 +16,7 @@ public class CaptchaController {
     private final CaptchaService captchaService;
 
     /**
-     * 获取验证码图片
+     * 获取图片验证码
      */
     @GetMapping("/captcha")
     public Result getCaptcha(HttpServletRequest request) {

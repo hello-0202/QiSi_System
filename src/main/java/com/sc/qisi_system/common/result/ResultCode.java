@@ -23,8 +23,10 @@ public enum ResultCode {
     TOKEN_EXPIRED(400002, "Token 已过期"),
     TOKEN_MALFORMED(400003, "Token 格式错误"),
     TOKEN_SIGNATURE_ERROR(400004, "Token 签名异常"),
-    PERMISSION_DENIED(4000005, "权限不足，无法访问"),
-    ACCOUNT_LOGIN_OTHER_DEVICE(400006, "您的账号已在其他设备登录，已强制下线"),
+    NO_TOKEN(400005, "Token 为空"),
+    PERMISSION_DENIED(4000006, "权限不足，无法访问"),
+    ACCOUNT_LOGIN_OTHER_DEVICE(400007, "您的账号已在其他设备登录，已强制下线"),
+    TOKEN_LOGGED_OUT(400008, "已登出，请重新登录"),
 
 
     /**

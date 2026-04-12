@@ -1,6 +1,6 @@
 package com.sc.qisi_system.common.result;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sc.qisi_system.common.exception.BusinessException;
 import lombok.Data;
 
 @Data
@@ -32,8 +32,11 @@ public class Result {
         return result;
     }
 
-    @JsonIgnore
-    public boolean isSuccess() {
-        return !this.code.equals(ResultCode.SUCCESS.getCode());
+    public static Result error(BusinessException e) {
+        Result result = new Result();
+        result.setCode(e.getResultCode().getCode());
+        result.setMessage(e.getResultCode().getMessage());
+        result.setData(null);
+        return result;
     }
 }

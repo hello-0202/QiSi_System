@@ -1,12 +1,12 @@
-package com.sc.qisi_system.config.security;
+package com.sc.qisi_system.config.security.filter;
 
+import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
+import com.sc.qisi_system.common.utils.RequestUtils;
 import com.sc.qisi_system.common.utils.ResponseUtils;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.security.SignatureException;
+import com.sc.qisi_system.module.user.service.RedisService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,6 +36,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserDetailsService userDetailsService;
     private final ResponseUtils responseUtils;
+    private final RedisService redisService;
+    private final RequestUtils requestUtils;
 
     private static final String TOKEN_PREFIX = "Bearer ";
 
@@ -52,6 +54,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         try {
+
+            if (redisService.isTokenBlacklisted(token)) {
+                throw new BusinessException(ResultCode.TOKEN_LOGGED_OUT);
+            }
+
             jwtTokenProvider.validateToken(token);
 
             String username = jwtTokenProvider.getUsernameFromToken(token);
@@ -63,18 +70,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             chain.doFilter(request, response);
 
-        } catch (ExpiredJwtException e) {
-            log.warn("JWT Token过期: {}", token);
-            responseUtils.writeResult(response, Result.error(ResultCode.TOKEN_EXPIRED.getCode(), ResultCode.TOKEN_EXPIRED.getMessage()));
-        } catch (SignatureException e) {
-            log.warn("JWT 签名无效: {}", token);
-            responseUtils.writeResult(response, Result.error(ResultCode.TOKEN_SIGNATURE_ERROR.getCode(), e.getMessage()));
-        } catch (MalformedJwtException e) {
-            log.warn("JWT 格式错误: {}", token);
-            responseUtils.writeResult(response, Result.error(ResultCode.TOKEN_MALFORMED.getCode(), e.getMessage()));
-        } catch (Exception e) {
-            log.error("JWT 认证过程发生异常: {}", e.getMessage());
-            responseUtils.writeResult(response, Result.error(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage()));
+        } catch (BusinessException e) {
+            log.warn("[JWT 验证异常]{}, 异常: {}",requestUtils.getRequestLog(request), e.getMessage());
+            responseUtils.writeResult(response, Result.error(e));
         }
 
     }

@@ -7,18 +7,18 @@ import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
 import com.sc.qisi_system.module.user.dto.LoginRequest;
+import com.sc.qisi_system.module.user.dto.LogoutRequest;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.mapper.SysUserMapper;
 import com.sc.qisi_system.module.user.service.CaptchaService;
 import com.sc.qisi_system.module.user.service.LoginService;
+import com.sc.qisi_system.module.user.service.RedisService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Service
@@ -27,8 +27,8 @@ public class LoginServiceImpl implements LoginService {
     private final SysUserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final StringRedisTemplate stringRedisTemplate;
     private final CaptchaService captchaService;
+    private final RedisService redisService;
 
     @Override
     public Result login(LoginRequest loginRequest) {
@@ -58,15 +58,13 @@ public class LoginServiceImpl implements LoginService {
             throw new BusinessException(ResultCode.PASSWORD_ERROR);
         }
 
-        String token = jwtTokenProvider.generateToken(sysUser.getId(),sysUser.getUsername(),sysUser.getUserType());
-        long jwtExpiration = jwtTokenProvider.getJwtExpiration();
-
-        String redisKey = "user:token:" + sysUser.getId();
-        stringRedisTemplate.opsForValue().set(redisKey,token, jwtExpiration, TimeUnit.DAYS);
+        String accessToken = jwtTokenProvider.generateAccessToken(sysUser.getId(),sysUser.getUsername(),sysUser.getUserType());
+        String refreshToken = redisService.generateRefreshToken(sysUser.getId());
 
         Map<String, String> map = new HashMap<>();
-        map.put("token", token);
-        map.put("id", String.valueOf(sysUser.getId()));
+        map.put("accessToken", accessToken);
+        map.put("refreshToken", refreshToken);
+        map.put("userId", String.valueOf(sysUser.getId()));
         map.put("username", sysUser.getUsername());
         map.put("userType", String.valueOf(sysUser.getUserType()));
         map.put("userTypeDesc", UserTypeEnum.getDescDescByCode(sysUser.getUserType()));
@@ -74,5 +72,11 @@ public class LoginServiceImpl implements LoginService {
         return Result.success(map);
 
     }
+
+    @Override
+    public Result logout(LogoutRequest logoutRequest) {
+        return redisService.logout(logoutRequest);
+    }
+
 
 }

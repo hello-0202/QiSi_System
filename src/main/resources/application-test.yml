@@ -30,8 +30,15 @@ spring:
 
 
 jwt:
-  secret: 7sK9$pR2!vG5^nQ8&bT1*dF6@hJ3%mL0#cX7    # 密钥
-  expiration: 7                       # Token 有效期：7天
+  secret: 7sK9$pR2!vG5^nQ8&bT1*dF6@hJ3%mL0#cX7          # 密钥
+#  access-token-ttl: 900000                              # Token 有效期：15分钟
+  access-token-ttl: 99999999
+
+token:
+  refresh-token-ttl: 168        #小时
+
+session:
+  mapping-ttl-hours: 1
 
 
 
@@ -47,18 +54,32 @@ mybatis-plus:
       # 主键生成策略（雪花算法/自增等）
       id-type: ASSIGN_ID
 
-# 测试环境日志：打印SQL、调试信息
+## 测试环境日志：打印SQL、调试信息
+#logging:
+#  level:
+#    root: INFO                      # 全局默认 INFO
+#    com.sc.qisisystem: INFO         # 关闭你自己项目中的 DEBUG 日志（如果不需要）
+#    org.springframework: INFO        # 关闭 Spring 框架的 DEBUG
+#    org.springframework.web: INFO
+#    org.springframework.boot: INFO
+#    org.apache.catalina: WARN
+#    org.mybatis: INFO
+#    com.baomidou: INFO
+#    io.lettuce.core: INFO            # Redis 客户端
+#    com.zaxxer.hikari: WARN
+#    logging.level.org.springframework.messaging: DEBUG
+#    logging.level.org.springframework.web.socket.messaging: DEBUG
 logging:
   level:
-    root: INFO                      # 全局默认 INFO
-    com.sc.qisisystem: INFO         # 关闭你自己项目中的 DEBUG 日志（如果不需要）
-    org.springframework: INFO        # 关闭 Spring 框架的 DEBUG
+    root: INFO
+    com.sc.qisisystem: INFO
+    org.springframework: INFO
     org.springframework.web: INFO
     org.springframework.boot: INFO
     org.apache.catalina: WARN
     org.mybatis: INFO
-    com.baomidou: INFO
-    io.lettuce.core: INFO            # Redis 客户端
+    com.baomidou.mybatis: INFO
+    io.lettuce.core: INFO
     com.zaxxer.hikari: WARN
   file:
     name: ./logs/qisi.log        # 日志文件路径

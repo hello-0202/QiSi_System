@@ -1,6 +1,8 @@
 package com.sc.qisi_system.config.security;
 
+import com.sc.qisi_system.config.security.filter.JwtAuthenticationFilter;
 import com.sc.qisi_system.config.cors.CorsConfig;
+import com.sc.qisi_system.config.security.handler.SecurityHandlerConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -8,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,6 +47,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 放行 Swagger、登录、注册等公开接口
                         .requestMatchers("/api/user/**", "/swagger-ui/**", "/v3/api-docs/**", "/error").permitAll()
+                        // ✅ 在这里加一行：放行 WebSocket 连接地址
+//                        .requestMatchers("/ws/**").permitAll()
                         // 对预检请求放行，这是解决 CORS 问题的关键
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         // 其他所有请求都需认证
@@ -68,6 +73,11 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers("/ws/**");
     }
 
 
