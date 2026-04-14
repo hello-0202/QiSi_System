@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user/register")
 @RequiredArgsConstructor
 @RestController
+@Validated
 public class RegisterController {
 
     private final RegisterServiceImpl registerServiceimpl;
@@ -24,7 +25,7 @@ public class RegisterController {
      * @return 成功相关信息，失败返回错误信息
      */
     @PostMapping("/student-teacher")
-    public Result registerStudentTeacher(@Validated @RequestBody StudentTeacherRegisterRequest request) {
+    public Result registerStudentTeacher(@RequestBody StudentTeacherRegisterRequest request) {
         return registerServiceimpl.registerStudentTeacher(request);
     }
 
@@ -34,7 +35,7 @@ public class RegisterController {
      * @return 成功返回相关信息，失败返回错误信息
      */
     @PostMapping("/enterprise")
-    public Result registerEnterprise(@Validated @RequestBody EnterpriseRegisterRequest request) {
+    public Result registerEnterprise(@RequestBody EnterpriseRegisterRequest request) {
         return registerServiceimpl.registerEnterprise(request);
     }
 }

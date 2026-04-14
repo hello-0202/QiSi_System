@@ -6,6 +6,7 @@ import com.sc.qisi_system.module.user.dto.LoginRequest;
 import com.sc.qisi_system.module.user.dto.LogoutRequest;
 import com.sc.qisi_system.module.user.service.RedisService;
 import com.sc.qisi_system.module.user.service.impl.LoginServiceImpl;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +45,7 @@ public class AuthController {
      * @return 成功返回accessToken和refreshToken，失败返回错误信息
      */
     @PostMapping("/refresh-accessToken")
-    public Result refreshAccessToken(@RequestParam String refreshToken) {
+    public Result refreshAccessToken(@NotBlank @RequestParam String refreshToken) {
         return Result.success(redisService.refreshAccessToken(refreshToken));
     }
 

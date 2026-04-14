@@ -1,7 +1,7 @@
 package com.sc.qisi_system.config.minio;
 
-import com.sc.qisi_system.config.minio.MinioProperties;
 import com.sc.qisi_system.common.exception.SystemException;
+import com.sc.qisi_system.common.properties.MinioProperties;
 import com.sc.qisi_system.common.result.ResultCode;
 import io.minio.MinioClient;
 import jakarta.annotation.PostConstruct;

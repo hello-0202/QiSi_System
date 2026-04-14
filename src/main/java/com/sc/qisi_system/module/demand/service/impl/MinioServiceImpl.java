@@ -3,7 +3,6 @@ package com.sc.qisi_system.module.demand.service.impl;
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.exception.SystemException;
 import com.sc.qisi_system.common.result.Result;
@@ -14,6 +13,7 @@ import com.sc.qisi_system.module.demand.entity.DemandAttachment;
 import com.sc.qisi_system.module.demand.mapper.DemandAttachmentMapper;
 import com.sc.qisi_system.module.demand.mapper.DemandMapper;
 import com.sc.qisi_system.module.demand.service.AsyncFileDeleteService;
+import com.sc.qisi_system.module.demand.service.DemandAttachmentService;
 import com.sc.qisi_system.module.demand.service.MinioService;
 import com.sc.qisi_system.module.demand.vo.DemandAttachmentFailVO;
 import com.sc.qisi_system.module.demand.vo.DemandAttachmentSuccessVO;
@@ -39,7 +39,7 @@ public class MinioServiceImpl implements MinioService {
 
     private final DemandMapper demandMapper;
     private final DemandAttachmentMapper demandAttachmentMapper;
-    private final IService<DemandAttachment> demandAttachmentService;
+    private final DemandAttachmentService demandAttachmentService;
     private final AsyncFileDeleteService asyncFileDeleteService;
     private final MinioClient minioClient;
     private final MinioConfig minioConfig;

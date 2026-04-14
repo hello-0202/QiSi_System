@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="" />
+    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完成有关附件的接口">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/controller/DemandApplyAuditController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/controller/DemandApplyController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/entity/DemandMember.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandQueryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandAttachmentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandQueryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandQueryServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeAuditController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeExecuteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/SysUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/SysUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/minio/MinioConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/minio/MinioConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/dto/DemandQueryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/dto/DemandQueryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/PublishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandPublishService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandAttachmentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandAttachmentServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/PublishServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandPublishServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/entity/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/entity/SysUser.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,11 +37,26 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;hello-0202&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/hello-0202/QiSi_System.git",
+    "accountId": "ba3a8bfe-81fa-4623-947f-ff1ca637272a"
+  }
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -31,10 +69,14 @@
   <component name="MavenRunner">
     <option name="jreName" value="23" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
   <component name="ProjectId" id="3BmY5rj0JgEKOerFotPgahSamxT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -46,7 +88,10 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.QiSiSystemApplication.executor": "Run",
+    "checkBoxType": "false",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Lenovo/Desktop/development/my-code/QiSiSystem",
     "node.js.detected.package.eslint": "true",
@@ -104,11 +149,34 @@
       <workItem from="1775351673018" duration="22060000" />
       <workItem from="1775466709915" duration="1413000" />
       <workItem from="1775551363491" duration="42130000" />
+      <workItem from="1776158710163" duration="7327000" />
     </task>
+    <task id="LOCAL-00001" summary="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token">
+      <option name="closed" value="true" />
+      <created>1776000505702</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1776000505702</updated>
+    </task>
+    <task id="LOCAL-00002" summary="完成有关附件的接口">
+      <option name="closed" value="true" />
+      <created>1776156165868</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1776156165868</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token" />
+    <MESSAGE value="完成有关附件的接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成有关附件的接口" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,42 +1,36 @@
 package com.sc.qisi_system.module.demand.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sc.qisi_system.common.enums.CloseApplyStatusEnum;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
-import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.demand.dto.DemandPublishDraftDTO;
 import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.mapper.DemandMapper;
-import com.sc.qisi_system.module.demand.service.PublishService;
-import com.sc.qisi_system.module.demand.vo.DemandListVO;
-import com.sc.qisi_system.module.demand.vo.DemandVO;
-import com.sc.qisi_system.module.user.mapper.SysUserMapper;
+import com.sc.qisi_system.module.demand.service.DemandPublishService;
+import com.sc.qisi_system.module.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
-public class PublishServiceImpl implements PublishService {
+public class DemandPublishServiceImpl implements DemandPublishService {
 
 
     private final DemandMapper demandMapper;
-    private final SysUserMapper sysUserMapper;
+    private final SysUserService sysUserService;
 
 
     @Override
     public Result submitDraft(DemandPublishDraftDTO demandPublishDraftDTO) {
 
-        if(sysUserMapper.selectById(demandPublishDraftDTO.getPublisherId()) == null) {
+
+        if(sysUserService.existsById(demandPublishDraftDTO.getPublisherId())){
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 
@@ -97,51 +91,7 @@ public class PublishServiceImpl implements PublishService {
     }
 
 
-    @Override
-    public Result getDraftList(Long userId, Integer pageNum, Integer pageSize) {
 
-        // 1. 设置查询参数
-        Page<Demand> page = new Page<>(pageNum, pageSize);
-
-        LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(Demand::getPublisherId, userId)
-                .eq(Demand::getStatus, DemandStatusEnum.DRAFT.getCode())
-                .orderByDesc(Demand::getCreateTime);
-        IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
-
-        // 2. 转换为 DemandVO
-        List<Demand> draftList = demandIPage.getRecords();
-        List<DemandListVO> demandVOList = draftList.stream()
-                .map(demand -> {
-                    DemandListVO demandListVO = new DemandListVO();
-                    BeanUtils.copyProperties(demand, demandListVO);
-                    return demandListVO;
-                }).toList();
-
-        // 3. 包装返回
-        PageResult<DemandListVO> pageResult = new PageResult<>();
-        pageResult.setTotal(demandIPage.getTotal());
-        pageResult.setPages(demandIPage.getPages());
-        pageResult.setRecords(demandVOList);
-
-        return Result.success(pageResult);
-    }
-
-    @Override
-    public Result getDemandDetail(Long demandId) {
-
-        Demand demand = demandMapper.selectById(demandId);
-
-        if (demand == null) {
-            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
-        }
-
-        DemandVO demandVO = new DemandVO();
-        BeanUtils.copyProperties(demand, demandVO);
-
-        return Result.success(demandVO);
-    }
 
 
 }

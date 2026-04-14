@@ -2318,3 +2318,28 @@ java.lang.NumberFormatException: For input string: "null"
 2026-04-14 16:27:02.805 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
 2026-04-14 16:27:02.805 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@988c126]]
 2026-04-14 16:27:02.805 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-04-14 16:44:11.675 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 53072 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-04-14 16:44:11.677 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-04-14 16:44:12.454 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-14 16:44:12.457 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-14 16:44:12.504 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
+2026-04-14 16:44:13.059 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-14 16:44:13.146 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1438 ms
+2026-04-14 16:44:13.832 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-04-14 16:44:13.953 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-04-14 16:44:14.282 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-04-14 16:44:14.577 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@533377b
+2026-04-14 16:44:14.704 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-04-14 16:44:14.856 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-04-14 16:44:14.857 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7c5c2b17]]
+2026-04-14 16:44:14.857 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-04-14 16:44:14.870 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-14 16:44:14.877 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 3.59 seconds (process running for 4.071)
+2026-04-14 16:44:14.880 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-04-14 16:44:15.000 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-04-14 16:44:15.381 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-04-14 16:44:20.975 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-14 16:44:21.084 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-14 16:44:21.086 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-04-14 16:44:21.086 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7c5c2b17]]
+2026-04-14 16:44:21.086 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
