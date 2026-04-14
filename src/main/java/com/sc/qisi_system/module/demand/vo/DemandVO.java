@@ -1,36 +1,11 @@
-package com.sc.qisi_system.module.demand.entity;
+package com.sc.qisi_system.module.demand.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@TableName("demand")
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-public class Demand implements Serializable {
-
-
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-
-    /**
-     * 主键ID
-     */
-    @TableId(type = IdType.ASSIGN_ID)
-    private Long id;
-
-
-    /**
-     * 发布人ID: sys_user主键
-     */
-    private Long publisherId;
+public class DemandVO {
 
 
     /**
@@ -139,19 +114,4 @@ public class Demand implements Serializable {
      * 进度百分比: 0-100
      */
     private Integer progressPercent;
-
-
-    /**
-     * 创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-
-
-    /**
-     * 更新时间
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
 }

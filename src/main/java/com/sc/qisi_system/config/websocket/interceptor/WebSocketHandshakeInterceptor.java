@@ -6,6 +6,7 @@ import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JsonUtil;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
 import com.sc.qisi_system.common.utils.RequestUtils;
+import com.sc.qisi_system.module.user.service.RedisService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +28,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final RequestUtils requestUtils;
+    private final RedisService redisService;
 
     @Override
     public boolean beforeHandshake(
@@ -39,6 +41,10 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
         try {
             // 1. 获取 token
             String token = getToken(request);
+
+            if(redisService.isTokenBlacklisted(token)) {
+                throw new BusinessException(ResultCode.TOKEN_LOGGED_OUT);
+            }
             // 2. 校验 token（你原来的逻辑）
             Long userId = jwtTokenProvider.getUserIdFromToken(token);
             attributes.put("userId", userId);

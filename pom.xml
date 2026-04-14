@@ -95,6 +95,13 @@
             <version>3.5.15</version>
         </dependency>
 
+        <!-- MyBatis-Plus 依赖的 SQL 解析器 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
+            <version>3.5.12</version>
+        </dependency>
+
         <!-- MinIO对象存储Java客户端包 -->
         <dependency>
             <groupId>io.minio</groupId>

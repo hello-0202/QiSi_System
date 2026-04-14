@@ -1,23 +1,19 @@
-package com.sc.qisi_system.module.demand.entity;
+package com.sc.qisi_system.module.practice.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 需求附件实体类
- * 对应数据库表：demand_attachment
+ * 需求进度日志附件表实体类
  */
-@TableName("demand_attachment")
-@AllArgsConstructor
-@NoArgsConstructor
+
+@TableName("demand_progress_attachment")
 @Data
-public class DemandAttachment implements Serializable {
+public class DemandProgressAttachment implements Serializable {
 
 
     @Serial
@@ -25,16 +21,28 @@ public class DemandAttachment implements Serializable {
 
 
     /**
-     * 主键ID
+     * 主键id: 雪花算法
      */
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
 
     /**
-     * 关联需求ID
+     * 关联 demand_progress 表 id
+     */
+    private Long progressId;
+
+
+    /**
+     * 冗余字段：需求id
      */
     private Long demandId;
+
+
+    /**
+     * 附件上传人id: 关联sys_user表
+     */
+    private Long userId;
 
 
     /**
@@ -68,12 +76,6 @@ public class DemandAttachment implements Serializable {
 
 
     /**
-     * 软删除标记字段: 0-未删除 1-已软删除
-     */
-    private Integer isDeleted;
-
-
-    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
@@ -85,5 +87,4 @@ public class DemandAttachment implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
 }

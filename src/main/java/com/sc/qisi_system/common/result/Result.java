@@ -39,4 +39,5 @@ public class Result {
         result.setData(null);
         return result;
     }
+
 }

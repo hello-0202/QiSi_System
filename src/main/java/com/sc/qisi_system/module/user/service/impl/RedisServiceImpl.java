@@ -116,6 +116,11 @@ public class RedisServiceImpl implements RedisService {
             }
         }
 
+        String sessionId = getSessionId(Long.valueOf(logoutRequest.getUserId()));
+        if(sessionId != null) {
+            removeMapping(Long.valueOf(logoutRequest.getUserId()),sessionId);
+        }
+
         return Result.success();
     }
 

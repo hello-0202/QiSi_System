@@ -7,6 +7,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.binding.BindingException;
@@ -16,8 +18,10 @@ import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
@@ -37,7 +41,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BusinessException.class)
     public Result handleBusinessException(BusinessException e, HttpServletRequest request) {
-        log.warn("[业务异常] {},code={}，message={}", requestUtils.getRequestLog(request), e.getResultCode(), e.getMessage());
+        log.warn("[业务异常] {}, code={}, message={}", requestUtils.getRequestLog(request), e.getResultCode(), e.getMessage());
         return Result.error(e.getResultCode().getCode(), e.getMessage());
     }
 
@@ -59,9 +63,46 @@ public class GlobalExceptionHandler {
                 .findFirst()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .orElse("参数错误");
-        log.warn("[参数异常] {}，提示：{}", requestUtils.getRequestLog(request), message);
+        log.warn("[参数异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.PARAM_ERROR.getCode(), message);
         return Result.error(ResultCode.PARAM_ERROR.getCode(), message);
     }
+
+    /**
+     * 方法参数校验异常（@Validated + @RequestParam/@PathVariable 校验失败）
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    public Result handleConstraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
+        String message = e.getConstraintViolations().stream()
+                .findFirst()
+                .map(ConstraintViolation::getMessage)
+                .orElse("参数校验失败");
+        log.warn("[参数校验异常] {}, code={}, message={}", requestUtils.getRequestLog(request),ResultCode.PARAM_ERROR.getCode(), message);
+        return Result.error(ResultCode.PARAM_ERROR.getCode(), message);
+    }
+
+
+    /**
+     * 缺少必填请求参数异常
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public Result handleMissingParamException(MissingServletRequestParameterException e, HttpServletRequest request) {
+        String message = String.format("参数: (%s) %s", e.getParameterType(), e.getParameterName());
+        log.warn("[参数缺失异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.PARAM_MISSING.getCode(), message);
+        return Result.error(ResultCode.PARAM_MISSING.getCode(),ResultCode.PARAM_MISSING.getMessage() + message);
+    }
+
+
+    /**
+     * 参数类型转换异常
+     */
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public Result handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
+        String message = String.format(" 参数: %s", e.getName());
+        log.warn("[参数类型转换异常] {}, code={}, message={}",
+                requestUtils.getRequestLog(request), ResultCode.PARAM_FORMAT_ERROR.getCode(), ResultCode.PARAM_FORMAT_ERROR.getMessage() + message);
+        return Result.error(ResultCode.PARAM_FORMAT_ERROR.getCode(), ResultCode.PARAM_FORMAT_ERROR.getMessage() + message);
+    }
+
 
     /**
      * 参数绑定异常处理
@@ -69,9 +110,10 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(BindingException.class)
     public Result handleBindingException(BindingException e, HttpServletRequest request) {
-        log.warn("[绑定异常] {}，异常：{}", requestUtils.getRequestLog(request), e.getMessage());
+        log.warn("[参数绑定异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.PARAM_ERROR.getCode(), e.getMessage());
         return Result.error(ResultCode.PARAM_ERROR.getCode(), "请求参数格式错误");
     }
+
 
     /**
      * 请求体异常处理
@@ -79,8 +121,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result handleHttpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request) {
-        log.warn("[请求体异常] {}，异常：{}", requestUtils.getRequestLog(request), e.getMessage());
-        return Result.error(ResultCode.PARAM_ERROR.getCode(), ResultCode.PARAM_ERROR.getMessage());
+        log.warn("[请求体异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.REQUEST_BODY_ERROR.getCode(), e.getMessage());
+        return Result.error(ResultCode.REQUEST_BODY_ERROR.getCode(), ResultCode.REQUEST_BODY_ERROR.getMessage());
     }
 
     /**
@@ -88,7 +130,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(NoResourceFoundException.class)
     public Result handleNoResourceFoundException(NoResourceFoundException e, HttpServletRequest request) {
-        log.warn("[接口不存在] {}，异常：{}", requestUtils.getRequestLog(request), e.getMessage());
+        log.warn("[接口不存在] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.NOT_FOUND.getCode(), e.getMessage());
         return Result.error(ResultCode.NOT_FOUND.getCode(), ResultCode.NOT_FOUND.getMessage());
     }
 
@@ -97,7 +139,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Result handleMethodNotSupported(HttpRequestMethodNotSupportedException e, HttpServletRequest request) {
-        log.warn("[方法错误] {}，异常：{}", requestUtils.getRequestLog(request), e.getMessage());
+        log.warn("[方法错误] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.METHOD_NOT_ALLOWED.getCode(), e.getMessage());
         return Result.error(ResultCode.METHOD_NOT_ALLOWED.getCode(), ResultCode.METHOD_NOT_ALLOWED.getMessage());
     }
 
@@ -106,7 +148,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(DataAccessException.class)
     public Result handleDataAccessException(DataAccessException e, HttpServletRequest request) {
-        log.error("[数据库异常] {}，异常：{}", requestUtils.getRequestLog(request), e.getMessage());
+        log.error("[数据库异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.SYSTEM_ERROR.getCode(), e.getMessage());
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
 
@@ -115,16 +157,16 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public Result handleException(Exception e, HttpServletRequest request) {
-        log.error("[系统异常] {}，异常：{}", requestUtils.getRequestLog(request), e.getMessage());
+        log.error("[系统异常] {}", requestUtils.getRequestLog(request), e);
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
 
     /**
-     *  Redis 连接失败
+     * Redis 连接失败
      */
     @ExceptionHandler(RedisConnectionFailureException.class)
     public Result handleRedisConnectFail(RedisConnectionFailureException e, HttpServletRequest request) {
-        log.error("[Redis连接异常] {}，异常={}", requestUtils.getRequestLog(request), e.getMessage());
+        log.error("[Redis连接异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.SYSTEM_ERROR.getCode(), e.getMessage());
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
 

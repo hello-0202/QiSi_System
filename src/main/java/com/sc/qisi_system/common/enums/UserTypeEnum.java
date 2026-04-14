@@ -8,16 +8,18 @@ import lombok.Getter;
 @Getter
 public enum UserTypeEnum {
 
-    STUDENT(1, "学生"),
-    TEACHER(2, "教师"),
-    COMPANY(3, "企业人员"),
-    ADMIN(4, "管理员");
+    STUDENT(1, "ROLE_STUDENT", "学生"),
+    TEACHER(2, "ROLE_TEACHER", "教师"),
+    COMPANY(3, "ROLE_COMPANY", "企业人员"),
+    ADMIN(4, "ROLE_ADMIN", "管理员");
 
     private final Integer code;
+    private final String authority;
     private final String desc;
 
-    UserTypeEnum(Integer code, String desc) {
+    UserTypeEnum(Integer code, String authority, String desc) {
         this.code = code;
+        this.authority = authority;
         this.desc = desc;
     }
 

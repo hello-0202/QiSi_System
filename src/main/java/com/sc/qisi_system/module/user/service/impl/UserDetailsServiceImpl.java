@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sc.qisi_system.common.enums.UserTypeEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.config.security.LoginUser;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.mapper.SysUserMapper;
 import lombok.RequiredArgsConstructor;
@@ -48,11 +49,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 new SimpleGrantedAuthority(UserTypeEnum.getNameByCode(sysUser.getUserType()))
         );
 
-        return new org.springframework.security.core.userdetails.User(
-                sysUser.getUsername(),
-                sysUser.getPassword(),
-                authorities
-        );
+        LoginUser loginUser = new LoginUser();
+        loginUser.setUsername(sysUser.getUsername());
+        loginUser.setPassword(sysUser.getPassword());
+        loginUser.setAuthorities(authorities);
+        loginUser.setUserId(sysUser.getId());
+
+        return loginUser;
 
     }
 }

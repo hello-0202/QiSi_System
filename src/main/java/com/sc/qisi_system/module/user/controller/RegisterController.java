@@ -19,7 +19,9 @@ public class RegisterController {
     private final RegisterServiceImpl registerServiceimpl;
 
     /**
-     * 学生/教师注册
+     * 学生/教师注册接口
+     * @param request 学生/教师注册请求参数
+     * @return 成功相关信息，失败返回错误信息
      */
     @PostMapping("/student-teacher")
     public Result registerStudentTeacher(@Validated @RequestBody StudentTeacherRegisterRequest request) {
@@ -27,7 +29,9 @@ public class RegisterController {
     }
 
     /**
-     * 企业人员注册
+     * 企业人员注册接口
+     * @param request 企业人员请求参数
+     * @return 成功返回相关信息，失败返回错误信息
      */
     @PostMapping("/enterprise")
     public Result registerEnterprise(@Validated @RequestBody EnterpriseRegisterRequest request) {

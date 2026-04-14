@@ -9,9 +9,9 @@ import com.sc.qisi_system.module.user.service.impl.LoginServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/user")
 public class AuthController {
 
     private final LoginServiceImpl loginServiceimpl;
@@ -19,7 +19,9 @@ public class AuthController {
 
 
     /**
-     * 用户登录
+     * 用户登录接口
+     * @param loginRequest 登录请求参数
+     * @return 成功返回相关参数，失败返回错误信息
      */
     @PostMapping("/login")
     public Result login(@RequestBody LoginRequest loginRequest) {
@@ -27,7 +29,9 @@ public class AuthController {
     }
 
     /**
-     * 用户登出
+     * 用户登出接口
+     * @param logoutRequest 登出请求参数
+     * @return 成功返回统一结果，失败返回错误信息
      */
     @PostMapping("logout")
     public Result logout(@RequestBody LogoutRequest logoutRequest) {
@@ -35,7 +39,9 @@ public class AuthController {
     }
 
     /**
-     * 刷新token
+     * 刷新token接口
+     * @param refreshToken 刷新token
+     * @return 成功返回accessToken和refreshToken，失败返回错误信息
      */
     @PostMapping("/refresh-accessToken")
     public Result refreshAccessToken(@RequestParam String refreshToken) {
