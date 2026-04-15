@@ -27,7 +27,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
 
 
     @Override
-    public Result submitDraft(DemandPublishDraftDTO demandPublishDraftDTO) {
+    public Long submitDraft(DemandPublishDraftDTO demandPublishDraftDTO) {
 
 
         if(sysUserService.existsById(demandPublishDraftDTO.getPublisherId())){
@@ -44,12 +44,12 @@ public class DemandPublishServiceImpl implements DemandPublishService {
 
         demandMapper.insert(demand);
 
-        return Result.success(demand.getId());
+        return demand.getId();
     }
 
 
     @Override
-    public Result updateDraft(DemandUpdateDraftDTO demandUpdateDraftDTO) {
+    public Long updateDraft(DemandUpdateDraftDTO demandUpdateDraftDTO) {
 
         // 1. 更新前校验
         if (demandUpdateDraftDTO.getId() == null) {
@@ -67,12 +67,12 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         BeanUtils.copyProperties(demandUpdateDraftDTO, demand);
         demandMapper.updateById(demand);
 
-        return Result.success(demand.getId());
+        return demand.getId();
     }
 
 
     @Override
-    public Result submitAudit(Long demandId) {
+    public Long submitAudit(Long demandId) {
 
         // 1. 提交审核前校验
         Demand demand = demandMapper.selectById(demandId);
@@ -87,11 +87,32 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         demand.setStatus(DemandStatusEnum.REVIEWING.getCode());
         demandMapper.updateById(demand);
 
-        return Result.success(demand.getId());
+        return demand.getId();
     }
 
 
+    @Override
+    public Long cancelSubmit(Long userId,Long demandId) {
 
+        Demand demand = demandMapper.selectById(demandId);
+
+        if (demand == null) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
+
+        if(!Objects.equals(demand.getPublisherId(), userId)){
+            throw new BusinessException(ResultCode.OPERATE_NOT_ALLOWED);
+        }
+
+        if (!Objects.equals(demand.getStatus(), DemandStatusEnum.REVIEWING.getCode())) {
+            throw new BusinessException(ResultCode.ONLY_REVIEWING_CANCEL);
+        }
+
+        demand.setStatus(DemandStatusEnum.DRAFT.getCode());
+        demandMapper.updateById(demand);
+
+        return demand.getId();
+    }
 
 
 }

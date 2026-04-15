@@ -28,15 +28,18 @@ public class Enterprise implements Serializable {
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
+
     /**
      * 企业名称
      */
     private String enterpriseName;
 
+
     /**
      * 统一社会信用代码
      */
     private String creditCode;
+
 
     /**
      * 联系人姓名

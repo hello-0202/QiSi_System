@@ -1,21 +1,23 @@
 package com.sc.qisi_system.module.user.controller;
 
-
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.module.user.dto.LoginRequest;
 import com.sc.qisi_system.module.user.dto.LogoutRequest;
+import com.sc.qisi_system.module.user.service.LoginService;
 import com.sc.qisi_system.module.user.service.RedisService;
-import com.sc.qisi_system.module.user.service.impl.LoginServiceImpl;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 @RestController
 public class AuthController {
 
-    private final LoginServiceImpl loginServiceimpl;
+
+    private final LoginService loginService;
     private final RedisService redisService;
 
 
@@ -26,8 +28,9 @@ public class AuthController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody LoginRequest loginRequest) {
-        return loginServiceimpl.login(loginRequest);
+        return Result.success(loginService.login(loginRequest));
     }
+
 
     /**
      * 用户登出接口
@@ -36,8 +39,10 @@ public class AuthController {
      */
     @PostMapping("logout")
     public Result logout(@RequestBody LogoutRequest logoutRequest) {
-        return loginServiceimpl.logout(logoutRequest);
+        loginService.logout(logoutRequest);
+        return Result.success();
     }
+
 
     /**
      * 刷新token接口

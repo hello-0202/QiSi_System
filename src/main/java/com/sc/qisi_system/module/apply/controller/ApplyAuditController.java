@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/demand/apply/audit")
 @RequiredArgsConstructor
 @RestController
-public class DemandApplyAuditController {
+public class ApplyAuditController {
 
 
     //TODO

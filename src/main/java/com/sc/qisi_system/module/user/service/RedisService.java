@@ -12,7 +12,7 @@ public interface RedisService {
 
     Map<String, String> refreshAccessToken(String refreshToken);
 
-    Result logout(LogoutRequest logoutRequest);
+    void logout(LogoutRequest logoutRequest);
 
     boolean isTokenBlacklisted(String accessToken);
 
@@ -27,7 +27,6 @@ public interface RedisService {
     boolean isOnline(Long userId);
 
     void renewMapping(Long userId, String sessionId);
-
 
     String getSessionId(Long userId);
 

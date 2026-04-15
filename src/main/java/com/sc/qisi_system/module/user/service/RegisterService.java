@@ -6,8 +6,8 @@ import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterRequest;
 
 public interface RegisterService {
 
-    Result registerStudentTeacher (StudentTeacherRegisterRequest request);
+    void registerStudentTeacher (StudentTeacherRegisterRequest request);
 
-    Result registerEnterprise(EnterpriseRegisterRequest request);
+    void registerEnterprise(EnterpriseRegisterRequest request);
 
 }

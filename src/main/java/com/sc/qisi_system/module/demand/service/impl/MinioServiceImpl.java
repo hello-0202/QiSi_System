@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.exception.SystemException;
-import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.config.minio.MinioConfig;
 import com.sc.qisi_system.module.demand.entity.Demand;
@@ -47,7 +46,7 @@ public class MinioServiceImpl implements MinioService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result batchUploadDemandAttachment(Long demandId, MultipartFile[] files) {
+    public DemandAttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) {
 
         LambdaQueryWrapper<Demand> queryWrapper = Wrappers.<Demand>lambdaQuery()
                 .eq(Demand::getId, demandId);
@@ -64,7 +63,7 @@ public class MinioServiceImpl implements MinioService {
             emptyVO.setSuccessFiles(Collections.emptyList());
             emptyVO.setFailFiles(Collections.emptyList());
 
-            return Result.success(emptyVO);
+            return emptyVO;
         }
 
         // 初始化VO相关集合
@@ -155,7 +154,7 @@ public class MinioServiceImpl implements MinioService {
         uploadVO.setFailFiles(failFiles);
 
         // 5. 返回结构化结果
-        return Result.success(uploadVO);
+        return uploadVO;
     }
 
     /**
@@ -178,7 +177,7 @@ public class MinioServiceImpl implements MinioService {
 
 
     @Override
-    public Result getDemandAttachmentList(Long demandId) {
+    public List<DemandAttachmentVO> getDemandAttachmentList(Long demandId) {
 
         LambdaQueryWrapper<DemandAttachment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(DemandAttachment::getDemandId, demandId)
@@ -201,28 +200,27 @@ public class MinioServiceImpl implements MinioService {
 
                 demandAttachmentVOs.add(vo);
         }
-        return Result.success(demandAttachmentVOs);
+        return demandAttachmentVOs;
     }
 
 
     @Override
-    public Result deleteAttachment(Long attachmentId) {
+    public void deleteAttachment(Long attachmentId) {
 
         DemandAttachment demandAttachment = demandAttachmentMapper.selectById(attachmentId);
         if(demandAttachment == null) {
-            return Result.error(new BusinessException(ResultCode.ATTACHMENT_NOT_FOUND));
+            throw(new BusinessException(ResultCode.ATTACHMENT_NOT_FOUND));
         }
 
         demandAttachment.setIsDeleted(1);
         demandAttachmentMapper.updateById(demandAttachment);
         asyncFileDeleteService.deleteFileAsync(demandAttachment);
 
-        return Result.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result deleteBatchAttachment(List<Long> attachmentIds) {
+    public List<DemandAttachment> deleteBatchAttachment(List<Long> attachmentIds) {
 
 
         LambdaQueryWrapper<DemandAttachment> wrapper = Wrappers.lambdaQuery();
@@ -232,7 +230,7 @@ public class MinioServiceImpl implements MinioService {
         List<DemandAttachment> existAttachments = demandAttachmentMapper.selectList(wrapper);
 
         if (existAttachments.isEmpty()) {
-            return Result.success("没有可删除的附件");
+            throw new BusinessException(ResultCode.ATTACHMENT_NOT_FOUND);
         }
 
         // 2. 对存在的附件批量软删除
@@ -247,7 +245,7 @@ public class MinioServiceImpl implements MinioService {
             asyncFileDeleteService.deleteFileAsync(attachment);
         }
 
-        return Result.success("已删除" + existAttachments.size() + "个文件");
+        return existAttachments;
 
     }
 

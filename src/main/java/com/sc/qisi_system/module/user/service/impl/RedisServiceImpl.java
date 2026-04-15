@@ -98,7 +98,7 @@ public class RedisServiceImpl implements RedisService {
 
 
     @Override
-    public Result logout(LogoutRequest logoutRequest) {
+    public void logout(LogoutRequest logoutRequest) {
 
         revokeRefreshToken(logoutRequest.getUserId(), logoutRequest.getRefreshToken());
 
@@ -121,7 +121,6 @@ public class RedisServiceImpl implements RedisService {
             removeMapping(Long.valueOf(logoutRequest.getUserId()),sessionId);
         }
 
-        return Result.success();
     }
 
 

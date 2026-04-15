@@ -38,25 +38,36 @@ public class EntEmployee implements Serializable {
      */
     private Long enterpriseId;
 
+
+    /**
+     * 企业名称
+     */
+    private String enterpriseName;
+
+
     /**
      * 员工编号
      */
     private String employeeNo;
+
 
     /**
      * 职位名称
      */
     private String jobTitle;
 
+
     /**
      * 部门
      */
     private String department;
 
+
     /**
      * 是否为企业联系人: 0-否 1-是
      */
     private Integer isContact;
+
 
     /**
      * 创建时间

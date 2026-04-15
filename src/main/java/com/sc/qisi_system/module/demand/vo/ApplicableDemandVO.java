@@ -1,29 +1,25 @@
 package com.sc.qisi_system.module.demand.vo;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
-public class DemandVO {
+public class ApplicableDemandVO {
+
+
+    /**
+     * 需求ID
+     */
+    private Long id;
 
 
     /**
      * 发布人信息
      */
     private DemandUserDetailVO demandUserDetailVO;
-
-
-    /**
-     * 发布类型: 1-个人发布 2-团队发布
-     */
-    private Integer publishType;
-
-
-    /**
-     * 发布团队ID: 个人发布时可为空
-     */
-    private Long publishTeamId;
 
 
     /**
@@ -69,19 +65,7 @@ public class DemandVO {
 
 
     /**
-     * 研究开始时间
-     */
-    private LocalDateTime startTime;
-
-
-    /**
-     * 研究结束时间
-     */
-    private LocalDateTime endTime;
-
-
-    /**
-     * 研究周期: 单位：天
+     * 研究周期
      */
     private Integer researchCycle;
 
@@ -93,15 +77,9 @@ public class DemandVO {
 
 
     /**
-     * 是否需要提交方案: 0-不需要 1-需要
+     * 是否需要提交方案
      */
     private Boolean requirePlan;
-
-
-    /**
-     * 需求状态: 0-草稿 1审核中 2-已驳回 3-已发布 4-研究中 5-已完成 6-已关闭
-     */
-    private Integer status;
 
 
     /**
@@ -110,14 +88,4 @@ public class DemandVO {
     private LocalDateTime deadline;
 
 
-    /**
-     * 是否关闭申请: 0-无申请 1-待审核 2-已拒绝
-     */
-    private Integer closeApplyStatus;
-
-
-    /**
-     * 进度百分比: 0-100
-     */
-    private Integer progressPercent;
 }

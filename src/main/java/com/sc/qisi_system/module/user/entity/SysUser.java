@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.user.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -47,6 +48,12 @@ public class SysUser implements Serializable {
 
 
     /**
+     * 姓名
+     */
+    private String name;
+
+
+    /**
      * 手机号
      */
     @NotBlank(message = "手机号不能为空")
@@ -55,9 +62,12 @@ public class SysUser implements Serializable {
 
 
     /**
-     * 身份证号
+     * 邮箱
      */
-    private String idCard;
+    @NotBlank(message = "邮箱不能为空")
+    @Email(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$",
+            message = "邮箱格式不正确")
+    private String email;
 
 
     /**

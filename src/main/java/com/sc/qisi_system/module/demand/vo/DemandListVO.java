@@ -1,9 +1,5 @@
 package com.sc.qisi_system.module.demand.vo;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,10 +9,15 @@ public class DemandListVO {
 
 
     /**
-     * 主键ID
+     * 主键
      */
-    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
+
+
+    /**
+     * 发布人信息
+     */
+    private DemandUserListVO demandUserListVO;
 
 
     /**
@@ -26,21 +27,39 @@ public class DemandListVO {
 
 
     /**
+     * 需求分类
+     */
+    private Integer category;
+
+
+    /**
+     * 研究周期: 单位：天
+     */
+    private Integer researchCycle;
+
+
+    /**
+     * 是否需要提交方案: 0-不需要 1-需要
+     */
+    private Boolean requirePlan;
+
+
+    /**
      * 需求状态: 0-草稿 1审核中 2-已驳回 3-已发布 4-研究中 5-已完成 6-已关闭
      */
     private Integer status;
 
 
     /**
-     * 创建时间
+     * 申请截止时间
      */
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private LocalDateTime deadline;
 
 
     /**
-     * 更新时间
+     * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
+    private LocalDateTime createTime;
+
+
 }

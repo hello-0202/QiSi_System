@@ -21,14 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class RegisterServiceImpl implements RegisterService {
 
+
     private final SysUserMapper sysUserMapper;
     private final WhitelistCheckServiceImpl whitelistCheckServiceImpl;
     private final CaptchaService captchaService;
     private final PasswordEncoder passwordEncoder;
 
+
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result registerStudentTeacher(StudentTeacherRegisterRequest request) {
+    public void registerStudentTeacher(StudentTeacherRegisterRequest request) {
 
         captchaService.checkCaptcha(request.getCaptchaKey(), request.getCaptchaCode());
 
@@ -46,19 +48,18 @@ public class RegisterServiceImpl implements RegisterService {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .phone(request.getPhone())
-                .idCard(request.getIdCard())
+                .email(request.getEmail())
                 .avatar(null)
                 .userType(request.getUserType())
                 .build();
 
         sysUserMapper.insert(sysUser);
-
-        return Result.success();
     }
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result registerEnterprise(EnterpriseRegisterRequest request) {
+    public void registerEnterprise(EnterpriseRegisterRequest request) {
 
         captchaService.checkCaptcha(request.getCaptchaKey(), request.getCaptchaCode());
 
@@ -76,13 +77,12 @@ public class RegisterServiceImpl implements RegisterService {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .phone(request.getUsername())
-                .idCard(request.getIdCard())
+                .email(request.getEmail())
                 .avatar(null)
                 .userType(request.getUserType())
                 .build();
 
         sysUserMapper.insert(sysUser);
 
-        return Result.success();
     }
 }

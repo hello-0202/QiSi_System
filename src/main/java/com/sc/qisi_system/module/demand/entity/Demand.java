@@ -54,7 +54,7 @@ public class Demand implements Serializable {
     /**
      * 需求分类
      */
-    private String category;
+    private Integer category;
 
 
     /**

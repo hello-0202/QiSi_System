@@ -1,13 +1,14 @@
 package com.sc.qisi_system.module.demand.controller;
 
-
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
-import com.sc.qisi_system.module.demand.dto.DemandQueryDTO;
+import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
+import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.service.MinioService;
-import com.sc.qisi_system.module.demand.service.DemandPublishService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class DemandQueryController {
 
-
-    private final DemandPublishService demandPublishService;
     private final DemandQueryService demandQueryService;
     private final MinioService minioService;
 
@@ -35,30 +34,20 @@ public class DemandQueryController {
     public Result getDraftList(
             @RequestParam(defaultValue = "1") Integer pageNum,
             @RequestParam(defaultValue = "10") Integer pageSize) {
-        return demandQueryService.getDraftList(SecurityUtils.getCurrentUserId(), pageNum, pageSize);
+        return Result.success(demandQueryService.getDraftList(SecurityUtils.getCurrentUserId(), pageNum, pageSize));
     }
 
 
     /**
      * 条件查询我的需求列表接口
      *
-     * @param demandQueryDTO 查询请求体
-     * @return 统一返回结果
+     * @param myDemandQueryDTO 查询请求体
+     * @return 我的需求列表
      */
-    @GetMapping("/my-demand-list")
+    @PostMapping("/my-demand-list")
     public Result getDemandList(
-            @RequestBody DemandQueryDTO demandQueryDTO) {
-        return demandQueryService.getDemandList(SecurityUtils.getCurrentUserId(), demandQueryDTO);
-    }
-
-
-    //TODO
-    /**
-     * 查询可申请的需求列表
-     */
-    @GetMapping("/applicable-demand-list")
-    public Result getApplicableList(){
-        return null;
+            @RequestBody MyDemandQueryDTO myDemandQueryDTO) {
+        return Result.success(demandQueryService.getDemandList(SecurityUtils.getCurrentUserId(), myDemandQueryDTO));
     }
 
 
@@ -71,7 +60,7 @@ public class DemandQueryController {
     @GetMapping("/demand-detail")
     public Result getDemandDetail(
             @NotBlank(message = "需求id不能为空") @RequestParam Long demandId) {
-        return demandQueryService.getDemandDetail(demandId);
+        return Result.success(demandQueryService.getDemandDetail(demandId));
     }
 
 
@@ -83,12 +72,9 @@ public class DemandQueryController {
      */
     @GetMapping("/attachment/list")
     public Result getDemandAttachmentList(
-            @NotBlank(message = "需求ID不能为空") @RequestParam Long demandId) {
-        return minioService.getDemandAttachmentList(demandId);
+            @NotNull(message = "需求ID不能为空") @RequestParam Long demandId) {
+        return Result.success(minioService.getDemandAttachmentList(demandId));
     }
-
-
-
 
 
 }

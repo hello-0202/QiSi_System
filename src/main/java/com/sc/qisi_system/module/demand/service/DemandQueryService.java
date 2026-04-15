@@ -1,7 +1,13 @@
 package com.sc.qisi_system.module.demand.service;
 
+import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.Result;
-import com.sc.qisi_system.module.demand.dto.DemandQueryDTO;
+import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
+import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
+import com.sc.qisi_system.module.demand.entity.Demand;
+import com.sc.qisi_system.module.demand.vo.ApplicableDemandVO;
+import com.sc.qisi_system.module.demand.vo.DemandListVO;
+import com.sc.qisi_system.module.demand.vo.DemandVO;
 
 public interface DemandQueryService {
 
@@ -11,15 +17,23 @@ public interface DemandQueryService {
      * @param userId 用户id
      * @return 返回草稿列表
      */
-    Result getDraftList(Long userId, Integer pageNum, Integer pageSize);
+    PageResult<DemandListVO> getDraftList(Long userId, Integer pageNum, Integer pageSize);
 
 
     /**
      * 条件查询需求列表
-     * @param demandQueryDTO 查询请求体
+     * @param myDemandQueryDTO 查询请求体
      * @return 统一返回结果
      */
-    Result getDemandList(Long userId, DemandQueryDTO demandQueryDTO);
+    PageResult<DemandListVO> getDemandList(Long userId, MyDemandQueryDTO myDemandQueryDTO);
+
+
+    /**
+     * 查询可申请的需求列表
+     *
+     * @return 可申请需求列表
+     */
+    PageResult<DemandListVO> getApplicableList(ApplicableDemandQueryDTO applicableDemandQueryDTO);
 
 
     /**
@@ -27,5 +41,9 @@ public interface DemandQueryService {
      * @param demandId 需求id
      * @return 需求完整信息
      */
-    Result getDemandDetail(Long demandId);
+    DemandVO getDemandDetail(Long demandId);
+
+
+    ApplicableDemandVO getApplicableDemandDetail(Long demandId);
+
 }

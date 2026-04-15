@@ -1,6 +1,9 @@
 package com.sc.qisi_system.module.demand.service;
 
 import com.sc.qisi_system.common.result.Result;
+import com.sc.qisi_system.module.demand.entity.DemandAttachment;
+import com.sc.qisi_system.module.demand.vo.DemandAttachmentUploadVO;
+import com.sc.qisi_system.module.demand.vo.DemandAttachmentVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -14,16 +17,16 @@ public interface MinioService {
      * @param files 上传的文件
      * @return 文件信息/访问路径
      */
-    Result batchUploadDemandAttachment(Long demandId, MultipartFile[] files) throws Exception;
+    DemandAttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) throws Exception;
 
 
     InputStream downloadFile(String bucketName, String objectName);
 
-    Result getDemandAttachmentList(Long demandId);
+    List<DemandAttachmentVO> getDemandAttachmentList(Long demandId);
 
-    Result deleteAttachment(Long attachmentId);
+    void deleteAttachment(Long attachmentId);
 
-    Result deleteBatchAttachment(List<Long> attachmentIds);
+    List<DemandAttachment> deleteBatchAttachment(List<Long> attachmentIds);
 
     String generateUrl(String bucketName, String objectName);
 

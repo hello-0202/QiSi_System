@@ -11,7 +11,7 @@ public interface DemandPublishService {
      * @param demandPublishDraftDTO 请求参数
      * @return 成功返回草稿ID，失败返回错误信息
      */
-    Result submitDraft(DemandPublishDraftDTO demandPublishDraftDTO);
+    Long submitDraft(DemandPublishDraftDTO demandPublishDraftDTO);
 
 
     /**
@@ -19,7 +19,7 @@ public interface DemandPublishService {
      * @param demandUpdateDraftDTO 请求参数
      * @return 成功返回草稿ID，失败返回错误信息
      */
-    Result updateDraft(DemandUpdateDraftDTO demandUpdateDraftDTO);
+    Long updateDraft(DemandUpdateDraftDTO demandUpdateDraftDTO);
 
 
     /**
@@ -27,7 +27,17 @@ public interface DemandPublishService {
      * @param demandId 需求id
      * @return 返回统一结果
      */
-    Result submitAudit(Long demandId);
+    Long submitAudit(Long demandId);
+
+
+    /**
+     * 撤销审核
+     *
+     * @param userId 用户id
+     * @param demandId 撤销需求id
+     * @return 统一返回结果
+     */
+    Long cancelSubmit(Long userId,Long demandId);
 
 
 

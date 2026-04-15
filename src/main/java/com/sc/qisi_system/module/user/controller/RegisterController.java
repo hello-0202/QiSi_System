@@ -3,7 +3,7 @@ package com.sc.qisi_system.module.user.controller;
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.module.user.dto.EnterpriseRegisterRequest;
 import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterRequest;
-import com.sc.qisi_system.module.user.service.impl.RegisterServiceImpl;
+import com.sc.qisi_system.module.user.service.RegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class RegisterController {
 
-    private final RegisterServiceImpl registerServiceimpl;
+    private final RegisterService registerService;
 
     /**
      * 学生/教师注册接口
@@ -26,7 +26,8 @@ public class RegisterController {
      */
     @PostMapping("/student-teacher")
     public Result registerStudentTeacher(@RequestBody StudentTeacherRegisterRequest request) {
-        return registerServiceimpl.registerStudentTeacher(request);
+        registerService.registerStudentTeacher(request);
+        return Result.success();
     }
 
     /**
@@ -36,6 +37,7 @@ public class RegisterController {
      */
     @PostMapping("/enterprise")
     public Result registerEnterprise(@RequestBody EnterpriseRegisterRequest request) {
-        return registerServiceimpl.registerEnterprise(request);
+        registerService.registerEnterprise(request);
+        return Result.success();
     }
 }

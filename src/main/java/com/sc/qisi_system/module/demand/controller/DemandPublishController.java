@@ -1,11 +1,13 @@
 package com.sc.qisi_system.module.demand.controller;
 
 import com.sc.qisi_system.common.result.Result;
+import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.demand.dto.DemandPublishDraftDTO;
 import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
 import com.sc.qisi_system.module.demand.service.MinioService;
 import com.sc.qisi_system.module.demand.service.DemandPublishService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +37,7 @@ public class DemandPublishController {
     @PostMapping("/draft")
     public Result submitDraft(
             @Valid @RequestBody DemandPublishDraftDTO demandPublishDraftDTO) {
-        return demandPublishService.submitDraft(demandPublishDraftDTO);
+        return Result.success(demandPublishService.submitDraft(demandPublishDraftDTO));
     }
 
 
@@ -48,7 +50,7 @@ public class DemandPublishController {
     @PostMapping("/update-draft")
     public Result updateDraft(
             @Valid @RequestBody DemandUpdateDraftDTO demandUpdateDraftDTO) {
-        return demandPublishService.updateDraft(demandUpdateDraftDTO);
+        return Result.success(demandPublishService.updateDraft(demandUpdateDraftDTO));
     }
 
 
@@ -62,17 +64,20 @@ public class DemandPublishController {
     public Result submitAudit(
             @NotNull(message = "需求ID不能为空")
             @RequestParam Long demandId) {
-        return demandPublishService.submitAudit(demandId);
+        return Result.success(demandPublishService.submitAudit(demandId));
     }
 
 
-    //TODO
     /**
      * 撤销审核接口
+     *
+     * @param demandId 撤销需求id
+     * @return 统一返回结果
      */
     @DeleteMapping("/cancel-submit")
-    public Result cancelSubmit() {
-        return null;
+    public Result cancelSubmit(
+            @NotBlank @RequestParam Long demandId) {
+        return Result.success(demandPublishService.cancelSubmit(SecurityUtils.getCurrentUserId(),demandId));
     }
 
 
@@ -88,7 +93,7 @@ public class DemandPublishController {
             @NotNull(message = "需求ID不能为空")
             @RequestParam Long demandId,
             @RequestParam("files") MultipartFile[] files) throws Exception {
-        return minioService.batchUploadDemandAttachment(demandId, files);
+        return Result.success(minioService.batchUploadDemandAttachment(demandId, files));
     }
 
 
@@ -101,7 +106,8 @@ public class DemandPublishController {
     @DeleteMapping("/attachment/delete")
     public Result deleteAttachment(
             @NotNull(message = "附件ID不能为空") @RequestParam Long attachmentId) {
-        return minioService.deleteAttachment(attachmentId);
+        minioService.deleteAttachment(attachmentId);
+        return Result.success();
     }
 
 
@@ -114,7 +120,7 @@ public class DemandPublishController {
     @DeleteMapping("/attachment/delete/batch")
     public Result deleteBatchAttachment(
             @NotEmpty(message = "附件ID列表不能为空") @RequestBody List<Long> attachmentIds) {
-        return minioService.deleteBatchAttachment(attachmentIds);
+        return Result.success("已删除" + minioService.deleteBatchAttachment(attachmentIds).size() + "个文件");
     }
 
 

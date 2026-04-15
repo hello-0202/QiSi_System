@@ -3,7 +3,6 @@ package com.sc.qisi_system.module.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sc.qisi_system.common.enums.UserTypeEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
-import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
 import com.sc.qisi_system.module.user.dto.LoginRequest;
@@ -13,12 +12,11 @@ import com.sc.qisi_system.module.user.mapper.SysUserMapper;
 import com.sc.qisi_system.module.user.service.CaptchaService;
 import com.sc.qisi_system.module.user.service.LoginService;
 import com.sc.qisi_system.module.user.service.RedisService;
+import com.sc.qisi_system.module.user.vo.LoginUserVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -31,12 +29,11 @@ public class LoginServiceImpl implements LoginService {
     private final RedisService redisService;
 
     @Override
-    public Result login(LoginRequest loginRequest) {
+    public LoginUserVO login(LoginRequest loginRequest) {
 
         captchaService.checkCaptcha(loginRequest.getCaptchaKey(),loginRequest.getCaptchaCode());
 
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
-
         if (loginRequest.getUsername().matches("^1[3-9]\\d{9}$")) {
             queryWrapper.eq("phone", loginRequest.getUsername());
         } else {
@@ -61,21 +58,21 @@ public class LoginServiceImpl implements LoginService {
         String accessToken = jwtTokenProvider.generateAccessToken(sysUser.getId(),sysUser.getUsername(),sysUser.getUserType());
         String refreshToken = redisService.generateRefreshToken(sysUser.getId());
 
-        Map<String, String> map = new HashMap<>();
-        map.put("accessToken", accessToken);
-        map.put("refreshToken", refreshToken);
-        map.put("userId", String.valueOf(sysUser.getId()));
-        map.put("username", sysUser.getUsername());
-        map.put("userType", String.valueOf(sysUser.getUserType()));
-        map.put("userTypeDesc", UserTypeEnum.getDescDescByCode(sysUser.getUserType()));
+        LoginUserVO loginUserVO = new LoginUserVO();
+        loginUserVO.setAccessToken(accessToken);
+        loginUserVO.setRefreshToken(refreshToken);
+        loginUserVO.setUserId(sysUser.getId());
+        loginUserVO.setUsername(sysUser.getUsername());
+        loginUserVO.setUserType(sysUser.getUserType());
+        loginUserVO.setUserTypeDesc( UserTypeEnum.getDescDescByCode(sysUser.getUserType()));
 
-        return Result.success(map);
+        return loginUserVO;
 
     }
 
     @Override
-    public Result logout(LogoutRequest logoutRequest) {
-        return redisService.logout(logoutRequest);
+    public void logout(LogoutRequest logoutRequest) {
+        redisService.logout(logoutRequest);
     }
 
 
