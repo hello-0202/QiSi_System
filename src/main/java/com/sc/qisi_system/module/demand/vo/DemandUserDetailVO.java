@@ -1,7 +1,6 @@
 package com.sc.qisi_system.module.demand.vo;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 public class DemandUserDetailVO{
