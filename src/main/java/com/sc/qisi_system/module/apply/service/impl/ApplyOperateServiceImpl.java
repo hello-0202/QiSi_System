@@ -5,29 +5,26 @@ import com.sc.qisi_system.common.enums.AuditStatusEnum;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.module.apply.dto.ApplyUpdateDTO;
 import com.sc.qisi_system.module.apply.dto.DemandApplyDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.mapper.DemandApplyMapper;
-import com.sc.qisi_system.module.apply.service.DemandApplyService;
+import com.sc.qisi_system.module.apply.service.ApplyOperateService;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.internal.constraintvalidators.bv.number.bound.decimal.DecimalMaxValidatorForNumber;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
-
 @RequiredArgsConstructor
 @Service
-public class DemandApplyServiceImpl implements DemandApplyService {
-
+public class ApplyOperateServiceImpl implements ApplyOperateService {
 
     private final DemandApplyMapper demandApplyMapper;
     private final DemandService demandService;
-    private final DecimalMaxValidatorForNumber decimalMaxValidatorForNumber;
 
 
     @Override
@@ -38,7 +35,7 @@ public class DemandApplyServiceImpl implements DemandApplyService {
         if(demand == null)  {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
-        if(!Objects.equals(demand.getStatus(),DemandStatusEnum.PUBLISHED.getCode())){
+        if(!Objects.equals(demand.getStatus(), DemandStatusEnum.PUBLISHED.getCode())){
             throw new BusinessException(ResultCode.DEMAND_STATUS_ERROR);
         }
 
@@ -85,5 +82,37 @@ public class DemandApplyServiceImpl implements DemandApplyService {
 
         demandApplyMapper.deleteById(demandApply.getId());
 
+    }
+
+
+    @Override
+    public void updateApply(Long userId, ApplyUpdateDTO applyUpdateDTO) {
+
+        DemandApply oldDemandApply = demandApplyMapper.selectById(applyUpdateDTO.getApplyId());
+        if(oldDemandApply == null)  {
+            throw new BusinessException(ResultCode.DEMAND_APPLY_NOT_EXIST);
+        }
+        if (!Objects.equals(oldDemandApply.getUserId(), userId)) {
+            throw new BusinessException(ResultCode.NO_PERMISSION);
+        }
+        if(!Objects.equals(oldDemandApply.getAuditStatus(),AuditStatusEnum.PENDING.getCode())){
+            throw new BusinessException(ResultCode.DEMAND_APPLY_STATUS_NOT_ALLOW);
+        }
+
+        Demand demand = demandService.getById(applyUpdateDTO.getDemandId());
+        if(demand == null)  {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
+        if(!Objects.equals(demand.getStatus(), DemandStatusEnum.PUBLISHED.getCode())){
+            throw new BusinessException(ResultCode.DEMAND_STATUS_ERROR);
+        }
+
+        DemandApply demandApply = new DemandApply();
+        demandApply.setId(applyUpdateDTO.getApplyId());
+        demandApply.setResearchPlan(applyUpdateDTO.getResearchPlan());
+        demandApply.setAuditStatus(AuditStatusEnum.PENDING.getCode());
+        demandApply.setExpectedFinishTime(applyUpdateDTO.getExpectedFinishTime());
+        demandApply.setRelevantExperience(applyUpdateDTO.getRelevantExperience());
+        demandApplyMapper.updateById(demandApply);
     }
 }

@@ -47,7 +47,7 @@ public class DemandQueryController {
     @PostMapping("/my-demand-list")
     public Result getDemandList(
             @RequestBody MyDemandQueryDTO myDemandQueryDTO) {
-        return Result.success(demandQueryService.getDemandList(SecurityUtils.getCurrentUserId(), myDemandQueryDTO));
+        return Result.success(demandQueryService.getMyDemandList(SecurityUtils.getCurrentUserId(), myDemandQueryDTO));
     }
 
 
@@ -60,7 +60,7 @@ public class DemandQueryController {
     @GetMapping("/demand-detail")
     public Result getDemandDetail(
             @NotBlank(message = "需求id不能为空") @RequestParam Long demandId) {
-        return Result.success(demandQueryService.getDemandDetail(demandId));
+        return Result.success(demandQueryService.getMyDemandDetail(demandId));
     }
 
 
@@ -74,6 +74,32 @@ public class DemandQueryController {
     public Result getDemandAttachmentList(
             @NotNull(message = "需求ID不能为空") @RequestParam Long demandId) {
         return Result.success(minioService.getDemandAttachmentList(demandId));
+    }
+
+
+    /**
+     * 查询可申请的需求列表接口
+     *
+     * @param applicableDemandQueryDTO 查询请求体
+     * @return 可申请需求的列表
+     */
+    @PostMapping("/applicable-demand-list")
+    public Result getApplicableList(
+            @Valid @RequestBody ApplicableDemandQueryDTO applicableDemandQueryDTO) {
+        return Result.success(demandQueryService.getApplicableList(SecurityUtils.getCurrentUserId(),applicableDemandQueryDTO));
+    }
+
+
+    /**
+     * 查询可申请需求详情接口
+     *
+     * @param demandId 需求id
+     * @return 指定可申请需求详情
+     */
+    @GetMapping("applicable-demand-detail")
+    public Result getApplicableDemandDetail(
+            @NotNull @RequestParam Long demandId){
+        return Result.success(demandQueryService.getApplicableDemandDetail(demandId));
     }
 
 

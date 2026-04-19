@@ -21,6 +21,12 @@ public class DemandListVO {
 
 
     /**
+     * 该需求申请人相关信息
+     */
+    private DemandApplyListVO demandApplyListVO;
+
+
+    /**
      * 需求标题
      */
     private String title;

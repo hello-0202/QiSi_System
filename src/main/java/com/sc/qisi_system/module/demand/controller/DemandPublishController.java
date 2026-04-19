@@ -30,6 +30,7 @@ public class DemandPublishController {
 
     /**
      * 提交需求草稿接口
+     * 角色: 发布者
      *
      * @param demandPublishDraftDTO 需求请求参数
      * @return 成功返回草稿ID，失败返回错误信息
@@ -47,7 +48,7 @@ public class DemandPublishController {
      * @param demandUpdateDraftDTO 请求参数
      * @return 成功返回草稿ID，失败返回错误信息
      */
-    @PostMapping("/update-draft")
+    @PutMapping("/update-draft")
     public Result updateDraft(
             @Valid @RequestBody DemandUpdateDraftDTO demandUpdateDraftDTO) {
         return Result.success(demandPublishService.updateDraft(demandUpdateDraftDTO));
@@ -56,6 +57,7 @@ public class DemandPublishController {
 
     /**
      * 提交审核接口
+     * 角色: 发布者
      *
      * @param demandId 需求id
      * @return 返回统一结果
@@ -70,6 +72,7 @@ public class DemandPublishController {
 
     /**
      * 撤销审核接口
+     * 角色: 发布者
      *
      * @param demandId 撤销需求id
      * @return 统一返回结果

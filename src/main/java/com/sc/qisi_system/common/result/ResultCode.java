@@ -71,6 +71,7 @@ public enum ResultCode {
     DEMAND_APPLIED_REPEAT(4002016, "你已申请过该需求，请勿重复提交"),
     DEMAND_APPLY_NOT_EXIST(4002017, "该需求申请记录不存在"),
     DEMAND_APPLY_STATUS_NOT_ALLOW(4002018, "当前申请状态不允许操作，仅待审核可撤回"),
+    NO_PERMISSION(4002019,"无权限"),
 
 
     /**
