@@ -1,7 +1,11 @@
 package com.sc.qisi_system.module.apply.dto;
 
-import cn.hutool.json.JSONObject;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ApplyUpdateDTO {
@@ -28,7 +32,8 @@ public class ApplyUpdateDTO {
     /**
      * 研究计划
      */
-    private JSONObject researchPlan;
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
+    private List<ResearchPlanStage> researchPlan;
 
 
     /**

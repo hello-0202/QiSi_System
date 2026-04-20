@@ -17,13 +17,6 @@ public class DemandUpdateDraftDTO {
 
 
     /**
-     * 发布人ID: sys_user主键
-     */
-    @NotNull(message = "发布人id不能为空")
-    private Long publisherId;
-
-
-    /**
      * 发布类型: 1-个人发布 2-团队发布
      */
     private Integer publishType;
@@ -44,7 +37,7 @@ public class DemandUpdateDraftDTO {
     /**
      * 需求分类
      */
-    private String category;
+    private Integer category;
 
 
     /**
@@ -107,14 +100,4 @@ public class DemandUpdateDraftDTO {
     private Boolean requirePlan;
 
 
-    /**
-     * 申请截止时间
-     */
-    private LocalDateTime deadline;
-
-
-    /**
-     * 进度百分比: 0-100
-     */
-    private Integer progressPercent;
 }

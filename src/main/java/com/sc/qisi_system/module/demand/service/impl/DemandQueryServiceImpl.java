@@ -98,7 +98,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
         MyDemandVO myDemandVO = new MyDemandVO();
         BeanUtils.copyProperties(demand, myDemandVO);
-        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), myDemandVO.getDemandUserDetailVO());
+        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), myDemandVO.getDemandPublisherDetailVO());
 
         return myDemandVO;
     }
@@ -136,7 +136,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
         ApplicableDemandVO applicableDemandVO = new ApplicableDemandVO();
         BeanUtils.copyProperties(demand, applicableDemandVO);
-        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), applicableDemandVO.getDemandUserDetailVO());
+        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), applicableDemandVO.getDemandPublisherDetailVO());
 
         return applicableDemandVO;
     }
@@ -188,7 +188,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     /**
      *
      */
-    private DemandUserBaseVO getDemandUserBase(Long userId) {
+    private DemandPublisherBaseVO getDemandUserBase(Long userId) {
 
         SysUser sysUser = sysUserService.getById(userId);
         if (Objects.isNull(sysUser)) {
@@ -197,14 +197,14 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
         Integer userType = sysUser.getUserType();
 
-        DemandUserBaseVO demandUserBaseVO = new DemandUserBaseVO();
-        BeanUtils.copyProperties(sysUser, demandUserBaseVO);
+        DemandPublisherBaseVO demandPublisherBaseVO = new DemandPublisherBaseVO();
+        BeanUtils.copyProperties(sysUser, demandPublisherBaseVO);
 
         return switch (userType) {
-            case 1 -> getStudentDetail(sysUser, demandUserBaseVO);
-            case 2 -> getTeacherDetail(sysUser, demandUserBaseVO);
-            case 3 -> getEmployeeDetail(sysUser, demandUserBaseVO);
-            default -> demandUserBaseVO;
+            case 1 -> getStudentDetail(sysUser, demandPublisherBaseVO);
+            case 2 -> getTeacherDetail(sysUser, demandPublisherBaseVO);
+            case 3 -> getEmployeeDetail(sysUser, demandPublisherBaseVO);
+            default -> demandPublisherBaseVO;
         };
 
     }
@@ -218,12 +218,12 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         List<DemandListVO> voList = demandIPage.getRecords().stream()
                 .map(demand -> {
 
-                    DemandUserBaseVO demandUserBaseVO = getDemandUserBase(demand.getPublisherId());
+                    DemandPublisherBaseVO demandPublisherBaseVO = getDemandUserBase(demand.getPublisherId());
                     DemandListVO vo = new DemandListVO();
                     BeanUtils.copyProperties(demand, vo);
-                    DemandUserListVO demandUserListVO = new DemandUserListVO();
-                    BeanUtils.copyProperties(demandUserBaseVO, demandUserListVO);
-                    vo.setDemandUserListVO(demandUserListVO);
+                    DemandPublisherListVO demandPublisherListVO = new DemandPublisherListVO();
+                    BeanUtils.copyProperties(demandPublisherBaseVO, demandPublisherListVO);
+                    vo.setDemandPublisherListVO(demandPublisherListVO);
 
                     return vo;
 
@@ -251,10 +251,10 @@ public class DemandQueryServiceImpl implements DemandQueryService {
                     BeanUtils.copyProperties(demand, vo);
 
                     // 2. 设置发布人信息
-                    DemandUserBaseVO userBase = getDemandUserBase(demand.getPublisherId());
-                    DemandUserListVO userListVO = new DemandUserListVO();
+                    DemandPublisherBaseVO userBase = getDemandUserBase(demand.getPublisherId());
+                    DemandPublisherListVO userListVO = new DemandPublisherListVO();
                     BeanUtils.copyProperties(userBase, userListVO);
-                    vo.setDemandUserListVO(userListVO);
+                    vo.setDemandPublisherListVO(userListVO);
                     DemandApplyListVO applyListVO = new DemandApplyListVO();
 
                     // 3. 设置申请信息
@@ -277,7 +277,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     /**
      *
      */
-    private DemandUserBaseVO getEmployeeDetail(SysUser sysUser, DemandUserBaseVO baseVO) {
+    private DemandPublisherBaseVO getEmployeeDetail(SysUser sysUser, DemandPublisherBaseVO baseVO) {
 
         EntEmployee emp = entEmployeeService.getOne(Wrappers
                 .lambdaQuery(EntEmployee.class)
@@ -291,7 +291,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     /**
      *
      */
-    private DemandUserBaseVO getTeacherDetail(SysUser sysUser, DemandUserBaseVO baseVO) {
+    private DemandPublisherBaseVO getTeacherDetail(SysUser sysUser, DemandPublisherBaseVO baseVO) {
 
         EduTeacher teacher = eduTeacherService.getOne(Wrappers
                 .lambdaQuery(EduTeacher.class)
@@ -305,7 +305,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     /**
      *
      */
-    private DemandUserBaseVO getStudentDetail(SysUser sysUser, DemandUserBaseVO baseVO) {
+    private DemandPublisherBaseVO getStudentDetail(SysUser sysUser, DemandPublisherBaseVO baseVO) {
 
         EduStudent student = eduStudentService.getOne(Wrappers
                 .lambdaQuery(EduStudent.class)

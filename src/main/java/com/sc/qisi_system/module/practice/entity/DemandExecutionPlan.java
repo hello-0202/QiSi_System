@@ -1,12 +1,15 @@
 package com.sc.qisi_system.module.practice.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
@@ -43,7 +46,8 @@ public class DemandExecutionPlan implements Serializable {
     /**
      * 研究计划
      */
-    private JSONObject researchPlan;
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
+    private List<ResearchPlanStage> researchPlan;
 
     /**
      * 预计完成时间: 单位：天

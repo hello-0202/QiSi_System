@@ -2,6 +2,8 @@ package com.sc.qisi_system.module.apply.entity;
 
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
@@ -9,12 +11,13 @@ import lombok.Data;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 需求申请实体类
  * 对应数据库表：demand_apply
  */
-@TableName("demand_apply")
+@TableName(value = "demand_apply", autoResultMap = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -53,7 +56,8 @@ public class DemandApply implements Serializable {
     /**
      * 研究计划
      */
-    private JSONObject researchPlan;
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
+    private List<ResearchPlanStage> researchPlan;
 
 
     /**

@@ -30,7 +30,7 @@ public class ApplyOperateController {
 
 
     /**
-     * 提交需求认领申请接口
+     * 提交需求申请接口
      */
     @PostMapping("/submit")
     public Result submitApply(
@@ -41,7 +41,7 @@ public class ApplyOperateController {
 
 
     /**
-     * 分页查询我申请的需求列表接口
+     * 条件查询我申请的需求列表接口
      */
     @GetMapping("/my-list")
     public Result getMyApplyDemandList(
@@ -73,7 +73,7 @@ public class ApplyOperateController {
     /**
      * 取消认领申请接口
      */
-    @DeleteMapping("/cancel")
+    @GetMapping("/cancel")
     public Result cancelApply(
             @NotNull @RequestParam Long demandId) {
         applyOperateService.cancelApply(SecurityUtils.getCurrentUserId(), demandId);

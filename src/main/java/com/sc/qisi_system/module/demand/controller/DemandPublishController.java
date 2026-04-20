@@ -7,7 +7,6 @@ import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
 import com.sc.qisi_system.module.demand.service.MinioService;
 import com.sc.qisi_system.module.demand.service.DemandPublishService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +37,7 @@ public class DemandPublishController {
     @PostMapping("/draft")
     public Result submitDraft(
             @Valid @RequestBody DemandPublishDraftDTO demandPublishDraftDTO) {
-        return Result.success(demandPublishService.submitDraft(demandPublishDraftDTO));
+        return Result.success(demandPublishService.submitDraft(SecurityUtils.getCurrentUserId(),demandPublishDraftDTO));
     }
 
 
@@ -77,9 +76,9 @@ public class DemandPublishController {
      * @param demandId 撤销需求id
      * @return 统一返回结果
      */
-    @DeleteMapping("/cancel-submit")
+    @GetMapping("/cancel-submit")
     public Result cancelSubmit(
-            @NotBlank @RequestParam Long demandId) {
+            @NotNull @RequestParam Long demandId) {
         return Result.success(demandPublishService.cancelSubmit(SecurityUtils.getCurrentUserId(),demandId));
     }
 

@@ -44,7 +44,7 @@ public class ApplyOperateServiceImpl implements ApplyOperateService {
                 .eq(DemandApply::getDemandId, demandApplyDTO.getDemandId())
                 .eq(DemandApply::getUserId, userId);
 
-        if(!demandApplyMapper.exists(queryWrapper)){
+        if(demandApplyMapper.exists(queryWrapper)){
             throw new BusinessException(ResultCode.DEMAND_APPLIED_REPEAT);
         }
 
@@ -109,6 +109,7 @@ public class ApplyOperateServiceImpl implements ApplyOperateService {
 
         DemandApply demandApply = new DemandApply();
         demandApply.setId(applyUpdateDTO.getApplyId());
+        demandApply.setResearchIdea(applyUpdateDTO.getResearchIdea());
         demandApply.setResearchPlan(applyUpdateDTO.getResearchPlan());
         demandApply.setAuditStatus(AuditStatusEnum.PENDING.getCode());
         demandApply.setExpectedFinishTime(applyUpdateDTO.getExpectedFinishTime());

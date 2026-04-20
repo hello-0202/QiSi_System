@@ -1,7 +1,12 @@
 package com.sc.qisi_system.module.apply.dto;
 
 import cn.hutool.json.JSONObject;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.Data;
+
+import java.util.List;
 
 
 /**
@@ -27,11 +32,11 @@ public class DemandApplyDTO {
     /**
      * 研究计划
      */
-    private JSONObject researchPlan;
+    private List<ResearchPlanStage> researchPlan;
 
 
     /**
-     * 预计完成时间: 单位：月
+     * 预计完成时间: 单位：天
      */
     private Integer expectedFinishTime;
 

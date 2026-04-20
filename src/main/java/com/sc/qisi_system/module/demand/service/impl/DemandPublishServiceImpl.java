@@ -3,7 +3,6 @@ package com.sc.qisi_system.module.demand.service.impl;
 import com.sc.qisi_system.common.enums.CloseApplyStatusEnum;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
-import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.demand.dto.DemandPublishDraftDTO;
 import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
@@ -27,10 +26,9 @@ public class DemandPublishServiceImpl implements DemandPublishService {
 
 
     @Override
-    public Long submitDraft(DemandPublishDraftDTO demandPublishDraftDTO) {
+    public Long submitDraft(Long userId,DemandPublishDraftDTO demandPublishDraftDTO) {
 
-
-        if(sysUserService.existsById(demandPublishDraftDTO.getPublisherId())){
+        if(!sysUserService.existsById(userId)){
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 
@@ -39,6 +37,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         BeanUtils.copyProperties(demandPublishDraftDTO, demand);
 
         // 2. 设置相关状态
+        demand.setPublisherId(userId);
         demand.setStatus(DemandStatusEnum.DRAFT.getCode());
         demand.setCloseApplyStatus(CloseApplyStatusEnum.NO_APPLY.getCode());
 
@@ -64,8 +63,23 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         }
 
         // 2. 更新需求
-        BeanUtils.copyProperties(demandUpdateDraftDTO, demand);
-        demandMapper.updateById(demand);
+        Demand updatedDemand = Demand.builder()
+                .id(demandUpdateDraftDTO.getId())
+                .publishType(demandUpdateDraftDTO.getPublishType())
+                .title(demandUpdateDraftDTO.getTitle())
+                .category(demandUpdateDraftDTO.getCategory())
+                .researchField(demandUpdateDraftDTO.getResearchField())
+                .background(demandUpdateDraftDTO.getBackground())
+                .description(demandUpdateDraftDTO.getDescription())
+                .techRequire(demandUpdateDraftDTO.getTechRequire())
+                .startTime(demandUpdateDraftDTO.getStartTime())
+                .endTime(demandUpdateDraftDTO.getEndTime())
+                .researchCycle(demandUpdateDraftDTO.getResearchCycle())
+                .maxMembers(demandUpdateDraftDTO.getMaxMembers())
+                .requirePlan(demandUpdateDraftDTO.getRequirePlan())
+                .build();
+
+        demandMapper.updateById(updatedDemand);
 
         return demand.getId();
     }

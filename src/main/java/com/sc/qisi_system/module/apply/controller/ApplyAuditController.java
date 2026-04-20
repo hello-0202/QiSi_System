@@ -23,6 +23,26 @@ public class ApplyAuditController {
     }
 
 
+    //TODO
+    /**
+     * 查询申请成员的详细信息
+     */
+    @GetMapping("/demand/apply/detail")
+    public Result getDemandApplyDetail() {
+        return null;
+    }
+
+
+    //TODO
+    /**
+     * 查询申请成员的申请信息
+     */
+    @GetMapping("/demand/apply/info")
+    public Result getDemandApplyList() {
+        return null;
+    }
+
+
     // TODO
     /**
      * 选择/通过申请成员

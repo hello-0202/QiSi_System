@@ -1,17 +1,18 @@
 package com.sc.qisi_system.module.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.enums.UserTypeEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
-import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.user.dto.EnterpriseRegisterRequest;
 import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterRequest;
-import com.sc.qisi_system.module.user.entity.SysUser;
-import com.sc.qisi_system.module.user.mapper.SysUserMapper;
+import com.sc.qisi_system.module.user.entity.*;
+import com.sc.qisi_system.module.user.mapper.*;
 import com.sc.qisi_system.module.user.service.CaptchaService;
 import com.sc.qisi_system.module.user.service.RegisterService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,10 @@ public class RegisterServiceImpl implements RegisterService {
     private final WhitelistCheckServiceImpl whitelistCheckServiceImpl;
     private final CaptchaService captchaService;
     private final PasswordEncoder passwordEncoder;
+    private final SchoolStudentMapper schoolStudentMapper;
+    private final SchoolStaffMapper schoolStaffMapper;
+    private final EduStudentMapper eduStudentMapper;
+    private final EduTeacherMapper eduTeacherMapper;
 
 
     @Transactional(rollbackFor = Exception.class)
@@ -53,7 +58,9 @@ public class RegisterServiceImpl implements RegisterService {
                 .userType(request.getUserType())
                 .build();
 
+
         sysUserMapper.insert(sysUser);
+        handleWhitelistDataByUserType(sysUser);
     }
 
 
@@ -84,5 +91,39 @@ public class RegisterServiceImpl implements RegisterService {
 
         sysUserMapper.insert(sysUser);
 
+    }
+
+
+    private void handleWhitelistDataByUserType(SysUser sysUser) {
+        switch (sysUser.getUserType()) {
+            case 1 -> handleTeacherWhitelist(sysUser);
+            case 2 -> handleStudentWhitelist(sysUser);
+        }
+    }
+
+
+    /**
+     * 处理教师白名单数据
+     */
+    private void handleTeacherWhitelist(SysUser sysUser) {
+        LambdaQueryWrapper<SchoolStaff> queryWrapper = Wrappers.lambdaQuery(SchoolStaff.class);
+        queryWrapper.eq(SchoolStaff::getPersonCode,sysUser.getUsername());
+        SchoolStaff schoolStaff = schoolStaffMapper.selectOne(queryWrapper);
+        EduTeacher eduTeacher = new EduTeacher();
+        BeanUtils.copyProperties(schoolStaff,eduTeacher);
+        eduTeacherMapper.insert(eduTeacher);
+    }
+
+
+    /**
+     * 处理学生白名单数据
+     */
+    private void handleStudentWhitelist(SysUser sysUser) {
+        LambdaQueryWrapper<SchoolStudent> queryWrapper = Wrappers.lambdaQuery(SchoolStudent.class);
+        queryWrapper.eq(SchoolStudent::getStudentId,sysUser.getUsername());
+        SchoolStudent schoolStudent = schoolStudentMapper.selectOne(queryWrapper);
+        EduStudent eduStudent = new EduStudent();
+        BeanUtils.copyProperties(schoolStudent, eduStudent, "createTime", "updateTime");
+        eduStudentMapper.insert(eduStudent);
     }
 }

@@ -11,7 +11,7 @@ public interface DemandPublishService {
      * @param demandPublishDraftDTO 请求参数
      * @return 成功返回草稿ID，失败返回错误信息
      */
-    Long submitDraft(DemandPublishDraftDTO demandPublishDraftDTO);
+    Long submitDraft(Long userId,DemandPublishDraftDTO demandPublishDraftDTO);
 
 
     /**

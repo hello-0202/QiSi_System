@@ -1,19 +1,11 @@
 package com.sc.qisi_system.module.demand.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 public class DemandPublishDraftDTO {
-
-
-    /**
-     * 发布人ID: sys_user主键
-     */
-    @NotNull(message = "发布人id不能为空")
-    private Long publisherId;
 
 
     /**
@@ -100,14 +92,4 @@ public class DemandPublishDraftDTO {
     private Boolean requirePlan;
 
 
-    /**
-     * 申请截止时间
-     */
-    private LocalDateTime deadline;
-
-
-    /**
-     * 进度百分比: 0-100
-     */
-    private Integer progressPercent;
 }

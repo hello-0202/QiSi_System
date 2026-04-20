@@ -65,7 +65,7 @@ public class DemandQueryController {
 
 
     /**
-     * 查看需求附件列表
+     * 查看需求附件列表接口
      *
      * @param demandId 需求ID
      * @return 附件列表（文件名/大小/访问链接/上传时间等）
@@ -78,7 +78,7 @@ public class DemandQueryController {
 
 
     /**
-     * 查询可申请的需求列表接口
+     * 条件查询可申请的需求列表接口
      *
      * @param applicableDemandQueryDTO 查询请求体
      * @return 可申请需求的列表

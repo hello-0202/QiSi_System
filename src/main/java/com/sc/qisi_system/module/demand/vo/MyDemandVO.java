@@ -11,7 +11,7 @@ public class MyDemandVO {
     /**
      * 发布人信息
      */
-    private DemandUserDetailVO demandUserDetailVO;
+    private DemandPublisherDetailVO demandPublisherDetailVO;
 
 
     /**

@@ -1,9 +1,10 @@
 package com.sc.qisi_system.module.apply.vo;
 
-import cn.hutool.json.JSONObject;
+import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class ApplyDetailVO {
@@ -18,7 +19,7 @@ public class ApplyDetailVO {
     /**
      * 研究计划
      */
-    private JSONObject researchPlan;
+    private List<ResearchPlanStage> researchPlan;
 
 
     /**

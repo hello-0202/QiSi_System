@@ -102,6 +102,14 @@
             <version>3.5.12</version>
         </dependency>
 
+        <!-- Fastjson2 JSON处理工具 -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.61</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- MinIO对象存储Java客户端包 -->
         <dependency>
             <groupId>io.minio</groupId>
