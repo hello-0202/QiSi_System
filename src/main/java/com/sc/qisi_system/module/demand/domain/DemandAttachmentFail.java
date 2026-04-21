@@ -1,4 +1,4 @@
-package com.sc.qisi_system.module.demand.vo;
+package com.sc.qisi_system.module.demand.domain;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
  * 上传失败的附件详情VO
  */
 @Data
-public class DemandAttachmentFailVO {
+public class DemandAttachmentFail {
 
     private String originalFileName;
 

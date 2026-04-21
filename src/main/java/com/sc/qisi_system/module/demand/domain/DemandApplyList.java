@@ -1,9 +1,9 @@
-package com.sc.qisi_system.module.demand.vo;
+package com.sc.qisi_system.module.demand.domain;
 
 import lombok.Data;
 
 @Data
-public class DemandApplyListVO {
+public class DemandApplyList {
 
 
     /**

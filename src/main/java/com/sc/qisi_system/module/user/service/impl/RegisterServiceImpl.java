@@ -31,6 +31,7 @@ public class RegisterServiceImpl implements RegisterService {
     private final SchoolStaffMapper schoolStaffMapper;
     private final EduStudentMapper eduStudentMapper;
     private final EduTeacherMapper eduTeacherMapper;
+    private final EntEmployeeMapper entEmployeeMapper;
 
 
     @Transactional(rollbackFor = Exception.class)
@@ -90,7 +91,7 @@ public class RegisterServiceImpl implements RegisterService {
                 .build();
 
         sysUserMapper.insert(sysUser);
-
+        handleWhitelistDataByUserType(sysUser);
     }
 
 
@@ -98,6 +99,7 @@ public class RegisterServiceImpl implements RegisterService {
         switch (sysUser.getUserType()) {
             case 1 -> handleTeacherWhitelist(sysUser);
             case 2 -> handleStudentWhitelist(sysUser);
+            case 3 -> handleEntEmployeeWhitelist(sysUser);
         }
     }
 
@@ -124,6 +126,21 @@ public class RegisterServiceImpl implements RegisterService {
         SchoolStudent schoolStudent = schoolStudentMapper.selectOne(queryWrapper);
         EduStudent eduStudent = new EduStudent();
         BeanUtils.copyProperties(schoolStudent, eduStudent, "createTime", "updateTime");
+        eduStudent.setUserId(sysUser.getId());
         eduStudentMapper.insert(eduStudent);
+    }
+
+    /**
+     * 处理教师白名单数据
+     */
+    private void handleEntEmployeeWhitelist(SysUser sysUser) {
+        LambdaQueryWrapper<EntEmployee> queryWrapper = Wrappers.lambdaQuery(EntEmployee.class);
+        queryWrapper.eq(EntEmployee::getEmployeeNo,sysUser.getUsername());
+        EntEmployee entEmployee = entEmployeeMapper.selectOne(queryWrapper);
+        EduTeacher eduTeacher = new EduTeacher();
+        BeanUtils.copyProperties(entEmployee, eduTeacher, "createTime", "updateTime");
+        eduTeacher.setTeacherNo(entEmployee.getEmployeeNo());
+        eduTeacher.setUserId(sysUser.getId());
+        eduTeacherMapper.insert(eduTeacher);
     }
 }

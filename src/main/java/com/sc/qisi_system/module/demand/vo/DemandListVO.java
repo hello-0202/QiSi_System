@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.demand.vo;
 
+import com.sc.qisi_system.module.demand.domain.DemandApplyList;
+import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -17,13 +19,13 @@ public class DemandListVO {
     /**
      * 发布人信息
      */
-    private DemandPublisherListVO demandPublisherListVO;
+    private DemandPublisherList demandPublisherList;
 
 
     /**
      * 该需求申请人相关信息
      */
-    private DemandApplyListVO demandApplyListVO;
+    private DemandApplyList demandApplyList;
 
 
     /**

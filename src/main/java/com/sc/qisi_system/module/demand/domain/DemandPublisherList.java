@@ -1,9 +1,9 @@
-package com.sc.qisi_system.module.demand.vo;
+package com.sc.qisi_system.module.demand.domain;
 
 import lombok.Data;
 
 @Data
-public class DemandPublisherBaseVO {
+public class DemandPublisherList {
 
 
     /**
@@ -34,24 +34,6 @@ public class DemandPublisherBaseVO {
      * 企业名称
      */
     private String enterpriseName;
-
-
-    /**
-     * 头像
-     */
-    private String avatar;
-
-
-    /**
-     * 邮箱
-     */
-    private String email;
-
-
-    /**
-     * 手机号
-     */
-    private String phone;
 
 
 }

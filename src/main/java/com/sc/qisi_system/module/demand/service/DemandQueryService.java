@@ -4,9 +4,9 @@ import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
-import com.sc.qisi_system.module.demand.vo.ApplicableDemandVO;
+import com.sc.qisi_system.module.demand.vo.ApplicableDemandDetailVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
-import com.sc.qisi_system.module.demand.vo.MyDemandVO;
+import com.sc.qisi_system.module.demand.vo.MyDemandDetailVO;
 
 public interface DemandQueryService {
 
@@ -32,7 +32,7 @@ public interface DemandQueryService {
      * @param demandId 需求id
      * @return 需求完整信息
      */
-    MyDemandVO getMyDemandDetail(Long demandId);
+    MyDemandDetailVO getMyDemandDetail(Long demandId);
 
 
     /**
@@ -51,7 +51,7 @@ public interface DemandQueryService {
      * @param demandId 需求id
      * @return 需求详情列表
      */
-    ApplicableDemandVO getApplicableDemandDetail(Long demandId);
+    ApplicableDemandDetailVO getApplicableDemandDetail(Long demandId);
 
 
     /**

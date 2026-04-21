@@ -52,6 +52,12 @@ public class EntEmployee implements Serializable {
 
 
     /**
+     * 手机号
+     */
+    private String phone;
+
+
+    /**
      * 职位名称
      */
     private String jobTitle;

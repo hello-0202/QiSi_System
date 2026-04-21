@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.demand.vo;
 
+import com.sc.qisi_system.module.demand.domain.DemandAttachmentFail;
+import com.sc.qisi_system.module.demand.domain.DemandAttachmentSuccess;
 import lombok.Data;
 
 import java.util.List;
@@ -15,7 +17,7 @@ public class DemandAttachmentUploadVO {
 
     private Integer failCount;
 
-    private List<DemandAttachmentSuccessVO> successFiles;
+    private List<DemandAttachmentSuccess> successFiles;
 
-    private List<DemandAttachmentFailVO> failFiles;
+    private List<DemandAttachmentFail> failFiles;
 }

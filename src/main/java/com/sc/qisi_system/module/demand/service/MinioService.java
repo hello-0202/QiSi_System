@@ -1,9 +1,8 @@
 package com.sc.qisi_system.module.demand.service;
 
-import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.module.demand.entity.DemandAttachment;
 import com.sc.qisi_system.module.demand.vo.DemandAttachmentUploadVO;
-import com.sc.qisi_system.module.demand.vo.DemandAttachmentVO;
+import com.sc.qisi_system.module.demand.vo.DemandAttachmentListVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
@@ -22,7 +21,7 @@ public interface MinioService {
 
     InputStream downloadFile(String bucketName, String objectName);
 
-    List<DemandAttachmentVO> getDemandAttachmentList(Long demandId);
+    List<DemandAttachmentListVO> getDemandAttachmentList(Long demandId);
 
     void deleteAttachment(Long attachmentId);
 

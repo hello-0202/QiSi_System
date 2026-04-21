@@ -51,12 +51,15 @@ public class ApplyOperateController {
 
 
     /**
-     * 查询申请详情接口
+     * 查询申请详情
+     *
+     * @param applyId 需求申请id
+     * @return 需求详情
      */
-    @GetMapping("/detail")
-    public Result getApplyDetail(
+    @GetMapping("/my-detail")
+    public Result getMyApplyDetail(
        @NotNull @RequestParam Long applyId) {
-        return Result.success(applyQueryService.getApplyDetail(applyId));
+        return Result.success(applyQueryService.getMyApplyDetail(applyId));
     }
 
 

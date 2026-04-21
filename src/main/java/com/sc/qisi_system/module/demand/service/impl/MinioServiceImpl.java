@@ -14,10 +14,10 @@ import com.sc.qisi_system.module.demand.mapper.DemandMapper;
 import com.sc.qisi_system.module.demand.service.AsyncFileDeleteService;
 import com.sc.qisi_system.module.demand.service.DemandAttachmentService;
 import com.sc.qisi_system.module.demand.service.MinioService;
-import com.sc.qisi_system.module.demand.vo.DemandAttachmentFailVO;
-import com.sc.qisi_system.module.demand.vo.DemandAttachmentSuccessVO;
+import com.sc.qisi_system.module.demand.domain.DemandAttachmentFail;
+import com.sc.qisi_system.module.demand.domain.DemandAttachmentSuccess;
 import com.sc.qisi_system.module.demand.vo.DemandAttachmentUploadVO;
-import com.sc.qisi_system.module.demand.vo.DemandAttachmentVO;
+import com.sc.qisi_system.module.demand.vo.DemandAttachmentListVO;
 import io.minio.*;
 import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
@@ -68,8 +68,8 @@ public class MinioServiceImpl implements MinioService {
 
         // 初始化VO相关集合
         List<DemandAttachment> attachments = new ArrayList<>();
-        List<DemandAttachmentSuccessVO> successFiles = new ArrayList<>();
-        List<DemandAttachmentFailVO> failFiles = new ArrayList<>();
+        List<DemandAttachmentSuccess> successFiles = new ArrayList<>();
+        List<DemandAttachmentFail> failFiles = new ArrayList<>();
 
         // 2. 循环处理每个文件（异常局部捕获，不中断整批处理）
         for (MultipartFile file : files) {
@@ -78,7 +78,7 @@ public class MinioServiceImpl implements MinioService {
                 if (file.isEmpty()) {
                     log.warn("跳过空文件：{}", file.getOriginalFilename());
 
-                    DemandAttachmentFailVO failVO = new DemandAttachmentFailVO();
+                    DemandAttachmentFail failVO = new DemandAttachmentFail();
                     failVO.setOriginalFileName(file.getOriginalFilename());
                     failVO.setFailReason("文件为空，跳过上传");
                     failFiles.add(failVO);
@@ -98,7 +98,7 @@ public class MinioServiceImpl implements MinioService {
                 String suffix = FileUtil.extName(file.getOriginalFilename());
 
                 // 构建【成功文件VO】
-                DemandAttachmentSuccessVO successVO = new DemandAttachmentSuccessVO();
+                DemandAttachmentSuccess successVO = new DemandAttachmentSuccess();
                 successVO.setOriginalFileName(file.getOriginalFilename());
                 successVO.setFileType(suffix);
                 successVO.setFileSize(file.getSize());
@@ -121,7 +121,7 @@ public class MinioServiceImpl implements MinioService {
                 String originalFileName = file.getOriginalFilename();
                 log.error("文件【{}】上传失败", originalFileName, e);
 
-                DemandAttachmentFailVO failVO = new DemandAttachmentFailVO();
+                DemandAttachmentFail failVO = new DemandAttachmentFail();
                 failVO.setOriginalFileName(originalFileName);
                 failVO.setFailReason(e.getMessage());
                 failFiles.add(failVO);
@@ -177,18 +177,18 @@ public class MinioServiceImpl implements MinioService {
 
 
     @Override
-    public List<DemandAttachmentVO> getDemandAttachmentList(Long demandId) {
+    public List<DemandAttachmentListVO> getDemandAttachmentList(Long demandId) {
 
         LambdaQueryWrapper<DemandAttachment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(DemandAttachment::getDemandId, demandId)
                 .eq(DemandAttachment::getIsDeleted, false);
 
         List<DemandAttachment> demandAttachments = demandAttachmentMapper.selectList(queryWrapper);
-        List<DemandAttachmentVO> demandAttachmentVOs = new ArrayList<>();
+        List<DemandAttachmentListVO> demandAttachmentListVOS = new ArrayList<>();
 
         // 遍历附件，生成链接
         for (DemandAttachment attachment : demandAttachments) {
-                DemandAttachmentVO vo = new DemandAttachmentVO();
+                DemandAttachmentListVO vo = new DemandAttachmentListVO();
                 vo.setId(attachment.getId());
                 vo.setFileName(attachment.getFileName());
                 vo.setFileType(attachment.getFileType());
@@ -198,9 +198,9 @@ public class MinioServiceImpl implements MinioService {
                 String url = generateUrl(attachment.getBucketName(), attachment.getObjectName());
                 vo.setUrl(url);
 
-                demandAttachmentVOs.add(vo);
+                demandAttachmentListVOS.add(vo);
         }
-        return demandAttachmentVOs;
+        return demandAttachmentListVOS;
     }
 
 
