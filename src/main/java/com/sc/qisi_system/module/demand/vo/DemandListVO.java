@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.demand.vo;
 
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
+import com.sc.qisi_system.module.demand.domain.DemandPracticeList;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
 import lombok.Data;
 
@@ -17,7 +18,7 @@ public class DemandListVO {
 
 
     /**
-     * 发布人信息
+     * 发布者信息
      */
     private DemandPublisherList demandPublisherList;
 
@@ -26,6 +27,12 @@ public class DemandListVO {
      * 该需求申请人相关信息
      */
     private DemandApplyList demandApplyList;
+
+
+    /**
+     * 该需求认领者的相关信息
+     */
+    private DemandPracticeList demandPracticeList;
 
 
     /**

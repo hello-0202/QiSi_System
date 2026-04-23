@@ -14,14 +14,18 @@ import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.service.ApplyQueryService;
 import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
+import com.sc.qisi_system.module.demand.domain.DemandPracticeList;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherBase;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
 import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
+import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.mapper.DemandMapper;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.vo.*;
+import com.sc.qisi_system.module.practice.entity.DemandMember;
+import com.sc.qisi_system.module.practice.service.DemandMemberService;
 import com.sc.qisi_system.module.user.entity.EduStudent;
 import com.sc.qisi_system.module.user.entity.EduTeacher;
 import com.sc.qisi_system.module.user.entity.EntEmployee;
@@ -51,6 +55,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     private final EntEmployeeService entEmployeeService;
     private final ApplyService applyService;
     private final ApplyQueryService applyQueryService;
+    private final DemandMemberService demandMemberService;
 
 
     @Override
@@ -115,7 +120,8 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
         // 2. 设置查询条件
         LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Demand::getStatus, DemandStatusEnum.PUBLISHED.getCode())
+        queryWrapper
+                .eq(Demand::getStatus, DemandStatusEnum.PUBLISHED.getCode())
                 .eq(queryDTO.getCategory() != null, Demand::getCategory, queryDTO.getCategory())
                 .eq(queryDTO.getRequirePlan() != null, Demand::getRequirePlan, queryDTO.getRequirePlan())
                 .ge(queryDTO.getDeadline() != null, Demand::getDeadline, queryDTO.getDeadline())
@@ -129,7 +135,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
 
     @Override
-    public ApplicableDemandDetailVO getApplicableDemandDetail(Long demandId) {
+    public DemandReceiverDetailVO getDemandReceiverDetail(Long demandId) {
 
         Demand demand = getDemand(demandId);
 
@@ -137,11 +143,11 @@ public class DemandQueryServiceImpl implements DemandQueryService {
             throw new BusinessException(ResultCode.DEMAND_NOT_PUBLISHED);
         }
 
-        ApplicableDemandDetailVO applicableDemandDetailVO = new ApplicableDemandDetailVO();
-        BeanUtils.copyProperties(demand, applicableDemandDetailVO);
-        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), applicableDemandDetailVO.getDemandPublisherDetailVO());
+        DemandReceiverDetailVO demandReceiverDetailVO = new DemandReceiverDetailVO();
+        BeanUtils.copyProperties(demand, demandReceiverDetailVO);
+        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), demandReceiverDetailVO.getDemandPublisherDetailVO());
 
-        return applicableDemandDetailVO;
+        return demandReceiverDetailVO;
     }
 
 
@@ -174,6 +180,25 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     }
 
 
+    @Override
+    public PageResult<DemandListVO> getMyPracticeDemandList(Long userId, PracticeDemandQueryDTO queryDTO) {
+
+        // 1. 设置分页拆查询
+        Page<Demand> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
+
+        // 2. 设置查询条件
+        LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .in(Demand::getStatus,queryDTO.getStatusList())
+                .orderByDesc(Demand::getCreateTime);
+
+        IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
+
+        // 3. 返回包装
+        return convertToPracticePageResultList(userId,demandIPage);
+    }
+
+
     /**
      *
      */
@@ -185,31 +210,6 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         }
 
         return demand;
-    }
-
-
-    /**
-     *
-     */
-    private DemandPublisherBase getDemandUserBase(Long userId) {
-
-        SysUser sysUser = sysUserService.getById(userId);
-        if (Objects.isNull(sysUser)) {
-            throw new BusinessException(ResultCode.USER_NOT_FOUND);
-        }
-
-        Integer userType = sysUser.getUserType();
-
-        DemandPublisherBase demandPublisherBase = new DemandPublisherBase();
-        BeanUtils.copyProperties(sysUser, demandPublisherBase);
-
-        return switch (userType) {
-            case 1 -> getStudentDetail(sysUser, demandPublisherBase);
-            case 2 -> getTeacherDetail(sysUser, demandPublisherBase);
-            case 3 -> getEmployeeDetail(sysUser, demandPublisherBase);
-            default -> demandPublisherBase;
-        };
-
     }
 
 
@@ -228,6 +228,8 @@ public class DemandQueryServiceImpl implements DemandQueryService {
                     BeanUtils.copyProperties(demandPublisherBase, demandPublisherList);
                     vo.setDemandPublisherList(demandPublisherList);
 
+
+
                     return vo;
 
                 }).toList();
@@ -237,7 +239,6 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         pageResult.setPages(demandIPage.getPages());
         pageResult.setRecords(voList);
         return pageResult;
-
     }
 
 
@@ -274,6 +275,69 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         result.setPages(demandIPage.getPages());
         result.setRecords(voList);
         return result;
+    }
+
+
+    /**
+     *
+     */
+    private PageResult<DemandListVO> convertToPracticePageResultList(Long userId,IPage<Demand> demandIPage) {
+
+        List<DemandListVO> voList = demandIPage.getRecords().stream()
+                .map(demand -> {
+
+                    DemandPublisherBase demandPublisherBase = getDemandUserBase(demand.getPublisherId());
+                    DemandListVO vo = new DemandListVO();
+                    BeanUtils.copyProperties(demand, vo);
+                    DemandPublisherList demandPublisherList = new DemandPublisherList();
+                    BeanUtils.copyProperties(demandPublisherBase, demandPublisherList);
+                    vo.setDemandPublisherList(demandPublisherList);
+
+                    LambdaQueryWrapper<DemandMember> queryWrapper = new LambdaQueryWrapper<>();
+                    queryWrapper
+                            .eq(DemandMember::getDemandId,demand.getId())
+                            .eq(DemandMember::getUserId,userId);
+                    DemandMember demandMember = demandMemberService.getOne(queryWrapper);
+                    DemandPracticeList demandPracticeList = new DemandPracticeList();
+                    if (demandMember != null) {
+                        BeanUtils.copyProperties(demandMember, demandPracticeList);
+                    }
+                    vo.setDemandPracticeList(demandPracticeList);
+
+                    return vo;
+
+                }).toList();
+
+        PageResult<DemandListVO> pageResult = new PageResult<>();
+        pageResult.setTotal(demandIPage.getTotal());
+        pageResult.setPages(demandIPage.getPages());
+        pageResult.setRecords(voList);
+        return pageResult;
+    }
+
+
+    /**
+     *
+     */
+    private DemandPublisherBase getDemandUserBase(Long userId) {
+
+        SysUser sysUser = sysUserService.getById(userId);
+        if (Objects.isNull(sysUser)) {
+            throw new BusinessException(ResultCode.USER_NOT_FOUND);
+        }
+
+        Integer userType = sysUser.getUserType();
+
+        DemandPublisherBase demandPublisherBase = new DemandPublisherBase();
+        BeanUtils.copyProperties(sysUser, demandPublisherBase);
+
+        return switch (userType) {
+            case 1 -> getStudentDetail(sysUser, demandPublisherBase);
+            case 2 -> getTeacherDetail(sysUser, demandPublisherBase);
+            case 3 -> getEmployeeDetail(sysUser, demandPublisherBase);
+            default -> demandPublisherBase;
+        };
+
     }
 
 

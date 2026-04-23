@@ -6,7 +6,7 @@ import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.apply.dto.AuditApplyDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
-import com.sc.qisi_system.module.apply.entity.DemandMember;
+import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.apply.mapper.DemandApplyMapper;
 import com.sc.qisi_system.module.apply.service.ApplyAuditService;
 import com.sc.qisi_system.module.apply.mapper.DemandMemberMapper;

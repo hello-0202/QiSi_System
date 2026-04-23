@@ -1,65 +1,65 @@
-package com.sc.qisi_system.module.practice.controller;
+package com.sc.qisi_system.module.user.controller;
 
 import com.sc.qisi_system.common.result.Result;
-import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 
 
 /**
- * 实践需求执行控制器
+ * 用户信息操作接口
  */
-@RequestMapping("/api/practice/execute")
+@RequestMapping("/api/user/info")
 @RequiredArgsConstructor
 @RestController
 @Validated
-public class PracticeExecuteController {
+public class UserInfoController {
 
 
     //TODO
     /**
-     * 提交需求日志接口
+     * 修改密码接口
      *
      * @return 统一返回结果
      */
-    @PostMapping("/log")
-    public Result submitDemandLog() {
+    @PutMapping("/password")
+    public Result updatePassword() {
         return null;
     }
 
 
     //TODO
     /**
-     * 提交需求附件接口
+     * 修改头像接口
      *
      * @return 统一返回结果
      */
-    @PostMapping("/attachment")
-    public Result submitDemandAttachment() {
+    @PutMapping("/avatar")
+    public Result updateAvatar() {
         return null;
     }
 
 
     //TODO
     /**
-     * 更新需求计划接口
+     * 修改手机号接口
      *
      * @return 统一返回结果
      */
-    @PutMapping("/plan")
-    public Result updateDemandPlan() {
+    @PutMapping("/phone")
+    public Result updatePhone() {
         return null;
     }
 
 
     //TODO
     /**
-     * 申请退出需求接口
+     * 修改邮箱接口
      *
      * @return 统一返回结果
      */
-    @PostMapping("/quit")
-    public Result applyQuitDemand() {
+    @PutMapping("/email")
+    public Result updateEmail() {
         return null;
     }
 }

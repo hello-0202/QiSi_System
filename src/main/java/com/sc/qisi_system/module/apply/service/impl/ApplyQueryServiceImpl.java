@@ -2,17 +2,21 @@ package com.sc.qisi_system.module.apply.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sc.qisi_system.common.exception.BusinessException;
+import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.apply.domain.EnterpriseInfo;
 import com.sc.qisi_system.module.apply.domain.StudentInfo;
 import com.sc.qisi_system.module.apply.domain.TeacherInfo;
+import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.mapper.DemandApplyMapper;
 import com.sc.qisi_system.module.apply.service.ApplyQueryService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
+import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.service.DemandService;
+import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.user.entity.EduStudent;
 import com.sc.qisi_system.module.user.entity.EduTeacher;
 import com.sc.qisi_system.module.user.entity.EntEmployee;
@@ -39,11 +43,17 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
 
     private final DemandApplyMapper demandApplyMapper;
     private final DemandService demandService;
+    private final DemandQueryService demandQueryService;
     private final SysUserService sysUserService;
     private final EduStudentService eduStudentService;
     private final EduTeacherService eduTeacherService;
     private final EntEmployeeService entEmployeeService;
 
+
+    @Override
+    public PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO) {
+        return demandQueryService.getMyApplyDemandList(userId, myApplyQueryDTO);
+    }
 
     @Override
     public ApplyDetailVO getMyApplyDetail(Long applyId) {
@@ -221,6 +231,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         vo.setStudentInfo(studentInfo);
     }
 
+
     /**
      * 填充：教师拓展信息
      */
@@ -239,6 +250,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         BeanUtils.copyProperties(eduTeacher, teacherInfo);
         vo.setTeacherInfo(teacherInfo);
     }
+
 
     /**
      * 填充：企业人员拓展信息

@@ -4,10 +4,7 @@ import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.apply.dto.ApplyUpdateDTO;
 import com.sc.qisi_system.module.apply.dto.DemandApplyDTO;
-import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.service.ApplyOperateService;
-import com.sc.qisi_system.module.apply.service.ApplyQueryService;
-import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +21,14 @@ import org.springframework.web.bind.annotation.*;
 public class ApplyOperateController {
 
 
-    private final ApplyQueryService applyQueryService;
     private final ApplyOperateService applyOperateService;
-    private final DemandQueryService demandQueryService;
 
 
     /**
      * 提交需求申请接口
+     *
+     * @param demandApplyDTO 请求体
+     * @return 统一返回结果
      */
     @PostMapping("/submit")
     public Result submitApply(
@@ -41,30 +39,10 @@ public class ApplyOperateController {
 
 
     /**
-     * 条件查询我申请的需求列表接口
-     */
-    @GetMapping("/my-list")
-    public Result getMyApplyDemandList(
-            @RequestBody MyApplyQueryDTO queryDTO) {
-        return Result.success(demandQueryService.getMyApplyDemandList(SecurityUtils.getCurrentUserId(),queryDTO));
-    }
-
-
-    /**
-     * 查询申请详情
-     *
-     * @param applyId 需求申请id
-     * @return 需求详情
-     */
-    @GetMapping("/my-detail")
-    public Result getMyApplyDetail(
-       @NotNull @RequestParam Long applyId) {
-        return Result.success(applyQueryService.getMyApplyDetail(applyId));
-    }
-
-
-    /**
      * 修改申请信息接口
+     *
+     * @param applyUpdateDTO 请求体
+     * @return 统一返回结果
      */
     @PutMapping("/update")
     public Result updateApply(@RequestBody @Valid ApplyUpdateDTO applyUpdateDTO) {
@@ -75,6 +53,9 @@ public class ApplyOperateController {
 
     /**
      * 取消认领申请接口
+     *
+     * @param demandId 需求id
+     * @return 统一返回结果
      */
     @GetMapping("/cancel")
     public Result cancelApply(

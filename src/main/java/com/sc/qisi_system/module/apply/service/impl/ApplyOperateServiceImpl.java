@@ -58,32 +58,6 @@ public class ApplyOperateServiceImpl implements ApplyOperateService {
 
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void cancelApply(Long userId, Long demandId) {
-
-        Demand demand = demandService.getById(demandId);
-        if(demand == null)  {
-            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
-        }
-
-        LambdaQueryWrapper<DemandApply> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(DemandApply::getDemandId, demandId)
-                .eq(DemandApply::getUserId, userId);
-        DemandApply demandApply = demandApplyMapper.selectOne(queryWrapper);
-
-        if(demandApply == null)  {
-            throw new BusinessException(ResultCode.DEMAND_APPLY_NOT_EXIST);
-        }
-        if(!Objects.equals(demandApply.getAuditStatus(),AuditStatusEnum.PENDING.getCode())){
-            throw new BusinessException(ResultCode.DEMAND_APPLY_STATUS_NOT_ALLOW);
-        }
-
-        demandApplyMapper.deleteById(demandApply.getId());
-
-    }
-
 
     @Override
     public void updateApply(Long userId, ApplyUpdateDTO applyUpdateDTO) {
@@ -115,5 +89,32 @@ public class ApplyOperateServiceImpl implements ApplyOperateService {
         demandApply.setExpectedFinishTime(applyUpdateDTO.getExpectedFinishTime());
         demandApply.setRelevantExperience(applyUpdateDTO.getRelevantExperience());
         demandApplyMapper.updateById(demandApply);
+    }
+
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void cancelApply(Long userId, Long demandId) {
+
+        Demand demand = demandService.getById(demandId);
+        if(demand == null)  {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
+
+        LambdaQueryWrapper<DemandApply> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .eq(DemandApply::getDemandId, demandId)
+                .eq(DemandApply::getUserId, userId);
+        DemandApply demandApply = demandApplyMapper.selectOne(queryWrapper);
+
+        if(demandApply == null)  {
+            throw new BusinessException(ResultCode.DEMAND_APPLY_NOT_EXIST);
+        }
+        if(!Objects.equals(demandApply.getAuditStatus(),AuditStatusEnum.PENDING.getCode())){
+            throw new BusinessException(ResultCode.DEMAND_APPLY_STATUS_NOT_ALLOW);
+        }
+
+        demandApplyMapper.deleteById(demandApply.getId());
+
     }
 }

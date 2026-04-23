@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.NoArgsConstructor;
-import org.json.JSONObject;
 
 /**
  * 需求执行计划实体类
@@ -24,8 +23,10 @@ import org.json.JSONObject;
 @Data
 public class DemandExecutionPlan implements Serializable {
 
+
     @Serial
     private static final long serialVersionUID = 1L;
+
 
     /**
      * 主键ID
@@ -33,15 +34,18 @@ public class DemandExecutionPlan implements Serializable {
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
+
     /**
      * 关联需求ID: demand主键
      */
     private Long demandId;
 
+
     /**
      * 关联申请ID: demand_apply主键
      */
     private Long applyId;
+
 
     /**
      * 研究计划
@@ -49,10 +53,12 @@ public class DemandExecutionPlan implements Serializable {
     @TableField(typeHandler = Fastjson2TypeHandler.class)
     private List<ResearchPlanStage> researchPlan;
 
+
     /**
      * 预计完成时间: 单位：天
      */
     private Integer expectedFinishTime;
+
 
     /**
      * 版本号
@@ -60,21 +66,25 @@ public class DemandExecutionPlan implements Serializable {
     @Version
     private Integer version;
 
+
     /**
      * 操作人ID
      */
     private Long operatorId;
+
 
     /**
      * 修改备注
      */
     private String modifyRemark;
 
+
     /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+
 
     /**
      * 更新时间

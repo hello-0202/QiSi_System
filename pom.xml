@@ -28,12 +28,14 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+
         <!-- MySQL数据库连接驱动包 -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+
 
         <!-- Lombok简化代码包 -->
         <dependency>
@@ -42,12 +44,14 @@
             <optional>true</optional>
         </dependency>
 
+
         <!-- Spring Boot WebMVC测试支持包 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
 
         <!-- MyBatis Spring Boot测试支持包 -->
         <dependency>
@@ -57,17 +61,20 @@
             <scope>test</scope>
         </dependency>
 
+
         <!-- 校验依赖，Spring Boot 官方starter，包含所有需要的注解 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
+
         <!-- Spring Boot 整合 Security 核心启动器（3.x 版本） -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
 
         <!-- JJWT（Java JWT）：处理JWT的生成、解析、验签 -->
         <dependency>
@@ -88,6 +95,7 @@
             <scope>runtime</scope>
         </dependency>
 
+
         <!-- MyBatis-Plus适配Spring Boot 3.x的整合启动器包 -->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -95,12 +103,14 @@
             <version>3.5.15</version>
         </dependency>
 
+
         <!-- MyBatis-Plus 依赖的 SQL 解析器 -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-jsqlparser</artifactId>
             <version>3.5.12</version>
         </dependency>
+
 
         <!-- Fastjson2 JSON处理工具 -->
         <dependency>
@@ -110,12 +120,14 @@
             <scope>compile</scope>
         </dependency>
 
+
         <!-- MinIO对象存储Java客户端包 -->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
             <version>8.6.0</version>
         </dependency>
+
 
         <!-- Source: https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
@@ -125,11 +137,13 @@
             <scope>compile</scope>
         </dependency>
 
+
         <!-- Spring Boot整合Redis的核心启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
 
         <!-- Redis的Jedis客户端包 -->
         <dependency>
@@ -138,11 +152,13 @@
             <version>5.2.0</version>
         </dependency>
 
+
         <!-- WebSocket + STOMP 核心依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
+
 
         <!-- Hutool 核心工具 -->
         <dependency>
@@ -150,7 +166,6 @@
             <artifactId>hutool-all</artifactId>
             <version>5.8.40</version>
         </dependency>
-
 
     </dependencies>
 

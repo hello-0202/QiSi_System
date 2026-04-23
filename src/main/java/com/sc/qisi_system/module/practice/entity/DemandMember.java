@@ -1,4 +1,4 @@
-package com.sc.qisi_system.module.apply.entity;
+package com.sc.qisi_system.module.practice.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
