@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * 需求认领申请 - 查询控制器
+ * 需求申请查询控制器
  */
 @RequestMapping("/api/demand/apply/query")
 @RequiredArgsConstructor

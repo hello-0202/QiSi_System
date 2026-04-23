@@ -16,6 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+
+/**
+ * 需求发布控制器
+ */
 @RequestMapping("/api/demand/publish")
 @RequiredArgsConstructor
 @RestController

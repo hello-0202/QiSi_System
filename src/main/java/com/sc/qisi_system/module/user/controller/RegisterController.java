@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+/**
+ * 用户注册控制器
+ */
 @RequestMapping("/api/user/register")
 @RequiredArgsConstructor
 @RestController

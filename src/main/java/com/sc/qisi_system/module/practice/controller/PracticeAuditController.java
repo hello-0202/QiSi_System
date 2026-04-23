@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * 实践需求审核操作接口
+ * 实践需求审核操作控制器
  */
 @RequestMapping("/api/practice/audit")
 @RequiredArgsConstructor

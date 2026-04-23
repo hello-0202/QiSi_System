@@ -14,6 +14,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+/**
+ * 需求查询控制器
+ */
 @RequestMapping("/api/demand/query")
 @RequiredArgsConstructor
 @RestController
