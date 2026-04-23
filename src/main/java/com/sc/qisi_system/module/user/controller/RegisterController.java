@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class RegisterController {
 
+
     private final RegisterService registerService;
+
 
     /**
      * 学生/教师注册接口
@@ -29,6 +31,7 @@ public class RegisterController {
         registerService.registerStudentTeacher(request);
         return Result.success();
     }
+
 
     /**
      * 企业人员注册接口

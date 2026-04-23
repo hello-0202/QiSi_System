@@ -72,6 +72,7 @@ public enum ResultCode {
     DEMAND_APPLY_NOT_EXIST(4002017, "该需求申请记录不存在"),
     DEMAND_APPLY_STATUS_NOT_ALLOW(4002018, "当前申请状态不允许操作，仅待审核可撤回"),
     NO_PERMISSION(4002019,"无权限"),
+    DEMAND_STATUS_ILLEGAL(4002020, "实践需求状态只能是：已发布、研究中、已完成、已关闭"),
 
 
     /**

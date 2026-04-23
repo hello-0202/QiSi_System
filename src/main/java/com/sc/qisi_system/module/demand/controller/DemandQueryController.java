@@ -13,11 +13,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
 @RequestMapping("/api/demand/query")
 @RequiredArgsConstructor
 @RestController
 @Validated
 public class DemandQueryController {
+
 
     private final DemandQueryService demandQueryService;
     private final MinioService minioService;
@@ -99,7 +101,7 @@ public class DemandQueryController {
     @GetMapping("applicable-demand-detail")
     public Result getApplicableDemandDetail(
             @NotNull @RequestParam Long demandId){
-        return Result.success(demandQueryService.getApplicableDemandDetail(demandId));
+        return Result.success(demandQueryService.getDemandReceiverDetail(demandId));
     }
 
 
