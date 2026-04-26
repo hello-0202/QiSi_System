@@ -4,11 +4,9 @@ import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
-import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ApplyQueryService {
 
@@ -59,11 +57,5 @@ public interface ApplyQueryService {
     ApplyDetailVO getApplyDetail(Long applyId);
 
 
-    /**
-     * 获取映射表，判断改用户是否申请该需求
-     *
-     * @param userId 用户id
-     * @return 用户id和需求的映射表
-     */
-    Map<Long, DemandApplyList> getUserApplyMap(Long userId);
+
 }

@@ -1,7 +1,7 @@
-package com.sc.qisi_system.module.demand.mapper;
+package com.sc.qisi_system.module.practice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.qisisystem.module.apply.entity.DemandMemberChange;
+import com.sc.qisi_system.module.practice.entity.DemandMemberChange;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

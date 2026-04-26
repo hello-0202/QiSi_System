@@ -34,6 +34,4 @@ public class DemandPublisherList {
      * 企业名称
      */
     private String enterpriseName;
-
-
 }

@@ -28,7 +28,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
     @Override
     public Long submitDraft(Long userId,DemandPublishDraftDTO demandPublishDraftDTO) {
 
-        if(!sysUserService.existsById(userId)){
+        if(sysUserService.existsById(userId)){
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 

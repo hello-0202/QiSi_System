@@ -4,8 +4,9 @@ import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
+import com.sc.qisi_system.module.practice.dto.MemberChangeLogDTO;
 import com.sc.qisi_system.module.practice.service.PracticeQueryService;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -29,11 +30,12 @@ public class PracticeQueryController {
      * 实践中心查看需求列表接口
      * 角色: 发布者
      *
-     * @return 统一返回结果
+     * @param myDemandQueryDTO 查询请求体
+     * @return 需求列表
      */
-    @GetMapping("/demand/list")
+    @PostMapping("/demand/list")
     public Result getPracticeDemandList(
-            @NotBlank @RequestBody MyDemandQueryDTO myDemandQueryDTO) {
+            @Valid @RequestBody MyDemandQueryDTO myDemandQueryDTO) {
         return Result.success(practiceQueryService.getPracticeDemandList(SecurityUtils.getCurrentUserId(), myDemandQueryDTO));
     }
 
@@ -42,7 +44,8 @@ public class PracticeQueryController {
      * 实践中心查看需求详情接口(复用)
      * 角色: 发布者
      *
-     * @return 统一返回结果
+     * @param demandId 需求id
+     * @return 需求详情
      */
     @GetMapping("/demand/detail")
     public Result getPracticeDemandDetail(
@@ -52,19 +55,25 @@ public class PracticeQueryController {
 
 
     /**
-     * 查看我参与的实践需求列表(复用)
+     * 查看我参与的实践需求列表接口(复用)
      * 角色: 认领者
+     *
+     * @param practiceDemandQueryDTO 分页查询请求体
+     * @return 我参与的需求列表
      */
-    @GetMapping("/my-practice/list")
+    @PostMapping("/my-practice/list")
     public Result getMyPracticeList(
-            @RequestBody PracticeDemandQueryDTO practiceDemandQueryDTO) {
+            @Valid @RequestBody PracticeDemandQueryDTO practiceDemandQueryDTO) {
         return Result.success(practiceQueryService.getMyPracticeList(SecurityUtils.getCurrentUserId(),practiceDemandQueryDTO));
     }
 
 
     /**
-     * 查看实践需求详情(复用)
+     * 查看实践需求详情接口
      * 角色: 认领者
+     *
+     * @param demandId 需求id
+     * @return 需求详情
      */
     @GetMapping("/my-practice/detail")
     public Result getMyPracticeDetail(
@@ -75,8 +84,10 @@ public class PracticeQueryController {
 
     /**
      * 查询成员列表接口(复用)
+     * 角色: 发布者 认领者
      *
-     * @return 统一返回结果
+     * @param demandId 需求id
+     * @return 成员列表
      */
     @GetMapping("/member/list")
     public Result getMemberList(
@@ -87,8 +98,10 @@ public class PracticeQueryController {
 
     /**
      * 查询成员详细信息接口(复用)
+     * 角色: 发布者 认领者
      *
-     * @return 统一返回结果
+     * @param userId 用户id
+     * @return 用户详细信息
      */
     @GetMapping("/member/info")
     public Result getMemberDetailInfo(
@@ -97,14 +110,16 @@ public class PracticeQueryController {
     }
 
 
-    //TODO
     /**
      * 查询需求成员变更记录接口
+     * 角色: 发布者
      *
-     * @return 统一返回结果
+     * @param memberChangeLogDTO 分页查询请求体
+     * @return 变更记录
      */
-    @GetMapping("/member/change/log")
-    public Result getDemandMemberChangeLog() {
-        return null;
+    @PostMapping("/member/change/log")
+    public Result getDemandMemberChangeLog(
+            @Valid @RequestBody MemberChangeLogDTO memberChangeLogDTO) {
+        return Result.success(practiceQueryService.getDemandMemberChangeLog(memberChangeLogDTO));
     }
 }

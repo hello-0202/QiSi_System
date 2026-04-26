@@ -1,9 +1,9 @@
-package com.sc.qisi_system.module.demand.domain;
+package com.sc.qisi_system.module.user.domain;
 
 import lombok.Data;
 
 @Data
-public class DemandPublisherBase {
+public class UserInfoBase {
 
 
     /**
@@ -31,6 +31,18 @@ public class DemandPublisherBase {
 
 
     /**
+     * 专业
+     */
+    private String major;
+
+
+    /**
+     * 年级
+     */
+    private String grade;
+
+
+    /**
      * 企业名称
      */
     private String enterpriseName;
@@ -52,6 +64,4 @@ public class DemandPublisherBase {
      * 手机号
      */
     private String phone;
-
-
 }

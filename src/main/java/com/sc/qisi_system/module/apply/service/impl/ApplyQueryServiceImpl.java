@@ -4,19 +4,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
-import com.sc.qisi_system.module.apply.domain.EnterpriseInfo;
-import com.sc.qisi_system.module.apply.domain.StudentInfo;
-import com.sc.qisi_system.module.apply.domain.TeacherInfo;
 import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.mapper.DemandApplyMapper;
 import com.sc.qisi_system.module.apply.service.ApplyQueryService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
-import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
+import com.sc.qisi_system.module.user.domain.UserInfoBase;
 import com.sc.qisi_system.module.user.entity.EduStudent;
 import com.sc.qisi_system.module.user.entity.EduTeacher;
 import com.sc.qisi_system.module.user.entity.EntEmployee;
@@ -77,7 +74,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         if(!demandService.existsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
-        if(!sysUserService.existsById(userId)) {
+        if(sysUserService.existsById(userId)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 
@@ -123,11 +120,13 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         for (SysUser sysUser : sysUserList) {
             ApplyMemberListVO vo = new ApplyMemberListVO();
             vo.setId(sysUser.getId());
-            vo.setName(sysUser.getName());
-            vo.setAvatar(sysUser.getAvatar());
-            vo.setUserType(sysUser.getUserType());
-
             vo.setApplyId(userIdToApplyIdMap.get(sysUser.getId()));
+
+            UserInfoBase userInfoBase = new UserInfoBase();
+            userInfoBase.setName(sysUser.getName());
+            userInfoBase.setAvatar(sysUser.getAvatar());
+            userInfoBase.setUserType(sysUser.getUserType());
+            vo.setUserInfoBase(userInfoBase);
 
             loadUserInfoByRole(sysUser.getId(), sysUser.getUserType(), vo);
             voList.add(vo);
@@ -139,7 +138,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
 
     @Override
     public ApplyMemberListVO getApplyMemberDetail(Long userId) {
-        if(!sysUserService.existsById(userId)) {
+        if(sysUserService.existsById(userId)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 
@@ -156,8 +155,8 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
         ApplyMemberListVO vo = new ApplyMemberListVO();
-        vo.setPhone(sysUser.getPhone());
-        vo.setEmail(sysUser.getEmail());
+        vo.getUserInfoBase().setPhone(sysUser.getPhone());
+        vo.getUserInfoBase().setEmail(sysUser.getEmail());
 
         return vo;
     }
@@ -174,26 +173,6 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         BeanUtils.copyProperties(demandApply, applyDetailVO);
 
         return applyDetailVO;
-    }
-
-
-    @Override
-    public Map<Long, DemandApplyList> getUserApplyMap(Long userId) {
-
-        // 1. 查询用户所有申请
-        List<DemandApply> applyList = demandApplyMapper.selectList(new LambdaQueryWrapper<DemandApply>()
-                .eq(DemandApply::getUserId, userId));
-
-        return applyList.stream()
-                .collect(Collectors.toMap(
-                        DemandApply::getDemandId,
-                        apply -> {
-                            DemandApplyList vo = new DemandApplyList();
-                            vo.setId(apply.getId());
-                            vo.setAuditStatus(apply.getAuditStatus());
-                            return vo;
-                        }
-                ));
     }
 
 
@@ -222,13 +201,9 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         EduStudent eduStudent = eduStudentService.getOne(queryWrapper);
 
         if (eduStudent == null) {
-            vo.setStudentInfo(null);
             return;
         }
-
-        StudentInfo studentInfo = new StudentInfo();
-        BeanUtils.copyProperties(eduStudent, studentInfo);
-        vo.setStudentInfo(studentInfo);
+        BeanUtils.copyProperties(eduStudent, vo.getUserInfoBase());
     }
 
 
@@ -243,12 +218,9 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         EduTeacher eduTeacher = eduTeacherService.getOne(queryWrapper);
 
         if (eduTeacher == null) {
-            vo.setTeacherInfo(null);
             return;
         }
-        TeacherInfo teacherInfo = new TeacherInfo();
-        BeanUtils.copyProperties(eduTeacher, teacherInfo);
-        vo.setTeacherInfo(teacherInfo);
+        BeanUtils.copyProperties(eduTeacher, vo.getUserInfoBase());
     }
 
 
@@ -262,13 +234,8 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
                 .select(EntEmployee::getEnterpriseName);
         EntEmployee entEmployee = entEmployeeService.getOne(queryWrapper);
         if (entEmployee == null) {
-            vo.setEnterpriseInfo(null);
             return;
         }
-        EnterpriseInfo enterpriseInfo = new EnterpriseInfo();
-        BeanUtils.copyProperties(entEmployee, enterpriseInfo);
-        vo.setEnterpriseInfo(enterpriseInfo);
+        BeanUtils.copyProperties(entEmployee, vo.getUserInfoBase());
     }
-
-
 }

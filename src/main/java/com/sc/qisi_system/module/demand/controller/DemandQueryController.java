@@ -7,7 +7,6 @@ import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.service.MinioService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -64,7 +63,7 @@ public class DemandQueryController {
      */
     @GetMapping("/demand-detail")
     public Result getDemandDetail(
-            @NotBlank(message = "需求id不能为空") @RequestParam Long demandId) {
+            @NotNull(message = "需求id不能为空") @RequestParam Long demandId) {
         return Result.success(demandQueryService.getMyDemandDetail(demandId));
     }
 

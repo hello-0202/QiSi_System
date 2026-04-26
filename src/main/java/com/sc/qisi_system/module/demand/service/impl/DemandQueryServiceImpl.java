@@ -3,7 +3,6 @@ package com.sc.qisi_system.module.demand.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
@@ -11,11 +10,10 @@ import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
-import com.sc.qisi_system.module.apply.service.ApplyQueryService;
 import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.domain.DemandPracticeList;
-import com.sc.qisi_system.module.demand.domain.DemandPublisherBase;
+import com.sc.qisi_system.module.user.domain.UserInfoBase;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
 import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
@@ -26,13 +24,6 @@ import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.vo.*;
 import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.practice.service.DemandMemberService;
-import com.sc.qisi_system.module.user.entity.EduStudent;
-import com.sc.qisi_system.module.user.entity.EduTeacher;
-import com.sc.qisi_system.module.user.entity.EntEmployee;
-import com.sc.qisi_system.module.user.entity.SysUser;
-import com.sc.qisi_system.module.user.service.EduStudentService;
-import com.sc.qisi_system.module.user.service.EduTeacherService;
-import com.sc.qisi_system.module.user.service.EntEmployeeService;
 import com.sc.qisi_system.module.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -50,11 +41,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
     private final DemandMapper demandMapper;
     private final SysUserService sysUserService;
-    private final EduTeacherService eduTeacherService;
-    private final EduStudentService eduStudentService;
-    private final EntEmployeeService entEmployeeService;
     private final ApplyService applyService;
-    private final ApplyQueryService applyQueryService;
     private final DemandMemberService demandMemberService;
 
 
@@ -106,7 +93,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
         MyDemandDetailVO myDemandDetailVO = new MyDemandDetailVO();
         BeanUtils.copyProperties(demand, myDemandDetailVO);
-        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), myDemandDetailVO.getDemandPublisherDetailVO());
+        BeanUtils.copyProperties(sysUserService.getDemandUserBase(demand.getPublisherId()), myDemandDetailVO.getDemandPublisherDetailVO());
 
         return myDemandDetailVO;
     }
@@ -130,13 +117,12 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
 
         // 3. 返回包装
-        return convertToApplicablePageResultList(demandIPage,applyQueryService.getUserApplyMap(userId));
+        return convertToApplicablePageResultList(demandIPage,applyService.getUserApplyMap(userId));
     }
 
 
     @Override
     public DemandReceiverDetailVO getDemandReceiverDetail(Long demandId) {
-
         Demand demand = getDemand(demandId);
 
         if (Objects.equals(demand.getStatus(), DemandStatusEnum.PUBLISHED.getCode())) {
@@ -145,7 +131,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
         DemandReceiverDetailVO demandReceiverDetailVO = new DemandReceiverDetailVO();
         BeanUtils.copyProperties(demand, demandReceiverDetailVO);
-        BeanUtils.copyProperties(getDemandUserBase(demand.getPublisherId()), demandReceiverDetailVO.getDemandPublisherDetailVO());
+        BeanUtils.copyProperties(sysUserService.getDemandUserBase(demand.getPublisherId()), demandReceiverDetailVO.getDemandPublisherDetailVO());
 
         return demandReceiverDetailVO;
     }
@@ -159,8 +145,8 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
         // 2. 查询申请列表
         List<DemandApply> demandApplyList = applyService
-                .list(new LambdaQueryWrapper<>(DemandApply.class)
-                        .eq(DemandApply::getUserId,userId));
+                                                .list(new LambdaQueryWrapper<>(DemandApply.class)
+                                                .eq(DemandApply::getUserId,userId));
         if (demandApplyList.isEmpty()) {
             PageResult<DemandListVO> empty = new PageResult<>();
             empty.setTotal(0L);
@@ -176,7 +162,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
                 .orderByDesc(Demand::getCreateTime);
         IPage<Demand> demandIPage = demandMapper.selectPage(page, demandQuery);
 
-        return convertToApplicablePageResultList(demandIPage,applyQueryService.getUserApplyMap(userId));
+        return convertToApplicablePageResultList(demandIPage,applyService.getUserApplyMap(userId));
     }
 
 
@@ -221,14 +207,12 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         List<DemandListVO> voList = demandIPage.getRecords().stream()
                 .map(demand -> {
 
-                    DemandPublisherBase demandPublisherBase = getDemandUserBase(demand.getPublisherId());
+                    UserInfoBase userInfoBase = sysUserService.getDemandUserBase(demand.getPublisherId());
                     DemandListVO vo = new DemandListVO();
                     BeanUtils.copyProperties(demand, vo);
                     DemandPublisherList demandPublisherList = new DemandPublisherList();
-                    BeanUtils.copyProperties(demandPublisherBase, demandPublisherList);
+                    BeanUtils.copyProperties(userInfoBase, demandPublisherList);
                     vo.setDemandPublisherList(demandPublisherList);
-
-
 
                     return vo;
 
@@ -255,7 +239,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
                     BeanUtils.copyProperties(demand, vo);
 
                     // 2. 设置发布人信息
-                    DemandPublisherBase userBase = getDemandUserBase(demand.getPublisherId());
+                    UserInfoBase userBase = sysUserService.getDemandUserBase(demand.getPublisherId());
                     DemandPublisherList userListVO = new DemandPublisherList();
                     BeanUtils.copyProperties(userBase, userListVO);
                     vo.setDemandPublisherList(userListVO);
@@ -286,11 +270,11 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         List<DemandListVO> voList = demandIPage.getRecords().stream()
                 .map(demand -> {
 
-                    DemandPublisherBase demandPublisherBase = getDemandUserBase(demand.getPublisherId());
+                    UserInfoBase userInfoBase = sysUserService.getDemandUserBase(demand.getPublisherId());
                     DemandListVO vo = new DemandListVO();
                     BeanUtils.copyProperties(demand, vo);
                     DemandPublisherList demandPublisherList = new DemandPublisherList();
-                    BeanUtils.copyProperties(demandPublisherBase, demandPublisherList);
+                    BeanUtils.copyProperties(userInfoBase, demandPublisherList);
                     vo.setDemandPublisherList(demandPublisherList);
 
                     LambdaQueryWrapper<DemandMember> queryWrapper = new LambdaQueryWrapper<>();
@@ -314,72 +298,4 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         pageResult.setRecords(voList);
         return pageResult;
     }
-
-
-    /**
-     *
-     */
-    private DemandPublisherBase getDemandUserBase(Long userId) {
-
-        SysUser sysUser = sysUserService.getById(userId);
-        if (Objects.isNull(sysUser)) {
-            throw new BusinessException(ResultCode.USER_NOT_FOUND);
-        }
-
-        Integer userType = sysUser.getUserType();
-
-        DemandPublisherBase demandPublisherBase = new DemandPublisherBase();
-        BeanUtils.copyProperties(sysUser, demandPublisherBase);
-
-        return switch (userType) {
-            case 1 -> getStudentDetail(sysUser, demandPublisherBase);
-            case 2 -> getTeacherDetail(sysUser, demandPublisherBase);
-            case 3 -> getEmployeeDetail(sysUser, demandPublisherBase);
-            default -> demandPublisherBase;
-        };
-
-    }
-
-
-    /**
-     *
-     */
-    private DemandPublisherBase getEmployeeDetail(SysUser sysUser, DemandPublisherBase baseVO) {
-
-        EntEmployee emp = entEmployeeService.getOne(Wrappers
-                .lambdaQuery(EntEmployee.class)
-                .eq(EntEmployee::getUserId, sysUser.getId()));
-
-        if (Objects.nonNull(emp)) BeanUtils.copyProperties(emp, baseVO);
-        return baseVO;
-    }
-
-
-    /**
-     *
-     */
-    private DemandPublisherBase getTeacherDetail(SysUser sysUser, DemandPublisherBase baseVO) {
-
-        EduTeacher teacher = eduTeacherService.getOne(Wrappers
-                .lambdaQuery(EduTeacher.class)
-                .eq(EduTeacher::getUserId, sysUser.getId()));
-
-        if (Objects.nonNull(teacher)) BeanUtils.copyProperties(teacher, baseVO);
-        return baseVO;
-    }
-
-
-    /**
-     *
-     */
-    private DemandPublisherBase getStudentDetail(SysUser sysUser, DemandPublisherBase baseVO) {
-
-        EduStudent student = eduStudentService.getOne(Wrappers
-                .lambdaQuery(EduStudent.class)
-                .eq(EduStudent::getUserId, sysUser.getId()));
-
-        if (Objects.nonNull(student)) BeanUtils.copyProperties(student, baseVO);
-        return baseVO;
-    }
-
 }
