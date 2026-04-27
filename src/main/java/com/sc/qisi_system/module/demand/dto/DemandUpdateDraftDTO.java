@@ -99,5 +99,4 @@ public class DemandUpdateDraftDTO {
      */
     private Boolean requirePlan;
 
-
 }

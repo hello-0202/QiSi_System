@@ -126,7 +126,10 @@ public class PracticeQueryController {
 
 
     /**
-     * 查询需求日志
+     * 查询需求日志接口
+     *
+     * @param queryDemandProgressLogDTO  需求日志查询请求体
+     * @return 需求日志列表
      */
     @GetMapping("/demand-progress/log")
     public Result getDemandProgressLog(

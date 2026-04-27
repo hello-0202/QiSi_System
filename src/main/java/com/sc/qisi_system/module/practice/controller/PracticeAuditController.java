@@ -26,7 +26,9 @@ public class PracticeAuditController {
 
     /**
      * 提交需求计划接口
+     * 角色: 发布者
      *
+     * @param demandPlanDTO 需求计划请求体
      * @return 统一返回结果
      */
     @PostMapping("/plan/submit")
@@ -39,7 +41,9 @@ public class PracticeAuditController {
 
     /**
      * 开始研究接口
+     * 角色: 发布者
      *
+     * @param demandId 需求id
      * @return 统一返回结果
      */
     @PutMapping("/research/start")
@@ -52,7 +56,9 @@ public class PracticeAuditController {
 
     /**
      * 完成研究接口
+     * 角色: 发布者
      *
+     * @param demandId 需求id
      * @return 统一返回结果
      */
     @PutMapping("/research/complete")
@@ -65,7 +71,9 @@ public class PracticeAuditController {
 
     /**
      * 关闭需求接口
+     * 角色: 发布者
      *
+     * @param demandId 需求id
      * @return 统一返回结果
      */
     @PutMapping("/demand/close")
@@ -78,6 +86,10 @@ public class PracticeAuditController {
 
     /**
      * 重新提交审核接口
+     * 角色: 发布者
+     *
+     * @param demandId 需求id
+     * @return 统一返回结果
      */
     @PutMapping("/audit/resubmit")
     public Result resubmitAudit(
@@ -89,7 +101,9 @@ public class PracticeAuditController {
 
     /**
      * 踢出成员接口
+     * 角色: 发布者
      *
+     * @param memberChangeDTO 需求成员变更请求体
      * @return 统一返回结果
      */
     @DeleteMapping("/member/kick")
@@ -103,6 +117,7 @@ public class PracticeAuditController {
     /**
      * 发布者审核成员退出申请接口
      *
+     * @param memberChangeDTO 需求成员变更请求体
      * @return 统一返回结果
      */
     @PostMapping("/quit/audit")

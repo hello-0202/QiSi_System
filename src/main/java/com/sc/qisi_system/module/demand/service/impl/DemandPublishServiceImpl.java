@@ -40,6 +40,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         demand.setPublisherId(userId);
         demand.setStatus(DemandStatusEnum.DRAFT.getCode());
         demand.setCloseApplyStatus(CloseApplyStatusEnum.NO_APPLY.getCode());
+        demand.setProgressPercent(0);
 
         demandMapper.insert(demand);
 
@@ -77,6 +78,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
                 .researchCycle(demandUpdateDraftDTO.getResearchCycle())
                 .maxMembers(demandUpdateDraftDTO.getMaxMembers())
                 .requirePlan(demandUpdateDraftDTO.getRequirePlan())
+                .progressPercent(0)
                 .build();
 
         demandMapper.updateById(updatedDemand);

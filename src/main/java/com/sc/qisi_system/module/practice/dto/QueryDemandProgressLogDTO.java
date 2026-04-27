@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.practice.dto;
 
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -21,5 +22,6 @@ public class QueryDemandProgressLogDTO {
     /**
      * 需求id
      */
+    @NotNull
     private Long demandId;
 }

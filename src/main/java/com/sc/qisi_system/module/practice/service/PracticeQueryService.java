@@ -87,5 +87,11 @@ public interface PracticeQueryService {
     PageResult<MemberChangeLogVO> getDemandMemberChangeLog(MemberChangeLogDTO memberChangeLogDTO);
 
 
+    /**
+     * 查询需求日志
+     *
+     * @param queryDemandProgressLogDTO  需求日志查询请求体
+     * @return 需求日志列表
+     */
     PageResult<DemandProgressVO> getDemandProgressLog(QueryDemandProgressLogDTO queryDemandProgressLogDTO);
 }

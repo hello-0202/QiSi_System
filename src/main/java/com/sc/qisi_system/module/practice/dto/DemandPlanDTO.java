@@ -2,6 +2,7 @@ package com.sc.qisi_system.module.practice.dto;
 
 
 import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class DemandPlanDTO {
     /**
      * 关联需求ID: demand主键
      */
+    @NotNull
     private Long demandId;
 
 

@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.practice.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -10,18 +12,21 @@ public class MemberChangeDTO {
     /**
      * 关联需求ID
      */
+    @NotNull
     private Long demandId;
 
 
     /**
      * 变更用户ID
      */
+    @NotNull
     private Long userId;
 
 
     /**
      * 变更原因
      */
+    @NotBlank
     private String reason;
 
 

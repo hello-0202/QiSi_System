@@ -74,6 +74,8 @@ public enum ResultCode {
     NO_PERMISSION(4002019,"无权限"),
     DEMAND_STATUS_ILLEGAL(4002020, "实践需求状态只能是：已发布、研究中、已完成、已关闭"),
     DEMAND_MEMBER_CHANGE_NOT_EXIST(4002021, "需求成员变更记录不存在"),
+    DEMAND_PLAN_NOT_EXIST(4002022, "需求计划不存在"),
+    DEMAND_QUIT_APPLIED_REPEAT(4002023, "你已提交过该需求的退出申请，请勿重复提交"),
 
 
     /**

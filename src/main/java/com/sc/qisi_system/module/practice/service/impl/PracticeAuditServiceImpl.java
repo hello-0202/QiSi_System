@@ -46,6 +46,7 @@ public class PracticeAuditServiceImpl implements PracticeAuditService {
         DemandExecutionPlan executionPlan = new DemandExecutionPlan();
         BeanUtils.copyProperties(demandPlanDTO, executionPlan);
         executionPlan.setOperatorId(SecurityUtils.getCurrentUserId());
+
         demandExecutionPlanMapper.insert(executionPlan);
     }
 
