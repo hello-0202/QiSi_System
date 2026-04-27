@@ -6,11 +6,20 @@ import lombok.Data;
 public class ResearchPlanStage {
 
 
-    private String stage;     // 阶段一、阶段二
+    /**
+     * 阶段标题
+     */
+    private String stage;
 
 
-    private String content;   // 阶段内容
+    /**
+     * 阶段内容
+     */
+    private String content;
 
 
-    private Boolean completed;// 是否完成（更新进度用）
+    /**
+     * 是否完成
+     */
+    private Boolean completed;
 }

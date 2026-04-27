@@ -2,6 +2,7 @@ package com.sc.qisi_system.module.practice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
@@ -17,11 +18,16 @@ import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.DemandReceiverDetailVO;
 import com.sc.qisi_system.module.demand.vo.MyDemandDetailVO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeLogDTO;
+import com.sc.qisi_system.module.practice.dto.QueryDemandProgressLogDTO;
 import com.sc.qisi_system.module.practice.entity.DemandMemberChange;
+import com.sc.qisi_system.module.practice.entity.DemandProgress;
 import com.sc.qisi_system.module.practice.mapper.DemandMemberChangeMapper;
+import com.sc.qisi_system.module.practice.mapper.DemandProgressMapper;
 import com.sc.qisi_system.module.practice.service.PracticeQueryService;
+import com.sc.qisi_system.module.practice.vo.DemandProgressVO;
 import com.sc.qisi_system.module.practice.vo.MemberChangeLogVO;
 import com.sc.qisi_system.module.user.domain.UserInfoBase;
+import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +45,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
 
     private final DemandMemberChangeMapper demandMemberChangeMapper;
+    private final DemandProgressMapper demandProgressMapper;
     private final DemandService demandService;
     private final DemandQueryService demandQueryService;
     private final ApplyQueryService applyQueryService;
@@ -106,7 +113,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
         Page<DemandMemberChange> page = new Page<>(memberChangeLogDTO.getPageNum(), memberChangeLogDTO.getPageSize());
 
-        if (!demandService.existsByDemandId(memberChangeLogDTO.getDemandId())) {
+        if (!demandService.notExistsByDemandId(memberChangeLogDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
@@ -131,6 +138,44 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
         pageResult.setTotal(demandMemberChangeIPage.getTotal());
         pageResult.setPages(demandMemberChangeIPage.getPages());
         pageResult.setRecords(voList);
+        return pageResult;
+    }
+
+
+    @Override
+    public PageResult<DemandProgressVO> getDemandProgressLog(QueryDemandProgressLogDTO queryDemandProgressLogDTO) {
+
+        Page<DemandProgress> page = new Page<>(queryDemandProgressLogDTO.getPageNum(), queryDemandProgressLogDTO.getPageSize());
+
+        if(demandService.notExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
+
+        LambdaQueryWrapper<DemandProgress> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .eq(DemandProgress::getDemandId, queryDemandProgressLogDTO.getDemandId());
+        IPage<DemandProgress> demandProgressIPage = demandProgressMapper.selectPage(page, queryWrapper);
+
+        List<DemandProgressVO> demandProgressVOList = demandProgressIPage.getRecords().stream().map(
+                demandProgress -> {
+                    DemandProgressVO demandProgressVO = new DemandProgressVO();
+                    BeanUtils.copyProperties(demandProgress, demandProgressVO);
+
+                    SysUser sysUser = sysUserService.getOne(Wrappers.lambdaQuery(SysUser.class)
+                            .eq(SysUser::getId,demandProgress.getUserId())
+                            .select(SysUser::getName));
+                    if (sysUser != null) {
+                        demandProgressVO.setName(sysUser.getName());
+                    }
+
+                    return demandProgressVO;
+                }).toList();
+
+        PageResult<DemandProgressVO> pageResult = new PageResult<>();
+        pageResult.setTotal(demandProgressIPage.getTotal());
+        pageResult.setPages(demandProgressIPage.getPages());
+        pageResult.setRecords(demandProgressVOList);
+
         return pageResult;
     }
 }

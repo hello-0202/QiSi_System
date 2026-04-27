@@ -71,7 +71,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     @Override
     public List<ApplyMemberListVO> getApplyMemberList(Long userId, Long demandId) {
 
-        if(!demandService.existsByDemandId(demandId)) {
+        if(!demandService.notExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
         if(sysUserService.existsById(userId)) {

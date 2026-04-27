@@ -8,6 +8,8 @@ import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.DemandReceiverDetailVO;
 import com.sc.qisi_system.module.demand.vo.MyDemandDetailVO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeLogDTO;
+import com.sc.qisi_system.module.practice.dto.QueryDemandProgressLogDTO;
+import com.sc.qisi_system.module.practice.vo.DemandProgressVO;
 import com.sc.qisi_system.module.practice.vo.MemberChangeLogVO;
 
 import java.util.List;
@@ -83,4 +85,7 @@ public interface PracticeQueryService {
      * @return 变更记录
      */
     PageResult<MemberChangeLogVO> getDemandMemberChangeLog(MemberChangeLogDTO memberChangeLogDTO);
+
+
+    PageResult<DemandProgressVO> getDemandProgressLog(QueryDemandProgressLogDTO queryDemandProgressLogDTO);
 }

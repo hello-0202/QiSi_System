@@ -5,6 +5,7 @@ import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeLogDTO;
+import com.sc.qisi_system.module.practice.dto.QueryDemandProgressLogDTO;
 import com.sc.qisi_system.module.practice.service.PracticeQueryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -121,5 +122,15 @@ public class PracticeQueryController {
     public Result getDemandMemberChangeLog(
             @Valid @RequestBody MemberChangeLogDTO memberChangeLogDTO) {
         return Result.success(practiceQueryService.getDemandMemberChangeLog(memberChangeLogDTO));
+    }
+
+
+    /**
+     * 查询需求日志
+     */
+    @GetMapping("/demand-progress/log")
+    public Result getDemandProgressLog(
+            @Valid @RequestBody QueryDemandProgressLogDTO queryDemandProgressLogDTO) {
+        return Result.success(practiceQueryService.getDemandProgressLog(queryDemandProgressLogDTO));
     }
 }

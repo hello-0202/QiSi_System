@@ -11,7 +11,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
 
 
     @Override
-    public boolean existsByDemandId(Long demandId) {
+    public boolean notExistsByDemandId(Long demandId) {
         return getById(demandId) != null;
     }
 }

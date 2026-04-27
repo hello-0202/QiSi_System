@@ -6,6 +6,6 @@ import com.sc.qisi_system.module.demand.entity.Demand;
 public interface DemandService extends IService<Demand> {
 
 
-    boolean existsByDemandId(Long demandId);
+    boolean notExistsByDemandId(Long demandId);
 
 }

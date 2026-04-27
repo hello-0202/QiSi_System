@@ -75,6 +75,4 @@ public class DemandListVO {
      * 创建时间
      */
     private LocalDateTime createTime;
-
-
 }

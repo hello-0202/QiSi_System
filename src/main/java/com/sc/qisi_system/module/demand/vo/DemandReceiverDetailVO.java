@@ -83,6 +83,4 @@ public class DemandReceiverDetailVO {
      * 申请截止时间
      */
     private LocalDateTime deadline;
-
-
 }

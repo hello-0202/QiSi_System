@@ -1,6 +1,8 @@
 package com.sc.qisi_system.module.practice.controller;
 
 import com.sc.qisi_system.common.result.Result;
+import com.sc.qisi_system.module.practice.dto.DemandProgressDTO;
+import com.sc.qisi_system.module.practice.service.PracticeExecuteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +18,18 @@ import org.springframework.web.bind.annotation.*;
 public class PracticeExecuteController {
 
 
-    //TODO
+    private final PracticeExecuteService practiceExecuteService;
+
+
     /**
      * 提交需求日志接口
      *
      * @return 统一返回结果
      */
     @PostMapping("/log")
-    public Result submitDemandLog() {
-        return null;
+    public Result submitDemandLog(DemandProgressDTO demandProgressDTO) {
+        practiceExecuteService.submitDemandPlan(demandProgressDTO);
+        return Result.success();
     }
 
 
