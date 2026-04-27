@@ -36,6 +36,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     private final DemandProgressCalculator demandProgressCalculator;
 
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void submitDemandLog(DemandProgressDTO demandProgressDTO) {
         if (demandService.notExistsByDemandId(demandProgressDTO.getDemandId())) {
