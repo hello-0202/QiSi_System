@@ -5,9 +5,10 @@ import com.sc.qisi_system.module.practice.entity.DemandProgressAttachment;
 
 public interface AsyncFileDeleteService {
 
+
     void deleteFileAsync(DemandAttachment attachment);
 
 
-    void deleteProgressFileAsync(DemandProgressAttachment attachment); // 新增
+    void deleteProgressFileAsync(DemandProgressAttachment attachment);
 
 }

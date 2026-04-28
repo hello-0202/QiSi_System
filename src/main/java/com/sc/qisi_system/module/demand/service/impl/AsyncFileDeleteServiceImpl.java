@@ -17,14 +17,17 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class AsyncFileDeleteServiceImpl implements AsyncFileDeleteService {
 
+
     private final MinioClient minioClient;
     private final DemandAttachmentService demandAttachmentService;
     private final DemandProgressAttachmentService demandProgressAttachmentService;
+
 
     /**
      * 私有方法: 在Minio里删除文件
      */
     @Async("asyncExecutor")
+    @Override
     public void deleteFileAsync(DemandAttachment attachment) {
 
         try {
@@ -47,7 +50,7 @@ public class AsyncFileDeleteServiceImpl implements AsyncFileDeleteService {
 
 
     /**
-     * 异步删除进度附件 【你要的这个】
+     * 异步删除进度附件
      */
     @Async("asyncExecutor")
     @Override
