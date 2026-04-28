@@ -9,6 +9,8 @@ import com.sc.qisi_system.common.utils.DemandProgressCalculator;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.service.DemandService;
+import com.sc.qisi_system.module.minio.service.MinioService;
+import com.sc.qisi_system.module.demand.vo.AttachmentUploadVO;
 import com.sc.qisi_system.module.practice.dto.DemandPlanDTO;
 import com.sc.qisi_system.module.practice.dto.DemandProgressDTO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeDTO;
@@ -23,6 +25,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -33,6 +38,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     private final DemandExecutionPlanMapper demandExecutionPlanMapper;
     private final DemandMemberChangeMapper demandMemberChangeMapper;
     private final DemandService demandService;
+    private final MinioService minioService;
     private final DemandProgressCalculator demandProgressCalculator;
 
 
@@ -47,6 +53,11 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
         BeanUtils.copyProperties(demandProgressDTO, demandProgress);
 
         demandProgressMapper.insert(demandProgress);
+    }
+
+    @Override
+    public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) throws Exception {
+        return minioService.batchUploadProgressAttachments(demandId, files);
     }
 
 
@@ -65,6 +76,18 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
         Demand demand = demandService.getById(demandPlanDTO.getDemandId());
         demand.setProgressPercent(demandProgressCalculator.calculateProgress(demandExecutionPlan.getResearchPlan()));
         demandService.updateById(demand);
+    }
+
+
+    @Override
+    public void deleteProgressAttachment(Long attachmentId) {
+        minioService.deleteProgressAttachment(attachmentId);
+    }
+
+
+    @Override
+    public void deleteBatchProgressAttachment(List<Long> attachmentIds) {
+        minioService.deleteBatchProgressAttachment(attachmentIds);
     }
 
 

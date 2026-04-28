@@ -76,6 +76,12 @@ public class DemandProgressAttachment implements Serializable {
 
 
     /**
+     * 软删除标记字段: 0-未删除 1-已软删除
+     */
+    private Integer isDeleted;
+
+
+    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)

@@ -84,6 +84,21 @@ public class PracticeQueryController {
 
 
     /**
+     * 查询实践需求的附件列表接口
+     * 角色: 发布者 认领者
+     *
+     * @param demandId 需求id
+     * @return 需求附件列表
+     */
+    @GetMapping("/progress-attachment/list")
+    public Result getProgressAttachmentList(
+            @NotNull @RequestParam Long demandId) {
+        return Result.success(practiceQueryService.getProgressAttachmentList(demandId));
+    }
+
+
+
+    /**
      * 查询成员列表接口(复用)
      * 角色: 发布者 认领者
      *

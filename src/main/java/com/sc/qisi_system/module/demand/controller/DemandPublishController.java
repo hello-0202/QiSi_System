@@ -4,7 +4,6 @@ import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.demand.dto.DemandPublishDraftDTO;
 import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
-import com.sc.qisi_system.module.demand.service.MinioService;
 import com.sc.qisi_system.module.demand.service.DemandPublishService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -28,7 +27,7 @@ public class DemandPublishController {
 
 
     private final DemandPublishService demandPublishService;
-    private final MinioService minioService;
+
 
 
     /**
@@ -99,7 +98,7 @@ public class DemandPublishController {
             @NotNull(message = "需求ID不能为空")
             @RequestParam Long demandId,
             @RequestParam("files") MultipartFile[] files) throws Exception {
-        return Result.success(minioService.batchUploadDemandAttachment(demandId, files));
+        return Result.success(demandPublishService.batchUploadDemandAttachment(demandId, files));
     }
 
 
@@ -109,10 +108,10 @@ public class DemandPublishController {
      * @param attachmentId 附件ID
      * @return 操作结果
      */
-    @DeleteMapping("/attachment/delete")
+    @DeleteMapping("/demand-attachment/delete")
     public Result deleteAttachment(
             @NotNull(message = "附件ID不能为空") @RequestParam Long attachmentId) {
-        minioService.deleteAttachment(attachmentId);
+        demandPublishService.deleteAttachment(attachmentId);
         return Result.success();
     }
 
@@ -123,10 +122,11 @@ public class DemandPublishController {
      * @param attachmentIds 需求附件id列表
      * @return 统一返回结果
      */
-    @DeleteMapping("/attachment/delete/batch")
+    @DeleteMapping("/demand-attachment/delete/batch")
     public Result deleteBatchAttachment(
             @NotEmpty(message = "附件ID列表不能为空") @RequestBody List<Long> attachmentIds) {
-        return Result.success("已删除" + minioService.deleteBatchAttachment(attachmentIds).size() + "个文件");
+        demandPublishService.deleteBatchAttachment(attachmentIds);
+        return Result.success();
     }
 
 

@@ -1,8 +1,11 @@
 package com.sc.qisi_system.module.demand.service;
 
-import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.module.demand.dto.DemandPublishDraftDTO;
 import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
+import com.sc.qisi_system.module.demand.vo.AttachmentUploadVO;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface DemandPublishService {
 
@@ -39,6 +42,31 @@ public interface DemandPublishService {
      */
     Long cancelSubmit(Long userId,Long demandId);
 
+
+    /**
+     * 需求附件上传
+     *
+     * @param demandId 需求ID
+     * @param files    上传的文件
+     * @return 文件信息/访问路径
+     */
+    AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) throws Exception;
+
+
+    /**
+     * 删除需求附件
+     *
+     * @param attachmentId 附件ID
+     */
+    void deleteAttachment(Long attachmentId);
+
+
+    /**
+     * 批量删除需求附件
+     *
+     * @param attachmentIds 需求附件id列表
+     */
+    void deleteBatchAttachment(List<Long> attachmentIds);
 
 
 }

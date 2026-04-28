@@ -4,6 +4,7 @@ import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
+import com.sc.qisi_system.module.demand.vo.AttachmentListVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.DemandReceiverDetailVO;
 import com.sc.qisi_system.module.demand.vo.MyDemandDetailVO;
@@ -55,6 +56,16 @@ public interface PracticeQueryService {
      * @return 需求详情
      */
     DemandReceiverDetailVO getMyPracticeDetail(Long demandId);
+
+
+    /**
+     * 查询实践需求的附件列表
+     * 角色: 发布者 认领者
+     *
+     * @param demandId 需求id
+     * @return 需求附件列表
+     */
+    List<AttachmentListVO> getProgressAttachmentList(Long demandId);
 
 
     /**

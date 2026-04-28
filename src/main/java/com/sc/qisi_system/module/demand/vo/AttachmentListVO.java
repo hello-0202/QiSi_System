@@ -4,7 +4,7 @@ package com.sc.qisi_system.module.demand.vo;
 import lombok.Data;
 
 @Data
-public class DemandAttachmentListVO {
+public class AttachmentListVO {
 
 
     /**

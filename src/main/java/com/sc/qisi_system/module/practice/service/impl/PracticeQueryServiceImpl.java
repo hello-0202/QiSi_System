@@ -14,6 +14,8 @@ import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.service.DemandService;
+import com.sc.qisi_system.module.minio.service.MinioService;
+import com.sc.qisi_system.module.demand.vo.AttachmentListVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.DemandReceiverDetailVO;
 import com.sc.qisi_system.module.demand.vo.MyDemandDetailVO;
@@ -50,6 +52,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     private final DemandQueryService demandQueryService;
     private final ApplyQueryService applyQueryService;
     private final SysUserService sysUserService;
+    private final MinioService minioService;
 
 
     @Override
@@ -93,6 +96,11 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     @Override
     public DemandReceiverDetailVO getMyPracticeDetail(Long demandId) {
         return demandQueryService.getDemandReceiverDetail(demandId);
+    }
+
+    @Override
+    public List<AttachmentListVO> getProgressAttachmentList(Long demandId) {
+        return minioService.getProgressAttachmentList(demandId);
     }
 
 

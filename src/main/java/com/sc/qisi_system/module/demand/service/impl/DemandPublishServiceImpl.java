@@ -9,11 +9,15 @@ import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.mapper.DemandMapper;
 import com.sc.qisi_system.module.demand.service.DemandPublishService;
+import com.sc.qisi_system.module.minio.service.MinioService;
+import com.sc.qisi_system.module.demand.vo.AttachmentUploadVO;
 import com.sc.qisi_system.module.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -23,12 +27,13 @@ public class DemandPublishServiceImpl implements DemandPublishService {
 
     private final DemandMapper demandMapper;
     private final SysUserService sysUserService;
+    private final MinioService minioService;
 
 
     @Override
-    public Long submitDraft(Long userId,DemandPublishDraftDTO demandPublishDraftDTO) {
+    public Long submitDraft(Long userId, DemandPublishDraftDTO demandPublishDraftDTO) {
 
-        if(sysUserService.existsById(userId)){
+        if (sysUserService.existsById(userId)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 
@@ -108,7 +113,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
 
 
     @Override
-    public Long cancelSubmit(Long userId,Long demandId) {
+    public Long cancelSubmit(Long userId, Long demandId) {
 
         Demand demand = demandMapper.selectById(demandId);
 
@@ -116,7 +121,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
-        if(!Objects.equals(demand.getPublisherId(), userId)){
+        if (!Objects.equals(demand.getPublisherId(), userId)) {
             throw new BusinessException(ResultCode.OPERATE_NOT_ALLOWED);
         }
 
@@ -128,6 +133,22 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         demandMapper.updateById(demand);
 
         return demand.getId();
+    }
+
+
+    @Override
+    public AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) throws Exception {
+        return minioService.batchUploadDemandAttachment(demandId, files);
+    }
+
+    @Override
+    public void deleteAttachment(Long attachmentId) {
+        minioService.deleteAttachment(attachmentId);
+    }
+
+    @Override
+    public void deleteBatchAttachment(List<Long> attachmentIds) {
+        minioService.deleteBatchAttachment(attachmentIds);
     }
 
 

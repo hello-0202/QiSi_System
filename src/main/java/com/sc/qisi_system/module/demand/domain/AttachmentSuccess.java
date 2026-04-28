@@ -6,7 +6,7 @@ import lombok.Data;
  * 成功上传的附件详情VO
  */
 @Data
-public class DemandAttachmentSuccess {
+public class AttachmentSuccess {
 
     private String originalFileName;
 

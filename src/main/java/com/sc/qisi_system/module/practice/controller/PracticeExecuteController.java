@@ -6,9 +6,13 @@ import com.sc.qisi_system.module.practice.dto.DemandProgressDTO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeDTO;
 import com.sc.qisi_system.module.practice.service.PracticeExecuteService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 
 /**
@@ -37,15 +41,17 @@ public class PracticeExecuteController {
     }
 
 
-    //TODO
     /**
      * 提交需求附件接口
      *
      * @return 统一返回结果
      */
     @PostMapping("/attachment")
-    public Result submitDemandAttachment() {
-        return null;
+    public Result batchUploadProgressAttachments(
+            @NotNull(message = "需求ID不能为空")
+            @RequestParam Long demandId,
+            @RequestParam("files") MultipartFile[] files) throws Exception {
+        return Result.success(practiceExecuteService.batchUploadProgressAttachments(demandId,files));
     }
 
 
@@ -59,6 +65,27 @@ public class PracticeExecuteController {
     public Result updateDemandPlan(
             @Valid @RequestBody DemandPlanDTO demandPlanDTO) {
         practiceExecuteService.updateDemandPlan(demandPlanDTO);
+        return Result.success();
+    }
+
+
+    /**
+     * 删除【实践进度】单个附件
+     */
+    @DeleteMapping("/progress-attachment/delete")
+    public Result deleteProgressAttachment(
+            @NotNull @RequestParam Long attachmentId) {
+        practiceExecuteService.deleteProgressAttachment(attachmentId);
+        return Result.success();
+    }
+
+    /**
+     * 批量删除【实践进度】附件
+     */
+    @DeleteMapping("/progress-attachment/delete/batch")
+    public Result deleteBatchProgressAttachment(
+            @NotNull @RequestBody List<Long> attachmentIds) {
+        practiceExecuteService.deleteBatchProgressAttachment(attachmentIds);
         return Result.success();
     }
 

@@ -5,7 +5,7 @@ import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
-import com.sc.qisi_system.module.demand.service.MinioService;
+import com.sc.qisi_system.module.minio.service.MinioService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

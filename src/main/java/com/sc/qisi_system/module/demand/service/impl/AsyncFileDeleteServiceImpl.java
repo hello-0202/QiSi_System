@@ -1,8 +1,10 @@
 package com.sc.qisi_system.module.demand.service.impl;
 
 import com.sc.qisi_system.module.demand.entity.DemandAttachment;
-import com.sc.qisi_system.module.demand.mapper.DemandAttachmentMapper;
 import com.sc.qisi_system.module.demand.service.AsyncFileDeleteService;
+import com.sc.qisi_system.module.demand.service.DemandAttachmentService;
+import com.sc.qisi_system.module.practice.entity.DemandProgressAttachment;
+import com.sc.qisi_system.module.practice.service.DemandProgressAttachmentService;
 import io.minio.MinioClient;
 import io.minio.RemoveObjectArgs;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,8 @@ import org.springframework.stereotype.Service;
 public class AsyncFileDeleteServiceImpl implements AsyncFileDeleteService {
 
     private final MinioClient minioClient;
-    private final DemandAttachmentMapper demandAttachmentMapper;
+    private final DemandAttachmentService demandAttachmentService;
+    private final DemandProgressAttachmentService demandProgressAttachmentService;
 
     /**
      * 私有方法: 在Minio里删除文件
@@ -34,11 +37,32 @@ public class AsyncFileDeleteServiceImpl implements AsyncFileDeleteService {
             );
 
             // 2. 文件删成功 → 物理删除库记录
-            demandAttachmentMapper.deleteById(attachment.getId());
+            demandAttachmentService.removeById(attachment.getId());
             log.info("异步删除文件成功：{}", attachment.getFileName());
 
         } catch (Exception e) {
             log.error("异步删除文件失败：{}", attachment.getFileName(), e);
+        }
+    }
+
+
+    /**
+     * 异步删除进度附件 【你要的这个】
+     */
+    @Async("asyncExecutor")
+    @Override
+    public void deleteProgressFileAsync(DemandProgressAttachment attachment) {
+        try {
+            minioClient.removeObject(
+                    RemoveObjectArgs.builder()
+                            .bucket(attachment.getBucketName())
+                            .object(attachment.getObjectName())
+                            .build()
+            );
+            demandProgressAttachmentService.removeById(attachment.getId());
+            log.info("异步删除进度附件成功：{}", attachment.getFileName());
+        } catch (Exception e) {
+            log.error("异步删除进度附件失败：{}", attachment.getFileName(), e);
         }
     }
 }
