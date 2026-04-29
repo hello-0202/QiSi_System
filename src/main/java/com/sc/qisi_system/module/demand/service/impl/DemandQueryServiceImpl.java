@@ -8,14 +8,9 @@ import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
-import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
-import com.sc.qisi_system.module.apply.entity.DemandApply;
-import com.sc.qisi_system.module.apply.service.ApplyService;
-import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.domain.DemandPracticeList;
 import com.sc.qisi_system.module.user.domain.UserInfoBase;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
-import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
@@ -29,9 +24,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @RequiredArgsConstructor
@@ -41,7 +34,6 @@ public class DemandQueryServiceImpl implements DemandQueryService {
 
     private final DemandMapper demandMapper;
     private final SysUserService sysUserService;
-    private final ApplyService applyService;
     private final DemandMemberService demandMemberService;
 
 
@@ -99,26 +91,8 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     }
 
 
-    @Override
-    public PageResult<DemandListVO> getApplicableList(Long userId,ApplicableDemandQueryDTO queryDTO) {
 
-        // 1. 设置分页拆查询
-        Page<Demand> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
 
-        // 2. 设置查询条件
-        LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(Demand::getStatus, DemandStatusEnum.PUBLISHED.getCode())
-                .eq(queryDTO.getCategory() != null, Demand::getCategory, queryDTO.getCategory())
-                .eq(queryDTO.getRequirePlan() != null, Demand::getRequirePlan, queryDTO.getRequirePlan())
-                .ge(queryDTO.getDeadline() != null, Demand::getDeadline, queryDTO.getDeadline())
-                .orderByDesc(Demand::getCreateTime);
-
-        IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
-
-        // 3. 返回包装
-        return convertToApplicablePageResultList(demandIPage,applyService.getUserApplyMap(userId));
-    }
 
 
     @Override
@@ -137,33 +111,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     }
 
 
-    @Override
-    public PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO) {
 
-        // 1. 设置分页查询
-        Page<Demand> page = new Page<>(myApplyQueryDTO.getPageNum(), myApplyQueryDTO.getPageSize());
-
-        // 2. 查询申请列表
-        List<DemandApply> demandApplyList = applyService
-                                                .list(new LambdaQueryWrapper<>(DemandApply.class)
-                                                .eq(DemandApply::getUserId,userId));
-        if (demandApplyList.isEmpty()) {
-            PageResult<DemandListVO> empty = new PageResult<>();
-            empty.setTotal(0L);
-            empty.setRecords(Collections.emptyList());
-            empty.setPages(0);
-            return empty;
-        }
-
-        // 3. 查询需求列表
-        LambdaQueryWrapper<Demand> demandQuery = new LambdaQueryWrapper<>();
-        demandQuery
-                .in(Demand::getId,demandApplyList.stream().map(DemandApply::getDemandId).toList())
-                .orderByDesc(Demand::getCreateTime);
-        IPage<Demand> demandIPage = demandMapper.selectPage(page, demandQuery);
-
-        return convertToApplicablePageResultList(demandIPage,applyService.getUserApplyMap(userId));
-    }
 
 
     @Override
@@ -226,40 +174,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
     }
 
 
-    /**
-     *
-     */
-    private PageResult<DemandListVO> convertToApplicablePageResultList(IPage<Demand> demandIPage,Map<Long, DemandApplyList> applyStatusMap) {
 
-        // 1. 转换VO
-        List<DemandListVO> voList = demandIPage.getRecords().stream()
-                .map(demand -> {
-
-                    DemandListVO vo = new DemandListVO();
-                    BeanUtils.copyProperties(demand, vo);
-
-                    // 2. 设置发布人信息
-                    UserInfoBase userBase = sysUserService.getDemandUserBase(demand.getPublisherId());
-                    DemandPublisherList userListVO = new DemandPublisherList();
-                    BeanUtils.copyProperties(userBase, userListVO);
-                    vo.setDemandPublisherList(userListVO);
-                    DemandApplyList applyListVO = new DemandApplyList();
-
-                    // 3. 设置申请信息
-                    applyListVO.setId(applyStatusMap.get(demand.getId()).getId());
-                    applyListVO.setAuditStatus(applyStatusMap.get(demand.getId()).getAuditStatus());
-                    vo.setDemandApplyList(applyListVO);
-
-                    return vo;
-                }).toList();
-
-        // 3. 返回包装
-        PageResult<DemandListVO> result = new PageResult<>();
-        result.setTotal(demandIPage.getTotal());
-        result.setPages(demandIPage.getPages());
-        result.setRecords(voList);
-        return result;
-    }
 
 
     /**

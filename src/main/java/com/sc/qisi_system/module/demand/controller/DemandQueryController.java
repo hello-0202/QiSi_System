@@ -2,11 +2,9 @@ package com.sc.qisi_system.module.demand.controller;
 
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
-import com.sc.qisi_system.module.demand.dto.ApplicableDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.minio.service.MinioService;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -82,26 +80,13 @@ public class DemandQueryController {
 
 
     /**
-     * 条件查询可申请的需求列表接口
-     *
-     * @param applicableDemandQueryDTO 查询请求体
-     * @return 可申请需求的列表
-     */
-    @PostMapping("/applicable-demand-list")
-    public Result getApplicableList(
-            @Valid @RequestBody ApplicableDemandQueryDTO applicableDemandQueryDTO) {
-        return Result.success(demandQueryService.getApplicableList(SecurityUtils.getCurrentUserId(),applicableDemandQueryDTO));
-    }
-
-
-    /**
      * 查询可申请需求详情接口
      *
      * @param demandId 需求id
      * @return 指定可申请需求详情
      */
-    @GetMapping("applicable-demand-detail")
-    public Result getApplicableDemandDetail(
+    @GetMapping("apply-demand-detail")
+    public Result getApplyDemandDetail(
             @NotNull @RequestParam Long demandId){
         return Result.success(demandQueryService.getDemandReceiverDetail(demandId));
     }

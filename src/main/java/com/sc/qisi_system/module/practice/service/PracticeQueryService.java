@@ -1,7 +1,7 @@
 package com.sc.qisi_system.module.practice.service;
 
 import com.sc.qisi_system.common.result.PageResult;
-import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
+import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
 import com.sc.qisi_system.module.demand.vo.AttachmentListVO;
@@ -75,7 +75,7 @@ public interface PracticeQueryService {
      * @param demandId 需求id
      * @return 成员列表
      */
-    List<ApplyMemberListVO> getMemberList(Long userId, Long demandId);
+    List<MemberVO> getMemberList(Long userId, Long demandId);
 
 
     /**
@@ -85,7 +85,7 @@ public interface PracticeQueryService {
      * @param userId 用户id
      * @return 用户详细信息
      */
-    ApplyMemberListVO getMemberDetailInfo(Long userId);
+    MemberVO getMemberDetailInfo(Long userId);
 
 
     /**

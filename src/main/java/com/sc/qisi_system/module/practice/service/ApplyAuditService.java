@@ -1,4 +1,4 @@
-package com.sc.qisi_system.module.apply.service;
+package com.sc.qisi_system.module.practice.service;
 
 
 import com.sc.qisi_system.module.apply.dto.AuditApplyDTO;

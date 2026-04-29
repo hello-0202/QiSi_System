@@ -1,6 +1,9 @@
 package com.sc.qisi_system.module.apply.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
@@ -8,9 +11,11 @@ import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.mapper.DemandApplyMapper;
 import com.sc.qisi_system.module.apply.service.ApplyQueryService;
+import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
-import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
-import com.sc.qisi_system.module.demand.service.DemandQueryService;
+import com.sc.qisi_system.module.demand.dto.ApplyDemandQueryDTO;
+import com.sc.qisi_system.module.demand.entity.Demand;
+import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.user.domain.UserInfoBase;
@@ -40,7 +45,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
 
     private final DemandApplyMapper demandApplyMapper;
     private final DemandService demandService;
-    private final DemandQueryService demandQueryService;
+    private final ApplyService applyService;
     private final SysUserService sysUserService;
     private final EduStudentService eduStudentService;
     private final EduTeacherService eduTeacherService;
@@ -49,8 +54,30 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
 
     @Override
     public PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO) {
-        return demandQueryService.getMyApplyDemandList(userId, myApplyQueryDTO);
+        return demandService.getMyApplyDemandList(userId, myApplyQueryDTO);
     }
+
+    @Override
+    public PageResult<DemandListVO> getApplyList(Long userId, ApplyDemandQueryDTO queryDTO) {
+
+        // 1. 设置分页拆查询
+        Page<Demand> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
+
+        // 2. 设置查询条件
+        LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .eq(Demand::getStatus, DemandStatusEnum.PUBLISHED.getCode())
+                .eq(queryDTO.getCategory() != null, Demand::getCategory, queryDTO.getCategory())
+                .eq(queryDTO.getRequirePlan() != null, Demand::getRequirePlan, queryDTO.getRequirePlan())
+                .ge(queryDTO.getDeadline() != null, Demand::getDeadline, queryDTO.getDeadline())
+                .orderByDesc(Demand::getCreateTime);
+
+        IPage<Demand> demandIPage = demandService.page(page, queryWrapper);
+
+        // 3. 返回包装
+        return demandService.convertToApplyPageResultList(demandIPage,applyService.getUserApplyMap(userId));
+    }
+
 
     @Override
     public ApplyDetailVO getMyApplyDetail(Long applyId) {
@@ -69,7 +96,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
 
 
     @Override
-    public List<ApplyMemberListVO> getApplyMemberList(Long userId, Long demandId) {
+    public List<MemberVO> getApplyMemberList(Long userId, Long demandId) {
 
         if(!demandService.notExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
@@ -116,9 +143,9 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         List<SysUser> sysUserList = sysUserService.list(userQueryWrapper);
 
         // 5. 封装VO
-        List<ApplyMemberListVO> voList = new ArrayList<>();
+        List<MemberVO> voList = new ArrayList<>();
         for (SysUser sysUser : sysUserList) {
-            ApplyMemberListVO vo = new ApplyMemberListVO();
+            MemberVO vo = new MemberVO();
             vo.setId(sysUser.getId());
             vo.setApplyId(userIdToApplyIdMap.get(sysUser.getId()));
 
@@ -137,7 +164,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
 
 
     @Override
-    public ApplyMemberListVO getApplyMemberDetail(Long userId) {
+    public MemberVO getMemberDetail(Long userId) {
         if(sysUserService.existsById(userId)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
@@ -154,7 +181,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         if(sysUser == null) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
-        ApplyMemberListVO vo = new ApplyMemberListVO();
+        MemberVO vo = new MemberVO();
         vo.getUserInfoBase().setPhone(sysUser.getPhone());
         vo.getUserInfoBase().setEmail(sysUser.getEmail());
 
@@ -176,7 +203,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     }
 
 
-    private void loadUserInfoByRole(Long userId, Integer userType, ApplyMemberListVO vo) {
+    private void loadUserInfoByRole(Long userId, Integer userType, MemberVO vo) {
 
         switch (userType) {
             case 1 -> fillStudentListInfo(userId, vo);
@@ -189,7 +216,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     /**
      * 填充：学生拓展信息
      */
-    private void fillStudentListInfo(Long userId,ApplyMemberListVO vo) {
+    private void fillStudentListInfo(Long userId, MemberVO vo) {
         LambdaQueryWrapper<EduStudent> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(EduStudent::getUserId, userId)
                 .select(
@@ -210,7 +237,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     /**
      * 填充：教师拓展信息
      */
-    private void fillTeacherListInfo(Long userId,ApplyMemberListVO vo) {
+    private void fillTeacherListInfo(Long userId, MemberVO vo) {
         LambdaQueryWrapper<EduTeacher> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
                 .eq(EduTeacher::getUserId, userId)
@@ -227,7 +254,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     /**
      * 填充：企业人员拓展信息
      */
-    private void fillEnterpriseListInfo(Long userId,ApplyMemberListVO vo) {
+    private void fillEnterpriseListInfo(Long userId, MemberVO vo) {
         LambdaQueryWrapper<EntEmployee> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
                 .eq(EntEmployee::getUserId, userId)

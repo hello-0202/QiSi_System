@@ -3,7 +3,8 @@ package com.sc.qisi_system.module.apply.service;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
-import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
+import com.sc.qisi_system.module.demand.dto.ApplyDemandQueryDTO;
+import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public interface ApplyQueryService {
     PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO);
 
 
+    PageResult<DemandListVO> getApplyList(Long userId, ApplyDemandQueryDTO queryDTO);
+
+
     /**
      * 查询申请详情
      *
@@ -36,7 +40,7 @@ public interface ApplyQueryService {
      * @param userId 用户id
      * @param demandId 需求id
      */
-    List<ApplyMemberListVO> getApplyMemberList(Long userId, Long demandId);
+    List<MemberVO> getApplyMemberList(Long userId, Long demandId);
 
 
     /**
@@ -45,7 +49,7 @@ public interface ApplyQueryService {
      * @param userId 用户id
      * @return 用户详情信息
      */
-    ApplyMemberListVO getApplyMemberDetail(Long userId);
+    MemberVO getMemberDetail(Long userId);
 
 
     /**

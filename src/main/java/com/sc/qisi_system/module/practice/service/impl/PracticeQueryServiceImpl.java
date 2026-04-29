@@ -8,8 +8,10 @@ import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.module.apply.mapper.DemandMemberMapper;
 import com.sc.qisi_system.module.apply.service.ApplyQueryService;
-import com.sc.qisi_system.module.apply.vo.ApplyMemberListVO;
+import com.sc.qisi_system.module.practice.entity.DemandMember;
+import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
 import com.sc.qisi_system.module.demand.service.DemandQueryService;
@@ -26,6 +28,7 @@ import com.sc.qisi_system.module.practice.entity.DemandProgress;
 import com.sc.qisi_system.module.practice.mapper.DemandMemberChangeMapper;
 import com.sc.qisi_system.module.practice.mapper.DemandProgressMapper;
 import com.sc.qisi_system.module.practice.service.PracticeQueryService;
+import com.sc.qisi_system.module.practice.vo.DemandMemberVO;
 import com.sc.qisi_system.module.practice.vo.DemandProgressVO;
 import com.sc.qisi_system.module.practice.vo.MemberChangeLogVO;
 import com.sc.qisi_system.module.user.domain.UserInfoBase;
@@ -48,6 +51,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
     private final DemandMemberChangeMapper demandMemberChangeMapper;
     private final DemandProgressMapper demandProgressMapper;
+    private final DemandMemberMapper demandMemberMapper;
     private final DemandService demandService;
     private final DemandQueryService demandQueryService;
     private final ApplyQueryService applyQueryService;
@@ -105,14 +109,27 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
 
     @Override
-    public List<ApplyMemberListVO> getMemberList(Long userId, Long demandId) {
-        return applyQueryService.getApplyMemberList(userId, demandId);
+    public List<MemberVO> getMemberList(Long userId, Long demandId) {
+        LambdaQueryWrapper<DemandMember> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .eq(DemandMember::getUserId, userId)
+                .eq(DemandMember::getDemandId, demandId);
+        List<DemandMember> demandMemberList = demandMemberMapper.selectList(queryWrapper);
+
+        return demandMemberList.stream().map(
+                demandMember -> {
+                    MemberVO memberVO = new MemberVO();
+                    DemandMemberVO demandMemberVO = new DemandMemberVO();
+                    BeanUtils.copyProperties(demandMember, demandMemberVO);
+                    memberVO.setDemandMemberVO(demandMemberVO);
+                    return memberVO;
+                }).toList();
     }
 
 
     @Override
-    public ApplyMemberListVO getMemberDetailInfo(Long userId) {
-        return applyQueryService.getApplyMemberDetail(userId);
+    public MemberVO getMemberDetailInfo(Long userId) {
+        return applyQueryService.getMemberDetail(userId);
     }
 
 
@@ -155,7 +172,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
         Page<DemandProgress> page = new Page<>(queryDemandProgressLogDTO.getPageNum(), queryDemandProgressLogDTO.getPageSize());
 
-        if(demandService.notExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
+        if (demandService.notExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
@@ -170,7 +187,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                     BeanUtils.copyProperties(demandProgress, demandProgressVO);
 
                     SysUser sysUser = sysUserService.getOne(Wrappers.lambdaQuery(SysUser.class)
-                            .eq(SysUser::getId,demandProgress.getUserId())
+                            .eq(SysUser::getId, demandProgress.getUserId())
                             .select(SysUser::getName));
                     if (sysUser != null) {
                         demandProgressVO.setName(sysUser.getName());

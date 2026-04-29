@@ -10,5 +10,4 @@ public interface AsyncFileDeleteService {
 
 
     void deleteProgressFileAsync(DemandProgressAttachment attachment);
-
 }

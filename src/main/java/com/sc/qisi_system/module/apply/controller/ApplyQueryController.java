@@ -4,6 +4,8 @@ import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.service.ApplyQueryService;
+import com.sc.qisi_system.module.demand.dto.ApplyDemandQueryDTO;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -21,6 +23,19 @@ public class ApplyQueryController {
 
 
     private final ApplyQueryService applyQueryService;
+
+
+    /**
+     * 条件查询可申请的需求列表接口
+     *
+     * @param applyDemandQueryDTO 查询请求体
+     * @return 可申请需求的列表
+     */
+    @PostMapping("/apply-demand-list")
+    public Result getApplyList(
+            @Valid @RequestBody ApplyDemandQueryDTO applyDemandQueryDTO) {
+        return Result.success(applyQueryService.getApplyList(SecurityUtils.getCurrentUserId(), applyDemandQueryDTO));
+    }
 
 
     /**
@@ -71,7 +86,7 @@ public class ApplyQueryController {
     @GetMapping("/demand/apply/detail")
     public Result getApplyMemberDetail(
             @NotNull @RequestParam Long userId) {
-        return Result.success(applyQueryService.getApplyMemberDetail(userId));
+        return Result.success(applyQueryService.getMemberDetail(userId));
     }
 
 

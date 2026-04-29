@@ -1,4 +1,4 @@
-package com.sc.qisi_system.module.apply.service.impl;
+package com.sc.qisi_system.module.practice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sc.qisi_system.common.enums.MemberStatusEnum;
@@ -6,9 +6,9 @@ import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.apply.dto.AuditApplyDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
+import com.sc.qisi_system.module.apply.service.DemandApplyService;
 import com.sc.qisi_system.module.practice.entity.DemandMember;
-import com.sc.qisi_system.module.apply.mapper.DemandApplyMapper;
-import com.sc.qisi_system.module.apply.service.ApplyAuditService;
+import com.sc.qisi_system.module.practice.service.ApplyAuditService;
 import com.sc.qisi_system.module.apply.mapper.DemandMemberMapper;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.service.DemandService;
@@ -17,14 +17,15 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-
 @RequiredArgsConstructor
 @Service
 public class ApplyAuditServiceImpl implements ApplyAuditService {
 
-    private final DemandApplyMapper demandApplyMapper;
+
     private final DemandMemberMapper demandMemberMapper;
     private final DemandService demandService;
+    private final DemandApplyService demandApplyService;
+
 
     @Override
     public void approveApplyMember(Long userId,AuditApplyDTO auditApplyDTO) {
@@ -33,8 +34,8 @@ public class ApplyAuditServiceImpl implements ApplyAuditService {
 
         deleteDemandMember(auditApplyDTO.getDemandId(), auditApplyDTO.getApplicantId());
         addPassedDemandMember(auditApplyDTO.getDemandId(), auditApplyDTO.getApplicantId(), auditApplyDTO.getRoleType());
-
     }
+
 
     @Override
     public void rejectApplyMember(Long userId, AuditApplyDTO auditApplyDTO) {
@@ -44,7 +45,7 @@ public class ApplyAuditServiceImpl implements ApplyAuditService {
 
 
     private void checkApplyAndPermission(Long userId, AuditApplyDTO auditApplyDTO) {
-        DemandApply demandApply = demandApplyMapper.selectById(auditApplyDTO.getApplyId());
+        DemandApply demandApply = demandApplyService.getById(auditApplyDTO.getDemandId());
         if (demandApply == null) {
             throw new BusinessException(ResultCode.DEMAND_APPLY_NOT_EXIST);
         }
@@ -62,7 +63,7 @@ public class ApplyAuditServiceImpl implements ApplyAuditService {
         apply.setAuditUserId(userId);
         apply.setAuditStatus(auditApplyDTO.getAuditStatus());
         apply.setAuditRemark(auditApplyDTO.getAuditRemark());
-        demandApplyMapper.updateById(apply);
+        demandApplyService.updateById(apply);
 
         deleteDemandMember(auditApplyDTO.getDemandId(), auditApplyDTO.getApplicantId());
     }
@@ -77,6 +78,7 @@ public class ApplyAuditServiceImpl implements ApplyAuditService {
         wrapper.eq(DemandMember::getUserId, userId);
         demandMemberMapper.delete(wrapper);
     }
+
 
     /**
      * 新增通过的需求成员
