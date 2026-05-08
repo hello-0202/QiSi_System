@@ -21,6 +21,8 @@ public enum ResultCode {
     MINIO_DOWNLOAD_FAILED(500101, "MinIO文件下载失败"),
     MINIO_PRESIGNED_URL_FAILED(500102, "获取MinIO文件临时访问链接失败"),
     FILE_UPLOAD_DB_SAVE_FAILED(500103, "文件上传成功，但数据库保存失败"),
+    MINIO_UPLOAD_FAILED(500104, "文件上传失败"),
+    MINIO_FILE_NOT_EXIST(500105, "文件不存在"),
 
 
     /**
@@ -79,6 +81,8 @@ public enum ResultCode {
     // 菜单相关
     MENU_NOT_EXIST(4002024, "菜单不存在"),
     MENU_HAS_CHILDREN(4002025, "存在子菜单，无法删除"),
+
+
 
     /**
      * 验证码

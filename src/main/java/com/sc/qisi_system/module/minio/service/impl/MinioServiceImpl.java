@@ -261,6 +261,34 @@ public class MinioServiceImpl implements MinioService {
         }
     }
 
+
+    /**
+     * 上传/修改用户头像（第一次=新增，之后=修改）
+     * @param userId 用户ID
+     * @param file 头像文件
+     * @return 存储到用户表的 MinIO 路径（objectName）
+     */
+    @Override
+    public String updateUserAvatar(Long userId, MultipartFile file) {
+
+        String bucketName = "avatar";
+        String suffix = FileUtil.extName(file.getOriginalFilename());
+        String objectName = "avatar/" + userId + "/" + UUID.randomUUID() + "." + suffix;
+
+        try {
+            // 上传到 MinIO
+            uploadFileToMinio(bucketName, file, objectName);
+            log.info("用户【{}】头像上传成功，路径：{}", userId, objectName);
+
+            return objectName;
+
+        } catch (Exception e) {
+            log.error("用户【{}】头像上传失败", userId, e);
+            throw new SystemException(ResultCode.MINIO_UPLOAD_FAILED, "头像上传失败");
+        }
+    }
+
+
     @Override
     public String getUserAvatarUrl(String avatarPath) {
         if (avatarPath == null || avatarPath.isEmpty()) {

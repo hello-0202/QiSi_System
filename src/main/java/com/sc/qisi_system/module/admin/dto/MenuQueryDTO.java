@@ -29,5 +29,5 @@ public class MenuQueryDTO {
      * 业务身份ID / 角色ID
      * 对应 sys_identity.id
      */
-    private Long identityId;
+    private Integer identityId;
 }

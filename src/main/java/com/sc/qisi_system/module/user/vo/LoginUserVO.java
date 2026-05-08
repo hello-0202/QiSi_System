@@ -1,6 +1,9 @@
 package com.sc.qisi_system.module.user.vo;
 
+import com.sc.qisi_system.module.admin.vo.MenuRouteVO;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * 登录后返回的用户信息VO
@@ -45,5 +48,8 @@ public class LoginUserVO {
     private String userTypeDesc;
 
 
-    //TODO
+    /**
+     * 菜单栏
+     */
+    private List<MenuRouteVO> menuRoute;
 }

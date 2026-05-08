@@ -1,10 +1,13 @@
 package com.sc.qisi_system.module.user.controller;
 
 import com.sc.qisi_system.common.result.Result;
+import com.sc.qisi_system.module.user.dto.UserInfoDTO;
 import com.sc.qisi_system.module.user.service.UserInfoService;
+import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -38,50 +41,28 @@ public class UserInfoController {
     }
 
 
-    //TODO
     /**
-     * 修改密码接口
+     * 修改用户信息接口 密码 手机号 邮箱
      *
      * @return 统一返回结果
      */
-    @PutMapping("/password")
-    public Result updatePassword() {
-        return null;
+    @PutMapping("/update-info")
+    public Result updateUserInfo(
+            @Valid @RequestBody UserInfoDTO userInfoDTO) {
+        userInfoService.updateUserInfo(userInfoDTO);
+        return Result.success();
     }
 
 
-    //TODO
     /**
      * 修改头像接口
      *
      * @return 统一返回结果
      */
     @PutMapping("/avatar")
-    public Result updateAvatar() {
-        return null;
-    }
-
-
-    //TODO
-    /**
-     * 修改手机号接口
-     *
-     * @return 统一返回结果
-     */
-    @PutMapping("/phone")
-    public Result updatePhone() {
-        return null;
-    }
-
-
-    //TODO
-    /**
-     * 修改邮箱接口
-     *
-     * @return 统一返回结果
-     */
-    @PutMapping("/email")
-    public Result updateEmail() {
-        return null;
+    public Result updateAvatar(
+            @RequestParam("file") MultipartFile file) {
+        userInfoService.updateAvatar(file);
+        return Result.success();
     }
 }

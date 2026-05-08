@@ -1,10 +1,13 @@
 package com.sc.qisi_system.module.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sc.qisi_system.common.enums.UserTypeEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
+import com.sc.qisi_system.module.admin.entity.SysUserTypeIdentity;
+import com.sc.qisi_system.module.admin.service.SysUserTypeIdentityService;
 import com.sc.qisi_system.module.user.dto.LoginRequest;
 import com.sc.qisi_system.module.user.dto.LogoutRequest;
 import com.sc.qisi_system.module.user.entity.SysUser;
@@ -24,6 +27,7 @@ public class LoginServiceImpl implements LoginService {
 
     private final SysUserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final SysUserTypeIdentityService sysUserTypeIdentityService;
     private final JwtTokenProvider jwtTokenProvider;
     private final CaptchaService captchaService;
     private final RedisService redisService;
@@ -65,6 +69,12 @@ public class LoginServiceImpl implements LoginService {
         loginUserVO.setUsername(sysUser.getUsername());
         loginUserVO.setUserType(sysUser.getUserType());
         loginUserVO.setUserTypeDesc( UserTypeEnum.getDescDescByCode(sysUser.getUserType()));
+
+        LambdaQueryWrapper<SysUserTypeIdentity> queryWrapper1 = new LambdaQueryWrapper<>();
+        queryWrapper1
+                .eq(SysUserTypeIdentity::getUserType, sysUser.getUserType());
+        SysUserTypeIdentity sysUserTypeIdentity = sysUserTypeIdentityService.getOne(queryWrapper1);
+        loginUserVO.setMenuRoute(sysUserTypeIdentityService.getMenuRouteList(sysUserTypeIdentity.getIdentityId()));
 
         return loginUserVO;
 
