@@ -49,7 +49,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
             Long userId = jwtTokenProvider.getUserIdFromToken(token);
             attributes.put("userId", userId);
 
-            return true; // 放行
+            return true;
 
         } catch (BusinessException e) {
 

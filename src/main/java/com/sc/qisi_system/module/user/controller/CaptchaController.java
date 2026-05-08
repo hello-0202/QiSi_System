@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 验证码服务控制器
  */
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/user")
 public class CaptchaController {
 
     private final CaptchaService captchaService;

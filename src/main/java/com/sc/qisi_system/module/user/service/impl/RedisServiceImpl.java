@@ -3,7 +3,6 @@ package com.sc.qisi_system.module.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.exception.BusinessException;
-import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
 import com.sc.qisi_system.module.user.dto.LogoutRequest;
@@ -56,7 +55,6 @@ public class RedisServiceImpl implements RedisService {
 
         stringRedisTemplate.opsForValue().set(RT_PREFIX + refreshToken,
                 String.valueOf(userId), refreshTokenTtl, TimeUnit.HOURS);
-
         stringRedisTemplate.opsForValue().set(USER_RT_PREFIX + userId,
                 refreshToken, refreshTokenTtl, TimeUnit.HOURS);
 
@@ -103,9 +101,7 @@ public class RedisServiceImpl implements RedisService {
         revokeRefreshToken(logoutRequest.getUserId(), logoutRequest.getRefreshToken());
 
         if (logoutRequest.getAccessToken() != null && jwtTokenProvider.isTokenValid(logoutRequest.getAccessToken())) {
-
             long expireSeconds = jwtTokenProvider.getTokenRemainingTimeSeconds(logoutRequest.getAccessToken());
-
             if (expireSeconds > 0) {
                 stringRedisTemplate.opsForValue().set(
                         JWT_BLACKLIST_PREFIX + logoutRequest.getAccessToken(),
@@ -120,7 +116,6 @@ public class RedisServiceImpl implements RedisService {
         if(sessionId != null) {
             removeMapping(Long.valueOf(logoutRequest.getUserId()),sessionId);
         }
-
     }
 
 
@@ -187,19 +182,11 @@ public class RedisServiceImpl implements RedisService {
     }
 
 
-    /**
-     * 主动撤销 Refresh Token
-     */
-    private void revokeRefreshToken(String userId, String refreshToken) {
-        stringRedisTemplate.delete(USER_RT_PREFIX + userId);
-        stringRedisTemplate.delete(RT_PREFIX + refreshToken);
-    }
-
-
     @Override
     public String getSessionId(Long userId) {
         return stringRedisTemplate.opsForValue().get(USER_TO_SESSION + userId);
     }
+
 
     @Override
     public Long getUserId(String sessionId) {
@@ -207,4 +194,12 @@ public class RedisServiceImpl implements RedisService {
         return userIdStr != null ? Long.valueOf(userIdStr) : null;
     }
 
+
+    /**
+     * 主动撤销 Refresh Token
+     */
+    private void revokeRefreshToken(String userId, String refreshToken) {
+        stringRedisTemplate.delete(USER_RT_PREFIX + userId);
+        stringRedisTemplate.delete(RT_PREFIX + refreshToken);
+    }
 }
