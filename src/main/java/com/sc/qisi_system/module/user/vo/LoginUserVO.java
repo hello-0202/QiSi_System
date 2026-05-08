@@ -43,4 +43,7 @@ public class LoginUserVO {
      * 用户类型描述
      */
     private String userTypeDesc;
+
+
+    //TODO
 }

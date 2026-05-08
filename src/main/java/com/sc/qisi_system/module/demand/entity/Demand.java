@@ -126,6 +126,24 @@ public class Demand implements Serializable {
 
 
     /**
+     * 审核人ID: sys_user表主键
+     */
+    private Long auditUserId;
+
+
+    /**
+     * 审核意见
+     */
+    private String auditRemark;
+
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime auditTime;
+
+
+    /**
      * 申请截止时间
      */
     private LocalDateTime deadline;

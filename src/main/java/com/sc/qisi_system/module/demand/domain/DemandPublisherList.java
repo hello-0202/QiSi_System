@@ -7,6 +7,12 @@ public class DemandPublisherList {
 
 
     /**
+     * 头像
+     */
+    private String avatarUrl;
+
+
+    /**
      * 姓名
      */
     private String name;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
-import com.sc.qisi_system.module.user.domain.UserInfoBase;
+import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import com.sc.qisi_system.module.user.entity.EduStudent;
 import com.sc.qisi_system.module.user.entity.EduTeacher;
 import com.sc.qisi_system.module.user.entity.EntEmployee;
@@ -40,7 +40,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
      *
      */
     @Override
-    public UserInfoBase getDemandUserBase(Long userId) {
+    public UserProfileVO getUserProfile(Long userId) {
         SysUser sysUser = sysUserMapper.selectById(userId);
         if (Objects.isNull(sysUser)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
@@ -48,14 +48,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
 
         Integer userType = sysUser.getUserType();
 
-        UserInfoBase userInfoBase = new UserInfoBase();
-        BeanUtils.copyProperties(sysUser, userInfoBase);
+        UserProfileVO userProfileVO = new UserProfileVO();
+        BeanUtils.copyProperties(sysUser, userProfileVO);
 
         return switch (userType) {
-            case 1 -> getStudentDetail(sysUser, userInfoBase);
-            case 2 -> getTeacherDetail(sysUser, userInfoBase);
-            case 3 -> getEmployeeDetail(sysUser, userInfoBase);
-            default -> userInfoBase;
+            case 1 -> getStudentDetail(sysUser, userProfileVO);
+            case 2 -> getTeacherDetail(sysUser, userProfileVO);
+            case 3 -> getEmployeeDetail(sysUser, userProfileVO);
+            default -> userProfileVO;
         };
 
     }
@@ -64,7 +64,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
     /**
      *
      */
-    private UserInfoBase getEmployeeDetail(SysUser sysUser, UserInfoBase baseVO) {
+    private UserProfileVO getEmployeeDetail(SysUser sysUser, UserProfileVO baseVO) {
 
         EntEmployee emp = entEmployeeMapper.selectOne(Wrappers
                 .lambdaQuery(EntEmployee.class)
@@ -78,7 +78,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
     /**
      *
      */
-    private UserInfoBase getTeacherDetail(SysUser sysUser, UserInfoBase baseVO) {
+    private UserProfileVO getTeacherDetail(SysUser sysUser, UserProfileVO baseVO) {
 
         EduTeacher teacher = eduTeacherMapper.selectOne(Wrappers
                 .lambdaQuery(EduTeacher.class)
@@ -92,7 +92,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
     /**
      *
      */
-    private UserInfoBase getStudentDetail(SysUser sysUser, UserInfoBase baseVO) {
+    private UserProfileVO getStudentDetail(SysUser sysUser, UserProfileVO baseVO) {
 
         EduStudent student = eduStudentMapper.selectOne(Wrappers
                 .lambdaQuery(EduStudent.class)

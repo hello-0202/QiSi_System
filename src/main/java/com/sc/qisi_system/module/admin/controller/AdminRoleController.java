@@ -1,12 +1,15 @@
 package com.sc.qisi_system.module.admin.controller;
 
 import com.sc.qisi_system.common.result.Result;
+import com.sc.qisi_system.module.admin.service.AdminRoleService;
+import com.sc.qisi_system.module.admin.vo.SysUserTypeIdentityVO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @PreAuthorize("hasRole('ADMIN')")
@@ -17,26 +20,27 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminRoleController {
 
 
-    //TODO
+    private final AdminRoleService adminRoleService;
+
+
     /**
-     * 将用户【设置为需求发布者】
-     * 学生 → 发布者
+     * 查询 (用户类型 → 业务身份) 映射关系
      */
-    @PostMapping("/set-publisher")
-    public Result setUserToPublisher() {
-        // 业务逻辑：修改用户角色（学生 → 发布者）
-        return Result.success("设置为发布者成功");
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/get-identity-map")
+    public Result getIdentityMap() {
+        return Result.success(adminRoleService.getIdentityMap());
     }
 
 
-    //TODO
     /**
-     * 取消用户【需求发布者权限】
-     * 发布者 → 恢复为普通角色
+     * 修改/保存 (用户类型 → 业务身份) 映射关系
      */
-    @PostMapping("/cancel-publisher")
-    public Result cancelUserPublisher() {
-        // 业务逻辑：撤销发布者角色
-        return Result.success("取消发布者权限成功");
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/update-identity-map")
+    public Result updateIdentityMap(
+            @Valid @RequestBody List<SysUserTypeIdentityVO> voList) {
+        adminRoleService.updateIdentityMap(voList);
+        return Result.success();
     }
 }

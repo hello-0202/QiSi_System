@@ -44,4 +44,13 @@ public interface MinioService {
 
     String generateUrl(String bucketName, String objectName);
 
+
+    /**
+     * 获取用户头像访问URL（根据 avatar 字段）
+     * @param avatarPath 数据库中存储的头像路径
+     * @return 可直接访问的http完整URL
+     */
+    String getUserAvatarUrl(String avatarPath);
+
+
 }

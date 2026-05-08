@@ -34,10 +34,10 @@ public class PracticeQueryController {
      * @param myDemandQueryDTO 查询请求体
      * @return 需求列表
      */
-    @PostMapping("/demand/list")
-    public Result getPracticeDemandList(
+    @PostMapping("/my-published-demand/list")
+    public Result getMyPublishedDemandList(
             @Valid @RequestBody MyDemandQueryDTO myDemandQueryDTO) {
-        return Result.success(practiceQueryService.getPracticeDemandList(SecurityUtils.getCurrentUserId(), myDemandQueryDTO));
+        return Result.success(practiceQueryService.getMyPublishedDemandList(SecurityUtils.getCurrentUserId(), myDemandQueryDTO));
     }
 
 
@@ -56,30 +56,16 @@ public class PracticeQueryController {
 
 
     /**
-     * 查看我参与的实践需求列表接口(复用)
+     * 查看我参与的实践需求列表接口
      * 角色: 认领者
      *
      * @param practiceDemandQueryDTO 分页查询请求体
      * @return 我参与的需求列表
      */
-    @PostMapping("/my-practice/list")
-    public Result getMyPracticeList(
+    @PostMapping("/my-joined-demand/list")
+    public Result getMyJoinedPracticeList(
             @Valid @RequestBody PracticeDemandQueryDTO practiceDemandQueryDTO) {
-        return Result.success(practiceQueryService.getMyPracticeList(SecurityUtils.getCurrentUserId(),practiceDemandQueryDTO));
-    }
-
-
-    /**
-     * 查看实践需求详情接口
-     * 角色: 认领者
-     *
-     * @param demandId 需求id
-     * @return 需求详情
-     */
-    @GetMapping("/my-practice/detail")
-    public Result getMyPracticeDetail(
-            @NotNull @RequestParam Long demandId) {
-        return Result.success(practiceQueryService.getMyPracticeDetail(demandId));
+        return Result.success(practiceQueryService.getMyJoinedPracticeList(SecurityUtils.getCurrentUserId(),practiceDemandQueryDTO));
     }
 
 
@@ -97,9 +83,8 @@ public class PracticeQueryController {
     }
 
 
-    //TODO
     /**
-     * 查询成员列表接口(复用)
+     * 查询成员列表接口
      * 角色: 发布者 认领者
      *
      * @param demandId 需求id
@@ -108,21 +93,7 @@ public class PracticeQueryController {
     @GetMapping("/member/list")
     public Result getMemberList(
             @NotNull @RequestParam Long demandId) {
-        return Result.success(practiceQueryService.getMemberList(SecurityUtils.getCurrentUserId(), demandId));
-    }
-
-
-    /**
-     * 查询成员详细信息接口(复用)
-     * 角色: 发布者 认领者
-     *
-     * @param userId 用户id
-     * @return 用户详细信息
-     */
-    @GetMapping("/member/info")
-    public Result getMemberDetailInfo(
-            @NotNull @RequestParam Long userId) {
-        return Result.success(practiceQueryService.getMemberDetailInfo(userId));
+        return Result.success(practiceQueryService.getMemberList(demandId));
     }
 
 

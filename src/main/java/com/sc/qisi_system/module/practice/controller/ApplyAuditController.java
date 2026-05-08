@@ -2,7 +2,7 @@ package com.sc.qisi_system.module.practice.controller;
 
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
-import com.sc.qisi_system.module.apply.dto.AuditApplyDTO;
+import com.sc.qisi_system.module.practice.dto.AuditApplyDTO;
 import com.sc.qisi_system.module.practice.service.ApplyAuditService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;

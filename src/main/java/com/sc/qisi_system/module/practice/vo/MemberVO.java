@@ -1,6 +1,6 @@
 package com.sc.qisi_system.module.practice.vo;
 
-import com.sc.qisi_system.module.user.domain.UserInfoBase;
+import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import lombok.Data;
 
 @Data
@@ -20,9 +20,15 @@ public class MemberVO {
 
 
     /**
+     * 头像
+     */
+    private String avatarUrl;
+
+
+    /**
      * 用户信息
      */
-    private UserInfoBase userInfoBase;
+    private UserProfileVO userProfileVO;
 
 
     /**

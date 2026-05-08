@@ -9,18 +9,15 @@ import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.apply.mapper.DemandMemberMapper;
-import com.sc.qisi_system.module.apply.service.ApplyQueryService;
 import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
-import com.sc.qisi_system.module.demand.service.DemandQueryService;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.demand.vo.AttachmentListVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
-import com.sc.qisi_system.module.demand.vo.DemandReceiverDetailVO;
-import com.sc.qisi_system.module.demand.vo.MyDemandDetailVO;
+import com.sc.qisi_system.module.demand.vo.DemandPublicDetailVO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeLogDTO;
 import com.sc.qisi_system.module.practice.dto.QueryDemandProgressLogDTO;
 import com.sc.qisi_system.module.practice.entity.DemandMemberChange;
@@ -31,7 +28,7 @@ import com.sc.qisi_system.module.practice.service.PracticeQueryService;
 import com.sc.qisi_system.module.practice.vo.DemandMemberVO;
 import com.sc.qisi_system.module.practice.vo.DemandProgressVO;
 import com.sc.qisi_system.module.practice.vo.MemberChangeLogVO;
-import com.sc.qisi_system.module.user.domain.UserInfoBase;
+import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
@@ -53,14 +50,12 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     private final DemandProgressMapper demandProgressMapper;
     private final DemandMemberMapper demandMemberMapper;
     private final DemandService demandService;
-    private final DemandQueryService demandQueryService;
-    private final ApplyQueryService applyQueryService;
     private final SysUserService sysUserService;
     private final MinioService minioService;
 
 
     @Override
-    public PageResult<DemandListVO> getPracticeDemandList(Long userId, MyDemandQueryDTO myDemandQueryDTO) {
+    public PageResult<DemandListVO> getMyPublishedDemandList(Long userId, MyDemandQueryDTO myDemandQueryDTO) {
 
         List<Integer> allowedStatus = Arrays.asList(
                 DemandStatusEnum.PUBLISHED.getCode(),
@@ -81,26 +76,21 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
             myDemandQueryDTO.setStatusList(allowedStatus);
         }
 
-        return demandQueryService.getMyDemandList(userId, myDemandQueryDTO);
+        return demandService.getMyDemandList(userId, myDemandQueryDTO);
     }
 
 
     @Override
-    public MyDemandDetailVO getPracticeDemandDetail(Long demandId) {
-        return demandQueryService.getMyDemandDetail(demandId);
+    public DemandPublicDetailVO getPracticeDemandDetail(Long demandId) {
+        return demandService.getPublicDemandDetail(demandId);
     }
 
 
     @Override
-    public PageResult<DemandListVO> getMyPracticeList(Long userId, PracticeDemandQueryDTO practiceDemandQueryDTO) {
-        return demandQueryService.getMyPracticeDemandList(userId, practiceDemandQueryDTO);
+    public PageResult<DemandListVO> getMyJoinedPracticeList(Long userId, PracticeDemandQueryDTO practiceDemandQueryDTO) {
+        return demandService.getMyJoinedPracticeList(userId, practiceDemandQueryDTO);
     }
 
-
-    @Override
-    public DemandReceiverDetailVO getMyPracticeDetail(Long demandId) {
-        return demandQueryService.getDemandReceiverDetail(demandId);
-    }
 
     @Override
     public List<AttachmentListVO> getProgressAttachmentList(Long demandId) {
@@ -109,10 +99,9 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
 
     @Override
-    public List<MemberVO> getMemberList(Long userId, Long demandId) {
+    public List<MemberVO> getMemberList(Long demandId) {
         LambdaQueryWrapper<DemandMember> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
-                .eq(DemandMember::getUserId, userId)
                 .eq(DemandMember::getDemandId, demandId);
         List<DemandMember> demandMemberList = demandMemberMapper.selectList(queryWrapper);
 
@@ -122,14 +111,11 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                     DemandMemberVO demandMemberVO = new DemandMemberVO();
                     BeanUtils.copyProperties(demandMember, demandMemberVO);
                     memberVO.setDemandMemberVO(demandMemberVO);
+
+                    BeanUtils.copyProperties(sysUserService.getUserProfile(demandMemberVO.getUserId()), memberVO.getUserProfileVO());
+
                     return memberVO;
                 }).toList();
-    }
-
-
-    @Override
-    public MemberVO getMemberDetailInfo(Long userId) {
-        return applyQueryService.getMemberDetail(userId);
     }
 
 
@@ -138,7 +124,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
         Page<DemandMemberChange> page = new Page<>(memberChangeLogDTO.getPageNum(), memberChangeLogDTO.getPageSize());
 
-        if (!demandService.notExistsByDemandId(memberChangeLogDTO.getDemandId())) {
+        if (!demandService.isNotExistsByDemandId(memberChangeLogDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
@@ -153,8 +139,8 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                     MemberChangeLogVO memberChangeLogVO = new MemberChangeLogVO();
 
                     BeanUtils.copyProperties(memberChange, memberChangeLogVO);
-                    UserInfoBase userInfoBase = sysUserService.getDemandUserBase(memberChange.getUserId());
-                    BeanUtils.copyProperties(userInfoBase, memberChangeLogVO.getUserInfoBase());
+                    UserProfileVO userProfileVO = sysUserService.getUserProfile(memberChange.getUserId());
+                    BeanUtils.copyProperties(userProfileVO, memberChangeLogVO.getUserProfileVO());
                     return memberChangeLogVO;
 
                 }).toList();
@@ -172,7 +158,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
 
         Page<DemandProgress> page = new Page<>(queryDemandProgressLogDTO.getPageNum(), queryDemandProgressLogDTO.getPageSize());
 
-        if (demandService.notExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
+        if (demandService.isNotExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 

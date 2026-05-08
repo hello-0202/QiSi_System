@@ -167,6 +167,15 @@
             <version>5.8.40</version>
         </dependency>
 
+
+        <!-- EasyExcel Excel导入导出工具 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>4.0.3</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

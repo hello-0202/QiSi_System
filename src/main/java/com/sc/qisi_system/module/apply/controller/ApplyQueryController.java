@@ -84,9 +84,9 @@ public class ApplyQueryController {
      * @return 用户详情信息
      */
     @GetMapping("/demand/apply/detail")
-    public Result getApplyMemberDetail(
+    public Result getApplyMemberDetailInfo(
             @NotNull @RequestParam Long userId) {
-        return Result.success(applyQueryService.getMemberDetail(userId));
+        return Result.success(applyQueryService.getApplyMemberDetailInfo(userId));
     }
 
 

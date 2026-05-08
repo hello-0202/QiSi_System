@@ -1,6 +1,5 @@
 package com.sc.qisi_system.module.apply.entity;
 
-import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
 import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
@@ -85,9 +84,16 @@ public class DemandApply implements Serializable {
 
 
     /**
-     * 审核备注
+     * 审核意见
      */
     private String auditRemark;
+
+
+    /**
+     * 创建时间
+     *
+     */
+    private LocalDateTime auditTime;
 
 
     /**

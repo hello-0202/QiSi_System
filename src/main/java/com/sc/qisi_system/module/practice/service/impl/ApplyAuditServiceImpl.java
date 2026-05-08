@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sc.qisi_system.common.enums.MemberStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
-import com.sc.qisi_system.module.apply.dto.AuditApplyDTO;
+import com.sc.qisi_system.module.practice.dto.AuditApplyDTO;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.service.DemandApplyService;
 import com.sc.qisi_system.module.practice.entity.DemandMember;
@@ -63,6 +63,7 @@ public class ApplyAuditServiceImpl implements ApplyAuditService {
         apply.setAuditUserId(userId);
         apply.setAuditStatus(auditApplyDTO.getAuditStatus());
         apply.setAuditRemark(auditApplyDTO.getAuditRemark());
+        apply.setAuditTime(LocalDateTime.now());
         demandApplyService.updateById(apply);
 
         deleteDemandMember(auditApplyDTO.getDemandId(), auditApplyDTO.getApplicantId());

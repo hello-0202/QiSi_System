@@ -49,7 +49,7 @@ public class MinioServiceImpl implements MinioService {
     @Override
     public AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) {
 
-        if (demandService.notExistsByDemandId(demandId)) {
+        if (demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
@@ -136,7 +136,7 @@ public class MinioServiceImpl implements MinioService {
 
     @Override
     public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) {
-        if (demandService.notExistsByDemandId(demandId)) {
+        if (demandService.isNotExistsByDemandId(demandId)) {
             throw (new SystemException(ResultCode.MINIO_DOWNLOAD_FAILED));
         }
 
@@ -259,6 +259,15 @@ public class MinioServiceImpl implements MinioService {
             log.error("获取MinIO文件【{}】访问链接失败（桶：{}）", objectName, bucketName, e);
             return null;
         }
+    }
+
+    @Override
+    public String getUserAvatarUrl(String avatarPath) {
+        if (avatarPath == null || avatarPath.isEmpty()) {
+            return null;
+        }
+
+        return generateUrl("avatar", avatarPath);
     }
 
 

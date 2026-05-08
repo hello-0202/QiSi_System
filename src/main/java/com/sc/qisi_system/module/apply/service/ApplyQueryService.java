@@ -49,7 +49,7 @@ public interface ApplyQueryService {
      * @param userId 用户id
      * @return 用户详情信息
      */
-    MemberVO getMemberDetail(Long userId);
+    MemberVO getApplyMemberDetailInfo(Long userId);
 
 
     /**

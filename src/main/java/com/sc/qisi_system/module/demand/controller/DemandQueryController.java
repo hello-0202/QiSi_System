@@ -88,7 +88,7 @@ public class DemandQueryController {
     @GetMapping("apply-demand-detail")
     public Result getApplyDemandDetail(
             @NotNull @RequestParam Long demandId){
-        return Result.success(demandQueryService.getDemandReceiverDetail(demandId));
+        return Result.success(demandQueryService.getPublicDemandDetail(demandId));
     }
 
 

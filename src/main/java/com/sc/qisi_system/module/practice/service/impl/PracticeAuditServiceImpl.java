@@ -39,7 +39,7 @@ public class PracticeAuditServiceImpl implements PracticeAuditService {
 
     @Override
     public void submitDemandPlan(DemandPlanDTO demandPlanDTO) {
-        if(demandService.notExistsByDemandId(demandPlanDTO.getDemandId())) {
+        if(demandService.isNotExistsByDemandId(demandPlanDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 

@@ -1,4 +1,4 @@
-package com.sc.qisi_system.module.apply.dto;
+package com.sc.qisi_system.module.practice.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

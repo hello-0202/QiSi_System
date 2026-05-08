@@ -45,7 +45,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void submitDemandLog(DemandProgressDTO demandProgressDTO) {
-        if (demandService.notExistsByDemandId(demandProgressDTO.getDemandId())) {
+        if (demandService.isNotExistsByDemandId(demandProgressDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
@@ -94,7 +94,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void applyQuitDemand(MemberChangeDTO memberChangeDTO) {
-        if (demandService.notExistsByDemandId(memberChangeDTO.getDemandId())) {
+        if (demandService.isNotExistsByDemandId(memberChangeDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
         long count = demandMemberChangeMapper.selectCount(Wrappers.lambdaQuery(DemandMemberChange.class)

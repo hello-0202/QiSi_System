@@ -76,7 +76,9 @@ public enum ResultCode {
     DEMAND_MEMBER_CHANGE_NOT_EXIST(4002021, "需求成员变更记录不存在"),
     DEMAND_PLAN_NOT_EXIST(4002022, "需求计划不存在"),
     DEMAND_QUIT_APPLIED_REPEAT(4002023, "你已提交过该需求的退出申请，请勿重复提交"),
-
+    // 菜单相关
+    MENU_NOT_EXIST(4002024, "菜单不存在"),
+    MENU_HAS_CHILDREN(4002025, "存在子菜单，无法删除"),
 
     /**
      * 验证码

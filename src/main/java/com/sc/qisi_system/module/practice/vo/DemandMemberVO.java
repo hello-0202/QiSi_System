@@ -1,6 +1,6 @@
 package com.sc.qisi_system.module.practice.vo;
 
-import com.sc.qisi_system.module.user.domain.UserInfoBase;
+import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -42,5 +42,5 @@ public class DemandMemberVO {
     /**
      * 用户信息
      */
-    private UserInfoBase userInfo;
+    private UserProfileVO userInfo;
 }

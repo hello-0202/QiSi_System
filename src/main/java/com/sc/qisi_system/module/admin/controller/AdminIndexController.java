@@ -1,6 +1,10 @@
 package com.sc.qisi_system.module.admin.controller;
 
 import com.sc.qisi_system.common.result.Result;
+import com.sc.qisi_system.module.admin.dto.MenuDTO;
+import com.sc.qisi_system.module.admin.dto.MenuQueryDTO;
+import com.sc.qisi_system.module.admin.service.AdminIndexService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -15,63 +19,72 @@ import org.springframework.web.bind.annotation.*;
 public class AdminIndexController {
 
 
-    //TODO
+    private final AdminIndexService adminIndexService;
+
+
     /**
-     * 获取当前登录用户信息
+     * 获取当前登录用户的业务身份
      */
-    @GetMapping("/profile")
-    public Result getProfile() {
-        return Result.success(null);
+    @GetMapping("/user-identity-list")
+    public Result getUserIdentityList() {
+        return Result.success(adminIndexService.getUserIdentity());
     }
 
 
-    //TODO
     /**
-     * 获取动态路由（前端侧边栏菜单）
+     * 获取动态路由(按角色)
      */
-    @GetMapping("/routers")
-    public Result getRouters() {
-        return Result.success(null);
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/user/routers")
+    public Result getRouters(
+            @RequestBody MenuQueryDTO menuQueryDTO) {
+        return Result.success(adminIndexService.getRouters(menuQueryDTO));
     }
 
 
-    //TODO
     /**
-     * 查询所有菜单列表（用于菜单管理页面）
+     * 条件查询所有菜单列表
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/menu/list")
-    public Result getMenuList() {
-        return Result.success(null);
+    public Result getMenuList(
+             @RequestBody MenuQueryDTO menuQueryDTO) {
+        return Result.success(adminIndexService.getMenuRouteList(menuQueryDTO));
     }
 
 
-    //TODO
     /**
      * 新增菜单
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/menu/add")
-    public Result addMenu() {
-        return Result.success("新增成功");
+    public Result addMenu(
+            @Valid @RequestBody MenuDTO menuDTO) {
+        adminIndexService.addMenu(menuDTO);
+        return Result.success();
     }
 
 
-    //TODO
     /**
      * 修改菜单
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/menu/update")
-    public Result updateMenu() {
-        return Result.success("修改成功");
+    public Result updateMenu(
+            @Valid @RequestBody MenuDTO menuDTO) {
+        adminIndexService.updateMenu(menuDTO);
+        return Result.success();
     }
 
 
-    //TODO
     /**
      * 删除菜单
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/menu/delete")
-    public Result deleteMenu() {
-        return Result.success("删除成功");
+    public Result deleteMenu(
+            @RequestParam Long id) {
+        adminIndexService.deleteMenu(id);
+        return Result.success();
     }
-
 }

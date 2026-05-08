@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -73,7 +72,7 @@ public class SchoolStaff {
     /**
      * 来校时间
      */
-    private LocalDate comeTime;
+    private String comeTime;
 
     /**
      * 创建时间

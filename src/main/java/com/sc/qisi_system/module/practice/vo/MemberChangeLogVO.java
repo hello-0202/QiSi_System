@@ -1,6 +1,6 @@
 package com.sc.qisi_system.module.practice.vo;
 
-import com.sc.qisi_system.module.user.domain.UserInfoBase;
+import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -18,7 +18,7 @@ public class MemberChangeLogVO {
     /**
      * 变更人信息
      */
-    private UserInfoBase userInfoBase;
+    private UserProfileVO userProfileVO;
 
 
     /**

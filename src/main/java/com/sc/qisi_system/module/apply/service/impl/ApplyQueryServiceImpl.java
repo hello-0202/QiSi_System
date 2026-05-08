@@ -15,10 +15,11 @@ import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.demand.dto.ApplyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
+import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
-import com.sc.qisi_system.module.user.domain.UserInfoBase;
+import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import com.sc.qisi_system.module.user.entity.EduStudent;
 import com.sc.qisi_system.module.user.entity.EduTeacher;
 import com.sc.qisi_system.module.user.entity.EntEmployee;
@@ -50,12 +51,14 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     private final EduStudentService eduStudentService;
     private final EduTeacherService eduTeacherService;
     private final EntEmployeeService entEmployeeService;
+    private final MinioService minioService;
 
 
     @Override
     public PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO) {
         return demandService.getMyApplyDemandList(userId, myApplyQueryDTO);
     }
+
 
     @Override
     public PageResult<DemandListVO> getApplyList(Long userId, ApplyDemandQueryDTO queryDTO) {
@@ -98,7 +101,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     @Override
     public List<MemberVO> getApplyMemberList(Long userId, Long demandId) {
 
-        if(!demandService.notExistsByDemandId(demandId)) {
+        if(!demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
         if(sysUserService.existsById(userId)) {
@@ -148,12 +151,13 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
             MemberVO vo = new MemberVO();
             vo.setId(sysUser.getId());
             vo.setApplyId(userIdToApplyIdMap.get(sysUser.getId()));
+            vo.setAvatarUrl(minioService.getUserAvatarUrl(sysUser.getAvatar()));
 
-            UserInfoBase userInfoBase = new UserInfoBase();
-            userInfoBase.setName(sysUser.getName());
-            userInfoBase.setAvatar(sysUser.getAvatar());
-            userInfoBase.setUserType(sysUser.getUserType());
-            vo.setUserInfoBase(userInfoBase);
+            UserProfileVO userProfileVO = new UserProfileVO();
+            userProfileVO.setName(sysUser.getName());
+            userProfileVO.setAvatar(sysUser.getAvatar());
+            userProfileVO.setUserType(sysUser.getUserType());
+            vo.setUserProfileVO(userProfileVO);
 
             loadUserInfoByRole(sysUser.getId(), sysUser.getUserType(), vo);
             voList.add(vo);
@@ -164,7 +168,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
 
 
     @Override
-    public MemberVO getMemberDetail(Long userId) {
+    public MemberVO getApplyMemberDetailInfo(Long userId) {
         if(sysUserService.existsById(userId)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
@@ -182,8 +186,9 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
         MemberVO vo = new MemberVO();
-        vo.getUserInfoBase().setPhone(sysUser.getPhone());
-        vo.getUserInfoBase().setEmail(sysUser.getEmail());
+        vo.getUserProfileVO().setPhone(sysUser.getPhone());
+        vo.getUserProfileVO().setEmail(sysUser.getEmail());
+        vo.setAvatarUrl(minioService.getUserAvatarUrl(sysUser.getAvatar()));
 
         return vo;
     }
@@ -230,7 +235,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         if (eduStudent == null) {
             return;
         }
-        BeanUtils.copyProperties(eduStudent, vo.getUserInfoBase());
+        BeanUtils.copyProperties(eduStudent, vo.getUserProfileVO());
     }
 
 
@@ -247,7 +252,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         if (eduTeacher == null) {
             return;
         }
-        BeanUtils.copyProperties(eduTeacher, vo.getUserInfoBase());
+        BeanUtils.copyProperties(eduTeacher, vo.getUserProfileVO());
     }
 
 
@@ -263,6 +268,6 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         if (entEmployee == null) {
             return;
         }
-        BeanUtils.copyProperties(entEmployee, vo.getUserInfoBase());
+        BeanUtils.copyProperties(entEmployee, vo.getUserProfileVO());
     }
 }

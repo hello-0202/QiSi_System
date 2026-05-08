@@ -16,5 +16,4 @@ public interface ApplyService extends IService<DemandApply> {
      * @return 用户id和需求的映射表
      */
     Map<Long, DemandApplyList> getUserApplyMap(Long userId);
-
 }

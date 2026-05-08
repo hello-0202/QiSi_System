@@ -1,9 +1,9 @@
-package com.sc.qisi_system.module.user.domain;
+package com.sc.qisi_system.module.user.vo;
 
 import lombok.Data;
 
 @Data
-public class UserInfoBase {
+public class UserProfileVO {
 
 
     /**

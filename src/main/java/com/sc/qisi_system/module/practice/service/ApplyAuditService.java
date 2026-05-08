@@ -1,7 +1,7 @@
 package com.sc.qisi_system.module.practice.service;
 
 
-import com.sc.qisi_system.module.apply.dto.AuditApplyDTO;
+import com.sc.qisi_system.module.practice.dto.AuditApplyDTO;
 
 public interface ApplyAuditService {
 
