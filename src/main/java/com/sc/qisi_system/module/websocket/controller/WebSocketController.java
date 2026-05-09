@@ -2,6 +2,7 @@ package com.sc.qisi_system.module.websocket.controller;
 
 import com.sc.qisi_system.module.user.service.RedisService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Controller;
 
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class WebSocketController {
-
 
     private final RedisService redisService;
 

@@ -4,18 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="写了私信功能接口">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/enums/SessionTypeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/entity/ChatMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/entity/ChatSession.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/mapper/ChatMessageMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/mapper/ChatSessionMapper.java" afterDir="false" />
+    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完成了私信功能">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/enums/KickOffReasonEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/SendWebSocketService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/impl/SendWebSocketServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/websocket/listener/WebSocketSessionEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/websocket/listener/WebSocketSessionEventListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/controller/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/dto/UserMessageDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/dto/UserMessageDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/MessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/impl/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/impl/MessageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/vo/ChatSessionVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/vo/ChatSessionVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/controller/WebSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/controller/WebSocketController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +177,7 @@
       <workItem from="1777428137014" duration="5653000" />
       <workItem from="1777514116861" duration="2704000" />
       <workItem from="1778033974201" duration="32740000" />
-      <workItem from="1778293462580" duration="3237000" />
+      <workItem from="1778293462580" duration="4316000" />
     </task>
     <task id="LOCAL-00001" summary="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token">
       <option name="closed" value="true" />
@@ -359,7 +355,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778249213587</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="完成了私信功能">
+      <option name="closed" value="true" />
+      <created>1778297064156</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1778297064156</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,7 +399,8 @@
     <MESSAGE value="写了一些代码" />
     <MESSAGE value="完成部分接口，完善代码结构" />
     <MESSAGE value="写了私信功能接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="写了私信功能接口" />
+    <MESSAGE value="完成了私信功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成了私信功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
