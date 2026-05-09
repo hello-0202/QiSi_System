@@ -47,10 +47,10 @@ public interface MessageService {
     /**
      * 获取用户总未读消息数量
      *
-     * @param userId 用户ID
+     * @param sessionId 用户ID
      * @return 未读数量
      */
-    Long getUnreadCount(Long userId);
+    Long getUnreadCount(Long sessionId);
 
 
     /**

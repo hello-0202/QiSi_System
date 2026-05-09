@@ -77,8 +77,10 @@ public class MessageController {
      * @return 未读数量
      */
     @GetMapping("/chat/unread/count")
-    public Result getUnreadCount() {
-        return Result.success(messageService.getUnreadCount(SecurityUtils.getCurrentUserId()));
+    public Result getUnreadCount(
+            @RequestParam Long sessionId
+    ) {
+        return Result.success(messageService.getUnreadCount(sessionId));
     }
 
 

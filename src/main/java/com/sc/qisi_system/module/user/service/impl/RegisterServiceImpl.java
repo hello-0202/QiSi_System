@@ -130,6 +130,8 @@ public class RegisterServiceImpl implements RegisterService {
         eduStudentMapper.insert(eduStudent);
     }
 
+
+    //TODO
     /**
      * 处理教师白名单数据
      */
@@ -137,6 +139,7 @@ public class RegisterServiceImpl implements RegisterService {
         LambdaQueryWrapper<EntEmployee> queryWrapper = Wrappers.lambdaQuery(EntEmployee.class);
         queryWrapper.eq(EntEmployee::getEmployeeNo,sysUser.getUsername());
         EntEmployee entEmployee = entEmployeeMapper.selectOne(queryWrapper);
+
         EduTeacher eduTeacher = new EduTeacher();
         BeanUtils.copyProperties(entEmployee, eduTeacher, "createTime", "updateTime");
         eduTeacher.setTeacherNo(entEmployee.getEmployeeNo());

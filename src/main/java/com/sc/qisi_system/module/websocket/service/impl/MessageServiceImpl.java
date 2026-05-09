@@ -94,9 +94,12 @@ public class MessageServiceImpl implements MessageService {
 
 
     @Override
-    public Long getUnreadCount(Long userId) {
+    public Long getUnreadCount(Long sessionId) {
         LambdaQueryWrapper<ChatMessage> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(ChatMessage::getStatus, 0);
+
+        wrapper
+                .eq(ChatMessage::getStatus, 0)
+                .eq(ChatMessage::getSessionId, sessionId);
         return chatMessageMapper.selectCount(wrapper);
     }
 
