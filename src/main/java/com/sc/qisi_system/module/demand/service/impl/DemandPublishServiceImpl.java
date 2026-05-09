@@ -9,6 +9,7 @@ import com.sc.qisi_system.module.demand.dto.DemandUpdateDraftDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.mapper.DemandMapper;
 import com.sc.qisi_system.module.demand.service.DemandPublishService;
+import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.demand.vo.AttachmentUploadVO;
 import com.sc.qisi_system.module.user.service.SysUserService;
@@ -28,6 +29,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
     private final DemandMapper demandMapper;
     private final SysUserService sysUserService;
     private final MinioService minioService;
+    private final DemandService demandService;
 
 
     @Override
@@ -137,7 +139,10 @@ public class DemandPublishServiceImpl implements DemandPublishService {
 
 
     @Override
-    public AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) throws Exception {
+    public AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) throws Exception {// Controller 或 上层业务Service 先校验
+        if (demandService.isNotExistsByDemandId(demandId)) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
         return minioService.batchUploadDemandAttachment(demandId, files);
     }
 

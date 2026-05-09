@@ -57,6 +57,9 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
 
     @Override
     public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) throws Exception {
+        if (demandService.isNotExistsByDemandId(demandId)) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
         return minioService.batchUploadProgressAttachments(demandId, files);
     }
 

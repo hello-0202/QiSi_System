@@ -10,7 +10,6 @@ import com.sc.qisi_system.config.minio.MinioConfig;
 import com.sc.qisi_system.module.demand.entity.DemandAttachment;
 import com.sc.qisi_system.module.demand.service.AsyncFileDeleteService;
 import com.sc.qisi_system.module.demand.service.DemandAttachmentService;
-import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.demand.domain.DemandAttachmentFail;
 import com.sc.qisi_system.module.demand.domain.AttachmentSuccess;
@@ -31,6 +30,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -42,17 +42,11 @@ public class MinioServiceImpl implements MinioService {
     private final AsyncFileDeleteService asyncFileDeleteService;
     private final MinioClient minioClient;
     private final MinioConfig minioConfig;
-    private final DemandService demandService;
 
 
     @Transactional(rollbackFor = Exception.class)
     @Override
     public AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) {
-
-        if (demandService.isNotExistsByDemandId(demandId)) {
-            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
-        }
-
         return commonBatchUpload(
                 demandId,files,
                 "demand/",
@@ -136,10 +130,6 @@ public class MinioServiceImpl implements MinioService {
 
     @Override
     public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) {
-        if (demandService.isNotExistsByDemandId(demandId)) {
-            throw (new SystemException(ResultCode.MINIO_DOWNLOAD_FAILED));
-        }
-
         return commonBatchUpload(
                 demandId,files,
                 "progress/",
