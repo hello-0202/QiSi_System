@@ -16,6 +16,7 @@ import com.sc.qisi_system.module.user.service.CaptchaService;
 import com.sc.qisi_system.module.user.service.LoginService;
 import com.sc.qisi_system.module.user.service.RedisService;
 import com.sc.qisi_system.module.user.vo.LoginUserVO;
+import com.sc.qisi_system.module.websocket.service.WebSocketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginServiceImpl implements LoginService {
 
+
     private final SysUserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final SysUserTypeIdentityService sysUserTypeIdentityService;
     private final JwtTokenProvider jwtTokenProvider;
     private final CaptchaService captchaService;
     private final RedisService redisService;
+    private final WebSocketService webSocketService;
+
 
     @Override
     public LoginUserVO login(LoginRequest loginRequest) {
@@ -77,13 +81,11 @@ public class LoginServiceImpl implements LoginService {
         loginUserVO.setMenuRoute(sysUserTypeIdentityService.getMenuRouteList(sysUserTypeIdentity.getIdentityId()));
 
         return loginUserVO;
-
     }
 
     @Override
     public void logout(LogoutRequest logoutRequest) {
         redisService.logout(logoutRequest);
+        webSocketService.broadcastOnlineUserList();
     }
-
-
 }

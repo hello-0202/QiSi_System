@@ -1,7 +1,7 @@
 package com.sc.qisi_system.module.websocket.service.impl;
 
 
-import com.sc.qisi_system.module.websocket.service.SendWebSocketService;
+import com.sc.qisi_system.module.websocket.service.WebSocketMessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class SendWebSocketServiceImpl implements SendWebSocketService {
+public class WebSocketMessageServiceImpl implements WebSocketMessageService {
 
 
     private final SimpMessagingTemplate simpMessagingTemplate;

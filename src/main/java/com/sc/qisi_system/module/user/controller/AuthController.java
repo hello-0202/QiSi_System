@@ -57,6 +57,4 @@ public class AuthController {
     public Result refreshAccessToken(@NotBlank @RequestParam String refreshToken) {
         return Result.success(redisService.refreshAccessToken(refreshToken));
     }
-
-
 }

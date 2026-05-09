@@ -196,6 +196,42 @@ public class RedisServiceImpl implements RedisService {
 
 
     /**
+     * 获取 Redis 中 所有 userId <-> sessionId 映射
+     * 用途：获取全部在线用户的完整关系
+     * @return Map<userId, sessionId>
+     */
+    @Override
+    public Map<Long, String> getAllOnlineUserSessionMap() {
+        Map<Long, String> onlineMap = new HashMap<>();
+
+        // 1. 获取所有 user:session:* 的key
+        String userSessionPattern = USER_TO_SESSION + "*";
+        try {
+            // 获取所有匹配的key
+            var keys = stringRedisTemplate.keys(userSessionPattern);
+            if (keys.isEmpty()) {
+                return onlineMap;
+            }
+
+            // 2. 遍历所有key，解析 userId 和 sessionId
+            for (String key : keys) {
+                // 截取 userId
+                String userIdStr = key.replace(USER_TO_SESSION, "");
+                Long userId = Long.valueOf(userIdStr);
+
+                // 获取对应的 sessionId
+                String sessionId = stringRedisTemplate.opsForValue().get(key);
+                if (sessionId != null) {
+                    onlineMap.put(userId, sessionId);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return onlineMap;
+    }
+
+
+    /**
      * 主动撤销 Refresh Token
      */
     private void revokeRefreshToken(String userId, String refreshToken) {

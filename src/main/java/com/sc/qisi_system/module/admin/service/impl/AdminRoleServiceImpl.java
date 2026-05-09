@@ -5,7 +5,7 @@ import com.sc.qisi_system.module.admin.mapper.SysUserTypeIdentityMapper;
 import com.sc.qisi_system.module.admin.service.AdminRoleService;
 import com.sc.qisi_system.module.admin.vo.SysUserTypeIdentityVO;
 import com.sc.qisi_system.module.websocket.enumType.SystemPushTypeEnum;
-import com.sc.qisi_system.module.websocket.service.SendWebSocketService;
+import com.sc.qisi_system.module.websocket.service.WebSocketMessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class AdminRoleServiceImpl implements AdminRoleService {
 
 
     private final SysUserTypeIdentityMapper sysUserTypeIdentityMapper;
-    private final SendWebSocketService sendWebSocketService;
+    private final WebSocketMessageService webSocketMessageService;
 
 
     @Override
@@ -46,6 +46,6 @@ public class AdminRoleServiceImpl implements AdminRoleService {
             BeanUtils.copyProperties(vo, entity);
             sysUserTypeIdentityMapper.insert(entity);
         }
-        sendWebSocketService.broadcastToAll(SystemPushTypeEnum.IDENTITY_MAP_UPDATED.getMsg());
+        webSocketMessageService.broadcastToAll(SystemPushTypeEnum.IDENTITY_MAP_UPDATED.getMsg());
     }
 }

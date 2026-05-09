@@ -21,28 +21,30 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+
 @RequiredArgsConstructor
 @Component
 @Slf4j
 public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
 
+
     private final JwtTokenProvider jwtTokenProvider;
     private final RequestUtils requestUtils;
     private final RedisService redisService;
+
 
     @Override
     public boolean beforeHandshake(
             @NotNull ServerHttpRequest request,
             @NotNull ServerHttpResponse response,
             @NotNull WebSocketHandler wsHandler,
-            Map<String, Object> attributes
-    ) {
+            Map<String, Object> attributes) {
         attributes.put("requestLog", requestUtils.getWebSocketRequestLog(request));
         try {
             // 1. 获取 token
             String token = getToken(request);
 
-            if(redisService.isTokenBlacklisted(token)) {
+            if (redisService.isTokenBlacklisted(token)) {
                 throw new BusinessException(ResultCode.TOKEN_LOGGED_OUT);
             }
             // 2. 校验 token（你原来的逻辑）
@@ -62,10 +64,11 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
         }
     }
 
+
     @Override
     public void afterHandshake(@NotNull ServerHttpRequest request, @NotNull ServerHttpResponse response, @NotNull WebSocketHandler wsHandler, Exception exception) {
-
     }
+
 
     private String getToken(ServerHttpRequest request) {
         String query = request.getURI().getQuery();
@@ -79,6 +82,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
         }
         throw new BusinessException(ResultCode.NO_TOKEN);
     }
+
 
     private void sendErrorMessage(ServerHttpResponse response, Throwable ex) {
         try {
@@ -96,5 +100,4 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
         } catch (Exception ignored) {
         }
     }
-
 }
