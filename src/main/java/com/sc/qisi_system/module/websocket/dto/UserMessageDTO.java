@@ -8,6 +8,12 @@ public class UserMessageDTO {
 
 
     /**
+     * 所属对话ID
+     */
+    private Long sessionId;
+
+
+    /**
      * 发送者id
      */
     private Long fromUserId;

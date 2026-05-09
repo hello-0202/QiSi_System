@@ -2,13 +2,16 @@ package com.sc.qisi_system.module.websocket.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.sc.qisi_system.common.enums.SessionTypeEnum;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.service.RedisService;
 import com.sc.qisi_system.module.user.service.SysUserService;
 import com.sc.qisi_system.module.websocket.dto.UserMessageDTO;
-import com.sc.qisi_system.module.websocket.entity.UserMessage;
-import com.sc.qisi_system.module.websocket.mapper.UserMessageMapper;
+import com.sc.qisi_system.module.websocket.entity.ChatMessage;
+import com.sc.qisi_system.module.websocket.entity.ChatSession;
+import com.sc.qisi_system.module.websocket.mapper.ChatMessageMapper;
+import com.sc.qisi_system.module.websocket.mapper.ChatSessionMapper;
 import com.sc.qisi_system.module.websocket.service.MessageService;
 import com.sc.qisi_system.module.websocket.vo.ChatSessionVO;
 import lombok.RequiredArgsConstructor;
@@ -18,18 +21,18 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RequiredArgsConstructor
 @Service
 public class MessageServiceImpl implements MessageService {
 
-
-    private final UserMessageMapper userMessageMapper;
+    private final ChatMessageMapper chatMessageMapper;
+    private final ChatSessionMapper chatSessionMapper;
     private final RedisService redisService;
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final MinioService minioService;
@@ -43,114 +46,126 @@ public class MessageServiceImpl implements MessageService {
         Long fromUserId = redisService.getUserId(sessionId);
         Long toUserId = userMessageDTO.getToUserId();
 
-        UserMessage userMessage = new UserMessage();
-        BeanUtils.copyProperties(userMessageDTO, userMessage);
-        userMessage.setFromUserId(fromUserId);
-        userMessage.setStatus(0);
-        userMessageMapper.insert(userMessage);
+        // 1. 获取或创建对话
+        ChatSession session = getOrCreateSession(fromUserId, toUserId);
 
+        // 2. 构建消息
+        ChatMessage chatMessage = new ChatMessage();
+        BeanUtils.copyProperties(userMessageDTO, chatMessage);
+        chatMessage.setSessionId(session.getId());
+        chatMessage.setFromUserId(fromUserId);
+        chatMessage.setStatus(0);
+
+        // 3. 插入消息
+        chatMessageMapper.insert(chatMessage);
+
+        // 4. 更新会话最后一条消息
+        session.setLastMessage(chatMessage.getContent());
+        session.setLastTime(LocalDateTime.now());
+        chatSessionMapper.updateById(session);
+
+        // 5. 推送消息
         String destination = "/queue/private";
-        simpMessagingTemplate.convertAndSendToUser(String.valueOf(toUserId),destination,userMessage);
+        simpMessagingTemplate.convertAndSendToUser(String.valueOf(toUserId), destination, chatMessage);
     }
 
 
     @Override
-    public List<UserMessage> getChatHistory(Long currentUserId, Long targetUserId) {
-        LambdaQueryWrapper<UserMessage> wrapper = new LambdaQueryWrapper<>();
-        wrapper.and(w -> w.eq(UserMessage::getFromUserId, currentUserId)
-                        .eq(UserMessage::getToUserId, targetUserId))
-                .or(w -> w.eq(UserMessage::getFromUserId, targetUserId)
-                        .eq(UserMessage::getToUserId, currentUserId));
+    public ChatSession getOrCreateSession(Long currentUserId, Long targetUserId) {
+        ChatSession chatSession = getChatSession(currentUserId, targetUserId);
+        if (chatSession == null) {
+            chatSession = new ChatSession();
+            chatSession.setUserA(currentUserId);
+            chatSession.setUserB(targetUserId);
+            chatSession.setSessionType(SessionTypeEnum.SINGLE.getCode());
+            chatSessionMapper.insert(chatSession);
+        }
+        return chatSession;
+    }
 
-        wrapper.orderByAsc(UserMessage::getCreateTime);
-        return userMessageMapper.selectList(wrapper);
+
+    @Override
+    public List<ChatMessage> getChatHistory(Long sessionId) {
+        LambdaQueryWrapper<ChatMessage> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ChatMessage::getSessionId, sessionId)
+                .orderByAsc(ChatMessage::getCreateTime);
+        return chatMessageMapper.selectList(wrapper);
     }
 
 
     @Override
     public Long getUnreadCount(Long userId) {
-        LambdaQueryWrapper<UserMessage> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(UserMessage::getToUserId, userId)
-                .eq(UserMessage::getStatus, 0);
-        return userMessageMapper.selectCount(wrapper);
+        LambdaQueryWrapper<ChatMessage> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ChatMessage::getStatus, 0);
+        return chatMessageMapper.selectCount(wrapper);
     }
 
 
     @Transactional
     @Override
-    public void markAsRead(Long myUserId, Long targetUserId) {
-        LambdaUpdateWrapper<UserMessage> wrapper = new LambdaUpdateWrapper<>();
-        wrapper.eq(UserMessage::getToUserId, myUserId)
-                .eq(UserMessage::getFromUserId, targetUserId)
-                .eq(UserMessage::getStatus, 0)
-                .set(UserMessage::getStatus, 1);
-        userMessageMapper.update(null, wrapper);
+    public void markSessionAsRead(Long sessionId, Long userId) {
+        LambdaUpdateWrapper<ChatMessage> wrapper = new LambdaUpdateWrapper<>();
+        wrapper
+                .eq(ChatMessage::getSessionId, sessionId)
+                .eq(ChatMessage::getStatus, 0)
+                .set(ChatMessage::getStatus, 1);
+        chatMessageMapper.update(null, wrapper);
     }
 
 
     @Override
     public List<ChatSessionVO> getChatSessionList(Long currentUserId) {
+        LambdaQueryWrapper<ChatSession> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ChatSession::getSessionType, SessionTypeEnum.SINGLE.getCode())
+                .and(w -> w.eq(ChatSession::getUserA, currentUserId)
+                        .or()
+                        .eq(ChatSession::getUserB, currentUserId))
+                .orderByDesc(ChatSession::getLastTime);
 
-        // 1. 查询所有和我相关的消息
-        LambdaQueryWrapper<UserMessage> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(UserMessage::getToUserId, currentUserId)
-                .or()
-                .eq(UserMessage::getFromUserId, currentUserId);
-        wrapper.orderByDesc(UserMessage::getCreateTime);
-
-        List<UserMessage> messages = userMessageMapper.selectList(wrapper);
-
-        // 2. 分组 → 每个聊天对象只保留一条
+        List<ChatSession> sessions = chatSessionMapper.selectList(wrapper);
         Map<Long, ChatSessionVO> sessionMap = new HashMap<>();
 
-        for (UserMessage msg : messages) {
-            Long fromUserId = msg.getFromUserId();
-            Long toUserId = msg.getToUserId();
+        for (ChatSession session : sessions) {
+            Long targetId = session.getUserA().equals(currentUserId) ? session.getUserB() : session.getUserA();
 
-            // 对方ID
-            Long targetId = fromUserId.equals(currentUserId) ? toUserId : fromUserId;
+            if (sessionMap.containsKey(targetId)) continue;
 
-            // 已经存在就跳过，只保留最新一条
-            if (sessionMap.containsKey(targetId)) {
-                continue;
-            }
+            SysUser sysUser = sysUserService.getOne(
+                    new LambdaQueryWrapper<SysUser>()
+                            .eq(SysUser::getId, targetId)
+                            .select(SysUser::getAvatar, SysUser::getName)
+            );
 
-            LambdaQueryWrapper<SysUser> userQuery = new LambdaQueryWrapper<>();
-            userQuery.eq(SysUser::getId, targetId)
-                    .select(
-                            SysUser::getAvatar,
-                            SysUser::getName
-                    );
-            SysUser sysUser = sysUserService.getOne(userQuery);
+            if (sysUser == null) continue;
 
-            if (sysUser == null) {
-                continue;
-            }
-
-            // 构建VO
             ChatSessionVO vo = new ChatSessionVO();
             vo.setUserId(targetId);
-            vo.setLastMessage(msg.getContent());
-            vo.setLastTime(msg.getCreateTime());
+            vo.setSessionId(session.getId());
+            vo.setLastMessage(session.getLastMessage());
+            vo.setLastTime(session.getLastTime());
             vo.setAvatar(minioService.getUserAvatarUrl(sysUser.getAvatar()));
             vo.setNickname(sysUser.getName());
-
-            // 未读数量
-            int unread = getUnreadCountByTarget(currentUserId, targetId);
-            vo.setUnreadCount(unread);
+            vo.setUnreadCount(getUnreadCountBySession(session.getId()));
 
             sessionMap.put(targetId, vo);
         }
-
         return new ArrayList<>(sessionMap.values());
     }
 
-    // 未读数量
-    private int getUnreadCountByTarget(Long myUserId, Long targetId) {
-        LambdaQueryWrapper<UserMessage> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(UserMessage::getToUserId, myUserId)
-                .eq(UserMessage::getFromUserId, targetId)
-                .eq(UserMessage::getStatus, 0);
-        return userMessageMapper.selectCount(wrapper).intValue();
+
+    private int getUnreadCountBySession(Long sessionId) {
+        LambdaQueryWrapper<ChatMessage> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ChatMessage::getSessionId, sessionId)
+                .eq(ChatMessage::getStatus, 0);
+        return chatMessageMapper.selectCount(wrapper).intValue();
+    }
+
+
+    private ChatSession getChatSession(Long currentUserId, Long targetUserId) {
+        LambdaQueryWrapper<ChatSession> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .and(w -> w.eq(ChatSession::getUserA, currentUserId).eq(ChatSession::getUserB, targetUserId))
+                .or(w -> w.eq(ChatSession::getUserA, targetUserId).eq(ChatSession::getUserB, currentUserId));
+        return chatSessionMapper.selectOne(queryWrapper);
     }
 }
