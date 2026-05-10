@@ -81,6 +81,10 @@ public enum ResultCode {
     // 菜单相关
     MENU_NOT_EXIST(4002024, "菜单不存在"),
     MENU_HAS_CHILDREN(4002025, "存在子菜单，无法删除"),
+    STUDENT_WHITELIST_EXISTED(4002026, "学生白名单信息已存在"),
+    TEACHER_WHITELIST_EXISTED(4002027, "教职工白名单信息已存在"),
+    STUDENT_WHITELIST_NOT_EXIST(4002028, "学生白名单信息不存在"),
+    TEACHER_WHITELIST_NOT_EXIST(4002029, "教职工白名单信息不存在"),
 
 
 

@@ -70,7 +70,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
                 .lambdaQuery(EntEmployee.class)
                 .eq(EntEmployee::getUserId, sysUser.getId()));
 
-        if (Objects.nonNull(emp)) BeanUtils.copyProperties(emp, baseVO);
+        if (Objects.nonNull(emp)) BeanUtils.copyProperties(emp, baseVO,"id");
         return baseVO;
     }
 
@@ -84,7 +84,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
                 .lambdaQuery(EduTeacher.class)
                 .eq(EduTeacher::getUserId, sysUser.getId()));
 
-        if (Objects.nonNull(teacher)) BeanUtils.copyProperties(teacher, baseVO);
+        if (Objects.nonNull(teacher)) BeanUtils.copyProperties(teacher, baseVO,"id");
         return baseVO;
     }
 
@@ -98,7 +98,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
                 .lambdaQuery(EduStudent.class)
                 .eq(EduStudent::getUserId, sysUser.getId()));
 
-        if (Objects.nonNull(student)) BeanUtils.copyProperties(student, baseVO);
+        if (Objects.nonNull(student)) BeanUtils.copyProperties(student, baseVO,"id");
         return baseVO;
     }
 }

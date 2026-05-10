@@ -1,4 +1,4 @@
-package com.sc.qisi_system.module.websocket.enumType;
+package com.sc.qisi_system.common.enums;
 
 import lombok.Getter;
 

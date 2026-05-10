@@ -7,6 +7,12 @@ public class UserProfileVO {
 
 
     /**
+     * sys_user主键id
+     */
+    private Long id;
+
+
+    /**
      * 姓名
      */
     private String name;

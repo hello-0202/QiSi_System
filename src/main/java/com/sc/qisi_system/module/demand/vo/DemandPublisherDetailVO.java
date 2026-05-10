@@ -22,7 +22,4 @@ public class DemandPublisherDetailVO {
      * 手机号
      */
     private String phone;
-
-
-
 }

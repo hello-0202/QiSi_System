@@ -1,6 +1,6 @@
 package com.sc.qisi_system.config.websocket.listener;
 
-import com.sc.qisi_system.module.websocket.enumType.KickOffReasonEnum;
+import com.sc.qisi_system.common.enums.KickOffReasonEnum;
 import com.sc.qisi_system.config.websocket.StompPrincipal;
 import com.sc.qisi_system.module.user.service.RedisService;
 import com.sc.qisi_system.module.websocket.service.WebSocketMessageService;
