@@ -14,6 +14,7 @@ import com.sc.qisi_system.module.user.vo.UserInfoVO;
 import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +26,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final SysUserMapper sysUserMapper;
     private final SysUserService sysUserService;
     private final MinioService minioService;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -48,7 +50,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         if(sysUser == null) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
-        sysUser.setPassword(userInfoDTO.getPassword());
+        sysUser.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
         sysUser.setPhone(userInfoDTO.getPhone());
         sysUser.setEmail(userInfoDTO.getEmail());
         sysUserMapper.updateById(sysUser);

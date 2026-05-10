@@ -46,6 +46,7 @@ public class DemandPublishController {
 
     /**
      * 修改需求草稿接口
+     * 角色: 发布者
      *
      * @param demandUpdateDraftDTO 请求参数
      * @return 成功返回草稿ID，失败返回错误信息
@@ -128,6 +129,4 @@ public class DemandPublishController {
         demandPublishService.deleteBatchAttachment(attachmentIds);
         return Result.success();
     }
-
-
 }

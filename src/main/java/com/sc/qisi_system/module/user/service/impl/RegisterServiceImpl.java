@@ -58,7 +58,6 @@ public class RegisterServiceImpl implements RegisterService {
                 .userType(request.getUserType())
                 .build();
 
-
         sysUserMapper.insert(sysUser);
         handleWhitelistDataByUserType(sysUser);
     }
@@ -96,8 +95,8 @@ public class RegisterServiceImpl implements RegisterService {
 
     private void handleWhitelistDataByUserType(SysUser sysUser) {
         switch (sysUser.getUserType()) {
-            case 1 -> handleTeacherWhitelist(sysUser);
-            case 2 -> handleStudentWhitelist(sysUser);
+            case 1 -> handleStudentWhitelist(sysUser);
+            case 2 -> handleTeacherWhitelist(sysUser);
             case 3 -> handleEntEmployeeWhitelist();
         }
     }
@@ -110,8 +109,14 @@ public class RegisterServiceImpl implements RegisterService {
         LambdaQueryWrapper<SchoolStaff> queryWrapper = Wrappers.lambdaQuery(SchoolStaff.class);
         queryWrapper.eq(SchoolStaff::getPersonCode,sysUser.getUsername());
         SchoolStaff schoolStaff = schoolStaffMapper.selectOne(queryWrapper);
+        if (schoolStaff == null) {
+            throw new BusinessException(ResultCode.TEACHER_WHITELIST_NOT_EXIST);
+        }
         EduTeacher eduTeacher = new EduTeacher();
         BeanUtils.copyProperties(schoolStaff,eduTeacher);
+        eduTeacher.setTeacherNo(schoolStaff.getPersonCode());
+        sysUser.setName(schoolStaff.getName());
+        sysUserMapper.updateById(sysUser);
         eduTeacherMapper.insert(eduTeacher);
     }
 
@@ -123,9 +128,15 @@ public class RegisterServiceImpl implements RegisterService {
         LambdaQueryWrapper<SchoolStudent> queryWrapper = Wrappers.lambdaQuery(SchoolStudent.class);
         queryWrapper.eq(SchoolStudent::getStudentId,sysUser.getUsername());
         SchoolStudent schoolStudent = schoolStudentMapper.selectOne(queryWrapper);
+        if(schoolStudent == null){
+            throw new BusinessException(ResultCode.STUDENT_WHITELIST_NOT_EXIST);
+        }
         EduStudent eduStudent = new EduStudent();
         BeanUtils.copyProperties(schoolStudent, eduStudent, "createTime", "updateTime");
+        eduStudent.setStudentNo(schoolStudent.getStudentId());
         eduStudent.setUserId(sysUser.getId());
+        sysUser.setName(schoolStudent.getName());
+        sysUserMapper.updateById(sysUser);
         eduStudentMapper.insert(eduStudent);
     }
 

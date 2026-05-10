@@ -46,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         List<GrantedAuthority> authorities = Collections.singletonList(
-                new SimpleGrantedAuthority(UserTypeEnum.getNameByCode(sysUser.getUserType()))
+                new SimpleGrantedAuthority(UserTypeEnum.getByCode(sysUser.getUserType()).getAuthority())
         );
 
         LoginUser loginUser = new LoginUser();

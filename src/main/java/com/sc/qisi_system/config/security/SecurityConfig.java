@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Slf4j
 @Configuration
 // 开启方法级权限控制，如 @PreAuthorize("hasRole('ADMIN')")
-@EnableMethodSecurity
+@EnableMethodSecurity(proxyTargetClass = true)
 @RequiredArgsConstructor // 生成构造器注入所需的过滤器
 public class SecurityConfig {
 

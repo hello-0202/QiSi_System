@@ -3,6 +3,11 @@ package com.sc.qisi_system.module.practice.service;
 import com.sc.qisi_system.module.practice.dto.DemandPlanDTO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeDTO;
 
+
+/**
+ * 实训需求审核业务服务接口
+ * 提供需求计划提交、状态流转、成员管理、退出申请审核等相关操作
+ */
 public interface PracticeAuditService {
 
 
@@ -62,6 +67,7 @@ public interface PracticeAuditService {
 
     /**
      * 发布者审核成员退出申请
+     * 角色: 发布者
      *
      * @param memberChangeDTO 需求成员变更请求体
      */

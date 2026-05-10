@@ -14,14 +14,27 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
+
+/**
+ * 文件操作控制器
+ */
 @RequiredArgsConstructor
 @RequestMapping("/file")
 @RestController
 public class FileController {
 
+
     private final MinioService minioService;
 
-    // 下载文件接口
+
+    /**
+     * 文件下载接口
+     *
+     * @param bucketName 存储桶名称
+     * @param objectName 文件对象名称
+     * @param response 响应对象
+     * @throws IOException IO异常
+     */
     @GetMapping("/download")
     public void download(
             @RequestParam String bucketName,

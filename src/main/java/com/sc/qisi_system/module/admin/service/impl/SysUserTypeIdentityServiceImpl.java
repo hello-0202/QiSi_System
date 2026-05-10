@@ -33,7 +33,8 @@ public class SysUserTypeIdentityServiceImpl extends ServiceImpl<SysUserTypeIdent
     public List<MenuRouteVO> getMenuRouteList(Integer identityId) {
 
         LambdaQueryWrapper<SysRoleMenu> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysRoleMenu::getIdentityId, identityId);
+        queryWrapper
+                .eq(SysRoleMenu::getIdentityId, identityId);
         List<Long> menuIds = sysRoleMenuMapper.selectList(queryWrapper).stream().map(SysRoleMenu::getMenuId).toList();
 
         // 2. 没有权限直接返回空

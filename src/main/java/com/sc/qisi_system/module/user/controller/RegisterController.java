@@ -27,6 +27,7 @@ public class RegisterController {
 
     /**
      * 学生/教师注册接口
+     *
      * @param request 学生/教师注册请求参数
      * @return 成功相关信息，失败返回错误信息
      */
@@ -39,6 +40,7 @@ public class RegisterController {
 
     /**
      * 企业人员注册接口
+     *
      * @param request 企业人员请求参数
      * @return 成功返回相关信息，失败返回错误信息
      */

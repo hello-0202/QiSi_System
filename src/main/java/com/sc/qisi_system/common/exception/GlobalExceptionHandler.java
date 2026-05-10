@@ -15,11 +15,14 @@ import org.apache.ibatis.binding.BindingException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.RedisConnectionFailureException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -169,6 +172,18 @@ public class GlobalExceptionHandler {
         log.error("[Redis连接异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.SYSTEM_ERROR.getCode(), e.getMessage());
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
+
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public Result handleAuthorizationDeniedException(AuthorizationDeniedException e, HttpServletRequest request) {
+        log.error("[权限异常] {}, code={}, message={}",
+                requestUtils.getRequestLog(request),
+                ResultCode.PERMISSION_DENIED.getCode(),
+                e.getMessage());
+        return Result.error(ResultCode.PERMISSION_DENIED.getCode(), ResultCode.PERMISSION_DENIED.getMessage());
+    }
+
 
     /**
      * JWT Token 过期异常处理

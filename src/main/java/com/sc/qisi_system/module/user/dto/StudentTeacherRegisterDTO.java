@@ -19,19 +19,13 @@ public class StudentTeacherRegisterDTO {
 
 
     /**
-     * 姓名
-     */
-    private String name;
-
-
-    /**
      * 手机号
      */
     private String phone;
 
 
     /**
-     * 身份证号
+     * 邮箱
      */
     private String email;
 
@@ -52,6 +46,4 @@ public class StudentTeacherRegisterDTO {
      * 验证码
      */
     private String captchaCode;
-
-
 }

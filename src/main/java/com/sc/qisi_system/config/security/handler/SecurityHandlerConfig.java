@@ -25,7 +25,7 @@ public class SecurityHandlerConfig {
     @Bean
     public AuthenticationEntryPoint customAuthenticationEntryPoint() {
         return (request, response, authException) -> {
-            log.warn("[认证失败] {}, 原因: {}",requestUtils.getRequestLog(request),  authException.getMessage());
+            log.warn("[认证失败] {}, 原因: {}",requestUtils.getRequestLog(request),  "认证失败");
             Result result = Result.error(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage());
             responseUtils.writeResult(response, result);
         };
@@ -39,7 +39,7 @@ public class SecurityHandlerConfig {
         return (request, response, accessDeniedException) -> {
             log.error("[授权失败] {}, 用户: {}, 原因: {}",requestUtils.getRequestLog(request),
                     request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : "unknown",
-                    accessDeniedException.getMessage());
+                    "授权失败");
             Result result = Result.error(ResultCode.PERMISSION_DENIED.getCode(), ResultCode.PERMISSION_DENIED.getMessage());
             responseUtils.writeResult(response, result);
 

@@ -4,30 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="解决了一些问题">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStaffDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStaffWhitelistQueryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStudentDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStudentWhitelistQueryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SysUserQueryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminUserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminWhitelistService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminUserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminWhitelistServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/SchoolStaffVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/SchoolStudentVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/SysUserVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/dto/SysUserResetPasswordDTO.java" afterDir="false" />
+    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完成了代码的编写">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/websocket/listener/WebSocketSessionEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/websocket/listener/WebSocketSessionEventListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminWhitelistController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminWhitelistController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/vo/DemandPublisherDetailVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/vo/DemandPublisherDetailVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/entity/SchoolStudent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/entity/SchoolStudent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/SysUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/SysUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/vo/UserProfileVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/vo/UserProfileVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/enumType/KickOffReasonEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/enums/KickOffReasonEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/QiSiSystemApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/QiSiSystemApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/security/handler/SecurityHandlerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/security/handler/SecurityHandlerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminFileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminFileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/SysUserTypeIdentityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/SysUserTypeIdentityServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandPublishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandPublishService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/controller/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/controller/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/service/MinioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/service/MinioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/ApplyAuditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/ApplyAuditController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeExecuteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeExecuteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/dto/DemandProgressDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/dto/DemandProgressDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/ApplyAuditService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/ApplyAuditService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/PracticeAuditService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/PracticeAuditService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/PracticeExecuteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/PracticeExecuteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/PracticeQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/PracticeQueryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/CaptchaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/CaptchaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/UserInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/UserInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/dto/StudentTeacherRegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/dto/StudentTeacherRegisterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/entity/SchoolStaff.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/entity/SchoolStaff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/CaptchaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/CaptchaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/RedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/RegisterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/UserInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/UserInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/RegisterServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/RegisterServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserDetailsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sc/qisi_system/QiSiSystemApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/sc/qisi_system/QiSiSystemApplicationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,38 +93,41 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "HTTP 请求.generated-requests | #1.executor": "Run",
-    "HTTP 请求.generated-requests | #2.executor": "Run",
-    "HTTP 请求.generated-requests | 更新执行计划接口（你图里8080那个PUT接口）.executor": "Run",
-    "Maven.QiSiSystem [clean].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.QiSiSystemApplication.executor": "Run",
-    "checkBoxType": "false",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Lenovo/Desktop/QiSiSystem",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;HTTP 请求.generated-requests | #1.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | #2.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP 请求.generated-requests | 更新执行计划接口（你图里8080那个PUT接口）.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QiSiSystemApplicationTests.addAdminUser.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QiSiSystemApplicationTests.contextLoads.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.QiSiSystemApplicationTests.getPassword.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.QiSiSystem [clean].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.QiSiSystemApplication.executor&quot;: &quot;Run&quot;,
+    &quot;checkBoxType&quot;: &quot;false&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/Desktop/QiSiSystem&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Lenovo\Desktop\QiSiSystem\src\main\java\com\sc\qisisystem\module\user" />
@@ -128,11 +143,56 @@
     <configuration name="generated-requests | 更新执行计划接口（你图里8080那个PUT接口）" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="更新执行计划接口（你图里8080那个PUT接口）" index="3" runType="运行单个请求">
       <method v="2" />
     </configuration>
-    <configuration name="generated-requests | #1" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#1" runType="运行单个请求">
-      <method v="2" />
-    </configuration>
     <configuration name="generated-requests | #2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" executionIdentifier="#2" index="2" runType="运行单个请求">
       <method v="2" />
+    </configuration>
+    <configuration name="QiSiSystemApplicationTests.addAdminUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QiSiSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sc.qisi_system.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sc.qisi_system" />
+      <option name="MAIN_CLASS_NAME" value="com.sc.qisi_system.QiSiSystemApplicationTests" />
+      <option name="METHOD_NAME" value="addAdminUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QiSiSystemApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QiSiSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sc.qisi_system.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sc.qisi_system" />
+      <option name="MAIN_CLASS_NAME" value="com.sc.qisi_system.QiSiSystemApplicationTests" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="QiSiSystemApplicationTests.getPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="QiSiSystem" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sc.qisi_system.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sc.qisi_system" />
+      <option name="MAIN_CLASS_NAME" value="com.sc.qisi_system.QiSiSystemApplicationTests" />
+      <option name="METHOD_NAME" value="getPassword" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="QiSiSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="QiSiSystem" />
@@ -143,9 +203,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.QiSiSystemApplicationTests.getPassword" />
+        <item itemvalue="JUnit.QiSiSystemApplicationTests.addAdminUser" />
+        <item itemvalue="JUnit.QiSiSystemApplicationTests.contextLoads" />
         <item itemvalue="HTTP 请求.generated-requests | 更新执行计划接口（你图里8080那个PUT接口）" />
         <item itemvalue="HTTP 请求.generated-requests | #2" />
-        <item itemvalue="HTTP 请求.generated-requests | #1" />
       </list>
     </recent_temporary>
   </component>
@@ -194,7 +256,10 @@
       <workItem from="1777514116861" duration="2704000" />
       <workItem from="1778033974201" duration="32740000" />
       <workItem from="1778293462580" duration="10964000" />
-      <workItem from="1778395760354" duration="6051000" />
+      <workItem from="1778395760354" duration="7177000" />
+      <workItem from="1778402993100" duration="3283000" />
+      <workItem from="1778413821339" duration="6000" />
+      <workItem from="1778413916537" duration="6651000" />
     </task>
     <task id="LOCAL-00001" summary="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token">
       <option name="closed" value="true" />
@@ -412,7 +477,23 @@
       <option name="project" value="LOCAL" />
       <updated>1778332803658</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="完成了代码的编写">
+      <option name="closed" value="true" />
+      <created>1778401940367</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1778401940367</updated>
+    </task>
+    <task id="LOCAL-00029" summary="完成了代码的编写">
+      <option name="closed" value="true" />
+      <created>1778402056496</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1778402056496</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +534,8 @@
     <MESSAGE value="完成了在线状态功能" />
     <MESSAGE value="解决了循环依赖问题" />
     <MESSAGE value="解决了一些问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="解决了一些问题" />
+    <MESSAGE value="完成了代码的编写" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成了代码的编写" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -27,6 +27,7 @@ public class AuthController {
 
     /**
      * 用户登录接口
+     *
      * @param loginDTO 登录请求参数
      * @return 成功返回相关参数，失败返回错误信息
      */
@@ -38,6 +39,7 @@ public class AuthController {
 
     /**
      * 用户登出接口
+     *
      * @param logoutDTO 登出请求参数
      * @return 成功返回统一结果，失败返回错误信息
      */
@@ -50,6 +52,7 @@ public class AuthController {
 
     /**
      * 刷新token接口
+     *
      * @param refreshToken 刷新token
      * @return 成功返回accessToken和refreshToken，失败返回错误信息
      */

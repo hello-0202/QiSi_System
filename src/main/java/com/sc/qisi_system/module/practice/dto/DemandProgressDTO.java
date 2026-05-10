@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.practice.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -9,12 +11,14 @@ public class DemandProgressDTO {
     /**
      * 关联需求ID: demand主键
      */
+    @NotNull
     private Long demandId;
 
 
     /**
      * 提交人ID: sys_user主键
      */
+    @NotNull
     private Long userId;
 
 
@@ -27,6 +31,7 @@ public class DemandProgressDTO {
     /**
      * 已完成工作
      */
+    @NotBlank
     private String workDone;
 
 

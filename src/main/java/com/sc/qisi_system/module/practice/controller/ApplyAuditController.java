@@ -25,6 +25,7 @@ public class ApplyAuditController {
 
     /**
      * 审核通过申请成员接口
+     * 角色: 发布者
      *
      * @param auditApplyDTO 请求体
      * @return 统一返回结果
@@ -38,7 +39,8 @@ public class ApplyAuditController {
 
 
     /**
-     * 审核拒绝申请成员
+     * 审核拒绝申请成员接口
+     * 角色: 发布者
      *
      * @param auditApplyDTO 请求体
      * @return 统一返回结果

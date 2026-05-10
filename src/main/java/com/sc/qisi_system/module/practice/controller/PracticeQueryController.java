@@ -113,6 +113,7 @@ public class PracticeQueryController {
 
     /**
      * 查询需求日志接口
+     * 角色: 发布者 认领者
      *
      * @param queryDemandProgressLogDTO  需求日志查询请求体
      * @return 需求日志列表

@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 /**
- * 用户信息操作接口
+ * 用户信息操作控制器
  */
 @RequestMapping("/api/user/info")
 @RequiredArgsConstructor
@@ -24,16 +24,20 @@ public class UserInfoController {
 
 
     /**
-     * 查询当前登录用户
+     * 获取当前登录用户基础信息接口
+     *
+     * @return 用户基础信息
      */
-    @GetMapping("//base")
+    @GetMapping("/base")
     public Result getUserInfo() {
         return Result.success(userInfoService.getUserInfo());
     }
 
 
     /**
-     * 查询当前登录用户扩展信息
+     * 获取当前登录用户详细资料接口
+     *
+     * @return 用户详细资料
      */
     @GetMapping("/profile")
     public Result getProfile() {
@@ -42,9 +46,10 @@ public class UserInfoController {
 
 
     /**
-     * 修改用户信息接口 密码 手机号 邮箱
+     * 修改用户基础信息接口
      *
-     * @return 统一返回结果
+     * @param userInfoDTO 用户信息
+     * @return 成功返回相关信息，失败返回错误信息
      */
     @PutMapping("/update-info")
     public Result updateUserInfo(
@@ -55,9 +60,10 @@ public class UserInfoController {
 
 
     /**
-     * 修改头像接口
+     * 修改用户头像接口
      *
-     * @return 统一返回结果
+     * @param file 头像文件
+     * @return 成功返回相关信息，失败返回错误信息
      */
     @PutMapping("/avatar")
     public Result updateAvatar(

@@ -90,6 +90,4 @@ public class DemandQueryController {
             @NotNull @RequestParam Long demandId){
         return Result.success(demandQueryService.getPublicDemandDetail(demandId));
     }
-
-
 }

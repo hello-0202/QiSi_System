@@ -66,6 +66,7 @@ public class SchoolStaff {
     /**
      * 职级
      */
+    @TableField("`rank`")
     private String rank;
 
 

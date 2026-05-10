@@ -30,12 +30,14 @@ public class PracticeExecuteController {
 
     /**
      * 提交需求日志接口
+     * 角色: 认领者
      *
      * @param demandProgressDTO 需求日志请求体
      * @return 统一返回结果
      */
     @PostMapping("/log")
-    public Result submitDemandLog(DemandProgressDTO demandProgressDTO) {
+    public Result submitDemandLog(
+            @Valid @RequestBody DemandProgressDTO demandProgressDTO) {
         practiceExecuteService.submitDemandLog(demandProgressDTO);
         return Result.success();
     }
@@ -43,8 +45,12 @@ public class PracticeExecuteController {
 
     /**
      * 提交需求附件接口
+     * 角色: 认领者
      *
+     * @param demandId 需求ID
+     * @param files 附件文件数组
      * @return 统一返回结果
+     * @throws Exception 上传异常
      */
     @PostMapping("/attachment")
     public Result batchUploadProgressAttachments(
@@ -57,6 +63,7 @@ public class PracticeExecuteController {
 
     /**
      * 更新需求计划接口
+     * 角色: 认领者
      *
      * @param demandPlanDTO 需求计划请求体
      * @return 统一返回结果
@@ -70,7 +77,11 @@ public class PracticeExecuteController {
 
 
     /**
-     * 删除【实践进度】单个附件
+     * 删除实践中单个附件接口
+     * 角色: 认领者
+     *
+     * @param attachmentId 附件ID
+     * @return 统一返回结果
      */
     @DeleteMapping("/progress-attachment/delete")
     public Result deleteProgressAttachment(
@@ -79,8 +90,13 @@ public class PracticeExecuteController {
         return Result.success();
     }
 
+
     /**
-     * 批量删除【实践进度】附件
+     * 批量删除实践中附件接口
+     * 角色: 认领者
+     *
+     * @param attachmentIds 附件ID集合
+     * @return 统一返回结果
      */
     @DeleteMapping("/progress-attachment/delete/batch")
     public Result deleteBatchProgressAttachment(
@@ -91,7 +107,8 @@ public class PracticeExecuteController {
 
 
     /**
-     * 主动申请退出需求接口
+     * 主动申请退出需求研究接口
+     * 角色: 认领者
      *
      * @param memberChangeDTO 需求成员变更请求体
      * @return 统一返回结果
