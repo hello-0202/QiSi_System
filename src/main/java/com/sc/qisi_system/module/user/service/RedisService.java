@@ -1,6 +1,6 @@
 package com.sc.qisi_system.module.user.service;
 
-import com.sc.qisi_system.module.user.dto.LogoutRequest;
+import com.sc.qisi_system.module.user.dto.LogoutDTO;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ public interface RedisService {
     Map<String, String> refreshAccessToken(String refreshToken);
 
 
-    void logout(LogoutRequest logoutRequest);
+    void logout(LogoutDTO logoutDTO);
 
 
     boolean isTokenBlacklisted(String accessToken);

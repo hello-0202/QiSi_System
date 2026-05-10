@@ -1,8 +1,8 @@
 package com.sc.qisi_system.module.user.controller;
 
 import com.sc.qisi_system.common.result.Result;
-import com.sc.qisi_system.module.user.dto.LoginRequest;
-import com.sc.qisi_system.module.user.dto.LogoutRequest;
+import com.sc.qisi_system.module.user.dto.LoginDTO;
+import com.sc.qisi_system.module.user.dto.LogoutDTO;
 import com.sc.qisi_system.module.user.service.LoginService;
 import com.sc.qisi_system.module.user.service.RedisService;
 import jakarta.validation.constraints.NotBlank;
@@ -27,23 +27,23 @@ public class AuthController {
 
     /**
      * 用户登录接口
-     * @param loginRequest 登录请求参数
+     * @param loginDTO 登录请求参数
      * @return 成功返回相关参数，失败返回错误信息
      */
     @PostMapping("/login")
-    public Result login(@RequestBody LoginRequest loginRequest) {
-        return Result.success(loginService.login(loginRequest));
+    public Result login(@RequestBody LoginDTO loginDTO) {
+        return Result.success(loginService.login(loginDTO));
     }
 
 
     /**
      * 用户登出接口
-     * @param logoutRequest 登出请求参数
+     * @param logoutDTO 登出请求参数
      * @return 成功返回统一结果，失败返回错误信息
      */
     @PostMapping("logout")
-    public Result logout(@RequestBody LogoutRequest logoutRequest) {
-        loginService.logout(logoutRequest);
+    public Result logout(@RequestBody LogoutDTO logoutDTO) {
+        loginService.logout(logoutDTO);
         return Result.success();
     }
 

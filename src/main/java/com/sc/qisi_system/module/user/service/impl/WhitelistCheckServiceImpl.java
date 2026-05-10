@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.enums.UserTypeEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
-import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterRequest;
+import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterDTO;
 import com.sc.qisi_system.module.user.entity.SchoolStaff;
 import com.sc.qisi_system.module.user.entity.SchoolStudent;
 import com.sc.qisi_system.module.user.mapper.SchoolStaffMapper;
@@ -22,7 +22,7 @@ public class WhitelistCheckServiceImpl implements WhitelistCheckService {
 
     private final SchoolStaffMapper schoolStaffMapper;
 
-    public boolean isInWhitelist(StudentTeacherRegisterRequest request) {
+    public boolean isInWhitelist(StudentTeacherRegisterDTO request) {
 
         UserTypeEnum userType = UserTypeEnum.getByCode(request.getUserType());
 

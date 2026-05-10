@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
-import com.sc.qisi_system.module.user.dto.LogoutRequest;
+import com.sc.qisi_system.module.user.dto.LogoutDTO;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.mapper.SysUserMapper;
 import com.sc.qisi_system.module.user.service.RedisService;
@@ -96,15 +96,15 @@ public class RedisServiceImpl implements RedisService {
 
 
     @Override
-    public void logout(LogoutRequest logoutRequest) {
+    public void logout(LogoutDTO logoutDTO) {
 
-        revokeRefreshToken(logoutRequest.getUserId(), logoutRequest.getRefreshToken());
+        revokeRefreshToken(logoutDTO.getUserId(), logoutDTO.getRefreshToken());
 
-        if (logoutRequest.getAccessToken() != null && jwtTokenProvider.isTokenValid(logoutRequest.getAccessToken())) {
-            long expireSeconds = jwtTokenProvider.getTokenRemainingTimeSeconds(logoutRequest.getAccessToken());
+        if (logoutDTO.getAccessToken() != null && jwtTokenProvider.isTokenValid(logoutDTO.getAccessToken())) {
+            long expireSeconds = jwtTokenProvider.getTokenRemainingTimeSeconds(logoutDTO.getAccessToken());
             if (expireSeconds > 0) {
                 stringRedisTemplate.opsForValue().set(
-                        JWT_BLACKLIST_PREFIX + logoutRequest.getAccessToken(),
+                        JWT_BLACKLIST_PREFIX + logoutDTO.getAccessToken(),
                         "1",
                         expireSeconds,
                         TimeUnit.SECONDS
@@ -112,9 +112,9 @@ public class RedisServiceImpl implements RedisService {
             }
         }
 
-        String sessionId = getSessionId(Long.valueOf(logoutRequest.getUserId()));
+        String sessionId = getSessionId(Long.valueOf(logoutDTO.getUserId()));
         if(sessionId != null) {
-            removeMapping(Long.valueOf(logoutRequest.getUserId()),sessionId);
+            removeMapping(Long.valueOf(logoutDTO.getUserId()),sessionId);
         }
     }
 

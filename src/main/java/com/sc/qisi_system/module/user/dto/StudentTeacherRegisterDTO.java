@@ -3,7 +3,7 @@ package com.sc.qisi_system.module.user.dto;
 import lombok.Data;
 
 @Data
-public class StudentTeacherRegisterRequest {
+public class StudentTeacherRegisterDTO {
 
 
     /**

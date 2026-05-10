@@ -1,24 +1,39 @@
 package com.sc.qisi_system.module.user.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class LoginRequest {
+public class EnterpriseRegisterDTO {
 
 
     /**
-     * 用户名: 学号/工号/手机号
+     * 用户名: 手机号
      */
-    @NotBlank(message = "用户名不能为空")
     private String username;
 
 
     /**
      * 密码
      */
-    @NotBlank(message = "密码不能为空")
     private String password;
+
+
+    /**
+     * 姓名
+     */
+    private String name;
+
+
+    /**
+     * 邮箱
+     */
+    private String email;
+
+
+    /**
+     * 用户类型: 3-企业人员
+     */
+    private Integer userType;
 
 
     /**

@@ -1,8 +1,8 @@
 package com.sc.qisi_system.module.user.service;
 
-import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterRequest;
+import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterDTO;
 
 public interface WhitelistCheckService {
 
-    boolean isInWhitelist(StudentTeacherRegisterRequest request);
+    boolean isInWhitelist(StudentTeacherRegisterDTO request);
 }

@@ -8,8 +8,8 @@ import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.JwtTokenProvider;
 import com.sc.qisi_system.module.admin.entity.SysUserTypeIdentity;
 import com.sc.qisi_system.module.admin.service.SysUserTypeIdentityService;
-import com.sc.qisi_system.module.user.dto.LoginRequest;
-import com.sc.qisi_system.module.user.dto.LogoutRequest;
+import com.sc.qisi_system.module.user.dto.LoginDTO;
+import com.sc.qisi_system.module.user.dto.LogoutDTO;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.mapper.SysUserMapper;
 import com.sc.qisi_system.module.user.service.CaptchaService;
@@ -37,15 +37,15 @@ public class LoginServiceImpl implements LoginService {
 
 
     @Override
-    public LoginUserVO login(LoginRequest loginRequest) {
+    public LoginUserVO login(LoginDTO loginDTO) {
 
-        captchaService.checkCaptcha(loginRequest.getCaptchaKey(),loginRequest.getCaptchaCode());
+        captchaService.checkCaptcha(loginDTO.getCaptchaKey(), loginDTO.getCaptchaCode());
 
         QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
-        if (loginRequest.getUsername().matches("^1[3-9]\\d{9}$")) {
-            queryWrapper.eq("phone", loginRequest.getUsername());
+        if (loginDTO.getUsername().matches("^1[3-9]\\d{9}$")) {
+            queryWrapper.eq("phone", loginDTO.getUsername());
         } else {
-            queryWrapper.eq("username", loginRequest.getUsername());
+            queryWrapper.eq("username", loginDTO.getUsername());
         }
 
         queryWrapper.select("id","username","password","user_type","status");
@@ -59,7 +59,7 @@ public class LoginServiceImpl implements LoginService {
             throw new BusinessException(ResultCode.USER_LOCKED);
         }
 
-        if(!passwordEncoder.matches(loginRequest.getPassword(), sysUser.getPassword())){
+        if(!passwordEncoder.matches(loginDTO.getPassword(), sysUser.getPassword())){
             throw new BusinessException(ResultCode.PASSWORD_ERROR);
         }
 
@@ -84,8 +84,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void logout(LogoutRequest logoutRequest) {
-        redisService.logout(logoutRequest);
+    public void logout(LogoutDTO logoutDTO) {
+        redisService.logout(logoutDTO);
         webSocketService.broadcastOnlineUserList();
     }
 }

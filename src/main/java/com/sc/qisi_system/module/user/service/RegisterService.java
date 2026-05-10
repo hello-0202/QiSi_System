@@ -1,12 +1,12 @@
 package com.sc.qisi_system.module.user.service;
 
-import com.sc.qisi_system.module.user.dto.EnterpriseRegisterRequest;
-import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterRequest;
+import com.sc.qisi_system.module.user.dto.EnterpriseRegisterDTO;
+import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterDTO;
 
 public interface RegisterService {
 
-    void registerStudentTeacher (StudentTeacherRegisterRequest request);
+    void registerStudentTeacher (StudentTeacherRegisterDTO request);
 
-    void registerEnterprise(EnterpriseRegisterRequest request);
+    void registerEnterprise(EnterpriseRegisterDTO request);
 
 }
