@@ -25,6 +25,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
+/**
+ * 管理员白名单管理服务实现类
+ */
 @RequiredArgsConstructor
 @Service
 public class AdminWhitelistServiceImpl implements AdminWhitelistService {
@@ -34,10 +37,15 @@ public class AdminWhitelistServiceImpl implements AdminWhitelistService {
     private final SchoolStaffService schoolStaffService;
 
 
+    /**
+     * 条件查询教职工白名单
+     */
     @Override
     public PageResult<SchoolStaffVO> getTeacherWhitelist(SchoolStaffWhitelistQueryDTO queryDTO) {
-
+        // 1. 构建分页对象
         Page<SchoolStaff> page = new Page<>(queryDTO.getPage(), queryDTO.getPageSize());
+
+        // 2. 构建动态查询条件
         LambdaQueryWrapper<SchoolStaff> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper
                 .eq(queryDTO.getPersonCode() != null, SchoolStaff::getPersonCode, queryDTO.getPersonCode())
@@ -48,14 +56,18 @@ public class AdminWhitelistServiceImpl implements AdminWhitelistService {
                 .eq(queryDTO.getRank() != null, SchoolStaff::getRank, queryDTO.getRank())
                 .eq(queryDTO.getHighestDegree() != null, SchoolStaff::getHighestDegree, queryDTO.getHighestDegree())
                 .eq(queryDTO.getComeTime() != null, SchoolStaff::getComeTime, queryDTO.getComeTime());
-        IPage<SchoolStaff> schoolStaffIpage = schoolStaffService.page(page,queryWrapper);
-        List<SchoolStaffVO> schoolStaffVOS = schoolStaffIpage.getRecords().stream().map(
-                schoolStaff -> {
-                    SchoolStaffVO schoolStaffVO = new SchoolStaffVO();
-                    BeanUtils.copyProperties(schoolStaff, schoolStaffVO);
-                    return schoolStaffVO;
-                }).toList();
 
+        // 3. 分页查询数据
+        IPage<SchoolStaff> schoolStaffIpage = schoolStaffService.page(page, queryWrapper);
+
+        // 4. 转换为VO列表
+        List<SchoolStaffVO> schoolStaffVOS = schoolStaffIpage.getRecords().stream().map(schoolStaff -> {
+            SchoolStaffVO schoolStaffVO = new SchoolStaffVO();
+            BeanUtils.copyProperties(schoolStaff, schoolStaffVO);
+            return schoolStaffVO;
+        }).toList();
+
+        // 5. 封装分页结果返回
         PageResult<SchoolStaffVO> pageResult = new PageResult<>();
         pageResult.setRecords(schoolStaffVOS);
         pageResult.setTotal(schoolStaffIpage.getTotal());
@@ -65,63 +77,87 @@ public class AdminWhitelistServiceImpl implements AdminWhitelistService {
     }
 
 
+    /**
+     * 修改教职工白名单
+     */
     @Override
     public void updateTeacherWhitelist(SchoolStaffDTO schoolStaffDTO) {
-
+        // 1. 校验数据是否存在
         SchoolStaff schoolStaff = schoolStaffService.getById(schoolStaffDTO.getId());
-        if(schoolStaff == null) {
+        if (schoolStaff == null) {
             throw new BusinessException(ResultCode.TEACHER_WHITELIST_NOT_EXIST);
         }
+
+        // 2. 复制属性并更新
         BeanUtils.copyProperties(schoolStaffDTO, schoolStaff);
         schoolStaffService.updateById(schoolStaff);
     }
 
 
+    /**
+     * 删除教职工白名单
+     */
     @Override
     public void deleteTeacherWhitelist(Long id) {
-
-        if(!schoolStaffService.exists(Wrappers
+        // 1. 校验数据是否存在
+        if (!schoolStaffService.exists(Wrappers
                 .lambdaQuery(SchoolStaff.class)
-                .eq(SchoolStaff::getId,id))){
+                .eq(SchoolStaff::getId, id))) {
             throw new BusinessException(ResultCode.TEACHER_WHITELIST_NOT_EXIST);
         }
+
+        // 2. 执行删除
         schoolStaffService.removeById(id);
     }
 
 
+    /**
+     * 新增教职工白名单
+     */
     @Override
     public void addTeacherWhitelist(SchoolStaffDTO schoolStaffDTO) {
-
-        if(schoolStaffService.exists(Wrappers
+        // 1. 校验人员编码是否已存在
+        if (schoolStaffService.exists(Wrappers
                 .lambdaQuery(SchoolStaff.class)
-                .eq(SchoolStaff::getPersonCode,schoolStaffDTO.getPersonCode()))){
+                .eq(SchoolStaff::getPersonCode, schoolStaffDTO.getPersonCode()))) {
             throw new BusinessException(ResultCode.TEACHER_WHITELIST_EXISTED);
         }
+
+        // 2. 转换并保存
         SchoolStaff schoolStaff = new SchoolStaff();
-        BeanUtils.copyProperties(schoolStaffDTO,schoolStaff);
+        BeanUtils.copyProperties(schoolStaffDTO, schoolStaff);
         schoolStaffService.save(schoolStaff);
     }
 
 
+    /**
+     * 条件查询学生白名单
+     */
     @Override
     public PageResult<SchoolStudentVO> getStudentWhitelist(SchoolStudentWhitelistQueryDTO queryDTO) {
-
+        // 1. 构建分页对象
         Page<SchoolStudent> page = new Page<>(queryDTO.getPage(), queryDTO.getPageSize());
+
+        // 2. 构建动态查询条件
         LambdaQueryWrapper<SchoolStudent> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
                 .eq(queryDTO.getStudentId() != null, SchoolStudent::getStudentId, queryDTO.getStudentId())
                 .eq(queryDTO.getName() != null, SchoolStudent::getName, queryDTO.getName())
-                .eq(queryDTO.getCollege() != null,SchoolStudent::getCollege, queryDTO.getCollege())
-                .eq(queryDTO.getMajor() != null,SchoolStudent::getMajor, queryDTO.getMajor())
-                .eq(queryDTO.getGrade() != null,SchoolStudent::getGrade, queryDTO.getGrade());
-        IPage<SchoolStudent> schoolStudentIPage = schoolStudentService.page(page,queryWrapper);
-        List<SchoolStudentVO> schoolStudentVOS = schoolStudentIPage.getRecords().stream().map(
-                schoolStudent -> {
-                    SchoolStudentVO schoolStudentVO = new SchoolStudentVO();
-                    BeanUtils.copyProperties(schoolStudent, schoolStudentVO);
-                    return schoolStudentVO;
-                }).toList();
+                .eq(queryDTO.getCollege() != null, SchoolStudent::getCollege, queryDTO.getCollege())
+                .eq(queryDTO.getMajor() != null, SchoolStudent::getMajor, queryDTO.getMajor())
+                .eq(queryDTO.getGrade() != null, SchoolStudent::getGrade, queryDTO.getGrade());
 
+        // 3. 分页查询数据
+        IPage<SchoolStudent> schoolStudentIPage = schoolStudentService.page(page, queryWrapper);
+
+        // 4. 转换为VO列表
+        List<SchoolStudentVO> schoolStudentVOS = schoolStudentIPage.getRecords().stream().map(schoolStudent -> {
+            SchoolStudentVO schoolStudentVO = new SchoolStudentVO();
+            BeanUtils.copyProperties(schoolStudent, schoolStudentVO);
+            return schoolStudentVO;
+        }).toList();
+
+        // 5. 封装分页结果返回
         PageResult<SchoolStudentVO> pageResult = new PageResult<>();
         pageResult.setRecords(schoolStudentVOS);
         pageResult.setTotal(schoolStudentIPage.getTotal());
@@ -131,40 +167,55 @@ public class AdminWhitelistServiceImpl implements AdminWhitelistService {
     }
 
 
+    /**
+     * 修改学生白名单
+     */
     @Override
     public void updateStudentWhitelist(SchoolStudentDTO schoolStudentDTO) {
-
+        // 1. 校验数据是否存在
         SchoolStudent schoolStudent = schoolStudentService.getById(schoolStudentDTO.getId());
-        if(schoolStudent == null){
+        if (schoolStudent == null) {
             throw new BusinessException(ResultCode.STUDENT_WHITELIST_NOT_EXIST);
         }
-        BeanUtils.copyProperties(schoolStudentDTO,schoolStudent);
+
+        // 2. 复制属性并更新
+        BeanUtils.copyProperties(schoolStudentDTO, schoolStudent);
         schoolStudentService.updateById(schoolStudent);
     }
 
 
+    /**
+     * 删除学生白名单
+     */
     @Override
     public void deleteStudentWhitelist(Long id) {
-
-        if(!schoolStudentService.exists(Wrappers
+        // 1. 校验数据是否存在
+        if (!schoolStudentService.exists(Wrappers
                 .lambdaQuery(SchoolStudent.class)
-                .eq(SchoolStudent::getId,id))){
+                .eq(SchoolStudent::getId, id))) {
             throw new BusinessException(ResultCode.STUDENT_WHITELIST_NOT_EXIST);
         }
+
+        // 2. 执行删除
         schoolStudentService.removeById(id);
     }
 
 
+    /**
+     * 新增学生白名单
+     */
     @Override
     public void addStudentWhitelist(SchoolStudentDTO schoolStudentDTO) {
-
-        if(schoolStudentService.exists(Wrappers
+        // 1. 校验学号是否已存在
+        if (schoolStudentService.exists(Wrappers
                 .lambdaQuery(SchoolStudent.class)
-                .eq(SchoolStudent::getStudentId,schoolStudentDTO.getStudentId()))){
+                .eq(SchoolStudent::getStudentId, schoolStudentDTO.getStudentId()))) {
             throw new BusinessException(ResultCode.STUDENT_WHITELIST_EXISTED);
         }
+
+        // 2. 转换并保存
         SchoolStudent schoolStudent = new SchoolStudent();
-        BeanUtils.copyProperties(schoolStudentDTO,schoolStudent);
+        BeanUtils.copyProperties(schoolStudentDTO, schoolStudent);
         schoolStudentService.save(schoolStudent);
     }
 }

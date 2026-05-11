@@ -14,6 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 
+/**
+ * 文件导入控制器
+ * 功能: 教职工白名单、学生白名单Excel批量导入等文件相关管理操作
+ */
 @PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/admin/file")
 @RequiredArgsConstructor
@@ -26,7 +30,12 @@ public class AdminFileController {
 
 
     /**
-     * 导入教职工白名单
+     * 导入教职工白名单接口
+     * 角色: 管理员
+     *
+     * @param file 上传的Excel文件
+     * @return 统一返回结果
+     * @throws IOException 文件读取异常
      */
     @PostMapping("/import-teacher-whitelist")
     @PreAuthorize("hasRole('ADMIN')")
@@ -38,7 +47,12 @@ public class AdminFileController {
 
 
     /**
-     * 导入学生白名单
+     * 导入学生白名单接口
+     * 角色: 管理员
+     *
+     * @param file 上传的Excel文件
+     * @return 导入成功提示结果
+     * @throws IOException 文件读取异常
      */
     @PostMapping("/import-student-whitelist")
     @PreAuthorize("hasRole('ADMIN')")

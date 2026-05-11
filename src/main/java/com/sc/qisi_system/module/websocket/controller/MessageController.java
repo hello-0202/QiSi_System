@@ -8,27 +8,30 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
  * 聊天消息管理控制器
- * 包含：私信发送、会话管理、聊天记录、未读消息、已读标记
+ * 功能: 私信发送、单聊会话创建与获取、会话列表、聊天记录查询、未读消息统计、消息已读标记
  */
 @RequestMapping("/api/message")
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class MessageController {
 
 
     private final MessageService messageService;
 
-
     /**
-     * 发送私人私信（WebSocket）
+     * WebSocket发送私人私信
+     * 角色: 认领者 发布者 管理员
+     *
+     * @param userMessageDTO 私信消息参数
+     * @param accessor 消息头访问器
      */
     @MessageMapping("/send/private")
     public void sendPrivateMessage(UserMessageDTO userMessageDTO, SimpMessageHeaderAccessor accessor) {
@@ -37,10 +40,11 @@ public class MessageController {
 
 
     /**
-     * 创建 or 获取 单聊对话接口
+     * 创建或获取单聊会话接口
+     * 角色: 认领者 发布者 管理员
      *
      * @param targetUserId 对方用户ID
-     * @return 对话信息 sessionId
+     * @return 会话信息及会话ID
      */
     @GetMapping("/create-or-get")
     public Result createOrGetSession(@RequestParam Long targetUserId) {
@@ -49,9 +53,10 @@ public class MessageController {
 
 
     /**
-     * 获取当前用户的会话列表接口
+     * 获取当前用户聊天会话列表接口
+     * 角色: 认领者 发布者 管理员
      *
-     * @return 会话列表
+     * @return 聊天会话列表数据
      */
     @GetMapping("/chat/session/list")
     public Result getChatSessionList() {
@@ -60,7 +65,8 @@ public class MessageController {
 
 
     /**
-     * 获取指定会话的聊天记录接口
+     * 获取指定会话聊天记录接口
+     * 角色: 认领者 发布者 管理员
      *
      * @param sessionId 会话ID
      * @return 聊天记录列表
@@ -72,24 +78,26 @@ public class MessageController {
 
 
     /**
-     * 获取当前用户的总未读消息数量接口
+     * 获取指定会话未读消息数量接口
+     * 角色: 认领者 发布者 管理员
      *
-     * @return 未读数量
+     * @param sessionId 会话ID
+     * @return 会话未读消息数量
      */
     @GetMapping("/chat/unread/count")
     public Result getUnreadCount(
-            @RequestParam Long sessionId
-    ) {
+            @RequestParam Long sessionId) {
         return Result.success(messageService.getUnreadCount(sessionId));
     }
 
 
     /**
-     * 将会话中的消息标记为已读接口
+     * 将会话消息标记为已读接口
+     * 角色: 认领者 发布者 管理员
      *
      * @param sessionId 会话ID
-     * @param userId    当前用户ID
-     * @return 操作结果
+     * @param userId 当前用户ID
+     * @return 统一返回结果
      */
     @GetMapping("/chat/read")
     public Result markRead(

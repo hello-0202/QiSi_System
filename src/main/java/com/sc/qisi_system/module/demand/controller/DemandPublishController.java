@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * 需求发布控制器
+ * 功能: 需求草稿提交与修改、审核提交与撤销、需求附件批量上传、删除等需求发布全流程操作
  */
 @RequestMapping("/api/demand/publish")
 @RequiredArgsConstructor
@@ -27,7 +28,6 @@ public class DemandPublishController {
 
 
     private final DemandPublishService demandPublishService;
-
 
 
     /**
@@ -40,7 +40,7 @@ public class DemandPublishController {
     @PostMapping("/draft")
     public Result submitDraft(
             @Valid @RequestBody DemandPublishDraftDTO demandPublishDraftDTO) {
-        return Result.success(demandPublishService.submitDraft(SecurityUtils.getCurrentUserId(),demandPublishDraftDTO));
+        return Result.success(demandPublishService.submitDraft(SecurityUtils.getCurrentUserId(), demandPublishDraftDTO));
     }
 
 
@@ -59,11 +59,11 @@ public class DemandPublishController {
 
 
     /**
-     * 提交审核接口
+     * 提交需求审核接口
      * 角色: 发布者
      *
-     * @param demandId 需求id
-     * @return 返回统一结果
+     * @param demandId 需求ID
+     * @return 统一返回结果
      */
     @PostMapping("/submit-audit")
     public Result submitAudit(
@@ -74,25 +74,27 @@ public class DemandPublishController {
 
 
     /**
-     * 撤销审核接口
+     * 撤销需求审核接口
      * 角色: 发布者
      *
-     * @param demandId 撤销需求id
+     * @param demandId 需求ID
      * @return 统一返回结果
      */
     @GetMapping("/cancel-submit")
     public Result cancelSubmit(
             @NotNull @RequestParam Long demandId) {
-        return Result.success(demandPublishService.cancelSubmit(SecurityUtils.getCurrentUserId(),demandId));
+        return Result.success(demandPublishService.cancelSubmit(SecurityUtils.getCurrentUserId(), demandId));
     }
 
 
     /**
-     * 需求附件上传接口
+     * 需求附件批量上传接口
+     * 角色: 发布者
      *
      * @param demandId 需求ID
-     * @param files    上传的文件
-     * @return 文件信息/访问路径
+     * @param files 上传的文件数组
+     * @return 文件信息与访问路径
+     * @throws Exception 文件上传异常
      */
     @PostMapping("/batch-upload-attachment")
     public Result batchUploadAttachment(
@@ -104,7 +106,8 @@ public class DemandPublishController {
 
 
     /**
-     * 删除需求附件接口
+     * 删除单个需求附件接口
+     * 角色: 发布者
      *
      * @param attachmentId 附件ID
      * @return 操作结果
@@ -119,8 +122,9 @@ public class DemandPublishController {
 
     /**
      * 批量删除需求附件接口
+     * 角色: 发布者
      *
-     * @param attachmentIds 需求附件id列表
+     * @param attachmentIds 附件ID列表
      * @return 统一返回结果
      */
     @DeleteMapping("/demand-attachment/delete/batch")

@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+/**
+ * 角色权限管理控制器
+ * 功能: 用户类型与业务身份映射关系查询、修改/保存等角色权限配置操作
+ */
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/admin/role")
+@RequestMapping("/api/admin/role")
 @RequiredArgsConstructor
 @RestController
 @Validated
@@ -24,7 +28,10 @@ public class AdminRoleController {
 
 
     /**
-     * 查询 (用户类型 → 业务身份) 映射关系
+     * 查询 (用户类型 → 业务身份) 映射关系接口
+     * 角色: 管理员
+     *
+     * @return 用户类型与业务身份映射关系列表
      */
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/get-identity-map")
@@ -34,7 +41,11 @@ public class AdminRoleController {
 
 
     /**
-     * 修改/保存 (用户类型 → 业务身份) 映射关系
+     * 修改/保存 (用户类型 → 业务身份) 映射关系接口
+     * 角色: 管理员
+     *
+     * @param voList 用户类型与业务身份映射关系列表
+     * @return 统一返回结果
      */
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/update-identity-map")

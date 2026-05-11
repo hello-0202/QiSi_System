@@ -36,6 +36,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+
+/**
+ * 需求业务服务实现类
+ */
 @RequiredArgsConstructor
 @Service
 public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> implements DemandService {
@@ -48,15 +52,20 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     private final MinioService minioService;
 
 
+    /**
+     * 判断需求是否存在
+     */
     @Override
     public boolean isNotExistsByDemandId(Long demandId) {
         return getById(demandId) != null;
     }
 
 
+    /**
+     * 获取我申请的需求列表
+     */
     @Override
     public PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO) {
-
         // 1. 设置分页查询
         Page<Demand> page = new Page<>(myApplyQueryDTO.getPageNum(), myApplyQueryDTO.getPageSize());
 
@@ -79,16 +88,21 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
                 .orderByDesc(Demand::getCreateTime);
         IPage<Demand> demandIPage = demandMapper.selectPage(page, demandQuery);
 
+        // 4. 转换并返回结果
         return convertToApplyPageResultList(demandIPage,applyService.getUserApplyMap(userId));
     }
 
 
+    /**
+     * 获取我发布的需求列表
+     */
     @Override
     public PageResult<DemandListVO> getMyDemandList(Long userId, MyDemandQueryDTO myDemandQueryDTO) {
-
+        // 1. 构建分页和查询条件
         Page<Demand> page = new Page<>(myDemandQueryDTO.getPageNum(), myDemandQueryDTO.getPageSize());
         LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
 
+        // 2. 设置查询条件
         queryWrapper.eq(Demand::getPublisherId, userId)
                 .gt(Demand::getStatus, DemandStatusEnum.DRAFT.getCode());
 
@@ -101,16 +115,18 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         queryWrapper.orderByDesc(Demand::getCreateTime)
                 .orderByDesc(Demand::getProgressPercent);
 
+        // 3. 分页查询并转换结果
         IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
-
         return convertToMyPageResultList(demandIPage);
     }
 
 
+    /**
+     * 获取我参与的实践需求列表
+     */
     @Override
     public PageResult<DemandListVO> getMyJoinedPracticeList(Long userId, PracticeDemandQueryDTO queryDTO) {
-
-        // 1. 设置分页拆查询
+        // 1. 设置分页查询
         Page<Demand> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
 
         // 2. 设置查询条件
@@ -119,18 +135,23 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
                 .in(Demand::getStatus,queryDTO.getStatusList())
                 .orderByDesc(Demand::getCreateTime);
 
+        // 3. 分页查询数据
         IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
 
-        // 3. 返回包装
+        // 4. 转换并返回分页结果
         return convertToPracticePageResultList(userId,demandIPage);
     }
 
 
+    /**
+     * 根据ID查询需求信息
+     */
     @Override
     public Demand getDemand(Long demandId) {
-
+        // 1. 查询需求信息
         Demand demand = demandMapper.selectById(demandId);
 
+        // 2. 校验需求是否存在
         if(demand == null) {
             throw new BusinessException( ResultCode.DEMAND_NOT_EXIST);
         }
@@ -138,16 +159,20 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     }
 
 
-
+    /**
+     * 获取公开需求详情
+     */
     @Override
     public DemandPublicDetailVO getPublicDemandDetail(Long demandId) {
-
+        // 1. 查询需求基础信息
         Demand demand = getDemand(demandId);
 
+        // 2. 校验需求是否已发布
         if (Objects.equals(demand.getStatus(), DemandStatusEnum.PUBLISHED.getCode())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_PUBLISHED);
         }
 
+        // 3. 转换为公开详情VO
         DemandPublicDetailVO demandPublicDetailVO = new DemandPublicDetailVO();
         BeanUtils.copyProperties(demand, demandPublicDetailVO);
         BeanUtils.copyProperties(sysUserService.getUserProfile(demand.getPublisherId()), demandPublicDetailVO.getDemandPublisherDetailVO());
@@ -156,15 +181,18 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     }
 
 
-
+    /**
+     * 转换为实践列表分页结果
+     */
     @Override
     public PageResult<DemandListVO> convertToPracticePageResultList(Long userId, IPage<Demand> demandIPage) {
+        // 1. 转换需求列表为VO
         List<DemandListVO> voList = demandIPage.getRecords().stream()
                 .map(demand -> {
                     // 公共转换
                     DemandListVO vo = convertToDemandListVO(demand);
 
-                    // 【独有逻辑】设置实践成员信息
+                    // 2. 设置实践成员信息
                     LambdaQueryWrapper<DemandMember> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(DemandMember::getDemandId, demand.getId())
                             .eq(DemandMember::getUserId, userId);
@@ -180,18 +208,23 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
                 })
                 .toList();
 
+        // 3. 封装并返回结果
         return buildPageResult(demandIPage, voList);
     }
 
 
+    /**
+     * 转换为申请列表分页结果
+     */
     @Override
     public PageResult<DemandListVO> convertToApplyPageResultList(IPage<Demand> demandIPage, Map<Long, DemandApplyList> applyStatusMap) {
+        // 1. 转换需求列表为VO
         List<DemandListVO> voList = demandIPage.getRecords().stream()
                 .map(demand -> {
                     // 公共转换
                     DemandListVO vo = convertToDemandListVO(demand);
 
-                    // 【独有逻辑】设置申请状态
+                    // 2. 设置申请状态
                     DemandApplyList apply = applyStatusMap.get(demand.getId());
                     vo.setDemandApplyList(apply);
 
@@ -199,25 +232,37 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
                 })
                 .toList();
 
+        // 3. 封装并返回结果
         return buildPageResult(demandIPage, voList);
     }
 
 
+    /**
+     * 转换为我的需求列表分页结果
+     */
     @Override
     public PageResult<DemandListVO> convertToMyPageResultList(IPage<Demand> demandIPage) {
-        List<DemandListVO> voList = demandIPage.getRecords().stream()
-                .map(this::convertToDemandListVO) // 直接调用公共方法
-                .toList();
-
-        return buildPageResult(demandIPage, voList);
-    }
-
-
-    @Override
-    public PageResult<DemandListVO> convertToAdminPageResultList(IPage<Demand> demandIPage){
+        // 1. 转换需求列表为VO
         List<DemandListVO> voList = demandIPage.getRecords().stream()
                 .map(this::convertToDemandListVO)
                 .toList();
+
+        // 2. 封装并返回结果
+        return buildPageResult(demandIPage, voList);
+    }
+
+
+    /**
+     * 转换为管理员需求列表分页结果
+     */
+    @Override
+    public PageResult<DemandListVO> convertToAdminPageResultList(IPage<Demand> demandIPage){
+        // 1. 转换需求列表为VO
+        List<DemandListVO> voList = demandIPage.getRecords().stream()
+                .map(this::convertToDemandListVO)
+                .toList();
+
+        // 2. 封装并返回结果
         return buildPageResult(demandIPage, voList);
     }
 
@@ -226,11 +271,11 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
      * 公共核心转换：Demand → DemandListVO（基础字段 + 发布人）
      */
     private DemandListVO convertToDemandListVO(Demand demand) {
+        // 1. 拷贝基础字段
         DemandListVO vo = new DemandListVO();
-        // 拷贝基础字段
         BeanUtils.copyProperties(demand, vo);
 
-        // 拷贝发布人信息
+        // 2. 拷贝发布人信息
         UserProfileVO userBase = sysUserService.getUserProfile(demand.getPublisherId());
         DemandPublisherList publisherList = new DemandPublisherList();
         BeanUtils.copyProperties(userBase, publisherList);
@@ -245,6 +290,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
      * 公共分页结果封装
      */
     private PageResult<DemandListVO> buildPageResult(IPage<Demand> page, List<DemandListVO> voList) {
+        // 1. 封装分页信息
         PageResult<DemandListVO> result = new PageResult<>();
         result.setTotal(page.getTotal());
         result.setPages(page.getPages());
@@ -252,4 +298,3 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         return result;
     }
 }
-

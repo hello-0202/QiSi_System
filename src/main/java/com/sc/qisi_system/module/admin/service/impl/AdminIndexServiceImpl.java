@@ -24,6 +24,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
+/**
+ * 管理员首页与菜单服务实现类
+ */
 @RequiredArgsConstructor
 @Service
 public class AdminIndexServiceImpl implements AdminIndexService {
@@ -35,21 +38,33 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     private final SysUserTypeIdentityService sysUserTypeIdentityService;
 
 
+    /**
+     * 获取当前用户业务身份
+     */
     @Override
     public UserIdentityEnum getUserIdentity() {
+        // 1. 获取当前登录用户信息
         SysUser sysUser = sysUserService.getById(SecurityUtils.getCurrentUserId());
+
+        // 2. 根据用户类型查询身份配置
         LambdaQueryWrapper<SysUserTypeIdentity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(SysUserTypeIdentity::getUserType, sysUser.getUserType());
         SysUserTypeIdentity sysUserTypeIdentity = sysUserTypeIdentityMapper.selectOne(queryWrapper);
 
+        // 3. 转换并返回身份枚举
         return UserIdentityEnum.getByCode(sysUserTypeIdentity.getIdentityId());
     }
 
+
+    /**
+     * 根据身份ID获取路由菜单
+     */
     @Override
     public PageResult<MenuRouteVO> getRouters(MenuQueryDTO menuQueryDTO) {
-
+        // 1. 根据身份ID获取菜单路由
         List<MenuRouteVO> tree = sysUserTypeIdentityService.getMenuRouteList(menuQueryDTO.getIdentityId());
 
+        // 2. 封装分页结果返回
         PageResult<MenuRouteVO> pageResult = new PageResult<>();
         pageResult.setTotal(tree.size());
         pageResult.setRecords(tree);
@@ -59,24 +74,25 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     }
 
 
+    /**
+     * 获取菜单路由树形列表
+     */
     @Override
     public PageResult<MenuRouteVO> getMenuRouteList(MenuQueryDTO menuQueryDTO) {
-        // 1. 无条件查询【所有菜单】（不分页，菜单一般不分页，直接全查构建树）
+        // 1. 构建查询条件
         LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
-        // 如果你要只查某个父级，就加这个条件
         if (menuQueryDTO.getParentId() != null) {
             queryWrapper.eq(SysMenu::getParentId, menuQueryDTO.getParentId());
         }
-        // 排序
         queryWrapper.orderByAsc(SysMenu::getSort);
 
-        // 2. 查询所有菜单
+        // 2. 查询所有菜单数据
         List<SysMenu> allMenuList = sysMenuMapper.selectList(queryWrapper);
 
-        // 3. 【核心】构建父子树形结构
+        // 3. 构建菜单树形结构
         List<MenuRouteVO> treeList = sysUserTypeIdentityService.buildMenuTree(allMenuList);
 
-        // 4. 封装返回（菜单一般不分页，要分页我也给你保留格式）
+        // 4. 封装并返回结果
         PageResult<MenuRouteVO> result = new PageResult<>();
         result.setRecords(treeList);
         result.setTotal(treeList.size());
@@ -85,22 +101,39 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     }
 
 
+    /**
+     * 新增菜单
+     */
     @Override
     public void addMenu(MenuDTO menuDTO) {
+        // 1. 复制属性到实体
         SysMenu sysMenu = new SysMenu();
         BeanUtils.copyProperties(menuDTO, sysMenu);
+
+        // 2. 执行新增
         sysMenuMapper.insert(sysMenu);
     }
 
 
+    /**
+     * 修改菜单
+     */
     @Override
     public void updateMenu(MenuDTO menuDTO) {
+        // 1. 查询原菜单信息
         SysMenu sysMenu = sysMenuMapper.selectById(menuDTO.getId());
+
+        // 2. 复制新属性
         BeanUtils.copyProperties(menuDTO, sysMenu);
+
+        // 3. 执行更新
         sysMenuMapper.updateById(sysMenu);
     }
 
 
+    /**
+     * 删除菜单
+     */
     @Override
     public void deleteMenu(Long id) {
         // 1. 校验菜单是否存在
@@ -121,5 +154,4 @@ public class AdminIndexServiceImpl implements AdminIndexService {
         // 3. 执行删除
         sysMenuMapper.deleteById(id);
     }
-
 }

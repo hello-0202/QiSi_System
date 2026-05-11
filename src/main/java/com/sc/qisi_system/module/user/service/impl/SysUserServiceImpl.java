@@ -18,10 +18,12 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 
+/**
+ * 系统用户服务实现类
+ */
 @RequiredArgsConstructor
 @Service
-public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // MP 父类
-        implements SysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
 
     private final SysUserMapper sysUserMapper;
@@ -30,6 +32,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
     private final EntEmployeeMapper entEmployeeMapper;
 
 
+    /**
+     * 根据用户ID判断用户是否存在
+     */
     @Override
     public boolean existsById(Long userId) {
         return getById(userId) == null;
@@ -37,10 +42,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
 
 
     /**
-     *
+     * 获取用户展示信息（根据用户类型补充详情）
      */
     @Override
     public UserProfileVO getUserProfile(Long userId) {
+        // 1. 查询基础用户信息
         SysUser sysUser = sysUserMapper.selectById(userId);
         if (Objects.isNull(sysUser)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
@@ -48,57 +54,61 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>  // 
 
         Integer userType = sysUser.getUserType();
 
+        // 2. 封装基础VO
         UserProfileVO userProfileVO = new UserProfileVO();
         BeanUtils.copyProperties(sysUser, userProfileVO);
 
+        // 3. 根据用户类型查询详情
         return switch (userType) {
             case 1 -> getStudentDetail(sysUser, userProfileVO);
             case 2 -> getTeacherDetail(sysUser, userProfileVO);
             case 3 -> getEmployeeDetail(sysUser, userProfileVO);
             default -> userProfileVO;
         };
-
     }
 
 
     /**
-     *
+     * 封装企业用户详情
      */
     private UserProfileVO getEmployeeDetail(SysUser sysUser, UserProfileVO baseVO) {
-
         EntEmployee emp = entEmployeeMapper.selectOne(Wrappers
                 .lambdaQuery(EntEmployee.class)
                 .eq(EntEmployee::getUserId, sysUser.getId()));
 
-        if (Objects.nonNull(emp)) BeanUtils.copyProperties(emp, baseVO,"id");
+        if (Objects.nonNull(emp)) {
+            BeanUtils.copyProperties(emp, baseVO, "id");
+        }
         return baseVO;
     }
 
 
     /**
-     *
+     * 封装教师用户详情
      */
     private UserProfileVO getTeacherDetail(SysUser sysUser, UserProfileVO baseVO) {
-
         EduTeacher teacher = eduTeacherMapper.selectOne(Wrappers
                 .lambdaQuery(EduTeacher.class)
                 .eq(EduTeacher::getUserId, sysUser.getId()));
 
-        if (Objects.nonNull(teacher)) BeanUtils.copyProperties(teacher, baseVO,"id");
+        if (Objects.nonNull(teacher)) {
+            BeanUtils.copyProperties(teacher, baseVO, "id");
+        }
         return baseVO;
     }
 
 
     /**
-     *
+     * 封装学生用户详情
      */
     private UserProfileVO getStudentDetail(SysUser sysUser, UserProfileVO baseVO) {
-
         EduStudent student = eduStudentMapper.selectOne(Wrappers
                 .lambdaQuery(EduStudent.class)
                 .eq(EduStudent::getUserId, sysUser.getId()));
 
-        if (Objects.nonNull(student)) BeanUtils.copyProperties(student, baseVO,"id");
+        if (Objects.nonNull(student)) {
+            BeanUtils.copyProperties(student, baseVO, "id");
+        }
         return baseVO;
     }
 }

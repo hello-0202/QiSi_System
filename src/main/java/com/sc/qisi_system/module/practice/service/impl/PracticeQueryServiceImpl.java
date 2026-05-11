@@ -41,6 +41,9 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * 实践查询服务实现类
+ */
 @RequiredArgsConstructor
 @Service
 public class PracticeQueryServiceImpl implements PracticeQueryService {
@@ -54,9 +57,12 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     private final MinioService minioService;
 
 
+    /**
+     * 获取我发布的实践需求列表
+     */
     @Override
     public PageResult<DemandListVO> getMyPublishedDemandList(Long userId, MyDemandQueryDTO myDemandQueryDTO) {
-
+        // 1. 定义允许查询的需求状态
         List<Integer> allowedStatus = Arrays.asList(
                 DemandStatusEnum.PUBLISHED.getCode(),
                 DemandStatusEnum.RESEARCHING.getCode(),
@@ -64,8 +70,10 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                 DemandStatusEnum.CLOSED.getCode()
         );
 
+        // 2. 处理状态参数，为空则默认查询全部允许状态
         List<Integer> statusList = Optional.ofNullable(myDemandQueryDTO.getStatusList()).orElse(new ArrayList<>());
 
+        // 3. 校验状态合法性
         for (Integer status : statusList) {
             if (!allowedStatus.contains(status)) {
                 throw new BusinessException(ResultCode.DEMAND_STATUS_ILLEGAL);
@@ -76,35 +84,52 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
             myDemandQueryDTO.setStatusList(allowedStatus);
         }
 
+        // 4. 调用服务查询并返回
         return demandService.getMyDemandList(userId, myDemandQueryDTO);
     }
 
 
+    /**
+     * 获取实践需求详情
+     */
     @Override
     public DemandPublicDetailVO getPracticeDemandDetail(Long demandId) {
+        // 1. 查询公开需求详情
         return demandService.getPublicDemandDetail(demandId);
     }
 
 
+    /**
+     * 获取我参与的实践需求列表
+     */
     @Override
     public PageResult<DemandListVO> getMyJoinedPracticeList(Long userId, PracticeDemandQueryDTO practiceDemandQueryDTO) {
+        // 1. 查询参与的实践需求
         return demandService.getMyJoinedPracticeList(userId, practiceDemandQueryDTO);
     }
 
 
+    /**
+     * 获取实践进度附件列表
+     */
     @Override
     public List<AttachmentListVO> getProgressAttachmentList(Long demandId) {
+        // 1. 查询进度附件
         return minioService.getProgressAttachmentList(demandId);
     }
 
 
+    /**
+     * 获取需求成员列表
+     */
     @Override
     public List<MemberVO> getMemberList(Long demandId) {
+        // 1. 查询需求成员
         LambdaQueryWrapper<DemandMember> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(DemandMember::getDemandId, demandId);
+        queryWrapper.eq(DemandMember::getDemandId, demandId);
         List<DemandMember> demandMemberList = demandMemberMapper.selectList(queryWrapper);
 
+        // 2. 转换为VO并填充用户信息
         return demandMemberList.stream().map(
                 demandMember -> {
                     MemberVO memberVO = new MemberVO();
@@ -119,32 +144,35 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     }
 
 
+    /**
+     * 分页查询需求成员变更日志
+     */
     @Override
     public PageResult<MemberChangeLogVO> getDemandMemberChangeLog(MemberChangeLogDTO memberChangeLogDTO) {
-
+        // 1. 构建分页对象
         Page<DemandMemberChange> page = new Page<>(memberChangeLogDTO.getPageNum(), memberChangeLogDTO.getPageSize());
 
+        // 2. 校验需求是否存在
         if (!demandService.isNotExistsByDemandId(memberChangeLogDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
+        // 3. 分页查询变更记录
         LambdaQueryWrapper<DemandMemberChange> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(DemandMemberChange::getDemandId, memberChangeLogDTO.getDemandId());
+        queryWrapper.eq(DemandMemberChange::getDemandId, memberChangeLogDTO.getDemandId());
         IPage<DemandMemberChange> demandMemberChangeIPage = demandMemberChangeMapper.selectPage(page, queryWrapper);
 
+        // 4. 转换为VO并填充用户信息
         List<MemberChangeLogVO> voList = demandMemberChangeIPage.getRecords().stream().map(
                 memberChange -> {
-
                     MemberChangeLogVO memberChangeLogVO = new MemberChangeLogVO();
-
                     BeanUtils.copyProperties(memberChange, memberChangeLogVO);
                     UserProfileVO userProfileVO = sysUserService.getUserProfile(memberChange.getUserId());
                     BeanUtils.copyProperties(userProfileVO, memberChangeLogVO.getUserProfileVO());
                     return memberChangeLogVO;
-
                 }).toList();
 
+        // 5. 封装分页结果
         PageResult<MemberChangeLogVO> pageResult = new PageResult<>();
         pageResult.setTotal(demandMemberChangeIPage.getTotal());
         pageResult.setPages(demandMemberChangeIPage.getPages());
@@ -153,20 +181,25 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     }
 
 
+    /**
+     * 分页查询需求实践日志
+     */
     @Override
     public PageResult<DemandProgressVO> getDemandProgressLog(QueryDemandProgressLogDTO queryDemandProgressLogDTO) {
-
+        // 1. 构建分页对象
         Page<DemandProgress> page = new Page<>(queryDemandProgressLogDTO.getPageNum(), queryDemandProgressLogDTO.getPageSize());
 
+        // 2. 校验需求是否存在
         if (demandService.isNotExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
+        // 3. 分页查询进度日志
         LambdaQueryWrapper<DemandProgress> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(DemandProgress::getDemandId, queryDemandProgressLogDTO.getDemandId());
+        queryWrapper.eq(DemandProgress::getDemandId, queryDemandProgressLogDTO.getDemandId());
         IPage<DemandProgress> demandProgressIPage = demandProgressMapper.selectPage(page, queryWrapper);
 
+        // 4. 转换为VO并填充用户名
         List<DemandProgressVO> demandProgressVOList = demandProgressIPage.getRecords().stream().map(
                 demandProgress -> {
                     DemandProgressVO demandProgressVO = new DemandProgressVO();
@@ -182,6 +215,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                     return demandProgressVO;
                 }).toList();
 
+        // 5. 封装分页结果
         PageResult<DemandProgressVO> pageResult = new PageResult<>();
         pageResult.setTotal(demandProgressIPage.getTotal());
         pageResult.setPages(demandProgressIPage.getPages());

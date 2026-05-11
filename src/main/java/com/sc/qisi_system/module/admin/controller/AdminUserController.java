@@ -12,8 +12,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+/**
+ * 用户管理控制器
+ * 功能: 用户列表查询、密码重置、用户封禁/解封等用户管理操作
+ */
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/admin/user")
+@RequestMapping("/api/admin/user")
 @RequiredArgsConstructor
 @RestController
 @Validated
@@ -24,9 +28,13 @@ public class AdminUserController {
 
 
     /**
-     * 条件查询用户列表
+     * 条件查询用户列表接口
+     * 角色: 管理员
+     *
+     * @param sysUserQueryDTO 用户查询条件
+     * @return 用户分页列表
      */
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Result getUserList(
             @RequestBody SysUserQueryDTO sysUserQueryDTO) {
         return Result.success(adminUserService.getUserList(sysUserQueryDTO));
@@ -34,7 +42,11 @@ public class AdminUserController {
 
 
     /**
-     * 管理员重置用户密码
+     * 管理员重置用户密码接口
+     * 角色: 管理员
+     *
+     * @param dto 密码重置参数
+     * @return 密码重置成功提示
      */
     @PostMapping("/reset-password")
     public Result resetUserPassword(
@@ -46,8 +58,12 @@ public class AdminUserController {
 
     /**
      * 封禁用户接口
+     * 角色: 管理员
+     *
+     * @param userId 用户ID
+     * @return 统一返回结果
      */
-    @PostMapping("/ban")
+    @GetMapping("/ban")
     public Result banUser(
             @NotNull @RequestParam Long userId) {
         adminUserService.banUser(userId);
@@ -56,9 +72,13 @@ public class AdminUserController {
 
 
     /**
-     * 解除用户封禁
+     * 解除用户封禁接口
+     * 角色: 管理员
+     *
+     * @param userId 用户ID
+     * @return 统一返回结果
      */
-    @PostMapping("/unban")
+    @GetMapping("/unban")
     public Result unbanUser(
             @NotNull @RequestParam Long userId) {
         adminUserService.unbanUser(userId);

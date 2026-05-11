@@ -19,9 +19,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 
+/**
+ * 用户信息服务实现类
+ */
 @RequiredArgsConstructor
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
+
 
     private final SysUserMapper sysUserMapper;
     private final SysUserService sysUserService;
@@ -29,27 +33,40 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final PasswordEncoder passwordEncoder;
 
 
+    /**
+     * 获取当前用户详细信息
+     */
     @Override
     public UserInfoVO getUserInfo() {
+        // 1. 获取当前登录用户ID
         SysUser sysUser = sysUserMapper.selectById(SecurityUtils.getCurrentUserId());
+        // 2. 转换为VO返回
         UserInfoVO userInfoVO = new UserInfoVO();
         BeanUtils.copyProperties(sysUser, userInfoVO);
         return userInfoVO;
     }
 
 
+    /**
+     * 获取用户基础展示信息
+     */
     @Override
     public UserProfileVO getUserProfile() {
         return sysUserService.getUserProfile(SecurityUtils.getCurrentUserId());
     }
 
 
+    /**
+     * 修改用户信息（密码、手机号、邮箱）
+     */
     @Override
     public void updateUserInfo(UserInfoDTO userInfoDTO) {
+        // 1. 校验用户是否存在
         SysUser sysUser = sysUserMapper.selectById(SecurityUtils.getCurrentUserId());
         if(sysUser == null) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
+        // 2. 更新用户信息
         sysUser.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
         sysUser.setPhone(userInfoDTO.getPhone());
         sysUser.setEmail(userInfoDTO.getEmail());
@@ -57,12 +74,17 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
 
+    /**
+     * 更新用户头像
+     */
     @Override
     public void updateAvatar(MultipartFile file) {
+        // 1. 校验用户是否存在
         SysUser sysUser = sysUserMapper.selectById(SecurityUtils.getCurrentUserId());
         if(sysUser == null) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
+        // 2. 上传头像并更新用户信息
         sysUser.setAvatar(minioService.updateUserAvatar(SecurityUtils.getCurrentUserId(), file));
         sysUserMapper.updateById(sysUser);
     }

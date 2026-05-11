@@ -44,7 +44,7 @@ public class ApplyQueryController {
      * @param queryDTO 请求体
      * @return 我申请的需求列表信息
      */
-    @GetMapping("/my-list")
+    @PostMapping("/my-list")
     public Result getMyApplyDemandList(
             @RequestBody MyApplyQueryDTO queryDTO) {
         return Result.success(applyQueryService.getMyApplyDemandList(SecurityUtils.getCurrentUserId(), queryDTO));

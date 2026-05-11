@@ -14,8 +14,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 白名单管理控制器
+ * 功能: 教职工白名单、学生白名单的查询、新增、修改、删除等管理操作
+ */
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/admin/whitelist")
+@RequestMapping("/api/admin/whitelist")
 @RequiredArgsConstructor
 @RestController
 @Validated
@@ -26,9 +30,13 @@ public class AdminWhitelistController {
 
 
     /**
-     * 条件查询教职工白名单
+     * 条件查询教职工白名单接口
+     * 角色: 管理员
+     *
+     * @param queryDTO 教职工白名单查询条件
+     * @return 教职工白名单分页列表
      */
-    @GetMapping("/teacher-whitelist/list")
+    @PostMapping("/teacher-whitelist/list")
     public Result getTeacherWhitelist(
             @RequestBody SchoolStaffWhitelistQueryDTO queryDTO) {
         return Result.success(adminWhitelistService.getTeacherWhitelist(queryDTO));
@@ -36,7 +44,11 @@ public class AdminWhitelistController {
 
 
     /**
-     * 修改教职工白名单
+     * 修改教职工白名单接口
+     * 角色: 管理员
+     *
+     * @param schoolStaffDTO 教职工信息
+     * @return 统一返回结果
      */
     @PutMapping("/teacher-whitelist/update")
     public Result updateTeacherWhitelist(
@@ -47,7 +59,11 @@ public class AdminWhitelistController {
 
 
     /**
-     * 删除教职工白名单
+     * 删除教职工白名单接口
+     * 角色: 管理员
+     *
+     * @param id 教职工白名单ID
+     * @return 统一返回结果
      */
     @DeleteMapping("/teacher-whitelist/delete")
     public Result deleteTeacherWhitelist(
@@ -58,7 +74,11 @@ public class AdminWhitelistController {
 
 
     /**
-     * 新增教职工白名单
+     * 新增教职工白名单接口
+     * 角色: 管理员
+     *
+     * @param schoolStaffDTO 教职工信息
+     * @return 统一返回结果
      */
     @PostMapping("/teacher-whitelist/add")
     public Result addTeacherWhitelist(
@@ -70,11 +90,12 @@ public class AdminWhitelistController {
 
     /**
      * 条件查询学生白名单接口
+     * 角色: 管理员
      *
-     * @param schoolStudentWhitelistQueryDTO 查询请求体
-     * @return 学生白名单列表
+     * @param schoolStudentWhitelistQueryDTO 学生白名单查询条件
+     * @return 学生白名单分页列表
      */
-    @GetMapping("/student-whitelist/list")
+    @PostMapping("/student-whitelist/list")
     public Result getStudentWhitelist(
             @RequestBody SchoolStudentWhitelistQueryDTO schoolStudentWhitelistQueryDTO) {
         return Result.success(adminWhitelistService.getStudentWhitelist(schoolStudentWhitelistQueryDTO));
@@ -82,7 +103,11 @@ public class AdminWhitelistController {
 
 
     /**
-     * 修改学生白名单
+     * 修改学生白名单接口
+     * 角色: 管理员
+     *
+     * @param studentWhitelistDTO 学生信息
+     * @return 统一返回结果
      */
     @PutMapping("/student-whitelist/update")
     public Result updateStudentWhitelist(
@@ -93,7 +118,11 @@ public class AdminWhitelistController {
 
 
     /**
-     * 删除学生白名单
+     * 删除学生白名单接口
+     * 角色: 管理员
+     *
+     * @param id 学生白名单ID
+     * @return 统一返回结果
      */
     @DeleteMapping("/student-whitelist/delete")
     public Result deleteStudentWhitelist(
@@ -104,7 +133,11 @@ public class AdminWhitelistController {
 
 
     /**
-     * 白名单新增学生
+     * 新增学生白名单接口
+     * 角色: 管理员
+     *
+     * @param studentWhitelistDTO 学生信息
+     * @return 统一返回结果
      */
     @PostMapping("/student-whitelist/add")
     public Result addStudentWhitelist(

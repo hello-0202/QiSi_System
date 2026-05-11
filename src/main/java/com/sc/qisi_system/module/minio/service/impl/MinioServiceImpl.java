@@ -31,6 +31,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 
+/**
+ * MinIO文件操作服务实现类
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -44,6 +47,9 @@ public class MinioServiceImpl implements MinioService {
     private final MinioConfig minioConfig;
 
 
+    /**
+     * 批量上传需求附件
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) {
@@ -66,16 +72,21 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 获取需求附件列表
+     */
     @Override
     public List<AttachmentListVO> getDemandAttachmentList(Long demandId) {
-
+        // 1. 构建查询条件
         LambdaQueryWrapper<DemandAttachment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(DemandAttachment::getDemandId, demandId)
                 .eq(DemandAttachment::getIsDeleted, false);
 
+        // 2. 查询附件列表
         List<DemandAttachment> demandAttachments = demandAttachmentService.list(queryWrapper);
         List<AttachmentListVO> voList = new ArrayList<>();
 
+        // 3. 转换为VO并生成访问链接
         for (DemandAttachment attachment : demandAttachments) {
             AttachmentListVO vo = buildAttachmentListVO(attachment);
             voList.add(vo);
@@ -84,26 +95,33 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 删除单个需求附件
+     */
     @Override
     public void deleteAttachment(Long attachmentId) {
-
+        // 1. 查询附件信息
         DemandAttachment demandAttachment = demandAttachmentService.getById(attachmentId);
         if (demandAttachment == null) {
             throw (new BusinessException(ResultCode.ATTACHMENT_NOT_FOUND));
         }
 
+        // 2. 软删除数据库记录
         demandAttachment.setIsDeleted(1);
         demandAttachmentService.updateById(demandAttachment);
-        asyncFileDeleteService.deleteFileAsync(demandAttachment);
 
+        // 3. 异步删除MinIO文件
+        asyncFileDeleteService.deleteFileAsync(demandAttachment);
     }
 
 
+    /**
+     * 批量删除需求附件
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteBatchAttachment(List<Long> attachmentIds) {
-
-
+        // 1. 查询有效附件
         LambdaQueryWrapper<DemandAttachment> wrapper = Wrappers.lambdaQuery();
         wrapper.in(DemandAttachment::getId, attachmentIds)
                 .eq(DemandAttachment::getIsDeleted, 0);
@@ -114,20 +132,22 @@ public class MinioServiceImpl implements MinioService {
             throw new BusinessException(ResultCode.ATTACHMENT_NOT_FOUND);
         }
 
-        // 2. 对存在的附件批量软删除
+        // 2. 批量软删除
         for (DemandAttachment attachment : existAttachments) {
             attachment.setIsDeleted(1);
         }
-
         demandAttachmentService.updateBatchById(existAttachments);
 
-        // 3. 异步删除文件
+        // 3. 异步批量删除文件
         for (DemandAttachment attachment : existAttachments) {
             asyncFileDeleteService.deleteFileAsync(attachment);
         }
     }
 
 
+    /**
+     * 批量上传实践进度附件
+     */
     @Override
     public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) {
         return commonBatchUpload(
@@ -149,17 +169,23 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 获取实践进度附件列表
+     */
     @Override
     public List<AttachmentListVO> getProgressAttachmentList(Long demandId) {
+        // 1. 构建查询条件
         LambdaQueryWrapper<DemandProgressAttachment> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(DemandProgressAttachment::getDemandId, demandId)
                 .eq(DemandProgressAttachment::getIsDeleted, false);
 
+        // 2. 查询附件列表
         List<DemandProgressAttachment> progressAttachments = demandProgressAttachmentService.list(queryWrapper);
         List<AttachmentListVO> voList = new ArrayList<>();
 
+        // 3. 转换为VO
         for (DemandProgressAttachment attachment : progressAttachments) {
-            AttachmentListVO vo = buildAttachmentListVO(attachment); // 一行搞定
+            AttachmentListVO vo = buildAttachmentListVO(attachment);
             voList.add(vo);
         }
         return voList;
@@ -171,13 +197,17 @@ public class MinioServiceImpl implements MinioService {
      */
     @Override
     public void deleteProgressAttachment(Long attachmentId) {
+        // 1. 查询附件信息
         DemandProgressAttachment attachment = demandProgressAttachmentService.getById(attachmentId);
         if (attachment == null) {
             throw new BusinessException(ResultCode.ATTACHMENT_NOT_FOUND);
         }
 
+        // 2. 软删除
         attachment.setIsDeleted(1);
         demandProgressAttachmentService.updateById(attachment);
+
+        // 3. 异步删除文件
         asyncFileDeleteService.deleteProgressFileAsync(attachment);
     }
 
@@ -188,6 +218,7 @@ public class MinioServiceImpl implements MinioService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteBatchProgressAttachment(List<Long> attachmentIds) {
+        // 1. 查询有效附件
         LambdaQueryWrapper<DemandProgressAttachment> wrapper = Wrappers.lambdaQuery();
         wrapper.in(DemandProgressAttachment::getId, attachmentIds)
                 .eq(DemandProgressAttachment::getIsDeleted, 0);
@@ -198,13 +229,13 @@ public class MinioServiceImpl implements MinioService {
             throw new BusinessException(ResultCode.ATTACHMENT_NOT_FOUND);
         }
 
-        // 软删除
+        // 2. 批量软删除
         for (DemandProgressAttachment attachment : existAttachments) {
             attachment.setIsDeleted(1);
         }
         demandProgressAttachmentService.updateBatchById(existAttachments);
 
-        // 异步删除文件
+        // 3. 异步删除文件
         for (DemandProgressAttachment attachment : existAttachments) {
             asyncFileDeleteService.deleteProgressFileAsync(attachment);
         }
@@ -217,6 +248,7 @@ public class MinioServiceImpl implements MinioService {
     @Override
     public InputStream downloadFile(String bucketName, String objectName) {
         try {
+            // 1. 从MinIO获取文件流
             return minioClient.getObject(
                     GetObjectArgs.builder()
                             .bucket(bucketName)
@@ -230,13 +262,13 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
-
     /**
      * 获取文件临时访问链接
      */
     @Override
     public String generateUrl(String bucketName, String objectName) {
         try {
+            // 1. 生成1小时有效期的签名URL
             return minioClient.getPresignedObjectUrl(
                     GetPresignedObjectUrlArgs.builder()
                             .bucket(bucketName)
@@ -253,20 +285,17 @@ public class MinioServiceImpl implements MinioService {
 
 
     /**
-     * 上传/修改用户头像（第一次=新增，之后=修改）
-     * @param userId 用户ID
-     * @param file 头像文件
-     * @return 存储到用户表的 MinIO 路径（objectName）
+     * 上传/修改用户头像
      */
     @Override
     public String updateUserAvatar(Long userId, MultipartFile file) {
-
+        // 1. 构建文件路径信息
         String bucketName = "avatar";
         String suffix = FileUtil.extName(file.getOriginalFilename());
         String objectName = "avatar/" + userId + "/" + UUID.randomUUID() + "." + suffix;
 
         try {
-            // 上传到 MinIO
+            // 2. 上传到MinIO
             uploadFileToMinio(bucketName, file, objectName);
             log.info("用户【{}】头像上传成功，路径：{}", userId, objectName);
 
@@ -279,17 +308,23 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 获取用户头像访问链接
+     */
     @Override
     public String getUserAvatarUrl(String avatarPath) {
         if (avatarPath == null || avatarPath.isEmpty()) {
             return null;
         }
 
+        // 1. 生成头像访问链接
         return generateUrl("avatar", avatarPath);
     }
 
 
-    // 泛型方法：自动识别是 DemandAttachment 还是 DemandProgressAttachment
+    /**
+     * 构建附件列表VO（兼容需求附件/进度附件）
+     */
     private <T> AttachmentListVO buildAttachmentListVO(T attachment) {
         AttachmentListVO vo = new AttachmentListVO();
 
@@ -300,7 +335,7 @@ public class MinioServiceImpl implements MinioService {
         String bucketName = null;
         String objectName = null;
 
-        // 自动判断类型
+        // 1. 根据类型获取属性
         if (attachment instanceof DemandAttachment a) {
             id = a.getId();
             fileName = a.getFileName();
@@ -318,11 +353,13 @@ public class MinioServiceImpl implements MinioService {
             objectName = a.getObjectName();
         }
 
+        // 2. 赋值基础信息
         vo.setId(id);
         vo.setFileName(fileName);
         vo.setFileType(fileType);
         vo.setFileSize(fileSize);
 
+        // 3. 生成访问链接
         try {
             String url = generateUrl(bucketName, objectName);
             vo.setUrl(url);
@@ -336,17 +373,17 @@ public class MinioServiceImpl implements MinioService {
 
 
     /**
-     * 私有方法: 底层上传文件到MinIO
+     * 底层上传文件到MinIO
      */
     private void uploadFileToMinio(String bucketName, MultipartFile file, String objectName) {
         try {
-            // 检查桶是否存在，不存在则创建
+            // 1. 检查并创建桶
             if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
                 log.info("MinIO桶【{}】创建成功", bucketName);
             }
 
-            // 上传文件流
+            // 2. 上传文件流
             try (InputStream inputStream = file.getInputStream()) {
                 minioClient.putObject(
                         PutObjectArgs.builder()
@@ -367,9 +404,10 @@ public class MinioServiceImpl implements MinioService {
 
 
     /**
-     * 通用 MinIO 文件回滚逻辑
+     * 通用MinIO文件回滚逻辑
      */
     private <T> void commonRollbackMinioFiles(List<T> attachments, Function<T, String> bucketExtractor, Function<T, String> objectExtractor) {
+        // 1. 逐个删除已上传的文件
         for (T attachment : attachments) {
             try {
                 minioClient.removeObject(
@@ -386,72 +424,73 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 通用批量上传方法
+     */
     private <T> AttachmentUploadVO commonBatchUpload(
-        Long demandId,
-        MultipartFile[] files,
-        String pathPrefix,
-        EntityBuilder<T> entityBuilder,
-        BatchSaver<T> batchSaver,
-        RollBacker<T> rollBacker
+            Long demandId,
+            MultipartFile[] files,
+            String pathPrefix,
+            EntityBuilder<T> entityBuilder,
+            BatchSaver<T> batchSaver,
+            RollBacker<T> rollBacker
     ){
         if (isEmpty(files)) {
             return buildEmptyUploadVO();
         }
 
-        // 初始化VO相关集合
+        // 1. 初始化集合
         List<T> attachments = new ArrayList<>();
         List<AttachmentSuccess> successFiles = new ArrayList<>();
         List<DemandAttachmentFail> failFiles = new ArrayList<>();
 
-        // 2. 循环处理每个文件（异常局部捕获，不中断整批处理）
+        // 2. 循环处理文件
         for (MultipartFile file : files) {
             try {
-                // 跳过空文件
                 if (file.isEmpty()) {
                     log.warn("跳过空文件：{}", file.getOriginalFilename());
-
                     DemandAttachmentFail failVO = new DemandAttachmentFail();
                     failVO.setOriginalFileName(file.getOriginalFilename());
                     failVO.setFailReason("文件为空，跳过上传");
                     failFiles.add(failVO);
-
                     continue;
                 }
 
-                // 构造MinIO唯一文件名
+                // 3. 生成文件路径并上传
                 String objectName = pathPrefix + demandId + "/" + UUID.randomUUID() + "_" + file.getOriginalFilename();
-
-                // 上传到MinIO
                 uploadFileToMinio(minioConfig.getAttachmentBucket(), file, objectName);
 
-                // 生成文件访问链接
+                // 4. 生成链接并封装信息
                 String fileUrl = generateUrl(minioConfig.getAttachmentBucket(), objectName);
                 String suffix = FileUtil.extName(file.getOriginalFilename());
-
                 successFiles.add(buildSuccessVO(file.getOriginalFilename(), suffix, file.getSize(), fileUrl, demandId));
 
+                // 5. 构建附件实体
                 T attachment = entityBuilder.build(demandId, file.getOriginalFilename(), objectName, minioConfig.getAttachmentBucket(), suffix, file.getSize());
                 attachments.add(attachment);
 
             } catch (Exception e) {
-                // 捕获单个文件的异常，记录并继续处理下一个文件
+                // 单个文件异常不中断
                 String originalFileName = file.getOriginalFilename();
                 log.error("文件【{}】上传失败", originalFileName, e);
-
                 DemandAttachmentFail failVO = new DemandAttachmentFail();
                 failVO.setOriginalFileName(originalFileName);
                 failVO.setFailReason(e.getMessage());
                 failFiles.add(failVO);
             }
         }
-        // 3. 批量入库
+
+        // 6. 批量入库
         saveAttachmentsToDb(attachments, batchSaver, rollBacker);
 
-        // 4. 封装返回
+        // 7. 封装返回结果
         return buildUploadVO(successFiles, failFiles);
     }
 
 
+    /**
+     * 保存附件到数据库
+     */
     private <T> void saveAttachmentsToDb(List<T> attachments, BatchSaver<T> batchSaver, RollBacker<T> rollbacker) {
         if (!attachments.isEmpty()) {
             try {
@@ -469,6 +508,9 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 构建成功上传VO
+     */
     private AttachmentSuccess buildSuccessVO(String originalFileName, String suffix, Long fileSize, String fileUrl, Long demandId) {
         AttachmentSuccess successVO = new AttachmentSuccess();
         successVO.setOriginalFileName(originalFileName);
@@ -480,11 +522,17 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 判断文件数组是否为空
+     */
     private boolean isEmpty(MultipartFile[] files) {
         return files == null || files.length == 0;
     }
 
 
+    /**
+     * 构建空上传结果
+     */
     private AttachmentUploadVO buildEmptyUploadVO(){
         AttachmentUploadVO emptyVO = new AttachmentUploadVO();
         emptyVO.setSuccessCount(0);
@@ -495,6 +543,9 @@ public class MinioServiceImpl implements MinioService {
     }
 
 
+    /**
+     * 构建上传结果VO
+     */
     private AttachmentUploadVO buildUploadVO(List<AttachmentSuccess> successFiles, List<DemandAttachmentFail> failFiles) {
         AttachmentUploadVO uploadVO = new AttachmentUploadVO();
         uploadVO.setSuccessCount(successFiles.size());
@@ -521,6 +572,5 @@ public class MinioServiceImpl implements MinioService {
     private interface RollBacker<T>{
         void rollback(List<T> list);
     }
-
 
 }
