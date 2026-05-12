@@ -36,6 +36,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+
     private final RequestUtils requestUtils;
 
 
@@ -48,6 +49,7 @@ public class GlobalExceptionHandler {
         return Result.error(e.getResultCode().getCode(), e.getMessage());
     }
 
+
     /**
      * 自定义系统异常
      */
@@ -56,6 +58,7 @@ public class GlobalExceptionHandler {
         log.warn("[系统异常] {}, code={}, message={}", requestUtils.getRequestLog(request), e.getResultCode().getCode(), e.getMessage());
         return Result.error(e.getResultCode().getCode(), e.getMessage());
     }
+
 
     /**
      * 参数校验异常处理: @Valid 校验失败
@@ -69,6 +72,7 @@ public class GlobalExceptionHandler {
         log.warn("[参数异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.PARAM_ERROR.getCode(), message);
         return Result.error(ResultCode.PARAM_ERROR.getCode(), message);
     }
+
 
     /**
      * 方法参数校验异常（@Validated + @RequestParam/@PathVariable 校验失败）
@@ -128,6 +132,7 @@ public class GlobalExceptionHandler {
         return Result.error(ResultCode.REQUEST_BODY_ERROR.getCode(), ResultCode.REQUEST_BODY_ERROR.getMessage());
     }
 
+
     /**
      * 404 接口不存在异常处理
      */
@@ -136,6 +141,7 @@ public class GlobalExceptionHandler {
         log.warn("[接口不存在] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.NOT_FOUND.getCode(), e.getMessage());
         return Result.error(ResultCode.NOT_FOUND.getCode(), ResultCode.NOT_FOUND.getMessage());
     }
+
 
     /**
      * 请求方法不支持异常处理
@@ -146,6 +152,7 @@ public class GlobalExceptionHandler {
         return Result.error(ResultCode.METHOD_NOT_ALLOWED.getCode(), ResultCode.METHOD_NOT_ALLOWED.getMessage());
     }
 
+
     /**
      * 数据库访问异常处理
      */
@@ -155,6 +162,7 @@ public class GlobalExceptionHandler {
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
 
+
     /**
      * 全局兜底异常处理
      */
@@ -163,6 +171,7 @@ public class GlobalExceptionHandler {
         log.error("[系统异常] {}", requestUtils.getRequestLog(request), e);
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
     }
+
 
     /**
      * Redis 连接失败
@@ -194,6 +203,7 @@ public class GlobalExceptionHandler {
         return Result.error(ResultCode.TOKEN_EXPIRED.getCode(), e.getMessage());
     }
 
+
     /**
      * JWT 签名错误异常处理
      */
@@ -203,6 +213,7 @@ public class GlobalExceptionHandler {
         return Result.error(ResultCode.TOKEN_SIGNATURE_ERROR.getCode(), e.getMessage());
     }
 
+
     /**
      * JWT 格式错误/非法Token异常处理
      */
@@ -211,5 +222,4 @@ public class GlobalExceptionHandler {
         log.warn("[Token格式错误] {}，异常：{}", requestUtils.getRequestLog(request), e.getMessage());
         return Result.error(ResultCode.TOKEN_MALFORMED.getCode(), e.getMessage());
     }
-
 }
