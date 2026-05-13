@@ -4,6 +4,7 @@ import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.demand.dto.ApplyDemandQueryDTO;
+import com.sc.qisi_system.module.demand.vo.DemandPublicDetailVO;
 import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 
@@ -26,6 +27,16 @@ public interface ApplyQueryService {
      * @return 我申请的需求列表信息
      */
     PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO);
+
+
+    /**
+     * 查询公开可申请需求详情
+     * 角色: 发布者 认领者
+     *
+     * @param demandId 需求ID
+     * @return 公开需求详细信息
+     */
+    DemandPublicDetailVO getPublicDemandDetail(Long demandId);
 
 
     /**

@@ -1,5 +1,6 @@
 package com.sc.qisi_system.module.demand.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -29,7 +30,7 @@ public class DemandPublishDraftDTO {
     /**
      * 需求分类
      */
-    private String category;
+    private Integer category;
 
 
     /**
@@ -65,12 +66,14 @@ public class DemandPublishDraftDTO {
     /**
      * 研究开始时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime startTime;
 
 
     /**
      * 研究结束时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime endTime;
 
 
@@ -90,6 +93,4 @@ public class DemandPublishDraftDTO {
      * 是否需要提交方案: 0-不需要 1-需要
      */
     private Boolean requirePlan;
-
-
 }

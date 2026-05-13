@@ -39,6 +39,20 @@ public class ApplyQueryController {
 
 
     /**
+     * 查询可申请公开需求详情接口
+     * 角色: 认领者、发布者
+     *
+     * @param demandId 需求ID
+     * @return 公开需求详情信息
+     */
+    @GetMapping("/apply-demand-detail")
+    public Result getApplyDemandDetail(
+            @NotNull @RequestParam Long demandId){
+        return Result.success(applyQueryService.getPublicDemandDetail(demandId));
+    }
+
+
+    /**
      * 条件查询我申请的需求列表接口
      *
      * @param queryDTO 请求体

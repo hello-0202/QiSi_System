@@ -24,6 +24,10 @@ public enum ResultCode {
     MINIO_UPLOAD_FAILED(500104, "文件上传失败"),
     MINIO_FILE_NOT_EXIST(500105, "文件不存在"),
 
+    // 数据库约束异常（给你新增的）
+    DATA_DUPLICATE(500106, "数据重复，请检查后重试"),          // 手机号重复、唯一键冲突
+    DATA_REQUIRED_FIELD_MISSING(500107, "必填数据信息缺失"),   // 字段无默认值/未赋值
+
 
     /**
      * 认证授权

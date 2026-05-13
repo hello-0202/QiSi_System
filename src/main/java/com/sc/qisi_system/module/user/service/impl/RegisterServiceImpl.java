@@ -141,6 +141,7 @@ public class RegisterServiceImpl implements RegisterService {
         EduTeacher eduTeacher = new EduTeacher();
         BeanUtils.copyProperties(schoolStaff,eduTeacher);
         eduTeacher.setTeacherNo(schoolStaff.getPersonCode());
+        eduTeacher.setUserId(sysUser.getId());
 
         // 3. 更新用户姓名
         sysUser.setName(schoolStaff.getName());

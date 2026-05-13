@@ -2,7 +2,6 @@ package com.sc.qisi_system.module.demand.service;
 
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
-import com.sc.qisi_system.module.demand.vo.DemandPublicDetailVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.MyDemandDetailVO;
 
@@ -45,14 +44,4 @@ public interface DemandQueryService {
      * @return 我的需求详细信息
      */
     MyDemandDetailVO getMyDemandDetail(Long demandId);
-
-
-    /**
-     * 查询公开可申请需求详情
-     * 角色: 发布者 认领者
-     *
-     * @param demandId 需求ID
-     * @return 公开需求详细信息
-     */
-    DemandPublicDetailVO getPublicDemandDetail(Long demandId);
 }

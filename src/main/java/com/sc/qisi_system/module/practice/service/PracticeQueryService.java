@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.practice.service;
 
 import com.sc.qisi_system.common.result.PageResult;
+import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
@@ -31,6 +32,27 @@ public interface PracticeQueryService {
      * @return 需求列表分页结果
      */
     PageResult<DemandListVO> getMyPublishedDemandList(Long userId, MyDemandQueryDTO myDemandQueryDTO);
+
+
+    /**
+     * 查看指定需求的申请成员列表
+     * 角色: 发布者
+     *
+     * @param userId 用户id
+     * @param demandId 需求id
+     * @return 申请成员列表信息
+     */
+    List<MemberVO> getApplyMemberList(Long userId, Long demandId);
+
+
+    /**
+     * 查询申请详情
+     * 角色: 认领者 发布者
+     *
+     * @param applyId 需求申请id
+     * @return 需求详情
+     */
+    ApplyDetailVO getMyApplyDetail(Long applyId);
 
 
     /**

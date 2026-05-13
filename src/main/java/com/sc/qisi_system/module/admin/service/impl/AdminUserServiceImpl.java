@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -47,9 +48,9 @@ public class AdminUserServiceImpl implements AdminUserService {
         // 2. 构建动态查询条件
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
-                .eq(sysUserQueryDTO.getUsername() != null, SysUser::getUsername, sysUserQueryDTO.getUsername())
-                .eq(sysUserQueryDTO.getName() != null, SysUser::getName, sysUserQueryDTO.getName())
-                .eq(sysUserQueryDTO.getPhone() != null, SysUser::getPhone, sysUserQueryDTO.getPhone())
+                .eq(StringUtils.hasText(sysUserQueryDTO.getUsername()), SysUser::getUsername, sysUserQueryDTO.getUsername())
+                .eq(StringUtils.hasText(sysUserQueryDTO.getName()), SysUser::getName, sysUserQueryDTO.getName())
+                .eq(StringUtils.hasText(sysUserQueryDTO.getPhone()), SysUser::getPhone, sysUserQueryDTO.getPhone())
                 .eq(sysUserQueryDTO.getUserType() != null, SysUser::getUserType, sysUserQueryDTO.getUserType())
                 .eq(sysUserQueryDTO.getStatus() != null, SysUser::getStatus, sysUserQueryDTO.getStatus());
 

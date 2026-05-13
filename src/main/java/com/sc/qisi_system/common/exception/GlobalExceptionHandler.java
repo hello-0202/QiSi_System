@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  * 全局统一异常处理器
  * 捕获所有Controller层抛出的异常，统一返回格式、统一日志打印
@@ -154,12 +156,46 @@ public class GlobalExceptionHandler {
 
 
     /**
+     * 数据库唯一约束异常（手机号重复、唯一键冲突）
+     */
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public Result handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e, HttpServletRequest request) {
+        String message = "该手机号已被注册，请勿重复操作";
+        log.warn("[数据库异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.DATA_DUPLICATE.getCode(), e.getMessage());
+        return Result.error(ResultCode.DATA_DUPLICATE.getCode(), message);
+    }
+
+
+    /**
+     * 数据库字段无默认值异常（必填字段未传值）
+     */
+    @ExceptionHandler(java.sql.SQLException.class)
+    public Result handleSQLException(java.sql.SQLException e, HttpServletRequest request) {
+        String message = "数据信息不完整，请检查必填字段";
+        log.warn("[数据库异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.DATA_REQUIRED_FIELD_MISSING.getCode(), e.getMessage());
+        return Result.error(ResultCode.DATA_REQUIRED_FIELD_MISSING.getCode(), message);
+    }
+
+
+    /**
      * 数据库访问异常处理
      */
     @ExceptionHandler(DataAccessException.class)
     public Result handleDataAccessException(DataAccessException e, HttpServletRequest request) {
         log.error("[数据库异常] {}, code={}, message={}", requestUtils.getRequestLog(request), ResultCode.SYSTEM_ERROR.getCode(), e.getMessage());
         return Result.error(ResultCode.SYSTEM_ERROR.getCode(), ResultCode.SYSTEM_ERROR.getMessage());
+    }
+
+
+    /**
+     * 对象属性复制异常（BeanUtils.copyProperties 目标为 null）
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Result handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest request) {
+
+        log.warn("[数据异常] {}, code={}, message={}",
+                requestUtils.getRequestLog(request), ResultCode.PARAM_ERROR.getCode(), e.getMessage());
+        return Result.error(ResultCode.PARAM_ERROR.getCode(), ResultCode.PARAM_ERROR.getMessage());
     }
 
 

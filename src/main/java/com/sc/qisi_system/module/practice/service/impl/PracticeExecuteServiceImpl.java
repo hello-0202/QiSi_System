@@ -53,7 +53,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     @Override
     public void submitDemandLog(DemandProgressDTO demandProgressDTO) {
         // 1. 校验需求是否存在
-        if (demandService.isNotExistsByDemandId(demandProgressDTO.getDemandId())) {
+        if (!demandService.isNotExistsByDemandId(demandProgressDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 

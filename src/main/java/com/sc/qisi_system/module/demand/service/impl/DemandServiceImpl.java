@@ -5,23 +5,21 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sc.qisi_system.common.enums.DemandCategoryEnum;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
-import com.sc.qisi_system.module.apply.dto.MyApplyQueryDTO;
-import com.sc.qisi_system.module.apply.entity.DemandApply;
-import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.domain.DemandPracticeList;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
-import com.sc.qisi_system.module.demand.dto.PracticeDemandQueryDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.mapper.DemandMapper;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.DemandPublicDetailVO;
+import com.sc.qisi_system.module.demand.vo.DemandPublisherDetailVO;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.practice.service.DemandMemberService;
@@ -31,7 +29,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -47,7 +44,6 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
 
     private final DemandMapper demandMapper;
     private final SysUserService sysUserService;
-    private final ApplyService applyService;
     private final DemandMemberService demandMemberService;
     private final MinioService minioService;
 
@@ -62,38 +58,6 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
 
 
     /**
-     * 获取我申请的需求列表
-     */
-    @Override
-    public PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO) {
-        // 1. 设置分页查询
-        Page<Demand> page = new Page<>(myApplyQueryDTO.getPageNum(), myApplyQueryDTO.getPageSize());
-
-        // 2. 查询申请列表
-        List<DemandApply> demandApplyList = applyService
-                .list(new LambdaQueryWrapper<>(DemandApply.class)
-                        .eq(DemandApply::getUserId,userId));
-        if (demandApplyList.isEmpty()) {
-            PageResult<DemandListVO> empty = new PageResult<>();
-            empty.setTotal(0L);
-            empty.setRecords(Collections.emptyList());
-            empty.setPages(0);
-            return empty;
-        }
-
-        // 3. 查询需求列表
-        LambdaQueryWrapper<Demand> demandQuery = new LambdaQueryWrapper<>();
-        demandQuery
-                .in(Demand::getId,demandApplyList.stream().map(DemandApply::getDemandId).toList())
-                .orderByDesc(Demand::getCreateTime);
-        IPage<Demand> demandIPage = demandMapper.selectPage(page, demandQuery);
-
-        // 4. 转换并返回结果
-        return convertToApplyPageResultList(demandIPage,applyService.getUserApplyMap(userId));
-    }
-
-
-    /**
      * 获取我发布的需求列表
      */
     @Override
@@ -103,43 +67,17 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
 
         // 2. 设置查询条件
-        queryWrapper.eq(Demand::getPublisherId, userId)
-                .gt(Demand::getStatus, DemandStatusEnum.DRAFT.getCode());
-
-        if (myDemandQueryDTO.getCreateTime() != null) {
-            queryWrapper.ge(Demand::getCreateTime, myDemandQueryDTO.getCreateTime());
-        }
-        if (CollectionUtils.isNotEmpty(myDemandQueryDTO.getStatusList())) {
-            queryWrapper.in(Demand::getStatus, myDemandQueryDTO.getStatusList());
-        }
-        queryWrapper.orderByDesc(Demand::getCreateTime)
+        queryWrapper
+                .eq(Demand::getPublisherId, userId)
+                .ge(Demand::getStatus, DemandStatusEnum.DRAFT.getCode())
+                .ge(myDemandQueryDTO.getCreateTime() != null, Demand::getCreateTime, myDemandQueryDTO.getCreateTime())
+                .in(CollectionUtils.isNotEmpty(myDemandQueryDTO.getStatusList()), Demand::getStatus, myDemandQueryDTO.getStatusList())
+                .orderByDesc(Demand::getCreateTime)
                 .orderByDesc(Demand::getProgressPercent);
 
         // 3. 分页查询并转换结果
         IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
         return convertToMyPageResultList(demandIPage);
-    }
-
-
-    /**
-     * 获取我参与的实践需求列表
-     */
-    @Override
-    public PageResult<DemandListVO> getMyJoinedPracticeList(Long userId, PracticeDemandQueryDTO queryDTO) {
-        // 1. 设置分页查询
-        Page<Demand> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
-
-        // 2. 设置查询条件
-        LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .in(Demand::getStatus,queryDTO.getStatusList())
-                .orderByDesc(Demand::getCreateTime);
-
-        // 3. 分页查询数据
-        IPage<Demand> demandIPage = demandMapper.selectPage(page, queryWrapper);
-
-        // 4. 转换并返回分页结果
-        return convertToPracticePageResultList(userId,demandIPage);
     }
 
 
@@ -152,8 +90,8 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         Demand demand = demandMapper.selectById(demandId);
 
         // 2. 校验需求是否存在
-        if(demand == null) {
-            throw new BusinessException( ResultCode.DEMAND_NOT_EXIST);
+        if (demand == null) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
         return demand;
     }
@@ -168,14 +106,18 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         Demand demand = getDemand(demandId);
 
         // 2. 校验需求是否已发布
-        if (Objects.equals(demand.getStatus(), DemandStatusEnum.PUBLISHED.getCode())) {
-            throw new BusinessException(ResultCode.DEMAND_NOT_PUBLISHED);
+        if (Objects.equals(demand.getStatus(), DemandStatusEnum.DRAFT.getCode())) {
+            throw new BusinessException(ResultCode.DEMAND_STATUS_ERROR);
         }
 
         // 3. 转换为公开详情VO
         DemandPublicDetailVO demandPublicDetailVO = new DemandPublicDetailVO();
         BeanUtils.copyProperties(demand, demandPublicDetailVO);
-        BeanUtils.copyProperties(sysUserService.getUserProfile(demand.getPublisherId()), demandPublicDetailVO.getDemandPublisherDetailVO());
+        demandPublicDetailVO.setCategory(DemandCategoryEnum.getDescByCode(demand.getCategory()));
+
+        DemandPublisherDetailVO publisherDetailVO = new DemandPublisherDetailVO();
+        BeanUtils.copyProperties(sysUserService.getUserProfile(demand.getPublisherId()), publisherDetailVO);
+        demandPublicDetailVO.setDemandPublisherDetailVO(publisherDetailVO);
 
         return demandPublicDetailVO;
     }
@@ -194,7 +136,8 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
 
                     // 2. 设置实践成员信息
                     LambdaQueryWrapper<DemandMember> queryWrapper = new LambdaQueryWrapper<>();
-                    queryWrapper.eq(DemandMember::getDemandId, demand.getId())
+                    queryWrapper
+                            .eq(DemandMember::getDemandId, demand.getId())
                             .eq(DemandMember::getUserId, userId);
                     DemandMember member = demandMemberService.getOne(queryWrapper);
 
@@ -256,7 +199,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
      * 转换为管理员需求列表分页结果
      */
     @Override
-    public PageResult<DemandListVO> convertToAdminPageResultList(IPage<Demand> demandIPage){
+    public PageResult<DemandListVO> convertToAdminPageResultList(IPage<Demand> demandIPage) {
         // 1. 转换需求列表为VO
         List<DemandListVO> voList = demandIPage.getRecords().stream()
                 .map(this::convertToDemandListVO)

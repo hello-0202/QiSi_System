@@ -74,18 +74,13 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         MyDemandDetailVO myDemandDetailVO = new MyDemandDetailVO();
         BeanUtils.copyProperties(demand, myDemandDetailVO);
 
-        // 3. 复制发布者信息
-        BeanUtils.copyProperties(sysUserService.getUserProfile(demand.getPublisherId()), myDemandDetailVO.getDemandPublisherDetailVO());
+        DemandPublisherDetailVO demandPublisherDetailVO = new DemandPublisherDetailVO();
+        BeanUtils.copyProperties(sysUserService.getUserProfile(demand.getPublisherId()), demandPublisherDetailVO);
+        myDemandDetailVO.setDemandPublisherDetailVO(demandPublisherDetailVO);
 
         return myDemandDetailVO;
     }
 
 
-    /**
-     * 获取公开需求详情
-     */
-    @Override
-    public DemandPublicDetailVO getPublicDemandDetail(Long demandId) {
-        return demandService.getPublicDemandDetail(demandId);
-    }
+
 }

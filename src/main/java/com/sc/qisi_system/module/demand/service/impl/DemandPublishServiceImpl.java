@@ -37,7 +37,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
 
 
     /**
-     * 提交需求草稿
+     * 保存需求草稿
      */
     @Override
     public Long submitDraft(Long userId, DemandPublishDraftDTO demandPublishDraftDTO) {
@@ -53,6 +53,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         // 3. 设置草稿状态信息
         demand.setPublisherId(userId);
         demand.setStatus(DemandStatusEnum.DRAFT.getCode());
+        demand.setCategory(demandPublishDraftDTO.getCategory());
         demand.setCloseApplyStatus(CloseApplyStatusEnum.NO_APPLY.getCode());
         demand.setProgressPercent(0);
 

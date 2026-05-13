@@ -30,4 +30,15 @@ public enum DemandCategoryEnum {
         }
         return null;
     }
+
+
+    /**
+     * 根据code获取desc（最常用：直接返回描述）
+     * @param code 编码
+     * @return 描述，找不到返回null
+     */
+    public static String getDescByCode(Integer code) {
+        DemandCategoryEnum enums = getByCode(code);
+        return enums == null ? null : enums.getDesc();
+    }
 }

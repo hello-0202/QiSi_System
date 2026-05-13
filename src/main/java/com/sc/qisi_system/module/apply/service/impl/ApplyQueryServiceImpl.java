@@ -15,29 +15,20 @@ import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.demand.dto.ApplyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
+import com.sc.qisi_system.module.demand.vo.DemandPublicDetailVO;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.user.vo.UserProfileVO;
-import com.sc.qisi_system.module.user.entity.EduStudent;
-import com.sc.qisi_system.module.user.entity.EduTeacher;
-import com.sc.qisi_system.module.user.entity.EntEmployee;
 import com.sc.qisi_system.module.user.entity.SysUser;
-import com.sc.qisi_system.module.user.service.EduStudentService;
-import com.sc.qisi_system.module.user.service.EduTeacherService;
-import com.sc.qisi_system.module.user.service.EntEmployeeService;
 import com.sc.qisi_system.module.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 
 /**
  * 需求申请查询服务实现类
@@ -51,9 +42,6 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
     private final DemandService demandService;
     private final ApplyService applyService;
     private final SysUserService sysUserService;
-    private final EduStudentService eduStudentService;
-    private final EduTeacherService eduTeacherService;
-    private final EntEmployeeService entEmployeeService;
     private final MinioService minioService;
 
 
@@ -62,7 +50,40 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
      */
     @Override
     public PageResult<DemandListVO> getMyApplyDemandList(Long userId, MyApplyQueryDTO myApplyQueryDTO) {
-        return demandService.getMyApplyDemandList(userId, myApplyQueryDTO);
+        // 1. 设置分页查询
+        Page<Demand> page = new Page<>(myApplyQueryDTO.getPageNum(), myApplyQueryDTO.getPageSize());
+
+        // 2. 查询申请列表
+        List<DemandApply> demandApplyList = applyService.list(
+                new LambdaQueryWrapper<>(DemandApply.class)
+                        .eq(DemandApply::getUserId, userId)
+                        .eq(DemandApply::getAuditStatus, myApplyQueryDTO.getAuditStatus()));
+        if (demandApplyList.isEmpty()) {
+            PageResult<DemandListVO> empty = new PageResult<>();
+            empty.setTotal(0L);
+            empty.setRecords(Collections.emptyList());
+            empty.setPages(0);
+            return empty;
+        }
+
+        // 3. 查询需求列表
+        LambdaQueryWrapper<Demand> demandQuery = new LambdaQueryWrapper<>();
+        demandQuery
+                .in(Demand::getId, demandApplyList.stream().map(DemandApply::getDemandId).toList())
+                .orderByDesc(Demand::getCreateTime);
+        IPage<Demand> demandIPage = demandService.page(page, demandQuery);
+
+        // 4. 转换并返回结果
+        return demandService.convertToApplyPageResultList(demandIPage, applyService.getUserApplyMap(userId));
+    }
+
+
+    /**
+     * 获取公开需求详情
+     */
+    @Override
+    public DemandPublicDetailVO getPublicDemandDetail(Long demandId) {
+        return demandService.getPublicDemandDetail(demandId);
     }
 
 
@@ -95,19 +116,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
      */
     @Override
     public ApplyDetailVO getMyApplyDetail(Long applyId) {
-        // 1. 根据ID查询申请记录
-        DemandApply demandApply = demandApplyMapper.selectById(applyId);
-
-        // 2. 校验申请记录是否存在
-        if(demandApply == null) {
-            throw new BusinessException( ResultCode.DEMAND_APPLY_NOT_EXIST);
-        }
-
-        // 3. 转换为VO并返回
-        ApplyDetailVO applyDetailVO = new ApplyDetailVO();
-        BeanUtils.copyProperties(demandApply, applyDetailVO);
-
-        return applyDetailVO;
+        return applyService.getMyApplyDetail(applyId);
     }
 
 
@@ -120,66 +129,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         if(!demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
-        if(sysUserService.existsById(userId)) {
-            throw new BusinessException(ResultCode.USER_NOT_FOUND);
-        }
-
-        // 2. 查询申请列表
-        LambdaQueryWrapper<DemandApply> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(DemandApply::getDemandId, demandId)
-                .select(
-                        DemandApply::getId,
-                        DemandApply::getUserId
-                );
-        List<DemandApply> demandApplyList = demandApplyMapper.selectList(queryWrapper);
-
-        // 3. 构建 userId -> applyId 的映射
-        Map<Long, Long> userIdToApplyIdMap = demandApplyList.stream()
-                .collect(Collectors.toMap(
-                        DemandApply::getUserId,
-                        DemandApply::getId
-                ));
-
-        // 4. 提取所有用户ID
-        List<Long> userIds = demandApplyList.stream()
-                .map(DemandApply::getUserId)
-                .filter(Objects::nonNull)
-                .toList();
-
-        if (userIds.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        // 5. 查询用户信息
-        LambdaQueryWrapper<SysUser> userQueryWrapper = new LambdaQueryWrapper<>();
-        userQueryWrapper.in(SysUser::getId, userIds)
-                .select(
-                        SysUser::getId,
-                        SysUser::getName,
-                        SysUser::getAvatar,
-                        SysUser::getUserType
-                );
-        List<SysUser> sysUserList = sysUserService.list(userQueryWrapper);
-
-        // 6. 封装VO
-        List<MemberVO> voList = new ArrayList<>();
-        for (SysUser sysUser : sysUserList) {
-            MemberVO vo = new MemberVO();
-            vo.setId(sysUser.getId());
-            vo.setApplyId(userIdToApplyIdMap.get(sysUser.getId()));
-            vo.setAvatarUrl(minioService.getUserAvatarUrl(sysUser.getAvatar()));
-
-            UserProfileVO userProfileVO = new UserProfileVO();
-            userProfileVO.setName(sysUser.getName());
-            userProfileVO.setAvatar(sysUser.getAvatar());
-            userProfileVO.setUserType(sysUser.getUserType());
-            vo.setUserProfileVO(userProfileVO);
-
-            loadUserInfoByRole(sysUser.getId(), sysUser.getUserType(), vo);
-            voList.add(vo);
-        }
-
-        return voList;
+        return applyService.getApplyMemberList(userId, demandId);
     }
 
 
@@ -236,78 +186,5 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         BeanUtils.copyProperties(demandApply, applyDetailVO);
 
         return applyDetailVO;
-    }
-
-
-    /**
-     * 根据用户类型加载对应用户信息
-     */
-    private void loadUserInfoByRole(Long userId, Integer userType, MemberVO vo) {
-        switch (userType) {
-            case 1 -> fillStudentListInfo(userId, vo);
-            case 2 -> fillTeacherListInfo(userId, vo);
-            case 3 -> fillEnterpriseListInfo(userId, vo);
-        }
-    }
-
-
-    /**
-     * 填充：学生拓展信息
-     */
-    private void fillStudentListInfo(Long userId, MemberVO vo) {
-        // 1. 查询学生信息
-        LambdaQueryWrapper<EduStudent> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(EduStudent::getUserId, userId)
-                .select(
-                        EduStudent::getCollege,
-                        EduStudent::getMajor,
-                        EduStudent::getClassName,
-                        EduStudent::getGrade
-                );
-        EduStudent eduStudent = eduStudentService.getOne(queryWrapper);
-
-        // 2. 赋值到VO
-        if (eduStudent == null) {
-            return;
-        }
-        BeanUtils.copyProperties(eduStudent, vo.getUserProfileVO());
-    }
-
-
-    /**
-     * 填充：教师拓展信息
-     */
-    private void fillTeacherListInfo(Long userId, MemberVO vo) {
-        // 1. 查询教师信息
-        LambdaQueryWrapper<EduTeacher> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(EduTeacher::getUserId, userId)
-                .select(EduTeacher::getUnitName);
-        EduTeacher eduTeacher = eduTeacherService.getOne(queryWrapper);
-
-        // 2. 赋值到VO
-        if (eduTeacher == null) {
-            return;
-        }
-        BeanUtils.copyProperties(eduTeacher, vo.getUserProfileVO());
-    }
-
-
-    /**
-     * 填充：企业人员拓展信息
-     */
-    private void fillEnterpriseListInfo(Long userId, MemberVO vo) {
-        // 1. 查询企业人员信息
-        LambdaQueryWrapper<EntEmployee> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper
-                .eq(EntEmployee::getUserId, userId)
-                .select(EntEmployee::getEnterpriseName);
-        EntEmployee entEmployee = entEmployeeService.getOne(queryWrapper);
-
-        // 2. 赋值到VO
-        if (entEmployee == null) {
-            return;
-        }
-        BeanUtils.copyProperties(entEmployee, vo.getUserProfileVO());
     }
 }

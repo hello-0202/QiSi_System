@@ -21,6 +21,7 @@ import com.sc.qisi_system.module.user.service.SchoolStudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -48,14 +49,16 @@ public class AdminWhitelistServiceImpl implements AdminWhitelistService {
         // 2. 构建动态查询条件
         LambdaQueryWrapper<SchoolStaff> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper
-                .eq(queryDTO.getPersonCode() != null, SchoolStaff::getPersonCode, queryDTO.getPersonCode())
-                .eq(queryDTO.getName() != null, SchoolStaff::getName, queryDTO.getName())
+                // 字符串类型：必须用 StringUtils.hasText
+                .eq(StringUtils.hasText(queryDTO.getPersonCode()), SchoolStaff::getPersonCode, queryDTO.getPersonCode())
+                .eq(StringUtils.hasText(queryDTO.getName()), SchoolStaff::getName, queryDTO.getName())
+                .eq(StringUtils.hasText(queryDTO.getUnitName()), SchoolStaff::getUnitName, queryDTO.getUnitName())
+                .eq(StringUtils.hasText(queryDTO.getProfessionalTitle()), SchoolStaff::getProfessionalTitle, queryDTO.getProfessionalTitle())
+                .eq(StringUtils.hasText(queryDTO.getRank()), SchoolStaff::getRank, queryDTO.getRank())
+                .eq(StringUtils.hasText(queryDTO.getHighestDegree()), SchoolStaff::getHighestDegree, queryDTO.getHighestDegree())
+
                 .eq(queryDTO.getGender() != null, SchoolStaff::getGender, queryDTO.getGender())
-                .eq(queryDTO.getUnitName() != null, SchoolStaff::getUnitName, queryDTO.getUnitName())
-                .eq(queryDTO.getProfessionalTitle() != null, SchoolStaff::getProfessionalTitle, queryDTO.getProfessionalTitle())
-                .eq(queryDTO.getRank() != null, SchoolStaff::getRank, queryDTO.getRank())
-                .eq(queryDTO.getHighestDegree() != null, SchoolStaff::getHighestDegree, queryDTO.getHighestDegree())
-                .eq(queryDTO.getComeTime() != null, SchoolStaff::getComeTime, queryDTO.getComeTime());
+                .eq(StringUtils.hasText(queryDTO.getComeTime()), SchoolStaff::getComeTime, queryDTO.getComeTime());
 
         // 3. 分页查询数据
         IPage<SchoolStaff> schoolStaffIpage = schoolStaffService.page(page, queryWrapper);
@@ -75,7 +78,6 @@ public class AdminWhitelistServiceImpl implements AdminWhitelistService {
 
         return pageResult;
     }
-
 
     /**
      * 修改教职工白名单
@@ -141,11 +143,11 @@ public class AdminWhitelistServiceImpl implements AdminWhitelistService {
         // 2. 构建动态查询条件
         LambdaQueryWrapper<SchoolStudent> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
-                .eq(queryDTO.getStudentId() != null, SchoolStudent::getStudentId, queryDTO.getStudentId())
-                .eq(queryDTO.getName() != null, SchoolStudent::getName, queryDTO.getName())
-                .eq(queryDTO.getCollege() != null, SchoolStudent::getCollege, queryDTO.getCollege())
-                .eq(queryDTO.getMajor() != null, SchoolStudent::getMajor, queryDTO.getMajor())
-                .eq(queryDTO.getGrade() != null, SchoolStudent::getGrade, queryDTO.getGrade());
+                .eq(StringUtils.hasText(queryDTO.getStudentId()), SchoolStudent::getStudentId, queryDTO.getStudentId())
+                .eq(StringUtils.hasText(queryDTO.getName()), SchoolStudent::getName, queryDTO.getName())
+                .eq(StringUtils.hasText(queryDTO.getCollege()), SchoolStudent::getCollege, queryDTO.getCollege())
+                .eq(StringUtils.hasText(queryDTO.getMajor()), SchoolStudent::getMajor, queryDTO.getMajor())
+                .eq(StringUtils.hasText(queryDTO.getGrade()), SchoolStudent::getGrade, queryDTO.getGrade());
 
         // 3. 分页查询数据
         IPage<SchoolStudent> schoolStudentIPage = schoolStudentService.page(page, queryWrapper);

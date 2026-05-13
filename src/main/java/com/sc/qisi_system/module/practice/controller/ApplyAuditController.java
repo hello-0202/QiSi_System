@@ -4,7 +4,7 @@ import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.practice.dto.AuditApplyDTO;
 import com.sc.qisi_system.module.practice.service.ApplyAuditService;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +32,7 @@ public class ApplyAuditController {
      */
     @PostMapping("/select")
     public Result approveApplyMember(
-            @NotBlank @RequestBody AuditApplyDTO auditApplyDTO) {
+            @Valid @RequestBody AuditApplyDTO auditApplyDTO) {
         applyAuditService.approveApplyMember(SecurityUtils.getCurrentUserId(),auditApplyDTO);
         return Result.success();
     }
@@ -47,7 +47,7 @@ public class ApplyAuditController {
      */
     @PostMapping("/reject")
     public Result rejectApply(
-            @NotBlank @RequestBody AuditApplyDTO auditApplyDTO) {
+            @Valid @RequestBody AuditApplyDTO auditApplyDTO) {
         applyAuditService.rejectApplyMember(SecurityUtils.getCurrentUserId(), auditApplyDTO);
         return Result.success();
     }

@@ -42,6 +42,32 @@ public class PracticeQueryController {
 
 
     /**
+     * 查看指定需求的申请成员列表接口
+     *
+     * @param demandId 需求id
+     * @return 统一返回结果
+     */
+    @GetMapping("/demand/member-list")
+    public Result getApplyMemberList(
+            @NotNull @RequestParam Long demandId) {
+        return Result.success(practiceQueryService.getApplyMemberList(SecurityUtils.getCurrentUserId(), demandId));
+    }
+
+
+    /**
+     * 查询申请详情接口
+     *
+     * @param applyId 需求申请id
+     * @return 需求详情
+     */
+    @GetMapping("/my-detail")
+    public Result getMyApplyDetail(
+            @NotNull @RequestParam Long applyId) {
+        return Result.success(practiceQueryService.getMyApplyDetail(applyId));
+    }
+
+
+    /**
      * 实践中心查看需求详情接口(复用)
      * 角色: 发布者
      *

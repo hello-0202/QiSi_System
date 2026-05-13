@@ -2,6 +2,7 @@ package com.sc.qisi_system.module.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
@@ -15,10 +16,15 @@ import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.DemandPublicDetailVO;
+import com.sc.qisi_system.module.user.entity.SysUser;
+import com.sc.qisi_system.module.user.service.SysUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,6 +36,7 @@ public class AdminDemandServiceImpl implements AdminDemandService {
 
 
     private final DemandService demandService;
+    private final SysUserService sysUserService;
 
 
     /**
@@ -63,6 +70,7 @@ public class AdminDemandServiceImpl implements AdminDemandService {
         if(!demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
+        //TODO
         // 2. 查询并返回公开需求详情
         return demandService.getPublicDemandDetail(demandId);
     }
@@ -74,7 +82,7 @@ public class AdminDemandServiceImpl implements AdminDemandService {
     @Override
     public void auditDemand(AuditDemandDTO auditDemandDTO) {
         // 1. 校验需求是否存在
-        if(demandService.isNotExistsByDemandId(auditDemandDTO.getDemandId())) {
+        if(!demandService.isNotExistsByDemandId(auditDemandDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
@@ -91,24 +99,41 @@ public class AdminDemandServiceImpl implements AdminDemandService {
 
 
     /**
-     * 条件查询所有需求列表
+     * 条件查询所有需求列表（管理员）
      */
     @Override
     public PageResult<DemandListVO> getDemandList(AdminDemandQueryDTO adminDemandQueryDTO) {
-        // 1. 构建分页对象
+        // 1. 分页
         Page<Demand> page = new Page<>(adminDemandQueryDTO.getPageNum(), adminDemandQueryDTO.getPageSize());
 
-        // 2. 构造动态查询条件，按创建时间倒序
+        // 2. 条件构造
         LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
+
+        String name = adminDemandQueryDTO.getName();
+        if (StringUtils.hasText(name)) {
+            // 1. 根据姓名模糊查询 所有用户ID
+            LambdaQueryWrapper<SysUser> userQuery = new LambdaQueryWrapper<>();
+            userQuery.like(SysUser::getName, name).select(SysUser::getId);
+            List<Long> userIds = sysUserService.list(userQuery).stream()
+                    .map(SysUser::getId)
+                    .collect(Collectors.toList());
+
+            // 2. 把用户ID 作为 publisherId 查询需求
+            queryWrapper.in(CollectionUtils.isNotEmpty(userIds), Demand::getPublisherId, userIds);
+        }
+
         queryWrapper
-                .eq(adminDemandQueryDTO.getStatus() != null, Demand::getStatus, adminDemandQueryDTO.getStatus())
-                .eq(adminDemandQueryDTO.getCategory() != null, Demand::getCategory, adminDemandQueryDTO.getCategory())
+                .eq(adminDemandQueryDTO.getCategory() != null && adminDemandQueryDTO.getCategory() != 0,
+                        Demand::getCategory, adminDemandQueryDTO.getCategory())
+                .eq(adminDemandQueryDTO.getStatus() != null && adminDemandQueryDTO.getStatus() != 0,
+                        Demand::getStatus, adminDemandQueryDTO.getStatus())
+                .ge(adminDemandQueryDTO.getCreateTime() != null, Demand::getCreateTime, adminDemandQueryDTO.getCreateTime())
                 .orderByDesc(Demand::getCreateTime);
 
-        // 3. 分页查询需求数据
+        // 3. 分页查询
         IPage<Demand> demandIPage = demandService.page(page, queryWrapper);
 
-        // 4. 转换并返回管理员视图分页结果
+        // 4. 转换VO
         return demandService.convertToAdminPageResultList(demandIPage);
     }
 }

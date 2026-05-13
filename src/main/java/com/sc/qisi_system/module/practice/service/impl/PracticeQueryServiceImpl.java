@@ -1,5 +1,6 @@
 package com.sc.qisi_system.module.practice.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -8,7 +9,11 @@ import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.mapper.DemandMemberMapper;
+import com.sc.qisi_system.module.apply.service.ApplyService;
+import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
+import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
@@ -54,6 +59,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     private final DemandMemberMapper demandMemberMapper;
     private final DemandService demandService;
     private final SysUserService sysUserService;
+    private final ApplyService applyService;
     private final MinioService minioService;
 
 
@@ -89,6 +95,22 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     }
 
 
+    @Override
+    public List<MemberVO> getApplyMemberList(Long userId, Long demandId) {
+        // 1. 校验需求是否存在
+        if(!demandService.isNotExistsByDemandId(demandId)) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
+        return applyService.getApplyMemberList(userId, demandId);
+    }
+
+
+    @Override
+    public ApplyDetailVO getMyApplyDetail(Long applyId) {
+        return applyService.getMyApplyDetail(applyId);
+    }
+
+
     /**
      * 获取实践需求详情
      */
@@ -98,14 +120,42 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
         return demandService.getPublicDemandDetail(demandId);
     }
 
-
     /**
      * 获取我参与的实践需求列表
      */
     @Override
-    public PageResult<DemandListVO> getMyJoinedPracticeList(Long userId, PracticeDemandQueryDTO practiceDemandQueryDTO) {
-        // 1. 查询参与的实践需求
-        return demandService.getMyJoinedPracticeList(userId, practiceDemandQueryDTO);
+    public PageResult<DemandListVO> getMyJoinedPracticeList(Long userId, PracticeDemandQueryDTO queryDTO) {
+        // 1. 分页
+        Page<Demand> page = new Page<>(queryDTO.getPageNum(), queryDTO.getPageSize());
+
+        // 2. 先获取我申请/参与的需求ID
+        List<Long> demandIdList = applyService.list(
+                        new LambdaQueryWrapper<DemandApply>()
+                                .eq(DemandApply::getUserId, userId)
+                                .select(DemandApply::getDemandId)
+                ).stream()
+                .map(DemandApply::getDemandId)
+                .toList();
+
+        // 加这行日志，确认有没有拿到申请记录
+
+        // 3. 没有参与,直接返回空分页
+        if (CollUtil.isEmpty(demandIdList)) {
+            return PageResult.empty();
+        }
+
+        // 4. 查询我的需求
+        LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper
+                .in(Demand::getId, demandIdList)
+                .in(Demand::getStatus, queryDTO.getStatusList())
+                .orderByDesc(Demand::getCreateTime);
+
+        // 5. 分页查询
+        IPage<Demand> demandIPage = demandService.page(page, queryWrapper);
+
+        // 6. 转换VO
+        return demandService.convertToPracticePageResultList(userId, demandIPage);
     }
 
 
@@ -190,7 +240,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
         Page<DemandProgress> page = new Page<>(queryDemandProgressLogDTO.getPageNum(), queryDemandProgressLogDTO.getPageSize());
 
         // 2. 校验需求是否存在
-        if (demandService.isNotExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
+        if (!demandService.isNotExistsByDemandId(queryDemandProgressLogDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
