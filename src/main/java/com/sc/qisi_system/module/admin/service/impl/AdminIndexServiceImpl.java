@@ -105,6 +105,9 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     }
 
 
+    /**
+     * 菜单与业务身份绑定
+     */
     @Override
     public void bindMenuIdentity(Long menuId, Long identityId) {
         if(!sysMenuMapper.exists(Wrappers.lambdaQuery(SysMenu.class).eq(SysMenu::getParentId, menuId))){
@@ -117,6 +120,9 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     }
 
 
+    /**
+     * 菜单与业务身份解绑
+     */
     @Override
     public void unbindMenuIdentity(Long id) {
         sysRoleMenuMapper.deleteById(id);
