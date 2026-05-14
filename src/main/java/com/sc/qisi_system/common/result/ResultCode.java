@@ -90,8 +90,6 @@ public enum ResultCode {
     STUDENT_WHITELIST_NOT_EXIST(4002028, "学生白名单信息不存在"),
     TEACHER_WHITELIST_NOT_EXIST(4002029, "教职工白名单信息不存在"),
 
-
-
     /**
      * 验证码
      */

@@ -5,6 +5,7 @@ import com.sc.qisi_system.module.admin.dto.MenuDTO;
 import com.sc.qisi_system.module.admin.dto.MenuQueryDTO;
 import com.sc.qisi_system.module.admin.service.AdminIndexService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -64,6 +65,40 @@ public class AdminIndexController {
     public Result getMenuList(
             @RequestBody MenuQueryDTO menuQueryDTO) {
         return Result.success(adminIndexService.getMenuRouteList(menuQueryDTO));
+    }
+
+
+    /**
+     * 添加菜单与业务身份绑定接口
+     * 角色: 管理员
+     *
+     * @param menuId 菜单ID
+     * @param identityId 业务身份ID
+     * @return 统一返回结果
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/menu/bind-identity")
+    public Result bindMenuIdentity(
+            @NotEmpty(message = "菜单ID不能为空")@RequestParam Long menuId,
+            @NotEmpty(message = "身份ID不能为空") @RequestParam Long identityId) {
+        adminIndexService.bindMenuIdentity(menuId, identityId);
+        return Result.success();
+    }
+
+
+    /**
+     * 将菜单与业务身份解绑接口
+     * 角色: 管理员
+     *
+     * @param id 主键id
+     * @return 统一返回结果
+     */
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/menu/unbind-identity")
+    public Result unbindMenuIdentity(
+            @NotEmpty(message = "ID不能为空") @RequestParam Long id) {
+        adminIndexService.unbindMenuIdentity(id);
+        return Result.success();
     }
 
 

@@ -8,7 +8,7 @@ import com.sc.qisi_system.module.admin.dto.SchoolStudentDTO;
 import com.sc.qisi_system.module.admin.dto.SchoolStudentWhitelistQueryDTO;
 import com.sc.qisi_system.module.admin.service.AdminWhitelistService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -67,7 +67,7 @@ public class AdminWhitelistController {
      */
     @DeleteMapping("/teacher-whitelist/delete")
     public Result deleteTeacherWhitelist(
-            @NotNull @RequestParam Long id) {
+            @NotEmpty(message = "id不能为空") @RequestParam Long id) {
         adminWhitelistService.deleteTeacherWhitelist(id);
         return Result.success();
     }
@@ -126,7 +126,7 @@ public class AdminWhitelistController {
      */
     @DeleteMapping("/student-whitelist/delete")
     public Result deleteStudentWhitelist(
-            @NotNull @RequestParam Long id) {
+            @NotEmpty(message = "id不能为空") @RequestParam Long id) {
         adminWhitelistService.deleteStudentWhitelist(id);
         return Result.success();
     }

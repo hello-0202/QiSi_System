@@ -44,6 +44,25 @@ public interface AdminIndexService {
 
 
     /**
+     * 添加菜单与业务身份绑定
+     * 角色: 管理员
+     *
+     * @param menuId 菜单ID
+     * @param identityId 业务身份ID
+     */
+    void bindMenuIdentity(Long menuId, Long identityId);
+
+
+    /**
+     * 将菜单与业务身份解绑接口
+     * 角色: 管理员
+     *
+     * @param id 主键id
+     */
+    void unbindMenuIdentity(Long id);
+
+
+    /**
      * 新增系统菜单
      * 角色: 管理员
      *

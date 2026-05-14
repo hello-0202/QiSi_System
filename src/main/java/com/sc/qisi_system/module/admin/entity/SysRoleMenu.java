@@ -30,8 +30,7 @@ public class SysRoleMenu implements Serializable {
 
 
     /**
-     * 业务身份ID / 角色ID
-     * 对应 sys_identity.id
+     * 业务身份
      */
     private Long identityId;
 

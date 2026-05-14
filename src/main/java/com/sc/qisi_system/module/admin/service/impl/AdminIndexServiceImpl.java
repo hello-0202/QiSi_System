@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.enums.UserIdentityEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
@@ -9,8 +10,10 @@ import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.admin.dto.MenuDTO;
 import com.sc.qisi_system.module.admin.dto.MenuQueryDTO;
 import com.sc.qisi_system.module.admin.entity.SysMenu;
+import com.sc.qisi_system.module.admin.entity.SysRoleMenu;
 import com.sc.qisi_system.module.admin.entity.SysUserTypeIdentity;
 import com.sc.qisi_system.module.admin.mapper.SysMenuMapper;
+import com.sc.qisi_system.module.admin.mapper.SysRoleMenuMapper;
 import com.sc.qisi_system.module.admin.mapper.SysUserTypeIdentityMapper;
 import com.sc.qisi_system.module.admin.service.AdminIndexService;
 import com.sc.qisi_system.module.admin.service.SysUserTypeIdentityService;
@@ -33,6 +36,7 @@ public class AdminIndexServiceImpl implements AdminIndexService {
 
 
     private final SysMenuMapper sysMenuMapper;
+    private final SysRoleMenuMapper sysRoleMenuMapper;
     private final SysUserTypeIdentityMapper sysUserTypeIdentityMapper;
     private final SysUserService sysUserService;
     private final SysUserTypeIdentityService sysUserTypeIdentityService;
@@ -98,6 +102,24 @@ public class AdminIndexServiceImpl implements AdminIndexService {
         result.setTotal(treeList.size());
         result.setPages(1);
         return result;
+    }
+
+
+    @Override
+    public void bindMenuIdentity(Long menuId, Long identityId) {
+        if(!sysMenuMapper.exists(Wrappers.lambdaQuery(SysMenu.class).eq(SysMenu::getParentId, menuId))){
+            throw new BusinessException(ResultCode.MENU_NOT_EXIST);
+        }
+        SysRoleMenu sysRoleMenu = new SysRoleMenu();
+        sysRoleMenu.setIdentityId(identityId);
+        sysRoleMenu.setMenuId(menuId);
+        sysRoleMenuMapper.insert(sysRoleMenu);
+    }
+
+
+    @Override
+    public void unbindMenuIdentity(Long id) {
+        sysRoleMenuMapper.deleteById(id);
     }
 
 
