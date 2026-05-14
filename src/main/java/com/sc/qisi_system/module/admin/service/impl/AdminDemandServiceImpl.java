@@ -94,7 +94,7 @@ public class AdminDemandServiceImpl implements AdminDemandService {
 
 
     /**
-     * 条件查询所有需求列表（管理员）
+     * 条件查询所有需求列表
      */
     @Override
     public PageResult<DemandListVO> getDemandList(AdminDemandQueryDTO adminDemandQueryDTO) {
