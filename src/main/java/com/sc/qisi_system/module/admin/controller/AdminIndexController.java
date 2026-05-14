@@ -79,7 +79,7 @@ public class AdminIndexController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/menu/bind-identity")
     public Result bindMenuIdentity(
-            @NotEmpty(message = "菜单ID不能为空")@RequestParam Long menuId,
+            @NotEmpty(message = "菜单ID不能为空") @RequestParam Long menuId,
             @NotEmpty(message = "身份ID不能为空") @RequestParam Long identityId) {
         adminIndexService.bindMenuIdentity(menuId, identityId);
         return Result.success();

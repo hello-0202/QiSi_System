@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="修改bug，调试">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminIndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminIndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/entity/SysRoleMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/entity/SysRoleMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminIndexService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminIndexService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminIndexServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminIndexServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="添加身份和菜单绑定相关接口" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -233,7 +226,7 @@
       <workItem from="1778413916537" duration="6795000" />
       <workItem from="1778465084056" duration="5697000" />
       <workItem from="1778572565110" duration="13311000" />
-      <workItem from="1778725022011" duration="1490000" />
+      <workItem from="1778725022011" duration="1873000" />
     </task>
     <task id="LOCAL-00001" summary="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token">
       <option name="closed" value="true" />
@@ -507,7 +500,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778677524968</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="添加身份和菜单绑定相关接口">
+      <option name="closed" value="true" />
+      <created>1778726896671</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1778726896671</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,7 +526,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="完成有关附件的接口" />
     <MESSAGE value="添加TODO，修改部分结构" />
     <MESSAGE value="修改查询需求列表和需求详情的返回结果，修改相关逻辑层的结构，完成部分apply模块接口" />
     <MESSAGE value="完成TODO，修改部分结构" />
@@ -550,7 +550,8 @@
     <MESSAGE value="完成了代码的编写" />
     <MESSAGE value="完善注释" />
     <MESSAGE value="修改bug，调试" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改bug，调试" />
+    <MESSAGE value="添加身份和菜单绑定相关接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加身份和菜单绑定相关接口" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
