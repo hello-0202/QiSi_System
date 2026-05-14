@@ -66,12 +66,7 @@ public class AdminDemandServiceImpl implements AdminDemandService {
      */
     @Override
     public DemandPublicDetailVO getDemandDetail(Long demandId) {
-        // 1. 判断需求是否存在，不存在则抛出异常
-        if(!demandService.isNotExistsByDemandId(demandId)) {
-            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
-        }
-        //TODO
-        // 2. 查询并返回公开需求详情
+        // 1. 查询并返回公开需求详情
         return demandService.getPublicDemandDetail(demandId);
     }
 

@@ -83,6 +83,10 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
      */
     @Override
     public DemandPublicDetailVO getPublicDemandDetail(Long demandId) {
+        // 1. 判断需求是否存在，不存在则抛出异常
+        if(!demandService.isNotExistsByDemandId(demandId)) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
         return demandService.getPublicDemandDetail(demandId);
     }
 
