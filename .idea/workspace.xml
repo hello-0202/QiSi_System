@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善注释，修改bug">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminStatisticsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminStatisticsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/cors/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/cors/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/websocket/interceptor/WebSocketHandshakeInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/websocket/interceptor/WebSocketHandshakeInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandPublishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandPublishService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandPublishServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandPublishServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +238,7 @@
       <workItem from="1778836413707" duration="419000" />
       <workItem from="1778837412165" duration="77000" />
       <workItem from="1779001232054" duration="11688000" />
-      <workItem from="1779104826069" duration="311000" />
+      <workItem from="1779104826069" duration="1577000" />
     </task>
     <task id="LOCAL-00001" summary="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token">
       <option name="closed" value="true" />
@@ -556,7 +552,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778727841670</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="完善注释，修改bug">
+      <option name="closed" value="true" />
+      <created>1779105241383</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1779105241383</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
