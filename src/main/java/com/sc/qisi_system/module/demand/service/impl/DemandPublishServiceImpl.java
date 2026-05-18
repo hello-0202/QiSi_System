@@ -69,23 +69,18 @@ public class DemandPublishServiceImpl implements DemandPublishService {
      */
     @Override
     public Long updateDraft(DemandUpdateDraftDTO demandUpdateDraftDTO) {
-        // 1. 校验需求ID是否为空
-        if (demandUpdateDraftDTO.getId() == null) {
-            throw new BusinessException(ResultCode.DEMAND_ID_NULL);
-        }
-
-        // 2. 查询需求信息
+        // 1. 查询需求信息
         Demand demand = demandMapper.selectById(demandUpdateDraftDTO.getId());
         if (demand == null) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
-        // 3. 校验是否为草稿状态
+        // 2. 校验是否为草稿状态
         if (!Objects.equals(demand.getStatus(), DemandStatusEnum.DRAFT.getCode())) {
             throw new BusinessException(ResultCode.ONLY_ALLOW_DRAFT_EDIT);
         }
 
-        // 4. 构建更新对象
+        // 3. 构建更新对象
         Demand updatedDemand = Demand.builder()
                 .id(demandUpdateDraftDTO.getId())
                 .publishType(demandUpdateDraftDTO.getPublishType())
@@ -103,10 +98,26 @@ public class DemandPublishServiceImpl implements DemandPublishService {
                 .progressPercent(0)
                 .build();
 
-        // 5. 执行更新
+        // 4. 执行更新
         demandMapper.updateById(updatedDemand);
 
         return demand.getId();
+    }
+
+
+    /**
+     * 删除需求草稿接口
+     */
+    @Override
+    public void deleteDraft(Long draftId) {
+        Demand demand = demandMapper.selectById(draftId);
+        if (demand == null) {
+            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
+        if(!demand.getStatus().equals(DemandStatusEnum.DRAFT.getCode())){
+            throw new BusinessException(ResultCode.ONLY_ALLOW_DRAFT_EDIT);
+        }
+        demandMapper.deleteById(draftId);
     }
 
 

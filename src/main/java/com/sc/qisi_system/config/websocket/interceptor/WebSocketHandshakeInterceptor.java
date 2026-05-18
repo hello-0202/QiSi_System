@@ -47,7 +47,7 @@ public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
             if (redisService.isTokenBlacklisted(token)) {
                 throw new BusinessException(ResultCode.TOKEN_LOGGED_OUT);
             }
-            // 2. 校验 token（你原来的逻辑）
+            // 2. 校验 token
             Long userId = jwtTokenProvider.getUserIdFromToken(token);
             attributes.put("userId", userId);
 

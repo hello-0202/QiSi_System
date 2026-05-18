@@ -59,6 +59,20 @@ public class DemandPublishController {
 
 
     /**
+     * 删除需求草稿接口
+     *
+     * @param draftId 需求id
+     * @return 统一返回结果
+     */
+    @DeleteMapping("/delete-draft")
+    public Result deleteDraft(
+            @RequestParam Long draftId){
+        demandPublishService.deleteDraft(draftId);
+        return Result.success();
+    }
+
+
+    /**
      * 提交需求审核接口
      * 角色: 发布者
      *

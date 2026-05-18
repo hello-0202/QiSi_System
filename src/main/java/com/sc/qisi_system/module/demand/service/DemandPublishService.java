@@ -37,6 +37,14 @@ public interface DemandPublishService {
 
 
     /**
+     * 删除需求草稿接口
+     *
+     * @param draftId 需求id
+     */
+    void deleteDraft(Long draftId);
+
+
+    /**
      * 提交需求审核
      * 角色: 发布者
      *

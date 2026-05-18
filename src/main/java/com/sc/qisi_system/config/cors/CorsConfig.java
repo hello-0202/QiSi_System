@@ -12,19 +12,22 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
-    /**
-     * CORS 跨域配置 (关键：在 Security 层之前生效)
-     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        // ⚠️ 开发环境可以用 "*"，生产环境必须替换为前端域名
-        config.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "https://your-domain.com"));
+
+        // ✅ 关键：放行 局域网所有IP + localhost
+        config.setAllowedOriginPatterns(Arrays.asList(
+                "http://localhost:*",
+                "http://192.168.*.*"  // 👈 这一行就是你局域网不能访问的原因
+        ));
+
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(Arrays.asList("Authorization", "X-Refresh-Token")); // 允许前端读取自定义 Header
+        config.setExposedHeaders(Arrays.asList("Authorization", "X-Refresh-Token"));
         config.setMaxAge(3600L);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
