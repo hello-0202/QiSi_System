@@ -33,7 +33,7 @@ public class AdminStatisticsController {
      */
     @GetMapping("/published-demand-count")
     public Result getPublishedDemandCount() {
-        return Result.success();
+        return Result.success(adminStatisticsService.getPublishedDemandCount());
     }
 
 
@@ -45,7 +45,7 @@ public class AdminStatisticsController {
      */
     @GetMapping("/researching-demand-count")
     public Result getResearchingDemandCount() {
-        return Result.success();
+        return Result.success(adminStatisticsService.getResearchingDemandCount());
     }
 
 
@@ -57,7 +57,7 @@ public class AdminStatisticsController {
      */
     @GetMapping("/pending-review-demand-count")
     public Result getPendingReviewDemandCount() {
-        return Result.success();
+        return Result.success(adminStatisticsService.getPendingReviewDemandCount());
     }
 
 
@@ -69,6 +69,6 @@ public class AdminStatisticsController {
      */
     @GetMapping("/demand-status-distribution")
     public Result getDemandStatusDistribution() {
-        return Result.success();
+        return Result.success(adminStatisticsService.getDemandStatusDistribution());
     }
 }

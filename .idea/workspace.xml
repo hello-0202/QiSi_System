@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善注释，修改bug">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminStatisticsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminStatisticsServiceImpl.java" afterDir="false" />
+    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="添加删除草稿接口">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/StatusDataVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminStatisticsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminStatisticsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminStatisticsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminStatisticsServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +107,12 @@
       <recent name="C:\Users\Lenovo\Desktop\QiSiSystem\src\main\java\com\sc\qisisystem\module\demand" />
       <recent name="C:\Users\Lenovo\Desktop\QiSiSystem\src\main\java\com\sc\qisisystem\module\admin" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\src\main\java\com\sc\qisi_system\module\admin\vo" />
+      <recent name="C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\src\main\java\com\sc\qisi_system\module\admin\service\impl" />
+      <recent name="C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\src\main\java\com\sc\qisi_system\module\admin\service" />
+      <recent name="C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\src\main\java\com\sc\qisi_system\module\admin\controller" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.sc.qisisystem.config" />
     </key>
@@ -175,10 +182,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.QiSiSystemApplicationTests.getPassword" />
-        <item itemvalue="JUnit.QiSiSystemApplicationTests.addAdminUser" />
         <item itemvalue="JUnit.QiSiSystemApplicationTests.contextLoads" />
-        <item itemvalue="HTTP 请求.generated-requests | 更新执行计划接口（你图里8080那个PUT接口）" />
+        <item itemvalue="JUnit.QiSiSystemApplicationTests.addAdminUser" />
         <item itemvalue="HTTP 请求.generated-requests | #2" />
+        <item itemvalue="HTTP 请求.generated-requests | 更新执行计划接口（你图里8080那个PUT接口）" />
       </list>
     </recent_temporary>
   </component>
@@ -238,7 +245,11 @@
       <workItem from="1778836413707" duration="419000" />
       <workItem from="1778837412165" duration="77000" />
       <workItem from="1779001232054" duration="11688000" />
-      <workItem from="1779104826069" duration="1577000" />
+      <workItem from="1779104826069" duration="1950000" />
+      <workItem from="1779108832099" duration="69000" />
+      <workItem from="1779111410487" duration="68000" />
+      <workItem from="1779175210862" duration="684000" />
+      <workItem from="1779365539782" duration="301000" />
     </task>
     <task id="LOCAL-00001" summary="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token">
       <option name="closed" value="true" />
@@ -560,7 +571,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779105241383</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="添加删除草稿接口">
+      <option name="closed" value="true" />
+      <created>1779106751662</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1779106751662</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -578,7 +597,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="修改查询需求列表和需求详情的返回结果，修改相关逻辑层的结构，完成部分apply模块接口" />
     <MESSAGE value="完成TODO，修改部分结构" />
     <MESSAGE value="完成部分TODO，修改部分结构" />
     <MESSAGE value="测试apifox，完成部分todo，完善代码" />
@@ -603,7 +621,8 @@
     <MESSAGE value="修改bug，调试" />
     <MESSAGE value="添加身份和菜单绑定相关接口" />
     <MESSAGE value="完善注释，修改bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善注释，修改bug" />
+    <MESSAGE value="添加删除草稿接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加删除草稿接口" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
