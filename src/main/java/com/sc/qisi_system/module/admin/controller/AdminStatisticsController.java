@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 数据统计 后台控制器
+ * 数据统计后台控制器
  * 功能: 统计数据
  */
 @RequestMapping("/api/admin/statistics")
