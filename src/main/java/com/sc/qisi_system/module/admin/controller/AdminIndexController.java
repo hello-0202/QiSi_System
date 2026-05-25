@@ -45,7 +45,6 @@ public class AdminIndexController {
      * @param menuQueryDTO 路由查询条件
      * @return 动态路由信息
      */
-    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/user/routers")
     public Result getRouters(
             @RequestBody MenuQueryDTO menuQueryDTO) {

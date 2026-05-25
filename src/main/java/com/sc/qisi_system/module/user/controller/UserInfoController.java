@@ -46,6 +46,19 @@ public class UserInfoController {
 
 
     /**
+     * 修改用户密码接口
+     *
+     * @param userInfoDTO 用户信息请求体
+     */
+    @PostMapping("/password")
+    public Result updatePassword(
+            @Valid @RequestBody UserInfoDTO userInfoDTO) {
+        userInfoService.updatePassword(userInfoDTO);
+        return Result.success();
+    }
+
+
+    /**
      * 修改用户基础信息接口
      *
      * @param userInfoDTO 用户信息
@@ -65,7 +78,7 @@ public class UserInfoController {
      * @param file 头像文件
      * @return 成功返回相关信息，失败返回错误信息
      */
-    @PutMapping("/avatar")
+    @PostMapping("/avatar")
     public Result updateAvatar(
             @RequestParam("file") MultipartFile file) {
         userInfoService.updateAvatar(file);

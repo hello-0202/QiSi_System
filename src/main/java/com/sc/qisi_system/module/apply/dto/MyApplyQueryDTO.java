@@ -2,6 +2,8 @@ package com.sc.qisi_system.module.apply.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class MyApplyQueryDTO {
 
@@ -20,7 +22,5 @@ public class MyApplyQueryDTO {
     /**
      * 审核状态: 0-待审核 1-已通过 2-已拒绝
      */
-    private Integer auditStatus;
-
-
+    private List<Integer> auditStatusList;
 }

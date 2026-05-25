@@ -2,6 +2,7 @@ package com.sc.qisi_system.module.apply.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
@@ -56,8 +57,8 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         // 2. 查询申请列表
         List<DemandApply> demandApplyList = applyService.list(
                 new LambdaQueryWrapper<>(DemandApply.class)
-                        .eq(DemandApply::getUserId, userId)
-                        .eq(DemandApply::getAuditStatus, myApplyQueryDTO.getAuditStatus()));
+                        .in(CollectionUtils.isNotEmpty(myApplyQueryDTO.getAuditStatusList()), DemandApply::getAuditStatus, myApplyQueryDTO.getAuditStatusList())
+                        .eq(DemandApply::getUserId, userId));
         if (demandApplyList.isEmpty()) {
             PageResult<DemandListVO> empty = new PageResult<>();
             empty.setTotal(0L);

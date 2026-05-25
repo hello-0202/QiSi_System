@@ -3,6 +3,7 @@ package com.sc.qisi_system.module.demand.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.sc.qisi_system.common.result.PageResult;
+import com.sc.qisi_system.module.admin.vo.StatusDataVO;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.dto.MyDemandQueryDTO;
 import com.sc.qisi_system.module.demand.entity.Demand;
@@ -92,4 +93,40 @@ public interface DemandService extends IService<Demand> {
      * @return 管理员需求展示分页列表
      */
     PageResult<DemandListVO> convertToAdminPageResultList(IPage<Demand> demandIPage);
+
+
+    /**
+     * 查询已发布需求数量接口
+     * 角色: 管理员
+     *
+     * @author 郭双祎
+     */
+    String getPublishedDemandCount();
+
+
+    /**
+     * 查询研究中需求数量接口
+     * 角色: 管理员
+     *
+     * @author 郭双祎
+     */
+    String getResearchingDemandCount();
+
+
+    /**
+     * 查询管理员待审核需求数量接口
+     * 角色: 管理员
+     *
+     * @author 郭双祎
+     */
+    String getPendingReviewDemandCount();
+
+
+    /**
+     * 查询需求状态分布统计接口
+     * 角色: 管理员
+     *
+     * @author 郭双祎
+     */
+    StatusDataVO getDemandStatusDistribution();
 }

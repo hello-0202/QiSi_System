@@ -43,6 +43,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         // 2. 转换为VO返回
         UserInfoVO userInfoVO = new UserInfoVO();
         BeanUtils.copyProperties(sysUser, userInfoVO);
+        userInfoVO.setAvatar(minioService.getUserAvatarUrl(userInfoVO.getAvatar()));
         return userInfoVO;
     }
 
@@ -56,8 +57,20 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
 
+    @Override
+    public void updatePassword(UserInfoDTO userInfoDTO) {
+        // 1. 校验用户是否存在
+        SysUser sysUser = sysUserMapper.selectById(SecurityUtils.getCurrentUserId());
+        if(sysUser == null) {
+            throw new BusinessException(ResultCode.USER_NOT_FOUND);
+        }
+        sysUser.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
+        sysUserMapper.updateById(sysUser);
+    }
+
+
     /**
-     * 修改用户信息（密码、手机号、邮箱）
+     * 修改用户信息（手机号、邮箱）
      */
     @Override
     public void updateUserInfo(UserInfoDTO userInfoDTO) {

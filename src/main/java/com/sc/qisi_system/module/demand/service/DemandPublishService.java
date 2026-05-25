@@ -23,7 +23,7 @@ public interface DemandPublishService {
      * @param demandPublishDraftDTO 请求参数
      * @return 草稿ID
      */
-    Long submitDraft(Long userId, DemandPublishDraftDTO demandPublishDraftDTO);
+    String submitDraft(Long userId, DemandPublishDraftDTO demandPublishDraftDTO);
 
 
     /**

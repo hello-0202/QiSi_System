@@ -40,7 +40,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
      * 保存需求草稿
      */
     @Override
-    public Long submitDraft(Long userId, DemandPublishDraftDTO demandPublishDraftDTO) {
+    public String submitDraft(Long userId, DemandPublishDraftDTO demandPublishDraftDTO) {
         // 1. 校验用户是否存在
         if (sysUserService.existsById(userId)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
@@ -60,7 +60,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         // 4. 插入数据库
         demandMapper.insert(demand);
 
-        return demand.getId();
+        return demand.getId().toString();
     }
 
 
