@@ -91,7 +91,7 @@ logging:
 
 # MinIO 对象存储配置
 minio:
-  endpoint: http://192.168.5.83:9000       # MinIO服务端地址
+  endpoint: http://192.168.5.106:9000       # MinIO服务端地址
   access-key: admin                     # 访问密钥（对应MinIO的账号）
   secret-key: 12345678                  # 秘钥（对应MinIO的密码）
   read-timeout: 6000                    # 读取超时时间（毫秒）
@@ -100,7 +100,6 @@ minio:
   bucket:
     avatar: qisi-system-avatar           # 头像桶
     attachment: qisi-system-attachment   # 附件桶
-
 
 
 captcha:

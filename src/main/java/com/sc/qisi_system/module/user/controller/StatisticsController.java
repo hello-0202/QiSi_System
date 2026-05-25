@@ -49,17 +49,7 @@ public class StatisticsController {
     }
 
 
-    /**
-     * 查询管理员待审核需求数量接口
-     * 角色: 管理员
-     *
-     * @return 待审核需求数量
-     * @author 郭双祎
-     */
-    @GetMapping("/pending-review-demand-count")
-    public Result getPendingReviewDemandCount() {
-        return Result.success(statisticsService.getPendingReviewDemandCount());
-    }
+
 
 
     /**
