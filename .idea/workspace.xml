@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="添加数据统计相关接口，完善代码，修改bug" />
+    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/demand/DemandMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/demand/DemandMapper.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -246,23 +250,7 @@
       <workItem from="1779365539782" duration="886000" />
       <workItem from="1779369368567" duration="620000" />
       <workItem from="1779515351440" duration="14023000" />
-      <workItem from="1779674405832" duration="11224000" />
-    </task>
-    <task id="LOCAL-00002" summary="完成有关附件的接口">
-      <option name="closed" value="true" />
-      <created>1776156165868</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1776156165868</updated>
-    </task>
-    <task id="LOCAL-00003" summary="添加TODO，修改部分结构">
-      <option name="closed" value="true" />
-      <created>1776168827436</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1776168827436</updated>
+      <workItem from="1779674405832" duration="11858000" />
     </task>
     <task id="LOCAL-00004" summary="修改查询需求列表和需求详情的返回结果，修改相关逻辑层的结构，完成部分apply模块接口">
       <option name="closed" value="true" />
@@ -640,7 +628,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779713238039</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1779713537125</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1779713537125</updated>
+    </task>
+    <task id="LOCAL-00052" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1779713548708</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1779713548708</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -681,9 +685,9 @@
     <MESSAGE value="完善注释，优化代码" />
     <MESSAGE value="修改工作台部分功能代码" />
     <MESSAGE value="添加扩展企业人员信息接口，完善代码，修改bug" />
-    <MESSAGE value="完善代码，修改bug" />
     <MESSAGE value="添加数据统计相关接口，完善代码，修改bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加数据统计相关接口，完善代码，修改bug" />
+    <MESSAGE value="完善代码，修改bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善代码，修改bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

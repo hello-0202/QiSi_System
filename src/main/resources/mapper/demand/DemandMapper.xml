@@ -44,26 +44,6 @@
           and date(create_time) = date_sub(curdate(), interval 1 day)
     </select>
 
-    <!-- ===================== 管理员数据统计页面 ===================== -->
-    <select id="countStatTotalDemand" resultType="long">
-        select count(1) from demand
-    </select>
-
-    <select id="countStatPendingReview" resultType="long">
-        select count(1) from demand where status = 1
-    </select>
-
-    <select id="countStatPublished" resultType="long">
-        select count(1) from demand where status = 3
-    </select>
-
-    <select id="countStatOngoing" resultType="long">
-        select count(1) from demand where status = 4
-    </select>
-
-    <select id="countStatCompleted" resultType="long">
-        select count(1) from demand where status = 5
-    </select>
 
     <!-- ===================== 用户工作台 - 我的申请 ===================== -->
     <select id="countUserMyApply" resultType="java.lang.Long">
@@ -140,7 +120,7 @@
     </select>
 
 
-    <select id="selectDemandTrendByDate" resultType="com.sc.qisi_system.module.demand.vo.DemandDailyTrendVO">
+    <select id="selectDemandTrendByDate" resultType="com.sc.qisi_system.module.admin.vo.DemandDailyTrendVO">
         SELECT
             DATE_FORMAT(create_time, '%m-%d') AS date,
             COUNT(1) AS count
@@ -153,7 +133,7 @@
     </select>
 
 
-    <select id="countDemandByCategory" resultType="com.sc.qisi_system.module.demand.vo.DemandCategoryVO">
+    <select id="countDemandByCategory" resultType="com.sc.qisi_system.module.admin.vo.DemandCategoryVO">
         SELECT
             CASE category
                 WHEN 1 THEN '技术需求'
