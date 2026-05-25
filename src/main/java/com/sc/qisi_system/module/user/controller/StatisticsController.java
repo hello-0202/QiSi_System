@@ -30,7 +30,7 @@ public class StatisticsController {
      *
      * @return 工作台统计数据（需求总数、待审核数量、进行中数量、已完成数量）
      */
-    @GetMapping("/workbench-statistics")
+    @GetMapping("/admin/workbench-statistics")
     @PreAuthorize("hasRole('ADMIN')")
     public Result getWorkbenchStatistics() {
         return Result.success(statisticsService.getWorkbenchStatistics());
@@ -39,7 +39,7 @@ public class StatisticsController {
 
     /**
      * 查询用户工作台统计数据接口
-     * 角色: 普通用户（认领者/发布者）
+     * 角色: 认领者、发布者
      *
      * @return 工作台统计：我的申请、进行中、已完成、待处理通知
      */
@@ -49,6 +49,12 @@ public class StatisticsController {
     }
 
 
+    /**
+     * 获取最新已发布需求列表
+     * 角色: 认领者、发布者、管理员
+     *
+     * @return 最新需求列表
+     */
     @GetMapping("/latest-demand")
     public Result getLatestDemand() {
         return Result.success(statisticsService.getLatestDemandList());

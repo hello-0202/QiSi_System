@@ -9,6 +9,7 @@ import com.sc.qisi_system.common.enums.*;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.common.utils.DateUtils;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.admin.dto.DateQueryDTO;
 import com.sc.qisi_system.module.admin.vo.AdminStatVO;
@@ -410,7 +411,29 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
      */
     @Override
     public List<DemandDailyTrendVO> selectDemandTrendByDate(DateQueryDTO dateQueryDTO) {
-        return demandMapper.selectDemandTrendByDate(dateQueryDTO);
+        // 1. 查询数据库里有数据的日期
+        List<DemandDailyTrendVO> dataList = demandMapper.selectDemandTrendByDate(dateQueryDTO);
+
+        // 2. 生成时间范围内的所有日期
+        List<String> allDays = DateUtils.getBetweenDays(dateQueryDTO.getBeginTime(), dateQueryDTO.getEndTime());
+
+        // 3. 空数据补 0
+        List<DemandDailyTrendVO> result = new ArrayList<>();
+        for (String day : allDays) {
+            DemandDailyTrendVO vo = new DemandDailyTrendVO();
+            vo.setDate(day);
+            vo.setCount(0L); // 默认0
+
+            // 如果数据库有这天数据，覆盖
+            for (DemandDailyTrendVO data : dataList) {
+                if (day.equals(data.getDate())) {
+                    vo.setCount(data.getCount());
+                    break;
+                }
+            }
+            result.add(vo);
+        }
+        return result;
     }
 
 

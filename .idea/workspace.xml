@@ -4,41 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/enums/AdminStatEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/enums/AdminWorkbenchStatEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/enums/UserWorkbenchStatEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/DateQueryDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/AdminStatVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/AdminWorkbenchStatVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/DemandCategoryVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/DemandDailyTrendVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/vo/UserWorkbenchStatVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/demand/DemandMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/practice/DemandMemberMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/user/SysUserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminStatisticsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminStatisticsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminStatisticsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminStatisticsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/mapper/DemandMemberMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/mapper/DemandMemberMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/mapper/DemandMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/mapper/DemandMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/DemandMemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/DemandMemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/ApplyAuditServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/ApplyAuditServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/DemandMemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/DemandMemberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeAuditServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeAuditServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeQueryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeQueryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/StatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/StatisticsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/mapper/SysUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/mapper/SysUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/StatisticsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/StatisticsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/SysUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/StatisticsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/StatisticsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/SysUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/SysUserServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="添加数据统计相关接口，完善代码，修改bug" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -280,15 +246,7 @@
       <workItem from="1779365539782" duration="886000" />
       <workItem from="1779369368567" duration="620000" />
       <workItem from="1779515351440" duration="14023000" />
-      <workItem from="1779674405832" duration="10920000" />
-    </task>
-    <task id="LOCAL-00001" summary="写好了websocket连接和实时踢人功能，完善了登录等相关接口，将单token改为双token">
-      <option name="closed" value="true" />
-      <created>1776000505702</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1776000505702</updated>
+      <workItem from="1779674405832" duration="11224000" />
     </task>
     <task id="LOCAL-00002" summary="完成有关附件的接口">
       <option name="closed" value="true" />
@@ -674,7 +632,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779679944258</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="添加数据统计相关接口，完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1779713238039</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1779713238039</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -692,7 +658,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="修改controller层注释" />
     <MESSAGE value="完成一个todo，抽取获取用户信息为独立方法，修改了部分代码结构" />
     <MESSAGE value="完成实践模块审核相关接口" />
     <MESSAGE value="完成实践模块相关接口除了附件提交" />
@@ -717,7 +682,8 @@
     <MESSAGE value="修改工作台部分功能代码" />
     <MESSAGE value="添加扩展企业人员信息接口，完善代码，修改bug" />
     <MESSAGE value="完善代码，修改bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="完善代码，修改bug" />
+    <MESSAGE value="添加数据统计相关接口，完善代码，修改bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加数据统计相关接口，完善代码，修改bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
