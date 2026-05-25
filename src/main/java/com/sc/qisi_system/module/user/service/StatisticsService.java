@@ -1,39 +1,39 @@
 package com.sc.qisi_system.module.user.service;
 
-import com.sc.qisi_system.module.admin.vo.StatusDataVO;
+import com.sc.qisi_system.module.admin.vo.AdminWorkbenchStatVO;
+import com.sc.qisi_system.module.demand.vo.DemandListVO;
+import com.sc.qisi_system.module.user.vo.UserWorkbenchStatVO;
+
+import java.util.List;
 
 
+/**
+ * 工作台服务接口
+ * 功能: 管理员/用户工作台统计、数据大盘统计、图表趋势、分类分布、最新需求列表等数据统计业务
+ */
 public interface StatisticsService {
 
 
     /**
-     * 查询已发布需求数量接口
-     * 角色: 管理员
+     * 获取管理员工作台统计数据
      *
-     * @author 郭双祎
+     * @return 管理员工作台统计视图对象
      */
-    String getPublishedDemandCount();
+    AdminWorkbenchStatVO getWorkbenchStatistics();
 
 
     /**
-     * 查询研究中需求数量接口
-     * 角色: 管理员
+     * 获取用户工作台统计数据
      *
-     * @author 郭双祎
+     * @return 用户工作台统计视图对象
      */
-    String getResearchingDemandCount();
-
-
-
+    UserWorkbenchStatVO getUserWorkbenchStatistics();
 
 
     /**
-     * 查询需求状态分布统计接口
-     * 角色: 管理员
+     * 获取最新已发布需求列表
      *
-     * @author 郭双祎
+     * @return 最新需求列表
      */
-    StatusDataVO getDemandStatusDistribution();
-
-
+    List<DemandListVO> getLatestDemandList();
 }

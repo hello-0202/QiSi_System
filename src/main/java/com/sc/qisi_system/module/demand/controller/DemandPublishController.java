@@ -60,6 +60,7 @@ public class DemandPublishController {
 
     /**
      * 删除需求草稿接口
+     * 角色: 发布者
      *
      * @param draftId 需求id
      * @return 统一返回结果

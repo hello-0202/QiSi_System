@@ -1,10 +1,14 @@
 package com.sc.qisi_system.module.user.service.impl;
 
-import com.sc.qisi_system.module.admin.vo.StatusDataVO;
+import com.sc.qisi_system.module.admin.vo.AdminWorkbenchStatVO;
 import com.sc.qisi_system.module.demand.service.DemandService;
+import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.user.service.StatisticsService;
+import com.sc.qisi_system.module.user.vo.UserWorkbenchStatVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -16,37 +20,37 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 
     /**
-     * 查询已发布需求数量接口
-     * 角色: 管理员
+     * 获取管理员工作台统计数据
+     * 角色: 认领者、发布者
      *
-     * @author 郭双祎
+     * @return 管理员工作台统计视图对象
      */
     @Override
-    public String getPublishedDemandCount() {
-        return demandService.getPublishedDemandCount();
+    public AdminWorkbenchStatVO getWorkbenchStatistics() {
+        return demandService.getWorkbenchStatistics();
     }
 
 
     /**
-     * 查询研究中需求数量接口
-     * 角色: 管理员
+     * 获取普通用户工作台统计数据接口
+     * 角色: 认领者、发布者
      *
-     * @author 郭双祎
+     * @return 用户工作台统计视图对象
      */
     @Override
-    public String getResearchingDemandCount() {
-        return demandService.getResearchingDemandCount();
+    public UserWorkbenchStatVO getUserWorkbenchStatistics() {
+        return demandService.getUserWorkbenchStatistics();
     }
 
 
-
     /**
-     * 查询需求状态分布统计接口
+     * 获取最新发布的需求列表接口
+     * 角色: 认领者、发布者
      *
-     * @author 郭双祎
+     * @return 最新需求列表集合
      */
     @Override
-    public StatusDataVO getDemandStatusDistribution() {
-        return demandService.getDemandStatusDistribution();
+    public List<DemandListVO> getLatestDemandList() {
+        return demandService.getLatestDemandList();
     }
 }

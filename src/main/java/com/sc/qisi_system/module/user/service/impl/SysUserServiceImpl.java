@@ -68,6 +68,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
 
+    @Override
+    public Long countTotalUser() {
+        return sysUserMapper.countTotalUser();
+    }
+
+
     /**
      * 封装企业用户详情
      */

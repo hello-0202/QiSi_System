@@ -3,6 +3,7 @@ package com.sc.qisi_system.module.user.controller;
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.module.user.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * 数据统计后台控制器
+ * 工作台数据统计控制器
  * 功能: 统计数据
  */
 @RequestMapping("/api/statistics")
@@ -24,40 +25,32 @@ public class StatisticsController {
 
 
     /**
-     * 查询已发布需求数量接口
+     * 查询管理员工作台统计数据接口
      * 角色: 管理员
      *
-     * @return 已发布需求数量
-     * @author 郭双祎
+     * @return 工作台统计数据（需求总数、待审核数量、进行中数量、已完成数量）
      */
-    @GetMapping("/published-demand-count")
-    public Result getPublishedDemandCount() {
-        return Result.success(statisticsService.getPublishedDemandCount());
+    @GetMapping("/workbench-statistics")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Result getWorkbenchStatistics() {
+        return Result.success(statisticsService.getWorkbenchStatistics());
     }
 
 
     /**
-     * 查询研究中需求数量接口
-     * 角色: 管理员
+     * 查询用户工作台统计数据接口
+     * 角色: 普通用户（认领者/发布者）
      *
-     * @return 研究中需求数量
-     * @author 郭双祎
+     * @return 工作台统计：我的申请、进行中、已完成、待处理通知
      */
-    @GetMapping("/researching-demand-count")
-    public Result getResearchingDemandCount() {
-        return Result.success(statisticsService.getResearchingDemandCount());
+    @GetMapping("/user-workbench-statistics")
+    public Result getUserWorkbenchStatistics() {
+        return Result.success(statisticsService.getUserWorkbenchStatistics());
     }
 
 
-    /**
-     * 查询需求状态分布统计接口
-     * 角色: 管理员
-     *
-     * @return 各状态需求数量
-     * @author 郭双祎
-     */
-    @GetMapping("/demand-status-distribution")
-    public Result getDemandStatusDistribution() {
-        return Result.success(statisticsService.getDemandStatusDistribution());
+    @GetMapping("/latest-demand")
+    public Result getLatestDemand() {
+        return Result.success(statisticsService.getLatestDemandList());
     }
 }

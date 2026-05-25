@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sc.qisi_system.module.demand.mapper.DemandMapper">
+
+    <!-- ===================== 管理员工作台 - 今日统计 ===================== -->
+    <select id="countAdminTotalDemand" resultType="long">
+        select count(1) from demand
+    </select>
+
+    <select id="countAdminOngoingDemand" resultType="long">
+        select count(1) from demand where status = 4
+    </select>
+
+    <select id="countAdminCompletedDemand" resultType="long">
+        select count(1) from demand where status = 5
+    </select>
+
+    <select id="countAdminPendingReviewDemand" resultType="long">
+        select count(1) from demand where status = 1
+    </select>
+
+    <!-- ===================== 管理员工作台 - 昨日统计 ===================== -->
+    <select id="countAdminTotalDemandYesterday" resultType="long">
+        select count(1) from demand
+        where date(create_time) = date_sub(curdate(), interval 1 day)
+    </select>
+
+    <select id="countAdminOngoingDemandYesterday" resultType="long">
+        select count(1) from demand
+        where status = 4
+          and date(create_time) = date_sub(curdate(), interval 1 day)
+    </select>
+
+    <select id="countAdminCompletedDemandYesterday" resultType="long">
+        select count(1) from demand
+        where status = 5
+          and date(create_time) = date_sub(curdate(), interval 1 day)
+    </select>
+
+    <select id="countAdminPendingReviewDemandYesterday" resultType="long">
+        select count(1) from demand
+        where status = 1
+          and date(create_time) = date_sub(curdate(), interval 1 day)
+    </select>
+
+    <!-- ===================== 管理员数据统计页面 ===================== -->
+    <select id="countStatTotalDemand" resultType="long">
+        select count(1) from demand
+    </select>
+
+    <select id="countStatPendingReview" resultType="long">
+        select count(1) from demand where status = 1
+    </select>
+
+    <select id="countStatPublished" resultType="long">
+        select count(1) from demand where status = 3
+    </select>
+
+    <select id="countStatOngoing" resultType="long">
+        select count(1) from demand where status = 4
+    </select>
+
+    <select id="countStatCompleted" resultType="long">
+        select count(1) from demand where status = 5
+    </select>
+
+    <!-- ===================== 用户工作台 - 我的申请 ===================== -->
+    <select id="countUserMyApply" resultType="java.lang.Long">
+        select count(1) from demand_apply
+        where user_id = #{userId}
+    </select>
+
+    <select id="countUserMyApplyYesterday" resultType="java.lang.Long">
+        select count(1) from demand_apply
+        where user_id = #{userId}
+          and date(create_time) = date_sub(curdate(), interval 1 day)
+    </select>
+
+    <!-- ===================== 用户工作台 - 进行中 ===================== -->
+    <select id="countUserOngoing" resultType="java.lang.Long">
+        SELECT COUNT(DISTINCT d.id)
+        FROM demand_member dm
+                 JOIN demand d ON dm.demand_id = d.id
+        WHERE dm.user_id = #{userId}
+          AND dm.status = 1
+          AND d.status = 4
+    </select>
+
+    <select id="countUserOngoingYesterday" resultType="java.lang.Long">
+        SELECT COUNT(DISTINCT d.id)
+        FROM demand_member dm
+                 JOIN demand d ON dm.demand_id = d.id
+        WHERE dm.user_id = #{userId}
+          AND dm.status = 1
+          AND d.status = 4
+          AND DATE(d.create_time) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+    </select>
+
+    <!-- ===================== 用户工作台 - 已完成 ===================== -->
+    <select id="countUserCompleted" resultType="java.lang.Long">
+        SELECT COUNT(DISTINCT d.id)
+        FROM demand_member dm
+                 JOIN demand d ON dm.demand_id = d.id
+        WHERE dm.user_id = #{userId}
+          AND dm.status = 1
+          AND d.status = 5
+    </select>
+
+    <select id="countUserCompletedYesterday" resultType="java.lang.Long">
+        SELECT COUNT(DISTINCT d.id)
+        FROM demand_member dm
+                 JOIN demand d ON dm.demand_id = d.id
+        WHERE dm.user_id = #{userId}
+          AND dm.status = 1
+          AND d.status = 5
+          AND DATE(d.create_time) = DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+    </select>
+
+
+    <!-- ===================== 管理员数据统计页面（纯数量统计） ===================== -->
+    <select id="countStatTotalDemand" resultType="long">
+        select count(1) from demand
+    </select>
+
+    <select id="countStatPendingReview" resultType="long">
+        select count(1) from demand where status = 1
+    </select>
+
+    <select id="countStatPublished" resultType="long">
+        select count(1) from demand where status = 3
+    </select>
+
+    <select id="countStatOngoing" resultType="long">
+        select count(1) from demand where status = 4
+    </select>
+
+    <select id="countStatCompleted" resultType="long">
+        select count(1) from demand where status = 5
+    </select>
+
+
+    <select id="selectDemandTrendByDate" resultType="com.sc.qisi_system.module.demand.vo.DemandDailyTrendVO">
+        SELECT
+            DATE_FORMAT(create_time, '%m-%d') AS date,
+            COUNT(1) AS count
+        FROM demand
+        WHERE
+            DATE(create_time) &gt;= #{query.beginTime}
+          AND DATE(create_time) &lt;= #{query.endTime}
+        GROUP BY DATE(create_time)
+        ORDER BY DATE(create_time)
+    </select>
+
+
+    <select id="countDemandByCategory" resultType="com.sc.qisi_system.module.demand.vo.DemandCategoryVO">
+        SELECT
+            CASE category
+                WHEN 1 THEN '技术需求'
+                WHEN 2 THEN '研究需求'
+                WHEN 3 THEN '创新创意'
+                ELSE '其他'
+                END AS categoryName,
+            COUNT(1) AS count
+        FROM demand
+        GROUP BY category
+    </select>
+</mapper>

@@ -5,12 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.sc.qisi_system.common.enums.DemandCategoryEnum;
-import com.sc.qisi_system.common.enums.DemandStatusEnum;
+import com.sc.qisi_system.common.enums.*;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
-import com.sc.qisi_system.module.admin.vo.StatusDataVO;
+import com.sc.qisi_system.common.utils.SecurityUtils;
+import com.sc.qisi_system.module.admin.dto.DateQueryDTO;
+import com.sc.qisi_system.module.admin.vo.AdminStatVO;
+import com.sc.qisi_system.module.admin.vo.AdminWorkbenchStatVO;
+import com.sc.qisi_system.module.admin.vo.DemandCategoryVO;
+import com.sc.qisi_system.module.admin.vo.DemandDailyTrendVO;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.domain.DemandPracticeList;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
@@ -26,6 +30,7 @@ import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.practice.service.DemandMemberService;
 import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import com.sc.qisi_system.module.user.service.SysUserService;
+import com.sc.qisi_system.module.user.vo.UserWorkbenchStatVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -213,70 +218,234 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
 
 
     /**
-     * 查询已发布需求数量接口
-     * 角色: 管理员
-     *
-     * @author 郭双祎
+     * 获取管理员工作台统计数据
      */
     @Override
-    public String getPublishedDemandCount() {
+    public AdminWorkbenchStatVO getWorkbenchStatistics() {
+        AdminWorkbenchStatVO vo = new AdminWorkbenchStatVO();
+        List<AdminWorkbenchStatVO.StatCard> statList = new ArrayList<>();
+
+        // 需求总数
+        int nowTotal = (int) demandMapper.countAdminTotalDemand();
+        int yesTotal = (int) demandMapper.countAdminTotalDemandYesterday();
+        AdminWorkbenchStatVO.StatCard totalCard = new AdminWorkbenchStatVO.StatCard();
+        totalCard.setKey(AdminWorkbenchStatEnum.TOTAL_DEMANDS.getKey());
+        totalCard.setLabel(AdminWorkbenchStatEnum.TOTAL_DEMANDS.getLabel());
+        totalCard.setValue(nowTotal);
+        totalCard.setTrend(nowTotal - yesTotal);
+        statList.add(totalCard);
+
+        // 研究中项目
+        int nowOngoing = (int) demandMapper.countAdminOngoingDemand();
+        int yesOngoing = (int) demandMapper.countAdminOngoingDemandYesterday();
+        AdminWorkbenchStatVO.StatCard ongoingCard = new AdminWorkbenchStatVO.StatCard();
+        ongoingCard.setKey(AdminWorkbenchStatEnum.ONGOING_PROJECTS.getKey());
+        ongoingCard.setLabel(AdminWorkbenchStatEnum.ONGOING_PROJECTS.getLabel());
+        ongoingCard.setValue(nowOngoing);
+        ongoingCard.setTrend(nowOngoing - yesOngoing);
+        statList.add(ongoingCard);
+
+        // 已完成项目
+        int nowComplete = (int) demandMapper.countAdminCompletedDemand();
+        int yesComplete = (int) demandMapper.countAdminCompletedDemandYesterday();
+        AdminWorkbenchStatVO.StatCard completeCard = new AdminWorkbenchStatVO.StatCard();
+        completeCard.setKey(AdminWorkbenchStatEnum.COMPLETED_PROJECTS.getKey());
+        completeCard.setLabel(AdminWorkbenchStatEnum.COMPLETED_PROJECTS.getLabel());
+        completeCard.setValue(nowComplete);
+        completeCard.setTrend(nowComplete - yesComplete);
+        statList.add(completeCard);
+
+        // 待审核
+        int nowPending = (int) demandMapper.countAdminPendingReviewDemand();
+        int yesPending = (int) demandMapper.countAdminPendingReviewDemandYesterday();
+        AdminWorkbenchStatVO.StatCard pendingCard = new AdminWorkbenchStatVO.StatCard();
+        pendingCard.setKey(AdminWorkbenchStatEnum.PENDING_REVIEW.getKey());
+        pendingCard.setLabel(AdminWorkbenchStatEnum.PENDING_REVIEW.getLabel());
+        pendingCard.setValue(nowPending);
+        pendingCard.setTrend(nowPending - yesPending);
+        statList.add(pendingCard);
+
+        vo.setStatList(statList);
+        return vo;
+    }
+
+
+    /**
+     * 用户工作台统计（我的申请 + 进行中 + 已完成 + 待处理通知）
+     */
+    @Override
+    public UserWorkbenchStatVO getUserWorkbenchStatistics() {
+        // 1. 获取当前登录用户ID
+        Long userId = SecurityUtils.getCurrentUserId();
+
+        UserWorkbenchStatVO vo = new UserWorkbenchStatVO();
+        List<UserWorkbenchStatVO.StatCard> statList = new ArrayList<>();
+
+        // ===================== 1. 我的申请数量（我发布的需求） =====================
+        UserWorkbenchStatVO.StatCard myApply = new UserWorkbenchStatVO.StatCard();
+        myApply.setKey(UserWorkbenchStatEnum.MY_APPLY.getKey());
+        myApply.setLabel(UserWorkbenchStatEnum.MY_APPLY.getLabel());
+        long  myApplyNow = demandMapper.countUserMyApply(userId);
+        long  myApplyYes = demandMapper.countUserMyApplyYesterday(userId);
+        myApply.setValue((int) myApplyNow);
+        myApply.setTrend((int) (myApplyNow - myApplyYes));
+        statList.add(myApply);
+
+        // ===================== 2. 进行中数量（我是成员，demand.status=4） =====================
+        UserWorkbenchStatVO.StatCard ongoing = new UserWorkbenchStatVO.StatCard();
+        ongoing.setKey(UserWorkbenchStatEnum.ONGOING.getKey());
+        ongoing.setLabel(UserWorkbenchStatEnum.ONGOING.getLabel());
+        long ongoingNow = demandMapper.countUserOngoing(userId);
+        long ongoingYes = demandMapper.countUserOngoingYesterday(userId);
+        ongoing.setValue((int) ongoingNow);
+        ongoing.setTrend((int) (ongoingNow - ongoingYes));
+        statList.add(ongoing);
+
+        // ===================== 3. 已完成数量（我是成员，demand.status=5） =====================
+        UserWorkbenchStatVO.StatCard completed = new UserWorkbenchStatVO.StatCard();
+        completed.setKey(UserWorkbenchStatEnum.COMPLETED.getKey());
+        completed.setLabel(UserWorkbenchStatEnum.COMPLETED.getLabel());
+        long completedNow = demandMapper.countUserCompleted(userId);
+        long completedYes = demandMapper.countUserCompletedYesterday(userId);
+        completed.setValue((int) completedNow);
+        completed.setTrend((int) (completedNow - completedYes));
+        statList.add(completed);
+
+        // ===================== 4. 待处理通知 =====================
+        UserWorkbenchStatVO.StatCard pendingNotice = new UserWorkbenchStatVO.StatCard();
+        pendingNotice.setKey(UserWorkbenchStatEnum.PENDING_NOTICE.getKey());
+        pendingNotice.setLabel(UserWorkbenchStatEnum.PENDING_NOTICE.getLabel());
+        pendingNotice.setValue(null);
+        pendingNotice.setTrend(0);
+        statList.add(pendingNotice);
+
+        // 封装返回
+        vo.setStatList(statList);
+        return vo;
+    }
+
+
+    /**
+     * 获取管理员数据统计界面数据
+     */
+    @Override
+    public AdminStatVO getAdminDataStatistics() {
+        AdminStatVO vo = new AdminStatVO();
+        List<AdminStatVO.StatCard> list = new ArrayList<>();
+
+        // 1 总需求数
+        AdminStatVO.StatCard card1 = new AdminStatVO.StatCard();
+        card1.setKey(AdminStatEnum.TOTAL_DEMAND.getKey());
+        card1.setLabel(AdminStatEnum.TOTAL_DEMAND.getLabel());
+        long totalDemand = demandMapper.countStatTotalDemand();
+        card1.setValue(Math.toIntExact(totalDemand));
+        list.add(card1);
+
+        // 2 待审核数量 status=1
+        AdminStatVO.StatCard card2 = new AdminStatVO.StatCard();
+        card2.setKey(AdminStatEnum.PENDING_REVIEW.getKey());
+        card2.setLabel(AdminStatEnum.PENDING_REVIEW.getLabel());
+        long pendingReview = demandMapper.countStatPendingReview();
+        card2.setValue(Math.toIntExact(pendingReview));
+        list.add(card2);
+
+        // 3 已发布数量 status=3
+        AdminStatVO.StatCard card3 = new AdminStatVO.StatCard();
+        card3.setKey(AdminStatEnum.PUBLISHED.getKey());
+        card3.setLabel(AdminStatEnum.PUBLISHED.getLabel());
+        long published = demandMapper.countStatPublished();
+        card3.setValue(Math.toIntExact(published));
+        list.add(card3);
+
+        // 4 进行中数量 status=4
+        AdminStatVO.StatCard card4 = new AdminStatVO.StatCard();
+        card4.setKey(AdminStatEnum.ONGOING.getKey());
+        card4.setLabel(AdminStatEnum.ONGOING.getLabel());
+        long ongoing = demandMapper.countStatOngoing();
+        card4.setValue(Math.toIntExact(ongoing));
+        list.add(card4);
+
+        // 5 已完成数量 status=5
+        AdminStatVO.StatCard card5 = new AdminStatVO.StatCard();
+        card5.setKey(AdminStatEnum.COMPLETED.getKey());
+        card5.setLabel(AdminStatEnum.COMPLETED.getLabel());
+        long completed = demandMapper.countStatCompleted();
+        card5.setValue(Math.toIntExact(completed));
+        list.add(card5);
+
+        // 6 已注册用户数
+        AdminStatVO.StatCard card6 = new AdminStatVO.StatCard();
+        card6.setKey(AdminStatEnum.TOTAL_USER.getKey());
+        card6.setLabel(AdminStatEnum.TOTAL_USER.getLabel());
+        long totalUser = sysUserService.countTotalUser();
+        card6.setValue(Math.toIntExact(totalUser));
+        list.add(card6);
+
+        // 7 总申请数量（demand_member 总记录）
+        AdminStatVO.StatCard card7 = new AdminStatVO.StatCard();
+        card7.setKey(AdminStatEnum.TOTAL_APPLY.getKey());
+        card7.setLabel(AdminStatEnum.TOTAL_APPLY.getLabel());
+        long totalApply = demandMemberService.countTotalApply();
+        card7.setValue(Math.toIntExact(totalApply));
+        list.add(card7);
+
+        // 8 项目完成率
+        AdminStatVO.StatCard card8 = new AdminStatVO.StatCard();
+        card8.setKey(AdminStatEnum.FINISH_RATE.getKey());
+        card8.setLabel(AdminStatEnum.FINISH_RATE.getLabel());
+        int rate = 0;
+        if (totalDemand > 0) {
+            rate = (int) (completed * 100 / totalDemand);
+        }
+        card8.setValue(rate);
+        list.add(card8);
+
+        vo.setStatList(list);
+        return vo;
+    }
+
+
+    /**
+     * 根据日期范围查询需求每日趋势统计
+     */
+    @Override
+    public List<DemandDailyTrendVO> selectDemandTrendByDate(DateQueryDTO dateQueryDTO) {
+        return demandMapper.selectDemandTrendByDate(dateQueryDTO);
+    }
+
+
+    /**
+     * 获取需求分类分布统计数据
+     */
+    @Override
+    public List<DemandCategoryVO> getDemandCategoryDistribution() {
+        return demandMapper.countDemandByCategory();
+    }
+
+
+    /**
+     * 获取最新发布的需求列表
+     */
+    @Override
+    public List<DemandListVO> getLatestDemandList() {
         LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Demand::getStatus, DemandStatusEnum.PUBLISHED.getCode());
-        return String.valueOf(demandMapper.selectCount(wrapper));
+        wrapper.orderByDesc(Demand::getCreateTime);
+        wrapper.last("LIMIT 10");
+        return demandMapper.selectList(wrapper).stream()
+                .map(this::convertToVO)
+                .toList();
     }
 
 
-    /**
-     * 查询研究中需求数量接口
-     * 角色: 管理员
-     *
-     * @author 郭双祎
-     */
-    @Override
-    public String getResearchingDemandCount() {
-        LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Demand::getStatus,DemandStatusEnum.RESEARCHING.getCode());
-        return String.valueOf(demandMapper.selectCount(wrapper));
-    }
-
-
-    /**
-     * 查询管理员待审核需求数量接口
-     * 角色: 管理员
-     *
-     * @author 郭双祎
-     */
-    @Override
-    public String getPendingReviewDemandCount() {
-        LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Demand::getStatus,DemandStatusEnum.REVIEWING.getCode());
-        return String.valueOf(demandMapper.selectCount(wrapper));
-    }
-
-
-    /**
-     * 查询需求状态分布统计接口
-     *
-     * @author 郭双祎
-     */
-    @Override
-    public StatusDataVO getDemandStatusDistribution() {
-        //1.定义需求状态和接口数量的集合
-        List<String> statusList = new ArrayList<>();
-        List<Long> numberList = new ArrayList<>();
-        //2.遍历查询所有状态接口的数量
-        for(DemandStatusEnum status :DemandStatusEnum.values()){
-            LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(Demand::getStatus,status.getCode());
-            Long count = demandMapper.selectCount(wrapper);
-            statusList.add(status.getDesc());
-            numberList.add(count);
-        }
-        //3.封装查询结果
-        StatusDataVO statusDataVO = new StatusDataVO();
-        statusDataVO.setStatusList(statusList);
-        statusDataVO.setNumberList(numberList);
-        return statusDataVO;
+    private DemandListVO convertToVO(Demand demand) {
+        DemandListVO vo = new DemandListVO();
+        vo.setId(demand.getId());
+        vo.setTitle(demand.getTitle());
+        vo.setCategory(demand.getCategory());
+        vo.setStatus(demand.getStatus());
+        vo.setCreateTime(demand.getCreateTime());
+        return vo;
     }
 
 

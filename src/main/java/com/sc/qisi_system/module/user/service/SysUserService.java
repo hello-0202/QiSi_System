@@ -28,4 +28,7 @@ public interface SysUserService extends IService<SysUser> {
      * @return 用户个人资料视图对象
      */
     UserProfileVO getUserProfile(Long userId);
+
+
+    Long countTotalUser();
 }

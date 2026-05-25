@@ -10,7 +10,7 @@ import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
-import com.sc.qisi_system.module.apply.mapper.DemandMemberMapper;
+import com.sc.qisi_system.module.practice.mapper.DemandMemberMapper;
 import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.demand.entity.Demand;

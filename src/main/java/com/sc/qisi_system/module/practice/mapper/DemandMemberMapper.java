@@ -1,4 +1,4 @@
-package com.sc.qisi_system.module.apply.mapper;
+package com.sc.qisi_system.module.practice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DemandMemberMapper extends BaseMapper<DemandMember> {
-
+    long countTotalApply();
 }

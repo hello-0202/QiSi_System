@@ -9,7 +9,7 @@ import com.sc.qisi_system.module.apply.entity.DemandApply;
 import com.sc.qisi_system.module.apply.service.DemandApplyService;
 import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.practice.service.ApplyAuditService;
-import com.sc.qisi_system.module.apply.mapper.DemandMemberMapper;
+import com.sc.qisi_system.module.practice.mapper.DemandMemberMapper;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import lombok.RequiredArgsConstructor;
