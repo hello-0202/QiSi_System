@@ -84,10 +84,9 @@ public class UserInfoServiceImpl implements UserInfoService {
         if(sysUser == null) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
-        // 2. 更新用户信息
-        sysUser.setPassword(passwordEncoder.encode(userInfoDTO.getPassword()));
         sysUser.setPhone(userInfoDTO.getPhone());
         sysUser.setEmail(userInfoDTO.getEmail());
+
         sysUserMapper.updateById(sysUser);
     }
 
