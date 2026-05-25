@@ -1,15 +1,19 @@
 package com.sc.qisi_system.module.user.service.impl;
 
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.user.dto.UserInfoDTO;
+import com.sc.qisi_system.module.user.entity.EntEmployee;
 import com.sc.qisi_system.module.user.entity.SysUser;
+import com.sc.qisi_system.module.user.mapper.EntEmployeeMapper;
 import com.sc.qisi_system.module.user.mapper.SysUserMapper;
 import com.sc.qisi_system.module.user.service.SysUserService;
 import com.sc.qisi_system.module.user.service.UserInfoService;
+import com.sc.qisi_system.module.user.vo.EntEmployeeInfoVO;
 import com.sc.qisi_system.module.user.vo.UserInfoVO;
 import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     private final SysUserMapper sysUserMapper;
+    private final EntEmployeeMapper entEmployeeMapper;
     private final SysUserService sysUserService;
     private final MinioService minioService;
     private final PasswordEncoder passwordEncoder;
@@ -100,5 +105,20 @@ public class UserInfoServiceImpl implements UserInfoService {
         // 2. 上传头像并更新用户信息
         sysUser.setAvatar(minioService.updateUserAvatar(SecurityUtils.getCurrentUserId(), file));
         sysUserMapper.updateById(sysUser);
+    }
+
+
+    /**
+     * 更新企业人员扩展信息
+     */
+    @Override
+    public void updateEntEmployeeInfo(EntEmployeeInfoVO entEmployeeInfoVO) {
+        EntEmployee entEmployee = entEmployeeMapper.selectOne(Wrappers.lambdaQuery(EntEmployee.class)
+                .eq(EntEmployee::getUserId,SecurityUtils.getCurrentUserId()));
+        if (entEmployee == null) {
+            throw new BusinessException(ResultCode.USER_NOT_FOUND);
+        }
+        BeanUtils.copyProperties(entEmployeeInfoVO, entEmployee, "userId");
+        entEmployeeMapper.updateById(entEmployee);
     }
 }

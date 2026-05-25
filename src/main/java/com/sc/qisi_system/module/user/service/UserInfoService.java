@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.user.service;
 
 import com.sc.qisi_system.module.user.dto.UserInfoDTO;
+import com.sc.qisi_system.module.user.vo.EntEmployeeInfoVO;
 import com.sc.qisi_system.module.user.vo.UserInfoVO;
 import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,4 +52,12 @@ public interface UserInfoService {
      * @param file 头像文件
      */
     void updateAvatar(MultipartFile file);
+
+
+    /**
+     * 更新企业人员扩展信息
+     *
+     * @param entEmployeeInfoVO 请求体
+     */
+    void updateEntEmployeeInfo(EntEmployeeInfoVO entEmployeeInfoVO);
 }

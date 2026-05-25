@@ -19,8 +19,10 @@ import java.time.LocalDateTime;
 @Data
 public class EntEmployee implements Serializable {
 
+
     @Serial
     private static final long serialVersionUID = 1L;
+
 
     /**
      * 主键ID
@@ -28,10 +30,12 @@ public class EntEmployee implements Serializable {
     @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
+
     /**
      * 关联用户ID: sys_user表主键
      */
     private Long userId;
+
 
     /**
      * 关联企业ID
@@ -81,10 +85,10 @@ public class EntEmployee implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.enums.UserTypeEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.user.dto.EnterpriseRegisterDTO;
 import com.sc.qisi_system.module.user.dto.StudentTeacherRegisterDTO;
 import com.sc.qisi_system.module.user.entity.*;
@@ -34,6 +35,7 @@ public class RegisterServiceImpl implements RegisterService {
     private final SchoolStaffMapper schoolStaffMapper;
     private final EduStudentMapper eduStudentMapper;
     private final EduTeacherMapper eduTeacherMapper;
+    private final EntEmployeeMapper entEmployeeMapper;
 
 
     /**
@@ -180,8 +182,11 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     /**
-     * 处理企业人员白名单数据（暂未实现）
+     * 处理企业人员白名单数据
      */
     private void handleEntEmployeeWhitelist() {
+        EntEmployee entEmployee = new EntEmployee();
+        entEmployee.setUserId(SecurityUtils.getCurrentUserId());
+        entEmployeeMapper.insert(entEmployee);
     }
 }

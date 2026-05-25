@@ -3,6 +3,7 @@ package com.sc.qisi_system.module.user.controller;
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.module.user.dto.UserInfoDTO;
 import com.sc.qisi_system.module.user.service.UserInfoService;
+import com.sc.qisi_system.module.user.vo.EntEmployeeInfoVO;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -82,6 +83,20 @@ public class UserInfoController {
     public Result updateAvatar(
             @RequestParam("file") MultipartFile file) {
         userInfoService.updateAvatar(file);
+        return Result.success();
+    }
+
+
+    /**
+     * 更新企业人员扩展信息
+     *
+     * @param entEmployeeInfoVO 请求体
+     * @return 统一返回结果
+     */
+    @PostMapping("/upadte/entemployee-info")
+    public Result updateEntEmployeeInfo(
+            @RequestBody EntEmployeeInfoVO entEmployeeInfoVO){
+        userInfoService.updateEntEmployeeInfo(entEmployeeInfoVO);
         return Result.success();
     }
 }
