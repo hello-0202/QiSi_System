@@ -157,3 +157,41 @@ Caused by: java.net.SocketTimeoutException: Connect timed out
 2026-05-25 10:22:40.875 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
 2026-05-25 10:22:40.876 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3314f179]]
 2026-05-25 10:22:40.876 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-05-25 10:24:48.094 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 171316 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-05-25 10:24:48.096 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-05-25 10:24:49.053 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-25 10:24:49.055 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-25 10:24:49.151 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 82 ms. Found 0 Redis repository interfaces.
+2026-05-25 10:24:49.702 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-25 10:24:49.788 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1650 ms
+2026-05-25 10:24:50.760 [main] ERROR c.s.q.QiSiSystemApplication - 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+### The error may exist in com/sc/qisi_system/module/user/mapper/SysUserMapper.java (best guess)
+### The error may involve com.sc.qisi_system.module.user.mapper.SysUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sys_user  ( id, username, password, name, phone, email,  user_type, status, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?  )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+; Duplicate entry 'admin' for key 'sys_user.uk_username'
+2026-05-25 10:24:50.769 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-05-25 10:24:50.864 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-05-25 10:24:51.629 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-05-25 10:24:51.899 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6722db6e
+2026-05-25 10:24:52.017 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-05-25 10:24:52.100 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-05-25 10:24:52.100 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@260fffec]]
+2026-05-25 10:24:52.101 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-05-25 10:24:52.120 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-25 10:24:52.128 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.484 seconds (process running for 5.046)
+2026-05-25 10:24:52.131 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-05-25 10:24:52.221 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-05-25 10:24:52.559 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-05-25 10:25:11.557 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-25 10:25:11.559 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-05-25 10:25:52.096 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-05-25 10:26:34.643 [http-nio-8080-exec-7] WARN  c.s.q.c.e.GlobalExceptionHandler - [接口不存在] IP= 127.0.0.1, URI= /api/statistics/pending-review-demand-count, METHOD= GET, code=4004, message=No static resource api/statistics/pending-review-demand-count.
+2026-05-25 10:29:42.362 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/demand/apply/submit, METHOD= POST, 异常: Token 已过期
+2026-05-25 10:33:34.293 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-25 10:33:34.608 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-25 10:33:34.612 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-05-25 10:33:34.612 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@260fffec]]
+2026-05-25 10:33:34.612 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
