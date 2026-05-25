@@ -422,7 +422,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         for (String day : allDays) {
             DemandDailyTrendVO vo = new DemandDailyTrendVO();
             vo.setDate(day);
-            vo.setCount(0L); // 默认0
+            vo.setCount(0L);
 
             // 如果数据库有这天数据，覆盖
             for (DemandDailyTrendVO data : dataList) {
