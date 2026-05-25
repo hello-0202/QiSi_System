@@ -26,6 +26,7 @@ public class MessageController {
 
     private final MessageService messageService;
 
+
     /**
      * WebSocket发送私人私信
      * 角色: 认领者 发布者 管理员
