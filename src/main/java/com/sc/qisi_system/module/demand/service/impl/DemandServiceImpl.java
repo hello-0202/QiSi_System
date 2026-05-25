@@ -212,9 +212,6 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     }
 
 
-    private final DemandService demandService;
-
-
     /**
      * 查询已发布需求数量接口
      * 角色: 管理员
@@ -225,7 +222,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     public String getPublishedDemandCount() {
         LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Demand::getStatus, DemandStatusEnum.PUBLISHED.getCode());
-        return String.valueOf(demandService.count(wrapper));
+        return String.valueOf(demandMapper.selectCount(wrapper));
     }
 
 
@@ -239,7 +236,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     public String getResearchingDemandCount() {
         LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Demand::getStatus,DemandStatusEnum.RESEARCHING.getCode());
-        return String.valueOf(demandService.count(wrapper));
+        return String.valueOf(demandMapper.selectCount(wrapper));
     }
 
 
@@ -253,7 +250,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
     public String getPendingReviewDemandCount() {
         LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Demand::getStatus,DemandStatusEnum.REVIEWING.getCode());
-        return String.valueOf(demandService.count(wrapper));
+        return String.valueOf(demandMapper.selectCount(wrapper));
     }
 
 
@@ -271,7 +268,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         for(DemandStatusEnum status :DemandStatusEnum.values()){
             LambdaQueryWrapper<Demand> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(Demand::getStatus,status.getCode());
-            Long count = demandService.count(wrapper);
+            Long count = demandMapper.selectCount(wrapper);
             statusList.add(status.getDesc());
             numberList.add(count);
         }
