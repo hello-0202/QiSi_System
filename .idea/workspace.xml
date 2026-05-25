@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/demand/DemandMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/demand/DemandMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/practice/DemandMemberMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/practice/DemandMemberMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/user/SysUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/user/SysUserMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,15 +252,7 @@
       <workItem from="1779365539782" duration="886000" />
       <workItem from="1779369368567" duration="620000" />
       <workItem from="1779515351440" duration="14023000" />
-      <workItem from="1779674405832" duration="11858000" />
-    </task>
-    <task id="LOCAL-00004" summary="修改查询需求列表和需求详情的返回结果，修改相关逻辑层的结构，完成部分apply模块接口">
-      <option name="closed" value="true" />
-      <created>1776265061706</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1776265061706</updated>
+      <workItem from="1779674405832" duration="12492000" />
     </task>
     <task id="LOCAL-00005" summary="修改查询需求列表和需求详情的返回结果，修改相关逻辑层的结构，完成部分apply模块接口">
       <option name="closed" value="true" />
@@ -644,7 +638,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779713548708</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1779713920961</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1779713920961</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

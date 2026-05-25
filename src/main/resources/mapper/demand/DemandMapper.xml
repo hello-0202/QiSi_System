@@ -128,21 +128,23 @@
         WHERE
             DATE(create_time) &gt;= #{query.beginTime}
           AND DATE(create_time) &lt;= #{query.endTime}
-        GROUP BY DATE(create_time)
-        ORDER BY DATE(create_time)
+        GROUP BY date
+        ORDER BY date
     </select>
 
 
     <select id="countDemandByCategory" resultType="com.sc.qisi_system.module.admin.vo.DemandCategoryVO">
         SELECT
-            CASE category
-                WHEN 1 THEN '技术需求'
-                WHEN 2 THEN '研究需求'
-                WHEN 3 THEN '创新创意'
-                ELSE '其他'
-                END AS categoryName,
-            COUNT(1) AS count
-        FROM demand
-        GROUP BY category
+            t.categoryName,
+            COUNT(d.category) AS count
+        FROM (
+                 SELECT '技术需求' AS categoryName, 1 AS code UNION ALL
+                 SELECT '研究需求' AS categoryName, 2 AS code UNION ALL
+                 SELECT '创新创意' AS categoryName, 3 AS code UNION ALL
+                 SELECT '其他' AS categoryName, 4 AS code
+             ) t
+                 LEFT JOIN demand d ON t.code = d.category
+        GROUP BY t.categoryName, t.code
+        ORDER BY t.code
     </select>
 </mapper>

@@ -515,3 +515,207 @@ Caused by: java.lang.ClassNotFoundException: Cannot find class: com.sc.qisi_syst
 2026-05-25 20:58:33.814 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
 2026-05-25 20:58:33.814 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1fe37d27]]
 2026-05-25 20:58:33.814 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-05-25 20:58:52.697 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 159316 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-05-25 20:58:52.698 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-05-25 20:58:53.579 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-25 20:58:53.581 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-25 20:58:53.660 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 0 Redis repository interfaces.
+2026-05-25 20:58:54.165 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-25 20:58:54.240 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1510 ms
+2026-05-25 20:58:55.229 [main] ERROR c.s.q.QiSiSystemApplication - 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+### The error may exist in com/sc/qisi_system/module/user/mapper/SysUserMapper.java (best guess)
+### The error may involve com.sc.qisi_system.module.user.mapper.SysUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sys_user  ( id, username, password, name, phone, email,  user_type, status, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?  )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+; Duplicate entry 'admin' for key 'sys_user.uk_username'
+2026-05-25 20:58:55.238 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-05-25 20:58:55.336 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-05-25 20:58:56.067 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-05-25 20:58:56.339 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6722db6e
+2026-05-25 20:58:56.461 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-05-25 20:58:56.550 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-05-25 20:58:56.550 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f1a3c4]]
+2026-05-25 20:58:56.551 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-05-25 20:58:56.569 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-25 20:58:56.576 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.28 seconds (process running for 4.813)
+2026-05-25 20:58:56.578 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-05-25 20:58:56.664 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-05-25 20:58:57.018 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-05-25 20:59:13.021 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-25 20:59:13.021 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-05-25 20:59:56.554 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-05-25 21:00:50.595 [http-nio-8080-exec-7] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数绑定异常] IP= 127.0.0.1, URI= /api/admin/statistics/admin-data-statistics, METHOD= GET, code=4000, message=Invalid bound statement (not found): com.sc.qisi_system.module.user.mapper.SysUserMapper.countTotalUser
+2026-05-25 21:05:02.022 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-25 21:05:02.463 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-25 21:05:02.465 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-05-25 21:05:02.466 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f1a3c4]]
+2026-05-25 21:05:02.466 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-05-25 21:05:04.844 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 167892 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-05-25 21:05:04.847 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-05-25 21:05:05.758 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-25 21:05:05.760 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-25 21:05:05.850 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 0 Redis repository interfaces.
+2026-05-25 21:05:06.397 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-25 21:05:06.475 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1595 ms
+2026-05-25 21:05:07.672 [main] ERROR c.s.q.QiSiSystemApplication - 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+### The error may exist in com/sc/qisi_system/module/user/mapper/SysUserMapper.java (best guess)
+### The error may involve com.sc.qisi_system.module.user.mapper.SysUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sys_user  ( id, username, password, name, phone, email,  user_type, status, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?  )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+; Duplicate entry 'admin' for key 'sys_user.uk_username'
+2026-05-25 21:05:07.682 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-05-25 21:05:07.816 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-05-25 21:05:08.553 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-05-25 21:05:08.822 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6722db6e
+2026-05-25 21:05:08.950 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-05-25 21:05:09.032 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-05-25 21:05:09.033 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1fe37d27]]
+2026-05-25 21:05:09.034 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-05-25 21:05:09.053 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-25 21:05:09.061 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.632 seconds (process running for 5.233)
+2026-05-25 21:05:09.064 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-05-25 21:05:09.160 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-05-25 21:05:09.531 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-05-25 21:05:19.996 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-25 21:05:19.999 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-05-25 21:06:09.039 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-05-25 21:06:35.319 [http-nio-8080-exec-6] ERROR c.s.q.c.e.GlobalExceptionHandler - [数据库异常] IP= 127.0.0.1, URI= /api/admin/statistics/admin/demand-trend, METHOD= GET, code=5000, message=
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'qisi_db.demand.create_time' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+### The error may exist in file [C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes\mapper\demand\DemandMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT             DATE_FORMAT(create_time, '%m-%d') AS date,             COUNT(1) AS count         FROM demand         WHERE             DATE(create_time) >= ?           AND DATE(create_time) <= ?         GROUP BY DATE(create_time)         ORDER BY DATE(create_time)
+### Cause: java.sql.SQLSyntaxErrorException: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'qisi_db.demand.create_time' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+; bad SQL grammar []
+2026-05-25 21:06:56.170 [http-nio-8080-exec-4] ERROR c.s.q.c.e.GlobalExceptionHandler - [数据库异常] IP= 127.0.0.1, URI= /api/admin/statistics/admin/demand-trend, METHOD= GET, code=5000, message=
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'qisi_db.demand.create_time' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+### The error may exist in file [C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes\mapper\demand\DemandMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT             DATE_FORMAT(create_time, '%m-%d') AS date,             COUNT(1) AS count         FROM demand         WHERE             DATE(create_time) >= ?           AND DATE(create_time) <= ?         GROUP BY DATE(create_time)         ORDER BY DATE(create_time)
+### Cause: java.sql.SQLSyntaxErrorException: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'qisi_db.demand.create_time' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+; bad SQL grammar []
+2026-05-25 21:07:29.579 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-25 21:07:29.887 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-25 21:07:29.889 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-05-25 21:07:29.889 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1fe37d27]]
+2026-05-25 21:07:29.889 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-05-25 21:07:32.655 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 159784 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-05-25 21:07:32.657 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-05-25 21:07:33.442 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-25 21:07:33.444 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-25 21:07:33.515 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 0 Redis repository interfaces.
+2026-05-25 21:07:34.030 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-25 21:07:34.109 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1422 ms
+2026-05-25 21:07:35.501 [main] ERROR c.s.q.QiSiSystemApplication - 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+### The error may exist in com/sc/qisi_system/module/user/mapper/SysUserMapper.java (best guess)
+### The error may involve com.sc.qisi_system.module.user.mapper.SysUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sys_user  ( id, username, password, name, phone, email,  user_type, status, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?  )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+; Duplicate entry 'admin' for key 'sys_user.uk_username'
+2026-05-25 21:07:35.518 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-05-25 21:07:35.699 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-05-25 21:07:36.747 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-05-25 21:07:37.106 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6722db6e
+2026-05-25 21:07:37.255 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-05-25 21:07:37.341 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-05-25 21:07:37.342 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@41736818]]
+2026-05-25 21:07:37.343 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-05-25 21:07:37.362 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-25 21:07:37.369 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.118 seconds (process running for 5.633)
+2026-05-25 21:07:37.372 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-05-25 21:07:37.460 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-05-25 21:07:37.815 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-05-25 21:07:46.080 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-25 21:07:46.081 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-05-25 21:08:37.348 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-05-25 21:09:17.147 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-25 21:09:17.450 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-25 21:09:17.451 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-05-25 21:09:17.451 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@41736818]]
+2026-05-25 21:09:17.451 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-05-25 21:09:19.665 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 169804 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-05-25 21:09:19.668 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-05-25 21:09:20.490 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-25 21:09:20.492 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-25 21:09:20.572 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 0 Redis repository interfaces.
+2026-05-25 21:09:21.093 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-25 21:09:21.175 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1472 ms
+2026-05-25 21:09:22.332 [main] ERROR c.s.q.QiSiSystemApplication - 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+### The error may exist in com/sc/qisi_system/module/user/mapper/SysUserMapper.java (best guess)
+### The error may involve com.sc.qisi_system.module.user.mapper.SysUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sys_user  ( id, username, password, name, phone, email,  user_type, status, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?  )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+; Duplicate entry 'admin' for key 'sys_user.uk_username'
+2026-05-25 21:09:22.343 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-05-25 21:09:22.449 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-05-25 21:09:23.209 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-05-25 21:09:23.487 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6722db6e
+2026-05-25 21:09:23.614 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-05-25 21:09:23.696 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-05-25 21:09:23.696 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2433bcd4]]
+2026-05-25 21:09:23.697 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-05-25 21:09:23.717 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-25 21:09:23.725 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.451 seconds (process running for 4.983)
+2026-05-25 21:09:23.728 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-05-25 21:09:23.813 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-05-25 21:09:24.159 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-05-25 21:09:27.404 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-25 21:09:27.407 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-05-25 21:09:27.806 [http-nio-8080-exec-2] ERROR c.s.q.c.e.GlobalExceptionHandler - [数据库异常] IP= 127.0.0.1, URI= /api/admin/statistics/demand-category, METHOD= GET, code=5000, message=
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 't.code' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+### The error may exist in file [C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes\mapper\demand\DemandMapper.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT         t.categoryName,         COUNT(d.category) AS count         FROM (         SELECT '技术需求' AS categoryName, 1 AS code UNION ALL         SELECT '研究需求' AS categoryName, 2 AS code UNION ALL         SELECT '创新创意' AS categoryName, 3 AS code UNION ALL         SELECT '其他' AS categoryName, 99 AS code         ) t         LEFT JOIN demand d ON t.code = d.category         GROUP BY t.categoryName         ORDER BY t.code
+### Cause: java.sql.SQLSyntaxErrorException: Expression #1 of ORDER BY clause is not in GROUP BY clause and contains nonaggregated column 't.code' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+; bad SQL grammar []
+2026-05-25 21:09:50.144 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-25 21:09:50.422 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-25 21:09:50.424 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-05-25 21:09:50.425 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2433bcd4]]
+2026-05-25 21:09:50.425 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-05-25 21:09:52.762 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 171684 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-05-25 21:09:52.765 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-05-25 21:09:53.640 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-25 21:09:53.642 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-25 21:09:53.708 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 0 Redis repository interfaces.
+2026-05-25 21:09:54.209 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-25 21:09:54.289 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1490 ms
+2026-05-25 21:09:56.280 [main] ERROR c.s.q.QiSiSystemApplication - 
+### Error updating database.  Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+### The error may exist in com/sc/qisi_system/module/user/mapper/SysUserMapper.java (best guess)
+### The error may involve com.sc.qisi_system.module.user.mapper.SysUserMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO sys_user  ( id, username, password, name, phone, email,  user_type, status, create_time, update_time )  VALUES (  ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?  )
+### Cause: java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'sys_user.uk_username'
+; Duplicate entry 'admin' for key 'sys_user.uk_username'
+2026-05-25 21:09:56.315 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-05-25 21:09:56.600 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-05-25 21:09:58.023 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-05-25 21:09:58.303 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6722db6e
+2026-05-25 21:09:58.452 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-05-25 21:09:58.535 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-05-25 21:09:58.535 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6bfc5296]]
+2026-05-25 21:09:58.535 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-05-25 21:09:58.548 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-05-25 21:09:58.555 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 6.288 seconds (process running for 6.94)
+2026-05-25 21:09:58.557 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-05-25 21:09:58.639 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-05-25 21:09:59.034 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-05-25 21:10:02.537 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-25 21:10:02.539 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-05-25 21:10:58.547 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-05-25 21:14:42.681 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-25 21:14:43.010 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-25 21:14:43.015 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-05-25 21:14:43.016 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6bfc5296]]
+2026-05-25 21:14:43.016 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
