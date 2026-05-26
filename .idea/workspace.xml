@@ -6,7 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminDemandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminDemandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStaffDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStaffDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStudentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/SchoolStudentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminIndexServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminIndexServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminWhitelistServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminWhitelistServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/service/impl/ApplyOperateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/service/impl/ApplyOperateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/domain/DemandPublisherList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/domain/DemandPublisherList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/vo/DemandListVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/vo/DemandListVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/service/impl/MinioServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/service/impl/MinioServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +81,7 @@
     "JUnit.QiSiSystemApplicationTests.addAdminUser.executor": "Run",
     "JUnit.QiSiSystemApplicationTests.contextLoads.executor": "Run",
     "JUnit.QiSiSystemApplicationTests.getPassword.executor": "Run",
+    "Maven.QiSi-System [package].executor": "Run",
     "Maven.QiSiSystem [clean].executor": "Run",
     "Maven.QiSiSystem [compile].executor": "Run",
     "Maven.QiSiSystem [package].executor": "Run",
@@ -122,7 +136,7 @@
       <method v="2" />
     </configuration>
     <configuration name="QiSiSystemApplicationTests.addAdminUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="QiSiSystem" />
+      <module name="QiSi-System" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.sc.qisi_system.*" />
@@ -138,7 +152,7 @@
       </method>
     </configuration>
     <configuration name="QiSiSystemApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="QiSiSystem" />
+      <module name="QiSi-System" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.sc.qisi_system.*" />
@@ -154,7 +168,7 @@
       </method>
     </configuration>
     <configuration name="QiSiSystemApplicationTests.getPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="QiSiSystem" />
+      <module name="QiSi-System" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.sc.qisi_system.*" />
@@ -169,8 +183,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="QiSi-System" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="QiSi-System" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
     <configuration name="QiSiSystemApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="QiSiSystem" />
+      <module name="QiSi-System" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.sc.qisi_system.QiSiSystemApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -249,15 +274,8 @@
       <workItem from="1779365539782" duration="886000" />
       <workItem from="1779369368567" duration="620000" />
       <workItem from="1779515351440" duration="14023000" />
-      <workItem from="1779674405832" duration="13676000" />
-    </task>
-    <task id="LOCAL-00006" summary="完成部分TODO，修改部分结构">
-      <option name="closed" value="true" />
-      <created>1776595718169</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1776595718169</updated>
+      <workItem from="1779674405832" duration="19806000" />
+      <workItem from="1779785494051" duration="5000000" />
     </task>
     <task id="LOCAL-00007" summary="测试apifox，完成部分todo，完善代码">
       <option name="closed" value="true" />
@@ -643,7 +661,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779714893022</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1779715825972</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1779715825972</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

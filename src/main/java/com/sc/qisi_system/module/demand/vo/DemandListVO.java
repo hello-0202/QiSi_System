@@ -48,6 +48,12 @@ public class DemandListVO {
 
 
     /**
+     * 需求描述
+     */
+    private String description;
+
+
+    /**
      * 研究周期: 单位：天
      */
     private Integer researchCycle;

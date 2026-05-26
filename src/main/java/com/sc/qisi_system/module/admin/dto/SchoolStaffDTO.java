@@ -11,7 +11,6 @@ public class SchoolStaffDTO {
     /**
      * 主键id
      */
-    @NotNull
     private Long id;
 
 

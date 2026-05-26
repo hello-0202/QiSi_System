@@ -316,7 +316,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         UserWorkbenchStatVO.StatCard pendingNotice = new UserWorkbenchStatVO.StatCard();
         pendingNotice.setKey(UserWorkbenchStatEnum.PENDING_NOTICE.getKey());
         pendingNotice.setLabel(UserWorkbenchStatEnum.PENDING_NOTICE.getLabel());
-        pendingNotice.setValue(null);
+        pendingNotice.setValue(0);
         pendingNotice.setTrend(0);
         statList.add(pendingNotice);
 
@@ -456,19 +456,13 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         wrapper.orderByDesc(Demand::getCreateTime);
         wrapper.last("LIMIT 10");
         return demandMapper.selectList(wrapper).stream()
-                .map(this::convertToVO)
+                .map(item->{
+                            DemandListVO demandListVO = convertToDemandListVO(item);
+                            demandListVO.setDescription(item.getDescription());
+                            return demandListVO;
+                        }
+                        )
                 .toList();
-    }
-
-
-    private DemandListVO convertToVO(Demand demand) {
-        DemandListVO vo = new DemandListVO();
-        vo.setId(demand.getId());
-        vo.setTitle(demand.getTitle());
-        vo.setCategory(demand.getCategory());
-        vo.setStatus(demand.getStatus());
-        vo.setCreateTime(demand.getCreateTime());
-        return vo;
     }
 
 
@@ -485,6 +479,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         DemandPublisherList publisherList = new DemandPublisherList();
         BeanUtils.copyProperties(userBase, publisherList);
         publisherList.setAvatarUrl(minioService.getUserAvatarUrl(userBase.getAvatar()));
+        publisherList.setId(demand.getPublisherId());
         vo.setDemandPublisherList(publisherList);
 
         return vo;

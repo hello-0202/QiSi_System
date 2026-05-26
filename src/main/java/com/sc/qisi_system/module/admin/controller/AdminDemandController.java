@@ -5,7 +5,7 @@ import com.sc.qisi_system.module.admin.dto.AdminDemandQueryDTO;
 import com.sc.qisi_system.module.admin.dto.AuditDemandDTO;
 import com.sc.qisi_system.module.admin.service.AdminDemandService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -52,7 +52,7 @@ public class AdminDemandController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/detail")
     public Result getDemandDetail(
-            @NotEmpty(message = "id不能为空") @RequestParam Long demandId) {
+            @NotNull(message = "id不能为空") @RequestParam Long demandId) {
         return Result.success(adminDemandService.getDemandDetail(demandId));
     }
 

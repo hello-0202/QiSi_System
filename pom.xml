@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.sc</groupId>
-    <artifactId>QiSiSystem</artifactId>
+    <artifactId>QiSi-System</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>QiSiSystem</name>
     <description>QiSiSystem</description>

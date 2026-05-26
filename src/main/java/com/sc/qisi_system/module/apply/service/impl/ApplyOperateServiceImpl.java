@@ -50,6 +50,10 @@ public class ApplyOperateServiceImpl implements ApplyOperateService {
             throw new BusinessException(ResultCode.DEMAND_STATUS_ERROR);
         }
 
+        if(Objects.equals(demand.getPublisherId(), userId)){
+            throw new BusinessException(ResultCode.SELF_APPLICATION_FORBIDDEN);
+        }
+
         // 4. 构造查询条件，判断是否重复申请
         LambdaQueryWrapper<DemandApply> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper

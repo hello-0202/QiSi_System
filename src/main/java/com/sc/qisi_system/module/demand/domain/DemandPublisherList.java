@@ -7,6 +7,12 @@ public class DemandPublisherList {
 
 
     /**
+     * 用户id
+     */
+    private Long id;
+
+
+    /**
      * 头像
      */
     private String avatarUrl;

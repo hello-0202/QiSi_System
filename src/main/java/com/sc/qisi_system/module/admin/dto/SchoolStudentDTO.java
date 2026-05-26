@@ -2,7 +2,6 @@ package com.sc.qisi_system.module.admin.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
@@ -12,7 +11,6 @@ public class SchoolStudentDTO {
     /**
      * 主键id
      */
-    @NotNull
     private Long id;
 
 

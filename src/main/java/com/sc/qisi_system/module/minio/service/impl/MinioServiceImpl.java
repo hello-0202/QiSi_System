@@ -290,13 +290,12 @@ public class MinioServiceImpl implements MinioService {
     @Override
     public String updateUserAvatar(Long userId, MultipartFile file) {
         // 1. 构建文件路径信息
-        String bucketName = "avatar";
         String suffix = FileUtil.extName(file.getOriginalFilename());
         String objectName = "avatar/" + userId + "/" + UUID.randomUUID() + "." + suffix;
 
         try {
             // 2. 上传到MinIO
-            uploadFileToMinio(bucketName, file, objectName);
+            uploadFileToMinio(minioConfig.getAvatarBucket(), file, objectName);
             log.info("用户【{}】头像上传成功，路径：{}", userId, objectName);
 
             return objectName;
@@ -318,7 +317,7 @@ public class MinioServiceImpl implements MinioService {
         }
 
         // 1. 生成头像访问链接
-        return generateUrl("avatar", avatarPath);
+        return generateUrl(minioConfig.getAvatarBucket(), avatarPath);
     }
 
 

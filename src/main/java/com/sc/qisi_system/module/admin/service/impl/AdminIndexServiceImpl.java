@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -67,6 +68,10 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     public PageResult<MenuRouteVO> getRouters(MenuQueryDTO menuQueryDTO) {
         // 1. 根据身份ID获取菜单路由
         List<MenuRouteVO> tree = sysUserTypeIdentityService.getMenuRouteList(menuQueryDTO.getIdentityId());
+
+        if (tree == null) {
+            tree = new ArrayList<>();
+        }
 
         // 2. 封装分页结果返回
         PageResult<MenuRouteVO> pageResult = new PageResult<>();
