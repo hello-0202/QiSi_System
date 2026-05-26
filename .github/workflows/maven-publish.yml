@@ -1,11 +1,8 @@
 name: Java CI with Maven
 
-# 只在 push main 时触发；PR 可选关掉
 on:
   push:
     branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
 
 jobs:
   build-and-deploy:
@@ -24,7 +21,6 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -DskipTests
 
-      # ========== 下面是新增：上传到服务器 + Docker 启动 ==========
       - name: Upload JAR to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -41,16 +37,17 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd /opt/qisi/project
-            JAR_NAME=$(ls *.jar | head -1)
-            # 停删旧容器
-            docker stop qisi-app || true
-            docker rm qisi-app || true
-            # 启动新容器（用宿主机网络，直接绑定 8080）
-            docker run -d \
-              --name qisi-app \
-              --network host \
-              -e SPRING_PROFILES_ACTIVE=prod \
-              --restart=always \
-              1panel/java:17 \
-              java -jar /opt/qisi/project/$JAR_NAME
+              cd /opt/qisi/project
+              # 只取刚上传的、带 SNAPSHOT 或最新的 jar（更稳）
+              JAR_NAME=$(ls -t *.jar | head -1)
+              # 停删旧容器
+              docker stop QiSi-System || true
+              docker rm QiSi-System || true
+              # 启动：推荐用 bridge + 端口映射，比 host 安全
+              docker run -d \
+                --name QiSi-System \
+                -p 8080:8080 \
+                -e SPRING_PROFILES_ACTIVE=prod \
+                --restart=always \
+                1panel/java:17 \
+                java -jar /opt/qisi/project/$JAR_NAME
