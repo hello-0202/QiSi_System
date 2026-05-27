@@ -8,6 +8,7 @@ import com.sc.qisi_system.common.enums.KickOffReasonEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.admin.dto.SysUserQueryDTO;
 import com.sc.qisi_system.module.admin.service.AdminUserService;
 import com.sc.qisi_system.module.admin.vo.SysUserVO;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -106,6 +108,9 @@ public class AdminUserServiceImpl implements AdminUserService {
         SysUser sysUser = sysUserService.getById(userId);
         if (sysUser == null) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
+        }
+        if(Objects.equals(sysUser.getId(), SecurityUtils.getCurrentUserId())) {
+            throw new BusinessException(ResultCode.SELF_APPLICATION_FORBIDDEN);
         }
 
         // 2. 设置用户状态为禁用

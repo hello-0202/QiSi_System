@@ -17,10 +17,11 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
 
-        // ✅ 关键：放行 局域网所有IP + localhost
+        // 放行：localhost、192.168 网段、172.16~172.31 容器网段
         config.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:*",
-                "http://192.168.*.*"  // 👈 这一行就是你局域网不能访问的原因
+                "http://192.168.*.*",
+                "http://172.*.*.*"
         ));
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
