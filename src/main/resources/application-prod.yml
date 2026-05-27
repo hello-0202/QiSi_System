@@ -34,7 +34,7 @@ jwt:
   access-token-ttl: 900000                              # Token 有效期：15分钟
 
 token:
-  refresh-token-ttl: 168        #小时
+  refresh-token-ttl: 12      #小时
 
 session:
   mapping-ttl-hours: 1

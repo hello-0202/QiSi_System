@@ -1,5 +1,6 @@
 package com.sc.qisi_system;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.enums.UserTypeEnum;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.service.SysUserService;
@@ -25,11 +26,21 @@ public class QiSiSystemApplication {
         SpringApplication.run(QiSiSystemApplication.class, args);
     }
 
-    // 项目启动后自动执行：插入管理员
+
     @PostConstruct
     public void insertAdmin() {
         try {
+            boolean exists = sysUserService.exists(
+                    Wrappers.lambdaQuery(SysUser.class)
+                            .eq(SysUser::getUsername, "admin")
+            );
 
+            if (exists) {
+                log.info("✅ 管理员账号已初始化");
+                return;
+            }
+
+            log.info("开始初始化管理员账号...");
             SysUser user = new SysUser();
             user.setUsername("admin");
             user.setPassword(passwordEncoder.encode("123456"));
@@ -39,12 +50,16 @@ public class QiSiSystemApplication {
             user.setEmail("admin@qisi.com");
             user.setAvatar(null);
             user.setStatus(true);
-            sysUserService.save(user);
 
-            System.out.println("✅ 管理员账号已自动插入：admin / 123456");
+            sysUserService.save(user);
+            log.info("✅ 管理员账号初始化成功");
+            log.info("账号：admin");
+            log.info("密码：123456");
+
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("❌ 管理员账号初始化失败：", e);
         }
     }
-
 }
+
+

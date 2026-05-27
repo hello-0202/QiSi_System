@@ -30,5 +30,10 @@ public interface SysUserService extends IService<SysUser> {
     UserProfileVO getUserProfile(Long userId);
 
 
+    /**
+     * 获取已注册用户数
+     *
+     * @return 用户数量
+     */
     Long countTotalUser();
 }
