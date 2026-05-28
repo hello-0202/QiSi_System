@@ -1,12 +1,39 @@
+# ==============================
+# Spring Boot 监控配置
+# 开启指标暴露，用于 Grafana 监控 JVM、接口、内存、GC 等
+# ==============================
+management:
+  endpoints:
+    web:
+      # 暴露所有监控端点（* 代表全部，生产环境可按需缩小范围）
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      # 健康检查显示详细信息（方便排查服务状态）
+      show-details: always
+  metrics:
+    tags:
+      # 给监控指标打应用名称标签，多项目监控时区分不同服务
+      application: ${spring.application.name}
+  prometheus:
+    metrics:
+      export:
+        # 开启 Prometheus 指标导出（必须开启才能被监控）
+        enabled: true
+
+# ==============================
+# Spring 核心配置
+# ==============================
 spring:
-  # 数据库连接配置
+  # 数据库连接配置（MySQL）
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/qisi_db?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: 1234
 
-  # Redis 基础配置
+  # Redis 配置（使用 lettuce 连接池）
   data:
     redis:
       host: 192.168.198.131
@@ -14,97 +41,94 @@ spring:
       password: 1234
       lettuce:
         pool:
-          max-active: 10
-          maxIdle: 10
-          minIdle: 1
-          time-between-eviction-runs: 10s
+          max-active: 10        # 最大连接数
+          maxIdle: 10           # 最大空闲连接
+          minIdle: 1            # 最小空闲连接
+          time-between-eviction-runs: 10s  # 空闲连接清理间隔
 
+  # 文件上传配置（最大支持 1000MB 文件）
   servlet:
     multipart:
       max-file-size: 1000MB
       max-request-size: 1000MB
 
+  # 控制台彩色日志输出（Windows/Linux 都生效）
   output:
     ansi:
       enabled: always
 
-
+# ==============================
+# JWT 登录令牌配置
+# ==============================
 jwt:
-  secret: 7sK9$pR2!vG5^nQ8&bT1*dF6@hJ3%mL0#cX7          # 密钥
-#  access-token-ttl: 900000                              # Token 有效期：15分钟
-  access-token-ttl: 99999999
+  secret: 7sK9$pR2!vG5^nQ8&bT1*dF6@hJ3%mL0#cX7          # JWT 密钥（越复杂越安全）
+  access-token-ttl: 99999999                           # 访问令牌有效期（毫秒）
 
+# 刷新令牌有效期（单位：小时）
 token:
-  refresh-token-ttl: 168        #小时
+  refresh-token-ttl: 168
 
+# 用户会话映射有效期（单位：小时）
 session:
   mapping-ttl-hours: 1
 
-
-# MyBatis-Plus配置
+# ==============================
+# MyBatis-Plus 数据库框架配置
+# ==============================
 mybatis-plus:
   configuration:
-    # 开启MyBatis-Plus日志
+    # 打印 SQL 日志（方便调试）
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
   global-config:
     db-config:
-      # 主键生成策略（雪花算法/自增等）
+      # 主键生成策略：ASSIGN_ID = 雪花算法（分布式唯一 ID）
       id-type: ASSIGN_ID
 
-## 测试环境日志：打印SQL、调试信息
-#logging:
-#  level:
-#    root: INFO                      # 全局默认 INFO
-#    com.sc.qisisystem: INFO         # 关闭你自己项目中的 DEBUG 日志（如果不需要）
-#    org.springframework: INFO        # 关闭 Spring 框架的 DEBUG
-#    org.springframework.web: INFO
-#    org.springframework.boot: INFO
-#    org.apache.catalina: WARN
-#    org.mybatis: INFO
-#    com.baomidou: INFO
-#    io.lettuce.core: INFO            # Redis 客户端
-#    com.zaxxer.hikari: WARN
-#    logging.level.org.springframework.messaging: DEBUG
-#    logging.level.org.springframework.web.socket.messaging: DEBUG
+# ==============================
+# 日志配置（输出到控制台 + 文件）
+# ==============================
 logging:
   level:
-    root: INFO
-    com.sc.qisisystem: INFO
-    org.springframework: INFO
+    root: INFO                                # 全局日志级别
+    com.sc.qisisystem: INFO                   # 项目包日志级别
+    org.springframework: INFO                 # Spring 框架日志
     org.springframework.web: INFO
     org.springframework.boot: INFO
-    org.apache.catalina: WARN
-    org.mybatis: INFO
-    com.baomidou.mybatis: INFO
-    io.lettuce.core: INFO
-    com.zaxxer.hikari: WARN
+    org.apache.catalina: WARN                 # Tomcat 日志
+    org.mybatis: INFO                         # MyBatis 日志
+    com.baomidou.mybatis: INFO                # MyBatis-Plus
+    io.lettuce.core: INFO                     # Redis 客户端
+    com.zaxxer.hikari: WARN                   # 数据库连接池
   file:
-    name: ./logs/qisi.log        # 日志文件路径
+    name: ./logs/qisi.log                     # 日志文件保存路径
   pattern:
     console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(%-40.40logger{39}){cyan} : %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   logback:
     rollingpolicy:
-      max-file-size: 10MB
-      max-history: 30
+      max-file-size: 10MB                     # 单个日志文件最大大小
+      max-history: 30                         # 最多保留 30 天日志
 
-
-# MinIO 对象存储配置
+# ==============================
+# MinIO 对象存储（文件上传服务）
+# ==============================
 minio:
-  endpoint: http://192.168.5.106:9000       # MinIO服务端地址
-  access-key: admin                     # 访问密钥（对应MinIO的账号）
-  secret-key: 12345678                  # 秘钥（对应MinIO的密码）
-  read-timeout: 6000                    # 读取超时时间（毫秒）
-  connect-timeout: 6000                 # 连接超时时间（毫秒）
-  write-timeout: 6000
+  endpoint: http://192.168.5.106:9000         # MinIO 服务地址
+  access-key: admin                           # 用户名
+  secret-key: 12345678                        # 密码
+  read-timeout: 6000                          # 读取超时
+  connect-timeout: 6000                       # 连接超时
+  write-timeout: 6000                         # 写入超时
   bucket:
-    avatar: qisi-system-avatar           # 头像桶
-    attachment: qisi-system-attachment   # 附件桶
+    avatar: qisi-system-avatar                # 头像存储桶
+    attachment: qisi-system-attachment        # 附件存储桶
 
-
+# ==============================
+# 验证码配置
+# ==============================
 captcha:
-  width: 120
-  height: 40
-  length: 4
-  ttl: 60
-  ip-lock-ttl: 3
+  width: 120            # 图片宽度
+  height: 40            # 图片高度
+  length: 4             # 验证码字符个数
+  ttl: 60               # 验证码有效期（秒）
+  ip-lock-ttl: 3        # IP 锁定时间（分钟）

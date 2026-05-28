@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // ✅ OPTIONS 必须放第一！
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         // 放行登录注册
                         .requestMatchers("/api/user/**").permitAll()
                         // 放行WebSocket

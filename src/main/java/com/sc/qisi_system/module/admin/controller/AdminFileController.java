@@ -19,7 +19,7 @@ import java.io.IOException;
  * 功能: 教职工白名单、学生白名单Excel批量导入等文件相关管理操作
  */
 @PreAuthorize("hasRole('ADMIN')")
-@RequestMapping("/admin/file")
+@RequestMapping("/api/admin/file")
 @RequiredArgsConstructor
 @RestController
 @Validated
