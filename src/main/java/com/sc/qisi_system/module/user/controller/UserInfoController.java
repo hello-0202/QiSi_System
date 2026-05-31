@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.user.controller;
 
 import com.sc.qisi_system.common.result.Result;
+import com.sc.qisi_system.module.admin.dto.MenuQueryDTO;
 import com.sc.qisi_system.module.user.dto.UserInfoDTO;
 import com.sc.qisi_system.module.user.service.UserInfoService;
 import com.sc.qisi_system.module.user.vo.EntEmployeeInfoVO;
@@ -93,10 +94,36 @@ public class UserInfoController {
      * @param entEmployeeInfoVO 请求体
      * @return 统一返回结果
      */
-    @PostMapping("/upadte/entemployee-info")
+    @PostMapping("/update/ent-employee-info")
     public Result updateEntEmployeeInfo(
             @RequestBody EntEmployeeInfoVO entEmployeeInfoVO){
         userInfoService.updateEntEmployeeInfo(entEmployeeInfoVO);
         return Result.success();
+    }
+
+
+    /**
+     * 获取当前登录用户的业务身份接口
+     * 角色: 管理员
+     *
+     * @return 当前用户业务身份列表
+     */
+    @GetMapping("/user-identity-list")
+    public Result getUserIdentityList() {
+        return Result.success(userInfoService.getUserIdentity());
+    }
+
+
+    /**
+     * 获取动态路由(按角色)接口
+     * 角色: 管理员
+     *
+     * @param menuQueryDTO 路由查询条件
+     * @return 动态路由信息
+     */
+    @PostMapping("/user/routers")
+    public Result getRouters(
+            @RequestBody MenuQueryDTO menuQueryDTO) {
+        return Result.success(userInfoService.getRouters(menuQueryDTO));
     }
 }

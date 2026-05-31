@@ -2,9 +2,14 @@ package com.sc.qisi_system.module.user.service.impl;
 
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.sc.qisi_system.common.enums.UserIdentityEnum;
 import com.sc.qisi_system.common.exception.BusinessException;
+import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.common.utils.SecurityUtils;
+import com.sc.qisi_system.module.admin.dto.MenuQueryDTO;
+import com.sc.qisi_system.module.admin.service.AdminIndexService;
+import com.sc.qisi_system.module.admin.vo.MenuRouteVO;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.user.dto.UserInfoDTO;
 import com.sc.qisi_system.module.user.entity.EntEmployee;
@@ -35,6 +40,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     private final EntEmployeeMapper entEmployeeMapper;
     private final SysUserService sysUserService;
     private final MinioService minioService;
+    private final AdminIndexService adminIndexService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -119,5 +125,24 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         BeanUtils.copyProperties(entEmployeeInfoVO, entEmployee, "userId");
         entEmployeeMapper.updateById(entEmployee);
+    }
+
+
+
+    /**
+     * 获取当前用户业务身份
+     */
+    @Override
+    public UserIdentityEnum getUserIdentity() {
+        return adminIndexService.getUserIdentity();
+    }
+
+
+    /**
+     * 根据身份ID获取路由菜单
+     */
+    @Override
+    public PageResult<MenuRouteVO> getRouters(MenuQueryDTO menuQueryDTO) {
+        return adminIndexService.getRouters(menuQueryDTO);
     }
 }

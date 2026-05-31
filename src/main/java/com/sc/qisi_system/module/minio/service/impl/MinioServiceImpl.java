@@ -295,7 +295,7 @@ public class MinioServiceImpl implements MinioService {
         String objectName = "avatar/" + userId + "/" + UUID.randomUUID() + "." + suffix;
 
         try {
-            // 👇 核心新增：先根据 userId 删除旧头像（没有也不报错）
+            // 根据 userId 删除旧头像
             deleteOldUserAvatar(userId);
 
             // 2. 上传新头像到 MinIO
@@ -303,7 +303,6 @@ public class MinioServiceImpl implements MinioService {
             log.info("用户【{}】头像上传成功，路径：{}", userId, objectName);
 
             return objectName;
-
         } catch (Exception e) {
             log.error("用户【{}】头像上传失败", userId, e);
             throw new SystemException(ResultCode.MINIO_UPLOAD_FAILED, "头像上传失败");
@@ -467,8 +466,8 @@ public class MinioServiceImpl implements MinioService {
             String pathPrefix,
             EntityBuilder<T> entityBuilder,
             BatchSaver<T> batchSaver,
-            RollBacker<T> rollBacker
-    ){
+            RollBacker<T> rollBacker){
+
         if (isEmpty(files)) {
             return buildEmptyUploadVO();
         }

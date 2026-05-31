@@ -1,5 +1,9 @@
 package com.sc.qisi_system.module.user.service;
 
+import com.sc.qisi_system.common.enums.UserIdentityEnum;
+import com.sc.qisi_system.common.result.PageResult;
+import com.sc.qisi_system.module.admin.dto.MenuQueryDTO;
+import com.sc.qisi_system.module.admin.vo.MenuRouteVO;
 import com.sc.qisi_system.module.user.dto.UserInfoDTO;
 import com.sc.qisi_system.module.user.vo.EntEmployeeInfoVO;
 import com.sc.qisi_system.module.user.vo.UserInfoVO;
@@ -60,4 +64,8 @@ public interface UserInfoService {
      * @param entEmployeeInfoVO 请求体
      */
     void updateEntEmployeeInfo(EntEmployeeInfoVO entEmployeeInfoVO);
+
+    UserIdentityEnum getUserIdentity();
+
+    PageResult<MenuRouteVO> getRouters(MenuQueryDTO menuQueryDTO);
 }

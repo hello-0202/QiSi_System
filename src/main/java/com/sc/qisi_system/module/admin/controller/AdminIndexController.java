@@ -27,32 +27,6 @@ public class AdminIndexController {
 
 
     /**
-     * 获取当前登录用户的业务身份接口
-     * 角色: 管理员
-     *
-     * @return 当前用户业务身份列表
-     */
-    @GetMapping("/user-identity-list")
-    public Result getUserIdentityList() {
-        return Result.success(adminIndexService.getUserIdentity());
-    }
-
-
-    /**
-     * 获取动态路由(按角色)接口
-     * 角色: 管理员
-     *
-     * @param menuQueryDTO 路由查询条件
-     * @return 动态路由信息
-     */
-    @PostMapping("/user/routers")
-    public Result getRouters(
-            @RequestBody MenuQueryDTO menuQueryDTO) {
-        return Result.success(adminIndexService.getRouters(menuQueryDTO));
-    }
-
-
-    /**
      * 条件查询所有菜单列表接口
      * 角色: 管理员
      *
