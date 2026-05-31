@@ -73,8 +73,8 @@ public class ApplyQueryController {
      */
     @GetMapping("/my-detail")
     public Result getMyApplyDetail(
-            @NotNull @RequestParam Long applyId) {
-        return Result.success(applyQueryService.getMyApplyDetail(applyId));
+            @NotNull @RequestParam String applyId) {
+        return Result.success(applyQueryService.getMyApplyDetail(Long.parseLong(applyId)));
     }
 
 

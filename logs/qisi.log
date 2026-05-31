@@ -1687,3 +1687,61 @@ java.lang.NullPointerException: text
 2026-05-31 15:44:31.848 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
 2026-05-31 15:47:25.326 [http-nio-8080-exec-6] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
 2026-05-31 15:47:42.963 [http-nio-8080-exec-7] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:49:29.858 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:49:33.924 [http-nio-8080-exec-2] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:49:39.257 [http-nio-8080-exec-4] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:49:40.741 [http-nio-8080-exec-1] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:49:47.966 [http-nio-8080-exec-9] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:49:54.885 [http-nio-8080-exec-5] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:50:12.128 [http-nio-8080-exec-3] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:52:09.640 [http-nio-8080-exec-1] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:10.363 [http-nio-8080-exec-6] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user-identity-list, METHOD= GET, code=4000006, message=Access Denied
+2026-05-31 15:52:10.425 [http-nio-8080-exec-7] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user/routers, METHOD= POST, code=4000006, message=Access Denied
+2026-05-31 15:52:11.214 [http-nio-8080-exec-9] INFO  c.s.q.c.w.h.StompPrincipalHandshakeHandler - 进入websocket连接前
+2026-05-31 15:52:11.245 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:52:11.317 [http-nio-8080-exec-5] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:11.318 [clientOutboundChannel-7] INFO  c.s.q.c.w.l.WebSocketSessionEventListener - 进入连接后监听
+2026-05-31 15:52:11.346 [http-nio-8080-exec-2] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:11.347 [http-nio-8080-exec-2] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:12.613 [http-nio-8080-exec-4] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:14.908 [http-nio-8080-exec-3] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user-identity-list, METHOD= GET, code=4000006, message=Access Denied
+2026-05-31 15:52:15.012 [http-nio-8080-exec-1] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user/routers, METHOD= POST, code=4000006, message=Access Denied
+2026-05-31 15:52:15.522 [http-nio-8080-exec-6] INFO  c.s.q.c.w.h.StompPrincipalHandshakeHandler - 进入websocket连接前
+2026-05-31 15:52:15.537 [http-nio-8080-exec-7] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:52:15.614 [http-nio-8080-exec-8] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:15.616 [clientOutboundChannel-9] INFO  c.s.q.c.w.l.WebSocketSessionEventListener - 进入连接后监听
+2026-05-31 15:52:15.651 [http-nio-8080-exec-10] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:15.652 [http-nio-8080-exec-10] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:26.624 [http-nio-8080-exec-5] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:26.885 [http-nio-8080-exec-2] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user-identity-list, METHOD= GET, code=4000006, message=Access Denied
+2026-05-31 15:52:26.984 [http-nio-8080-exec-4] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user/routers, METHOD= POST, code=4000006, message=Access Denied
+2026-05-31 15:52:27.346 [http-nio-8080-exec-3] INFO  c.s.q.c.w.h.StompPrincipalHandshakeHandler - 进入websocket连接前
+2026-05-31 15:52:27.881 [http-nio-8080-exec-1] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:27.882 [clientOutboundChannel-11] INFO  c.s.q.c.w.l.WebSocketSessionEventListener - 进入连接后监听
+2026-05-31 15:52:27.886 [http-nio-8080-exec-9] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:52:27.892 [http-nio-8080-exec-7] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:52:27.893 [http-nio-8080-exec-7] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:38.986 [http-nio-8080-exec-8] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:39.280 [http-nio-8080-exec-10] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user-identity-list, METHOD= GET, code=4000006, message=Access Denied
+2026-05-31 15:54:39.837 [http-nio-8080-exec-5] INFO  c.s.q.c.w.h.StompPrincipalHandshakeHandler - 进入websocket连接前
+2026-05-31 15:54:39.842 [http-nio-8080-exec-2] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:54:39.849 [http-nio-8080-exec-3] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:39.850 [clientOutboundChannel-13] INFO  c.s.q.c.w.l.WebSocketSessionEventListener - 进入连接后监听
+2026-05-31 15:54:39.867 [http-nio-8080-exec-1] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:39.867 [http-nio-8080-exec-1] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:51.616 [http-nio-8080-exec-6] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:51.881 [http-nio-8080-exec-9] ERROR c.s.q.c.e.GlobalExceptionHandler - [权限异常] IP= 192.168.5.176, URI= /api/admin/index/user-identity-list, METHOD= GET, code=4000006, message=Access Denied
+2026-05-31 15:54:52.298 [http-nio-8080-exec-7] INFO  c.s.q.c.w.h.StompPrincipalHandshakeHandler - 进入websocket连接前
+2026-05-31 15:54:52.305 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.176, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-05-31 15:54:52.368 [http-nio-8080-exec-5] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:52.369 [clientOutboundChannel-15] INFO  c.s.q.c.w.l.WebSocketSessionEventListener - 进入连接后监听
+2026-05-31 15:54:52.375 [http-nio-8080-exec-2] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:54:52.376 [http-nio-8080-exec-2] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:55:02.507 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-31 15:55:02.890 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-05-31 15:55:02.900 [SpringApplicationShutdownHook] INFO  c.s.q.c.w.i.WebSocketChannelInterceptor - 进入拦截器
+2026-05-31 15:55:02.901 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-05-31 15:55:02.901 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@538fb761]]
+2026-05-31 15:55:02.901 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-05-31 15:55:08.877 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 183236 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-05-31 15:55:08.879 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"

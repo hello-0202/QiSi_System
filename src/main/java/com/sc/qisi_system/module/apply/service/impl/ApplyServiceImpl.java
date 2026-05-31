@@ -80,7 +80,7 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
 
         // 2. 校验申请记录是否存在
         if(demandApply == null) {
-            throw new BusinessException( ResultCode.DEMAND_APPLY_NOT_EXIST);
+            throw new BusinessException(ResultCode.DEMAND_APPLY_NOT_EXIST);
         }
 
         // 3. 转换为VO并返回
