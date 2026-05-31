@@ -19,6 +19,7 @@ import com.sc.qisi_system.module.practice.entity.DemandProgressAttachment;
 import com.sc.qisi_system.module.practice.service.DemandProgressAttachmentService;
 import io.minio.*;
 import io.minio.http.Method;
+import io.minio.messages.Item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -294,7 +295,10 @@ public class MinioServiceImpl implements MinioService {
         String objectName = "avatar/" + userId + "/" + UUID.randomUUID() + "." + suffix;
 
         try {
-            // 2. 上传到MinIO
+            // 👇 核心新增：先根据 userId 删除旧头像（没有也不报错）
+            deleteOldUserAvatar(userId);
+
+            // 2. 上传新头像到 MinIO
             uploadFileToMinio(minioConfig.getAvatarBucket(), file, objectName);
             log.info("用户【{}】头像上传成功，路径：{}", userId, objectName);
 
@@ -318,6 +322,37 @@ public class MinioServiceImpl implements MinioService {
 
         // 1. 生成头像访问链接
         return generateUrl(minioConfig.getAvatarBucket(), avatarPath);
+    }
+
+
+    private void deleteOldUserAvatar(Long userId) {
+        String bucket = minioConfig.getAvatarBucket();
+        String prefix = "avatar/" + userId + "/";
+
+        try {
+            // 列出该用户下所有文件
+            Iterable<Result<Item>> items = minioClient.listObjects(
+                    ListObjectsArgs.builder()
+                            .bucket(bucket)
+                            .prefix(prefix)
+                            .recursive(true)
+                            .build()
+            );
+
+            // 逐个删除
+            for (Result<Item> result : items) {
+                Item item = result.get();
+                minioClient.removeObject(
+                        RemoveObjectArgs.builder()
+                                .bucket(bucket)
+                                .object(item.objectName())
+                                .build()
+                );
+            }
+            log.info("用户【{}】旧头像全部清理完成", userId);
+        } catch (Exception e) {
+            log.warn("用户【{}】旧头像不存在或删除失败", userId, e);
+        }
     }
 
 

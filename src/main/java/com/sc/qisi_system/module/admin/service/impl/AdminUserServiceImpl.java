@@ -88,13 +88,10 @@ public class AdminUserServiceImpl implements AdminUserService {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 
-        // 2. 密码加密
-        String encodePassword = passwordEncoder.encode(dto.getNewPassword());
-
         // 3. 更新用户密码
         SysUser updateUser = new SysUser();
         updateUser.setId(dto.getUserId());
-        updateUser.setPassword(encodePassword);
+        updateUser.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         sysUserService.updateById(updateUser);
     }
 

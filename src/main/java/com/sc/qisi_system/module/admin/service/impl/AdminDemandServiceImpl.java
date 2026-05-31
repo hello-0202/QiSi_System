@@ -108,7 +108,9 @@ public class AdminDemandServiceImpl implements AdminDemandService {
         if (StringUtils.hasText(name)) {
             // 1. 根据姓名模糊查询 所有用户ID
             LambdaQueryWrapper<SysUser> userQuery = new LambdaQueryWrapper<>();
-            userQuery.like(SysUser::getName, name).select(SysUser::getId);
+            userQuery
+                    .like(SysUser::getName, name)
+                    .select(SysUser::getId);
             List<Long> userIds = sysUserService.list(userQuery).stream()
                     .map(SysUser::getId)
                     .collect(Collectors.toList());
@@ -120,8 +122,7 @@ public class AdminDemandServiceImpl implements AdminDemandService {
         queryWrapper
                 .eq(adminDemandQueryDTO.getCategory() != null && adminDemandQueryDTO.getCategory() != 0,
                         Demand::getCategory, adminDemandQueryDTO.getCategory())
-                .eq(adminDemandQueryDTO.getStatus() != null && adminDemandQueryDTO.getStatus() != 0,
-                        Demand::getStatus, adminDemandQueryDTO.getStatus())
+                .in(CollectionUtils.isNotEmpty(adminDemandQueryDTO.getStatusList()), Demand::getStatus, adminDemandQueryDTO.getStatusList())
                 .ge(adminDemandQueryDTO.getCreateTime() != null, Demand::getCreateTime, adminDemandQueryDTO.getCreateTime())
                 .orderByDesc(Demand::getCreateTime);
 

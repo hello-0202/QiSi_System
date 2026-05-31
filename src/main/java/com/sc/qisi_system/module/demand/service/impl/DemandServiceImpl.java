@@ -459,6 +459,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
                 .map(item->{
                             DemandListVO demandListVO = convertToDemandListVO(item);
                             demandListVO.setDescription(item.getDescription());
+                            demandListVO.setProgressPercent(item.getProgressPercent());
                             return demandListVO;
                         }
                         )

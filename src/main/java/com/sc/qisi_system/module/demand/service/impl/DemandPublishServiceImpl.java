@@ -189,6 +189,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         return minioService.batchUploadDemandAttachment(demandId, files);
     }
 
+
     /**
      * 删除单个附件
      */

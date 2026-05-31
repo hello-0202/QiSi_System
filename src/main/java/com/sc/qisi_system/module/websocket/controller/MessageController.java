@@ -7,6 +7,7 @@ import com.sc.qisi_system.module.websocket.service.MessageService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,14 @@ public class MessageController {
      * @param accessor 消息头访问器
      */
     @MessageMapping("/send/private")
-    public void sendPrivateMessage(UserMessageDTO userMessageDTO, SimpMessageHeaderAccessor accessor) {
+    public void sendPrivateMessage(
+            @Payload(required = false) UserMessageDTO userMessageDTO,
+            SimpMessageHeaderAccessor accessor) {
+        // 增加空值判断，防止空指针
+        if (userMessageDTO == null) {
+            return;
+        }
+
         messageService.sendPrivateMessage(userMessageDTO, accessor);
     }
 

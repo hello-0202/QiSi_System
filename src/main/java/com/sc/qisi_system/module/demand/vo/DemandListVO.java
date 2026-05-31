@@ -78,6 +78,12 @@ public class DemandListVO {
 
 
     /**
+     * 进度百分比: 0-100
+     */
+    private Integer progressPercent;
+
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;
