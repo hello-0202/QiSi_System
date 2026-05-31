@@ -24,8 +24,6 @@ public class WebSocketSessionEventListener {
 
     @EventListener
     public void handleSessionConnected(SessionConnectedEvent event) {
-        log.info("进入连接后监听");
-
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(event.getMessage());
         StompPrincipal principal = (StompPrincipal) accessor.getUser();
         if (principal == null) return;

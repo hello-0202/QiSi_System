@@ -17,16 +17,10 @@ import java.util.Map;
 @Slf4j
 public class StompPrincipalHandshakeHandler extends DefaultHandshakeHandler {
 
+
     @Override
     protected Principal determineUser(@NotNull ServerHttpRequest request, @NotNull WebSocketHandler wsHandler, @NotNull Map<String, Object> attributes) {
-
-        log.info("进入websocket连接前");
-
         Long userId = (Long) attributes.get("userId");
         return new StompPrincipal(userId.toString());
-
     }
-
-
-
 }

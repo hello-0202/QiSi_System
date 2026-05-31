@@ -48,7 +48,7 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws/user/online")
-                .addInterceptors(webSocketHandshakeInterceptor) // 👈 加这行
+                .addInterceptors(webSocketHandshakeInterceptor)
                 .setAllowedOriginPatterns("**")
                 .setHandshakeHandler(stompPrincipalHandshakeHandler);
         registry.setErrorHandler(stompMessageErrorHandler);
