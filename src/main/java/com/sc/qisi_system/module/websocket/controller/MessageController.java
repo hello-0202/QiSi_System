@@ -43,7 +43,6 @@ public class MessageController {
         if (userMessageDTO == null) {
             return;
         }
-
         messageService.sendPrivateMessage(userMessageDTO, accessor);
     }
 

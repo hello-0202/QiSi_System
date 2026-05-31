@@ -62,13 +62,13 @@ public class DemandPublishController {
      * 删除需求草稿接口
      * 角色: 发布者
      *
-     * @param draftId 需求id
+     * @param demandId 需求id
      * @return 统一返回结果
      */
     @DeleteMapping("/delete-draft")
     public Result deleteDraft(
-            @RequestParam Long draftId){
-        demandPublishService.deleteDraft(draftId);
+            @RequestParam Long demandId){
+        demandPublishService.deleteDraft(demandId);
         return Result.success();
     }
 

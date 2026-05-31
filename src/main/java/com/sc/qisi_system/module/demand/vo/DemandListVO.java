@@ -84,7 +84,19 @@ public class DemandListVO {
 
 
     /**
-     * 创建时间
+     * 需求创建时间
      */
     private LocalDateTime createTime;
+
+
+    /**
+     * 已完成工作
+     */
+    private String workDone;
+
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 }

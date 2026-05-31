@@ -10,19 +10,20 @@ public class UserMessageDTO {
     /**
      * 所属对话ID
      */
-    private Long sessionId;
+    private String sessionId;
 
 
     /**
      * 发送者id
      */
-    private Long fromUserId;
+    private String fromUserId;
 
 
     /**
      * 接收者id
      */
-    private Long toUserId;
+//    @JsonSerialize(using = ToStringSerializer.class)
+    private String toUserId;
 
 
     /**

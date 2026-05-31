@@ -10,6 +10,8 @@ import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.common.result.ResultCode;
 import com.sc.qisi_system.module.apply.entity.DemandApply;
+import com.sc.qisi_system.module.practice.entity.DemandExecutionPlan;
+import com.sc.qisi_system.module.practice.mapper.DemandExecutionPlanMapper;
 import com.sc.qisi_system.module.practice.mapper.DemandMemberMapper;
 import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
@@ -57,6 +59,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     private final DemandMemberChangeMapper demandMemberChangeMapper;
     private final DemandProgressMapper demandProgressMapper;
     private final DemandMemberMapper demandMemberMapper;
+    private final DemandExecutionPlanMapper demandExecutionPlanMapper;
     private final DemandService demandService;
     private final SysUserService sysUserService;
     private final ApplyService applyService;
@@ -116,8 +119,19 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
      */
     @Override
     public DemandPublicDetailVO getPracticeDemandDetail(Long demandId) {
-        // 1. 查询公开需求详情
-        return demandService.getPublicDemandDetail(demandId);
+        DemandPublicDetailVO demandPublicDetailVO = demandService.getPublicDemandDetail(demandId);
+        LambdaQueryWrapper<DemandExecutionPlan> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper
+                .eq(DemandExecutionPlan::getDemandId, demandId)
+                .select(DemandExecutionPlan::getResearchPlan);
+        DemandExecutionPlan executionPlan = demandExecutionPlanMapper.selectOne(queryWrapper);
+
+        if (executionPlan != null) {
+            demandPublicDetailVO.setResearchPlan(executionPlan.getResearchPlan());
+        } else {
+            demandPublicDetailVO.setResearchPlan(null);
+        }
+        return demandPublicDetailVO;
     }
 
     /**
@@ -136,8 +150,6 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                 ).stream()
                 .map(DemandApply::getDemandId)
                 .toList();
-
-        // 加这行日志，确认有没有拿到申请记录
 
         // 3. 没有参与,直接返回空分页
         if (CollUtil.isEmpty(demandIdList)) {

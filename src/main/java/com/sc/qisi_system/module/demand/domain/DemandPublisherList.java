@@ -9,7 +9,7 @@ public class DemandPublisherList {
     /**
      * 用户id
      */
-    private Long id;
+    private String id;
 
 
     /**

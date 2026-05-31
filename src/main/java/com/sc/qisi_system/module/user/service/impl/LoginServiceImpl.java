@@ -82,7 +82,7 @@ public class LoginServiceImpl implements LoginService {
         LoginUserVO loginUserVO = new LoginUserVO();
         loginUserVO.setAccessToken(accessToken);
         loginUserVO.setRefreshToken(refreshToken);
-        loginUserVO.setUserId(sysUser.getId());
+        loginUserVO.setUserId(sysUser.getId().toString());
         loginUserVO.setUsername(sysUser.getUsername());
         loginUserVO.setUserType(sysUser.getUserType());
         loginUserVO.setUserTypeDesc( UserTypeEnum.getDescDescByCode(sysUser.getUserType()));

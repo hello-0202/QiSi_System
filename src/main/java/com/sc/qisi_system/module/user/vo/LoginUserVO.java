@@ -27,7 +27,7 @@ public class LoginUserVO {
     /**
      * 用户ID
      */
-    private Long userId;
+    private String userId;
 
 
     /**

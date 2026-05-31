@@ -154,6 +154,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
                         BeanUtils.copyProperties(member, practiceList);
                     }
                     vo.setDemandPracticeList(practiceList);
+                    vo.setProgressPercent(demand.getProgressPercent());
 
                     return vo;
                 })
@@ -480,9 +481,10 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         DemandPublisherList publisherList = new DemandPublisherList();
         BeanUtils.copyProperties(userBase, publisherList);
         publisherList.setAvatarUrl(minioService.getUserAvatarUrl(userBase.getAvatar()));
-        publisherList.setId(demand.getPublisherId());
+        publisherList.setId(demand.getPublisherId().toString());
         vo.setDemandPublisherList(publisherList);
         vo.setId(demand.getId().toString());
+        vo.setProgressPercent(demand.getProgressPercent());
 
         return vo;
     }

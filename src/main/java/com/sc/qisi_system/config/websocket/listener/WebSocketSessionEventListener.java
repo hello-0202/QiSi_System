@@ -1,9 +1,7 @@
 package com.sc.qisi_system.config.websocket.listener;
 
-import com.sc.qisi_system.common.enums.KickOffReasonEnum;
 import com.sc.qisi_system.config.websocket.StompPrincipal;
 import com.sc.qisi_system.module.user.service.RedisService;
-import com.sc.qisi_system.module.websocket.service.WebSocketMessageService;
 import com.sc.qisi_system.module.websocket.service.WebSocketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,6 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @Slf4j
 public class WebSocketSessionEventListener {
 
-    private final WebSocketMessageService webSocketMessageService;
     private final RedisService redisService;
     private final WebSocketService webSocketService;
 
@@ -31,9 +28,9 @@ public class WebSocketSessionEventListener {
         Long userId = Long.valueOf(principal.getName());
         String newSessionId = accessor.getSessionId();
 
-        if(redisService.hasValidOldSession(userId, newSessionId)){
-            webSocketMessageService.sendKickOffNotice(userId, KickOffReasonEnum.LOGIN_OTHER_DEVICE.getReason());
-        }
+//        if(redisService.hasValidOldSession(userId, newSessionId)){
+//            webSocketMessageService.sendKickOffNotice(userId, KickOffReasonEnum.LOGIN_OTHER_DEVICE.getReason());
+//        }
 
         // 3. 保存新session到Redis
         redisService.saveMapping(userId, newSessionId);

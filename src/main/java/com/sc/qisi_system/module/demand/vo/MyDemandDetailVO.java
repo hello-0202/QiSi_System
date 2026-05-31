@@ -35,7 +35,7 @@ public class MyDemandDetailVO {
     /**
      * 需求分类
      */
-    private String category;
+    private Integer category;
 
 
     /**

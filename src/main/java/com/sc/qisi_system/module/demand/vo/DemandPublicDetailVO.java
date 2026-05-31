@@ -1,7 +1,11 @@
 package com.sc.qisi_system.module.demand.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class DemandPublicDetailVO {
@@ -83,4 +87,11 @@ public class DemandPublicDetailVO {
      * 申请截止时间
      */
     private LocalDateTime deadline;
+
+
+    /**
+     * 研究计划
+     */
+    @TableField(typeHandler = Fastjson2TypeHandler.class)
+    private List<ResearchPlanStage> researchPlan;
 }

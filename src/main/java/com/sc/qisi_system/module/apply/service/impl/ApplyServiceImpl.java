@@ -10,6 +10,9 @@ import com.sc.qisi_system.module.apply.service.ApplyService;
 import com.sc.qisi_system.module.apply.vo.ApplyDetailVO;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.minio.service.MinioService;
+import com.sc.qisi_system.module.practice.entity.DemandMember;
+import com.sc.qisi_system.module.practice.service.DemandMemberService;
+import com.sc.qisi_system.module.practice.vo.DemandMemberVO;
 import com.sc.qisi_system.module.practice.vo.MemberVO;
 import com.sc.qisi_system.module.user.entity.EduStudent;
 import com.sc.qisi_system.module.user.entity.EduTeacher;
@@ -40,6 +43,7 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
 
 
     private final DemandApplyMapper demandApplyMapper;
+    private final DemandMemberService demandMemberService;
     private final SysUserService sysUserService;
     private final EduStudentService eduStudentService;
     private final EduTeacherService eduTeacherService;
@@ -140,6 +144,11 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
         // 6. 封装VO
         List<MemberVO> voList = new ArrayList<>();
         for (SysUser sysUser : sysUserList) {
+
+            LambdaQueryWrapper<DemandMember> queryWrapper1 = new LambdaQueryWrapper<>();
+            queryWrapper1.eq(DemandMember::getUserId, sysUser.getId());
+            DemandMember demandMember = demandMemberService.getOne(queryWrapper1);
+
             MemberVO vo = new MemberVO();
             vo.setId(sysUser.getId());
             vo.setApplyId(userIdToApplyIdMap.get(sysUser.getId()));
@@ -150,6 +159,13 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
             userProfileVO.setAvatar(sysUser.getAvatar());
             userProfileVO.setUserType(sysUser.getUserType());
             vo.setUserProfileVO(userProfileVO);
+            DemandMemberVO demandMemberVO = new DemandMemberVO();
+            if(demandMember != null) {
+                BeanUtils.copyProperties(demandMember, demandMemberVO);
+                vo.setDemandMemberVO(demandMemberVO);
+            }else {
+                vo.setDemandMemberVO(null);
+            }
 
             loadUserInfoByRole(sysUser.getId(), sysUser.getUserType(), vo);
             voList.add(vo);

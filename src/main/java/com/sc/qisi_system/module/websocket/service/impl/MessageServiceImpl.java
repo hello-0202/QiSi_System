@@ -3,6 +3,7 @@ package com.sc.qisi_system.module.websocket.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.sc.qisi_system.common.enums.SessionTypeEnum;
+import com.sc.qisi_system.common.utils.JsonUtil;
 import com.sc.qisi_system.module.minio.service.MinioService;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.service.RedisService;
@@ -43,17 +44,17 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void sendPrivateMessage(UserMessageDTO userMessageDTO, SimpMessageHeaderAccessor accessor) {
         String sessionId = accessor.getSessionId();
-        Long fromUserId = redisService.getUserId(sessionId);
-        Long toUserId = userMessageDTO.getToUserId();
+        String fromUserId = redisService.getUserId(sessionId).toString();
+        String toUserId = userMessageDTO.getToUserId();
 
         // 1. 获取或创建对话
-        ChatSession session = getOrCreateSession(fromUserId, toUserId);
+        ChatSession session = getOrCreateSession(Long.parseLong(fromUserId), Long.parseLong(toUserId));
 
         // 2. 构建消息
         ChatMessage chatMessage = new ChatMessage();
         BeanUtils.copyProperties(userMessageDTO, chatMessage);
         chatMessage.setSessionId(session.getId());
-        chatMessage.setFromUserId(fromUserId);
+        chatMessage.setFromUserId(Long.valueOf(fromUserId));
         chatMessage.setStatus(0);
 
         // 3. 插入消息
@@ -64,9 +65,20 @@ public class MessageServiceImpl implements MessageService {
         session.setLastTime(LocalDateTime.now());
         chatSessionMapper.updateById(session);
 
+        System.out.println(fromUserId + "发送消息: " + chatMessage + "给" + toUserId);
+
         // 5. 推送消息
-        String destination = "/queue/private";
-        simpMessagingTemplate.convertAndSendToUser(String.valueOf(toUserId), destination, chatMessage);
+        // 强制使用字符串格式的 userId
+        // 👇 就加这一行，手动转 JSON
+        String jsonMsg = JsonUtil.toJson(chatMessage);
+        System.out.println("===== 要发送给用户：" + toUserId);
+
+        // 发送
+        simpMessagingTemplate.convertAndSendToUser(
+                toUserId,
+                "/queue/private",
+                jsonMsg
+        );
     }
 
 
