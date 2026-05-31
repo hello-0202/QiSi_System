@@ -125,7 +125,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
      * 提交需求审核
      */
     @Override
-    public Long submitAudit(Long demandId) {
+    public String submitAudit(Long demandId) {
         // 1. 查询需求信息
         Demand demand = demandMapper.selectById(demandId);
         if (demand == null) {
@@ -141,7 +141,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         demand.setStatus(DemandStatusEnum.REVIEWING.getCode());
         demandMapper.updateById(demand);
 
-        return demand.getId();
+        return demand.getId().toString();
     }
 
 
@@ -181,7 +181,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
     @Override
     public AttachmentUploadVO batchUploadDemandAttachment(Long demandId, MultipartFile[] files) throws Exception {
         // 1. 校验需求是否存在
-        if (demandService.isNotExistsByDemandId(demandId)) {
+        if (!demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 

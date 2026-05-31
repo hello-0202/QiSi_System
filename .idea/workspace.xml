@@ -7,15 +7,11 @@
     <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/AdminDemandQueryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/AdminDemandQueryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminDemandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminDemandServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminUserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminStatisticsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandPublishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/DemandPublishService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandPublishServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandPublishServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/service/impl/DemandServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/vo/DemandListVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/vo/DemandListVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/service/impl/MinioServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/minio/service/impl/MinioServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/controller/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,15 +268,7 @@
       <workItem from="1779883070152" duration="597000" />
       <workItem from="1779883694366" duration="3052000" />
       <workItem from="1779886840270" duration="6968000" />
-      <workItem from="1780189894862" duration="4141000" />
-    </task>
-    <task id="LOCAL-00011" summary="修改controller层注释">
-      <option name="closed" value="true" />
-      <created>1776935793448</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1776935793448</updated>
+      <workItem from="1780189894862" duration="9095000" />
     </task>
     <task id="LOCAL-00012" summary="完成一个todo，抽取获取用户信息为独立方法，修改了部分代码结构">
       <option name="closed" value="true" />
@@ -666,7 +654,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779976418494</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1780194457471</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1780194457471</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -482,6 +482,7 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         publisherList.setAvatarUrl(minioService.getUserAvatarUrl(userBase.getAvatar()));
         publisherList.setId(demand.getPublisherId());
         vo.setDemandPublisherList(publisherList);
+        vo.setId(demand.getId().toString());
 
         return vo;
     }

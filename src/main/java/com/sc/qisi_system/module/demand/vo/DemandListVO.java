@@ -14,7 +14,7 @@ public class DemandListVO {
     /**
      * 主键
      */
-    private Long id;
+    private String id;
 
 
     /**

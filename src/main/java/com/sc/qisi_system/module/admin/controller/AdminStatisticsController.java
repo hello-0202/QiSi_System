@@ -6,10 +6,7 @@ import com.sc.qisi_system.module.admin.service.AdminStatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -46,7 +43,7 @@ public class AdminStatisticsController {
      * @param query 时间查询条件
      * @return 每日需求数量趋势集合
      */
-    @GetMapping("/admin/demand-trend")
+    @PostMapping("/demand-trend")
     public Result getDemandTrend(
             @RequestBody  DateQueryDTO query) {
         return Result.success(adminStatisticsService.getDemandTrend(query));

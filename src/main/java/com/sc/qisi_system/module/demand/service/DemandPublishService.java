@@ -51,7 +51,7 @@ public interface DemandPublishService {
      * @param demandId 需求ID
      * @return 需求ID
      */
-    Long submitAudit(Long demandId);
+    String submitAudit(Long demandId);
 
 
     /**
