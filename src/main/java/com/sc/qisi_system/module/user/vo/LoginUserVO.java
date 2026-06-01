@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.user.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.sc.qisi_system.module.admin.vo.MenuRouteVO;
 import lombok.Data;
 
@@ -27,7 +29,8 @@ public class LoginUserVO {
     /**
      * 用户ID
      */
-    private String userId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long userId;
 
 
     /**

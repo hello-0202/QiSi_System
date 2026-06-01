@@ -10,7 +10,7 @@ management:
         include: "*"
   endpoint:
     health:
-      # 健康检查显示详细信息（方便排查服务状态）
+      # 健康检查显示详细信息
       show-details: always
   metrics:
     tags:
@@ -113,7 +113,7 @@ logging:
 # MinIO 对象存储（文件上传服务）
 # ==============================
 minio:
-  endpoint: http://192.168.5.177:9000      # MinIO 服务地址
+  endpoint: http://192.168.5.191:9000      # MinIO 服务地址
   access-key: admin                           # 用户名
   secret-key: 12345678                        # 密码
   read-timeout: 6000                          # 读取超时

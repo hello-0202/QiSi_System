@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.demand.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -10,6 +12,7 @@ public class DemandPracticeList {
     /**
      * 需求id: 关联demand表
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long demandId;
 
 

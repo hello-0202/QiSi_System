@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.practice.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.sc.qisi_system.module.user.vo.UserProfileVO;
 import lombok.Data;
 
@@ -12,6 +14,7 @@ public class MemberChangeLogVO {
     /**
      * 变更用户ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
 

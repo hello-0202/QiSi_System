@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.demand.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class MyDemandDetailVO {
     /**
      * 发布团队ID: 个人发布时可为空
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long publishTeamId;
 
 

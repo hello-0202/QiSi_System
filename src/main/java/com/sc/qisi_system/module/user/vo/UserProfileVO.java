@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.user.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 @Data
@@ -9,6 +11,7 @@ public class UserProfileVO {
     /**
      * sys_user主键id
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
 

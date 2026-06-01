@@ -1,11 +1,14 @@
 package com.sc.qisi_system.module.admin.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 @Data
 public class SchoolStaffVO {
 
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
 

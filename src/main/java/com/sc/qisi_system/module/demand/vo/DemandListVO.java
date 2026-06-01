@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.demand.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.sc.qisi_system.module.demand.domain.DemandApplyList;
 import com.sc.qisi_system.module.demand.domain.DemandPracticeList;
 import com.sc.qisi_system.module.demand.domain.DemandPublisherList;
@@ -14,7 +16,8 @@ public class DemandListVO {
     /**
      * 主键
      */
-    private String id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
 
     /**

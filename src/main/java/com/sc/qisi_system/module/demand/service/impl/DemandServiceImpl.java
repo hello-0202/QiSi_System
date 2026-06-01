@@ -481,9 +481,9 @@ public class DemandServiceImpl extends ServiceImpl<DemandMapper, Demand> impleme
         DemandPublisherList publisherList = new DemandPublisherList();
         BeanUtils.copyProperties(userBase, publisherList);
         publisherList.setAvatarUrl(minioService.getUserAvatarUrl(userBase.getAvatar()));
-        publisherList.setId(demand.getPublisherId().toString());
+        publisherList.setId(demand.getPublisherId());
         vo.setDemandPublisherList(publisherList);
-        vo.setId(demand.getId().toString());
+        vo.setId(demand.getId());
         vo.setProgressPercent(demand.getProgressPercent());
 
         return vo;

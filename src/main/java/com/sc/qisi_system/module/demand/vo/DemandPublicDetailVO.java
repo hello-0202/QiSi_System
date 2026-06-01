@@ -2,6 +2,8 @@ package com.sc.qisi_system.module.demand.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -14,6 +16,7 @@ public class DemandPublicDetailVO {
     /**
      * 需求ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
 

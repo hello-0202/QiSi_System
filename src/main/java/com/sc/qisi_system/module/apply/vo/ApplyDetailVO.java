@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.apply.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.Data;
 
@@ -43,6 +45,7 @@ public class ApplyDetailVO {
     /**
      * 审核人ID: sys_user表主键
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long auditUserId;
 
 

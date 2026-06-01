@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.practice.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 @Data
@@ -9,12 +11,14 @@ public class DemandProgressVO {
     /**
      * 关联需求ID: demand主键
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long demandId;
 
 
     /**
      * 提交人ID: sys_user主键
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
 
@@ -27,6 +31,7 @@ public class DemandProgressVO {
     /**
      * 关联团队ID: team主键
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long teamId;
 
 

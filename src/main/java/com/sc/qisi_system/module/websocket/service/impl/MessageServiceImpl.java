@@ -65,15 +65,9 @@ public class MessageServiceImpl implements MessageService {
         session.setLastTime(LocalDateTime.now());
         chatSessionMapper.updateById(session);
 
-        System.out.println(fromUserId + "发送消息: " + chatMessage + "给" + toUserId);
-
         // 5. 推送消息
-        // 强制使用字符串格式的 userId
-        // 👇 就加这一行，手动转 JSON
         String jsonMsg = JsonUtil.toJson(chatMessage);
-        System.out.println("===== 要发送给用户：" + toUserId);
 
-        // 发送
         simpMessagingTemplate.convertAndSendToUser(
                 toUserId,
                 "/queue/private",

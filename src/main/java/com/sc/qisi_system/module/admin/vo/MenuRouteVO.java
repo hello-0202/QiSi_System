@@ -1,5 +1,7 @@
 package com.sc.qisi_system.module.admin.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class MenuRouteVO {
     /**
      * 菜单ID
      */
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
 
