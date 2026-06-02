@@ -6,7 +6,7 @@ management:
     web:
       # 暴露监控接口，给 Prometheus 采集数据
       exposure:
-        include: prometheus,health,info
+        include: "*"
   endpoint:
     health:
       # 生产环境显示服务健康状态

@@ -32,6 +32,7 @@ import java.util.Map;
 @Service
 public class MessageServiceImpl implements MessageService {
 
+
     private final ChatMessageMapper chatMessageMapper;
     private final ChatSessionMapper chatSessionMapper;
     private final RedisService redisService;
@@ -66,7 +67,7 @@ public class MessageServiceImpl implements MessageService {
         chatSessionMapper.updateById(session);
 
         // 5. 推送消息
-        String jsonMsg = JsonUtil.toJson(chatMessage);
+        String jsonMsg = JsonUtil.toJson(userMessageDTO);
 
         simpMessagingTemplate.convertAndSendToUser(
                 toUserId,
@@ -119,6 +120,12 @@ public class MessageServiceImpl implements MessageService {
                 .eq(ChatMessage::getStatus, 0)
                 .set(ChatMessage::getStatus, 1);
         chatMessageMapper.update(null, wrapper);
+
+        simpMessagingTemplate.convertAndSendToUser(
+                String.valueOf(userId),
+                "/queue/readReceipt",
+                "readReceipt"
+        );
     }
 
 

@@ -3,11 +3,11 @@ server:
 
 spring:
   application:
-    name: QiSiSystem
+    name: QiSi-System
   profiles:
     active: test
 
-# MyBatis公共配置
-mybatis:
+# MyBatis-Plus公共配置
+mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
