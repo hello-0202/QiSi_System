@@ -7,9 +7,7 @@
     <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/impl/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/websocket/service/impl/MessageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-prod.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/MenuDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/dto/MenuDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,55 +62,55 @@
     <option name="jreName" value="23" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
   <component name="ProjectId" id="3BmY5rj0JgEKOerFotPgahSamxT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;HTTP 请求.generated-requests | #1.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP 请求.generated-requests | #2.executor&quot;: &quot;Run&quot;,
-    &quot;HTTP 请求.generated-requests | 更新执行计划接口（你图里8080那个PUT接口）.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.QiSiSystemApplicationTests.addAdminUser.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.QiSiSystemApplicationTests.contextLoads.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.QiSiSystemApplicationTests.getPassword.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QiSi-System [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QiSi-System [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QiSiSystem [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QiSiSystem [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.QiSiSystem [package].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.QiSiSystemApplication.executor&quot;: &quot;Run&quot;,
-    &quot;checkBoxType&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/Desktop/QiSiSystem&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP 请求.generated-requests | #1.executor": "Run",
+    "HTTP 请求.generated-requests | #2.executor": "Run",
+    "HTTP 请求.generated-requests | 更新执行计划接口（你图里8080那个PUT接口）.executor": "Run",
+    "JUnit.QiSiSystemApplicationTests.addAdminUser.executor": "Run",
+    "JUnit.QiSiSystemApplicationTests.contextLoads.executor": "Run",
+    "JUnit.QiSiSystemApplicationTests.getPassword.executor": "Run",
+    "Maven.QiSi-System [clean].executor": "Run",
+    "Maven.QiSi-System [package].executor": "Run",
+    "Maven.QiSiSystem [clean].executor": "Run",
+    "Maven.QiSiSystem [compile].executor": "Run",
+    "Maven.QiSiSystem [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.QiSiSystemApplication.executor": "Run",
+    "checkBoxType": "false",
+    "extract.method.default.visibility": "private",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Lenovo/Desktop/Qisi",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Lenovo\Desktop\QiSiSystem\src\main\java\com\sc\qisisystem\module\user" />
@@ -272,15 +270,7 @@
       <workItem from="1779886840270" duration="6968000" />
       <workItem from="1780189894862" duration="30925000" />
       <workItem from="1780278933525" duration="6925000" />
-      <workItem from="1780382024686" duration="6114000" />
-    </task>
-    <task id="LOCAL-00019" summary="写了一些代码">
-      <option name="closed" value="true" />
-      <created>1778232920633</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1778232920633</updated>
+      <workItem from="1780382024686" duration="9197000" />
     </task>
     <task id="LOCAL-00020" summary="写了一些代码">
       <option name="closed" value="true" />
@@ -666,7 +656,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780281270865</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1780388427405</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1780388427405</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

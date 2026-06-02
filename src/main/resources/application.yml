@@ -5,9 +5,8 @@ spring:
   application:
     name: QiSi-System
   profiles:
-    active: test
+    active: prod
 
-# MyBatis-Plus公共配置
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
