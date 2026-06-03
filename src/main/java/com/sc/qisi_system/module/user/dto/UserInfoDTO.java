@@ -10,14 +10,6 @@ public class UserInfoDTO {
 
 
     /**
-     * 密码
-     */
-    @NotBlank(message = "密码不能为空")
-    @Pattern(regexp = "^[A-Za-z\\d]{8,12}$", message = "密码格式不正确，请包含字母+数字，长度8-12位")
-    private String password;
-
-
-    /**
      * 手机号
      */
     @NotBlank(message = "手机号不能为空")
@@ -32,10 +24,4 @@ public class UserInfoDTO {
     @Email(regexp = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$",
             message = "邮箱格式不正确")
     private String email;
-
-
-    /**
-     * 头像
-     */
-    private String avatar;
 }

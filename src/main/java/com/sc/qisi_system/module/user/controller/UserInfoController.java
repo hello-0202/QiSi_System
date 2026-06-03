@@ -50,12 +50,12 @@ public class UserInfoController {
     /**
      * 修改用户密码接口
      *
-     * @param userInfoDTO 用户信息请求体
+     * @param password 密码
      */
     @PostMapping("/password")
     public Result updatePassword(
-            @Valid @RequestBody UserInfoDTO userInfoDTO) {
-        userInfoService.updatePassword(userInfoDTO);
+            @Valid @RequestParam String password) {
+        userInfoService.updatePassword(password);
         return Result.success();
     }
 

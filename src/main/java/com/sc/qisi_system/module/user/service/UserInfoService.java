@@ -37,9 +37,9 @@ public interface UserInfoService {
     /**
      * 修改用户密码
      *
-     * @param userInfoDTO 用户信息请求体
+     * @param password 用户信息请求体
      */
-    void updatePassword(UserInfoDTO userInfoDTO);
+    void updatePassword(String password);
 
 
     /**
