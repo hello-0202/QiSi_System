@@ -7,11 +7,10 @@
     <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/UserInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/controller/UserInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/dto/UserInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/dto/UserInfoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/UserInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/UserInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/UserInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeQueryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeQueryServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +64,7 @@
     <option name="jreName" value="23" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -275,15 +274,9 @@
       <workItem from="1780278933525" duration="6925000" />
       <workItem from="1780382024686" duration="11708000" />
       <workItem from="1780407184872" duration="318000" />
-      <workItem from="1780459162898" duration="2077000" />
-    </task>
-    <task id="LOCAL-00021" summary="完成部分接口，完善代码结构">
-      <option name="closed" value="true" />
-      <created>1778245405668</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1778245405668</updated>
+      <workItem from="1780459162898" duration="2177000" />
+      <workItem from="1780573547094" duration="2527000" />
+      <workItem from="1780581620330" duration="2550000" />
     </task>
     <task id="LOCAL-00022" summary="写了私信功能接口">
       <option name="closed" value="true" />
@@ -669,7 +662,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780394175206</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1780483131792</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1780483131792</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

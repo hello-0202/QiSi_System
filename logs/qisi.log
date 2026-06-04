@@ -1,408 +1,28 @@
-2026-06-02 14:35:59.227 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 164140 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 14:35:59.234 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 14:36:00.581 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 14:36:00.583 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 14:36:00.659 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 0 Redis repository interfaces.
-2026-06-02 14:36:01.288 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 14:36:01.380 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2088 ms
-2026-06-02 14:36:02.781 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 14:36:02.795 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 14:36:02.937 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 14:36:03.792 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 14:36:04.092 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 14:36:04.326 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 14:36:04.611 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 14:36:04.756 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 14:36:04.756 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1b4bc7b9]]
-2026-06-02 14:36:04.757 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 14:36:04.772 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 14:36:04.787 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 6.035 seconds (process running for 6.922)
-2026-06-02 14:36:04.795 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 14:36:04.972 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 14:36:05.649 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 14:36:06.081 [RMI TCP Connection(2)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 14:36:06.083 [RMI TCP Connection(2)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 14:36:06.940 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 格式错误
-2026-06-02 14:36:28.029 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/demand/apply/query/my-list, METHOD= POST, 异常: 用户不存在
-2026-06-02 14:36:28.863 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/demand/apply/query/apply-demand-list, METHOD= POST, 异常: 用户不存在
-2026-06-02 14:36:37.339 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/user/logout, METHOD= POST, 异常: 用户不存在
-2026-06-02 14:36:41.731 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/user/info/user-identity-list, METHOD= GET, 异常: 用户不存在
-2026-06-02 14:36:42.374 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/demand/apply/query/apply-demand-list, METHOD= POST, 异常: 用户不存在
-2026-06-02 14:36:56.394 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/user/info/user-identity-list, METHOD= GET, 异常: 用户不存在
-2026-06-02 14:36:56.887 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/demand/apply/query/apply-demand-list, METHOD= POST, 异常: 用户不存在
-2026-06-02 14:37:04.735 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 3 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(3)-CONNECTED(3)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 33, active threads = 0, queued tasks = 0, completed tasks = 33], outboundChannel[pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 5], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 14:38:49.047 [http-nio-8080-exec-2] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.206, URI= /api/user/login, METHOD= POST, code=USER_NOT_FOUND, message=用户不存在
-2026-06-02 15:06:34.701 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 15:06:35.074 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 15:06:35.086 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 15:06:35.086 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1b4bc7b9]]
-2026-06-02 15:06:35.087 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 15:06:41.301 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 174636 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 15:06:41.303 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 15:06:42.798 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 15:06:42.800 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 15:06:42.880 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 0 Redis repository interfaces.
-2026-06-02 15:06:43.474 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 15:06:43.575 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2232 ms
-2026-06-02 15:06:44.764 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 15:06:44.776 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 15:06:44.907 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 15:06:45.733 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 15:06:46.047 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 15:06:46.216 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 15:06:46.416 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 15:06:46.529 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 15:06:46.530 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@65011123]]
-2026-06-02 15:06:46.531 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 15:06:46.546 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 15:06:46.556 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.709 seconds (process running for 6.32)
-2026-06-02 15:06:46.562 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 15:06:46.676 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 15:06:47.055 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 15:06:47.248 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 15:06:47.250 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-06-02 15:07:46.521 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 30, active threads = 0, queued tasks = 0, completed tasks = 30], outboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 15:26:37.216 [clientOutboundChannel-29] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:26:37.310 [clientOutboundChannel-32] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2058093987570442242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:26:39.119 [clientOutboundChannel-36] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2058093987570442242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:26:39.119 [clientOutboundChannel-37] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:26:47.231 [clientOutboundChannel-46] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2058093987570442242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:26:47.412 [clientOutboundChannel-53] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:28:32.894 [clientOutboundChannel-67] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2058093987570442242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:28:32.903 [clientOutboundChannel-76] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:28:33.982 [clientOutboundChannel-85] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:28:34.105 [clientOutboundChannel-96] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2058093987570442242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:37:46.532 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[7 current WS(7)-HttpStream(0)-HttpPoll(0), 21 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(21)-CONNECTED(21)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 501], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 125], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
-2026-06-02 15:54:00.814 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 15:54:01.150 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 15:54:01.167 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 15:54:01.168 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@65011123]]
-2026-06-02 15:54:01.168 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 15:54:06.749 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 184164 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 15:54:06.751 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 15:54:08.073 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 15:54:08.077 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 15:54:08.176 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 81 ms. Found 0 Redis repository interfaces.
-2026-06-02 15:54:08.832 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 15:54:08.924 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2131 ms
-2026-06-02 15:54:10.108 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 15:54:10.122 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 15:54:10.280 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 15:54:11.068 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 15:54:11.369 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 15:54:11.641 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6256ac4f
-2026-06-02 15:54:11.843 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 15:54:11.958 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 15:54:11.958 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@37e967df]]
-2026-06-02 15:54:11.959 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 15:54:11.975 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 15:54:11.987 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.725 seconds (process running for 6.361)
-2026-06-02 15:54:11.993 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 15:54:12.164 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 15:54:12.593 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 15:54:12.884 [RMI TCP Connection(4)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 15:54:12.887 [RMI TCP Connection(4)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-06-02 15:54:14.260 [clientOutboundChannel-4] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:54:14.337 [clientOutboundChannel-8] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:54:14.364 [clientOutboundChannel-13] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:54:14.403 [clientOutboundChannel-19] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:54:14.455 [clientOutboundChannel-26] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 15:55:11.936 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[7 current WS(7)-HttpStream(0)-HttpPoll(0), 8 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(8)-CONNECTED(8)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 48, active threads = 0, queued tasks = 0, completed tasks = 108], outboundChannel[pool size = 43, active threads = 0, queued tasks = 0, completed tasks = 43], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 16:03:13.289 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 16:03:13.637 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 16:03:13.657 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 16:03:13.657 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@37e967df]]
-2026-06-02 16:03:13.658 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 16:03:19.056 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 187068 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 16:03:19.058 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 16:03:20.224 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 16:03:20.227 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 16:03:20.304 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 64 ms. Found 0 Redis repository interfaces.
-2026-06-02 16:03:21.055 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 16:03:21.254 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2159 ms
-2026-06-02 16:03:23.324 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 16:03:23.353 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 16:03:23.527 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 16:03:25.129 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 16:03:25.617 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 16:03:25.985 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 16:03:26.444 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 16:03:26.639 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 16:03:26.640 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@36d7e8d2]]
-2026-06-02 16:03:26.644 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 16:03:26.683 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 16:03:26.712 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 8.117 seconds (process running for 8.709)
-2026-06-02 16:03:26.740 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 16:03:26.798 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 16:03:26.799 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 16:03:27.053 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 16:03:27.800 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 16:03:34.481 [clientOutboundChannel-6] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:03:34.503 [clientOutboundChannel-9] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:03:34.564 [clientOutboundChannel-13] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:03:34.592 [clientOutboundChannel-18] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:03:34.667 [clientOutboundChannel-25] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:04:26.603 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[7 current WS(7)-HttpStream(0)-HttpPoll(0), 8 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(8)-CONNECTED(8)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 48, active threads = 0, queued tasks = 0, completed tasks = 105], outboundChannel[pool size = 38, active threads = 0, queued tasks = 0, completed tasks = 38], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 16:04:57.431 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 16:04:57.736 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 16:04:57.768 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 16:04:57.768 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@36d7e8d2]]
-2026-06-02 16:04:57.768 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 16:05:02.698 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 175612 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 16:05:02.700 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 16:05:03.769 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 16:05:03.771 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 16:05:03.842 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 0 Redis repository interfaces.
-2026-06-02 16:05:04.366 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 16:05:04.469 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1727 ms
-2026-06-02 16:05:05.603 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 16:05:05.614 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 16:05:05.716 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 16:05:06.517 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 16:05:06.784 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 16:05:06.928 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6256ac4f
-2026-06-02 16:05:07.123 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 16:05:07.227 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 16:05:07.227 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@8a0a1d1]]
-2026-06-02 16:05:07.228 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 16:05:07.243 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 16:05:07.252 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.991 seconds (process running for 5.586)
-2026-06-02 16:05:07.257 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 16:05:07.346 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 16:05:07.703 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 16:05:07.901 [RMI TCP Connection(2)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 16:05:07.903 [RMI TCP Connection(2)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 16:05:10.640 [clientOutboundChannel-2] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:05:10.690 [clientOutboundChannel-7] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:05:10.748 [clientOutboundChannel-10] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:05:10.810 [clientOutboundChannel-15] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:05:10.857 [clientOutboundChannel-21] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:06:07.210 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[7 current WS(7)-HttpStream(0)-HttpPoll(0), 7 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(7)-CONNECTED(7)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 48, active threads = 0, queued tasks = 0, completed tasks = 90], outboundChannel[pool size = 29, active threads = 0, queued tasks = 0, completed tasks = 29], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 16:07:06.566 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 16:07:06.909 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 16:07:06.933 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 16:07:06.933 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@8a0a1d1]]
-2026-06-02 16:07:06.933 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 16:07:11.411 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 184512 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 16:07:11.413 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 16:07:12.484 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 16:07:12.486 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 16:07:12.570 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 72 ms. Found 0 Redis repository interfaces.
-2026-06-02 16:07:13.210 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 16:07:13.306 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1856 ms
-2026-06-02 16:07:14.313 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 16:07:14.324 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 16:07:14.432 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 16:07:15.198 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 16:07:15.463 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 16:07:15.620 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6256ac4f
-2026-06-02 16:07:15.820 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 16:07:15.923 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 16:07:15.923 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@19370af1]]
-2026-06-02 16:07:15.924 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 16:07:15.943 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 16:07:15.953 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.96 seconds (process running for 5.506)
-2026-06-02 16:07:15.958 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 16:07:16.052 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 16:07:16.408 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 16:07:16.639 [RMI TCP Connection(3)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 16:07:16.641 [RMI TCP Connection(3)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-06-02 16:07:19.370 [clientOutboundChannel-2] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:07:19.492 [clientOutboundChannel-4] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:07:19.545 [clientOutboundChannel-7] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:07:19.609 [clientOutboundChannel-11] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:07:19.652 [clientOutboundChannel-16] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2055949678117130242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
-2026-06-02 16:07:52.097 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 16:07:52.411 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 16:07:52.423 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 16:07:52.423 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@19370af1]]
-2026-06-02 16:07:52.423 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 16:07:57.183 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 179580 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 16:07:57.185 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 16:07:58.262 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 16:07:58.264 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 16:07:58.336 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 59 ms. Found 0 Redis repository interfaces.
-2026-06-02 16:07:58.856 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 16:07:58.939 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1717 ms
-2026-06-02 16:07:59.959 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 16:07:59.971 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 16:08:00.084 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 16:08:00.861 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 16:08:01.124 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 16:08:01.276 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 16:08:01.490 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 16:08:01.598 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 16:08:01.599 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@31a9eaa]]
-2026-06-02 16:08:01.600 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 16:08:01.613 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 16:08:01.624 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.861 seconds (process running for 5.405)
-2026-06-02 16:08:01.629 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 16:08:01.733 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 16:08:02.086 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 16:08:02.398 [RMI TCP Connection(2)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 16:08:02.400 [RMI TCP Connection(2)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 16:08:18.560 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 16:08:18.899 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 16:08:18.908 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 16:08:18.908 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@31a9eaa]]
-2026-06-02 16:08:18.908 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 16:08:23.842 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 164188 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 16:08:23.844 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 16:08:25.071 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 16:08:25.074 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 16:08:25.167 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 0 Redis repository interfaces.
-2026-06-02 16:08:25.784 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 16:08:25.900 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2016 ms
-2026-06-02 16:08:28.127 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 16:08:28.152 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 16:08:28.353 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 16:08:29.919 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 16:08:30.448 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 16:08:30.778 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6256ac4f
-2026-06-02 16:08:31.132 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 16:08:31.316 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 16:08:31.317 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@173da924]]
-2026-06-02 16:08:31.319 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 16:08:31.348 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 16:08:31.375 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 7.969 seconds (process running for 8.528)
-2026-06-02 16:08:31.385 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 16:08:31.602 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 16:08:31.754 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 16:08:31.757 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 16:08:32.474 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 16:09:31.266 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 24, active threads = 0, queued tasks = 0, completed tasks = 24], outboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 16:19:13.709 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 16:19:14.052 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 16:19:14.063 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 16:19:14.063 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@173da924]]
-2026-06-02 16:19:14.064 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 16:19:19.732 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 167800 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 16:19:19.734 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 16:19:21.036 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 16:19:21.039 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 16:19:21.117 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 66 ms. Found 0 Redis repository interfaces.
-2026-06-02 16:19:21.707 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 16:19:21.802 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2029 ms
-2026-06-02 16:19:23.025 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 16:19:23.037 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 16:19:23.161 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 16:19:24.029 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 16:19:24.295 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 16:19:24.456 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 16:19:24.653 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 16:19:24.766 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 16:19:24.767 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1b4bc7b9]]
-2026-06-02 16:19:24.767 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 16:19:24.784 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 16:19:24.795 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.811 seconds (process running for 6.471)
-2026-06-02 16:19:24.802 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 16:19:24.900 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 16:19:25.266 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 16:19:25.583 [RMI TCP Connection(1)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 16:19:25.586 [RMI TCP Connection(1)-192.168.5.191] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
-2026-06-02 16:20:24.748 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 21, active threads = 0, queued tasks = 0, completed tasks = 21], outboundChannel[pool size = 2, active threads = 0, queued tasks = 0, completed tasks = 2], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 16:35:36.192 [http-nio-8080-exec-7] INFO  c.s.q.m.m.s.impl.MinioServiceImpl - 用户【2055949678117130242】旧头像全部清理完成
-2026-06-02 16:35:36.406 [http-nio-8080-exec-7] INFO  c.s.q.m.m.s.impl.MinioServiceImpl - 文件【avatar/2055949678117130242/06d266b7-c49f-4437-91c6-1186144a4a6d.png】上传到MinIO桶【qisi-system-avatar】成功
-2026-06-02 16:35:36.406 [http-nio-8080-exec-7] INFO  c.s.q.m.m.s.impl.MinioServiceImpl - 用户【2055949678117130242】头像上传成功，路径：avatar/2055949678117130242/06d266b7-c49f-4437-91c6-1186144a4a6d.png
-2026-06-02 16:37:41.024 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 16:37:41.332 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 16:37:41.349 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 16:37:41.349 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1b4bc7b9]]
-2026-06-02 16:37:41.349 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 16:37:50.084 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 174104 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 16:37:50.086 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 16:37:51.292 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 16:37:51.294 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 16:37:51.379 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 70 ms. Found 0 Redis repository interfaces.
-2026-06-02 16:37:51.993 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 16:37:52.089 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1965 ms
-2026-06-02 16:37:53.220 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 16:37:53.233 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 16:37:53.376 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 16:37:54.154 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 16:37:54.436 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 16:37:54.618 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6256ac4f
-2026-06-02 16:37:54.812 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 16:37:54.915 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 16:37:54.916 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5bbeb9e3]]
-2026-06-02 16:37:54.917 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 16:37:54.931 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 16:37:54.940 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.325 seconds (process running for 5.966)
-2026-06-02 16:37:54.947 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 16:37:55.069 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 16:37:55.480 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 16:37:55.663 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 16:37:55.665 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 16:38:01.445 [http-nio-8080-exec-1] ERROR c.s.q.c.w.i.WebSocketHandshakeInterceptor - [WebSocket JWT 验证异常]IP= 192.168.5.206, URI= http://192.168.5.191:8080/ws/user/online?token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMDI0MDE3MDExMjEiLCJ1c2VySWQiOjIwNTU5NDk2NzgxMTcxMzAyNDIsInVzZXJUeXBlIjoxLCJleHAiOjE3ODA0ODI0MDksImlhdCI6MTc4MDM4MjQwOX0.VqQIJ-HPyjjJJkzCIDuw2lVaYgqc0J1s7AkOn28mjsc, METHOD= WEBSOCKET, 异常: 已登出，请重新登录
-2026-06-02 16:38:10.846 [http-nio-8080-exec-9] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 192.168.5.206, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
-2026-06-02 16:38:54.890 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 30, active threads = 0, queued tasks = 0, completed tasks = 30], outboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 17:08:54.906 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 10 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(10)-CONNECTED(10)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 360], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 27], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
-2026-06-02 17:14:36.487 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 17:14:36.781 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 17:14:36.792 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 17:14:36.793 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5bbeb9e3]]
-2026-06-02 17:14:36.793 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 17:15:25.367 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 178792 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 17:15:25.369 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 17:15:26.548 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 17:15:26.551 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 17:15:26.619 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 57 ms. Found 0 Redis repository interfaces.
-2026-06-02 17:15:27.204 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 17:15:27.295 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1894 ms
-2026-06-02 17:15:28.385 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 17:15:28.395 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 17:15:28.520 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 17:15:29.290 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 17:15:29.553 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 17:15:29.697 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 17:15:29.895 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 17:15:29.995 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 17:15:29.996 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2f9d47a3]]
-2026-06-02 17:15:29.997 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 17:15:30.011 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 17:15:30.020 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.081 seconds (process running for 5.721)
-2026-06-02 17:15:30.025 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 17:15:30.139 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 17:15:30.200 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 17:15:30.201 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 17:15:30.507 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 17:15:30.537 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 格式错误
-2026-06-02 17:15:30.672 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 192.168.5.206, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 格式错误
-2026-06-02 17:16:29.972 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 18, active threads = 0, queued tasks = 0, completed tasks = 18], outboundChannel[pool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-06-02 17:45:24.117 [http-nio-8080-exec-9] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数异常] IP= 192.168.5.206, URI= /api/admin/index/menu/update, METHOD= PUT, code=4000, message=父菜单不能为空
-2026-06-02 17:46:29.986 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 27 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(27)-CONNECTED(27)-DISCONNECT(2)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 345], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 79], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
-2026-06-02 17:50:06.068 [http-nio-8080-exec-5] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数缺失异常] IP= 192.168.5.206, URI= /api/admin/index/menu/bind-identity, METHOD= POST, code=4006, message=参数: (Long) menuId
-2026-06-02 17:51:20.154 [http-nio-8080-exec-6] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数缺失异常] IP= 192.168.5.206, URI= /api/admin/index/menu/bind-identity, METHOD= POST, code=4006, message=参数: (Long) menuId
-2026-06-02 17:56:09.728 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 17:56:10.033 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 17:56:10.038 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 17:56:10.038 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2f9d47a3]]
-2026-06-02 17:56:10.038 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 21:34:15.279 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 28644 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 21:34:15.281 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 21:34:16.352 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 21:34:16.354 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 21:34:16.420 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 0 Redis repository interfaces.
-2026-06-02 21:34:17.013 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 21:34:17.094 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1782 ms
-2026-06-02 21:34:19.127 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 21:34:19.146 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 21:34:19.399 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 21:34:20.783 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 21:34:21.282 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 21:34:21.586 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 21:34:21.936 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 21:34:22.109 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 21:34:22.109 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6cb5a64d]]
-2026-06-02 21:34:22.109 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 21:34:22.125 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 21:34:22.125 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6cb5a64d]]
-2026-06-02 21:34:22.125 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-06-02 21:34:22.125 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-2026-06-02 21:34:22.175 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2026-06-04T20:03:39.621+08:00  INFO 74848 --- [QiSi-System] [main] c.sc.qisi_system.QiSiSystemApplication   : Starting QiSiSystemApplication using Java 17.0.12 with PID 74848 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-06-04T20:03:39.627+08:00  INFO 74848 --- [QiSi-System] [main] c.sc.qisi_system.QiSiSystemApplication   : The following 1 profile is active: "prod"
+2026-06-04T20:03:41.046+08:00  INFO 74848 --- [QiSi-System] [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-04T20:03:41.050+08:00  INFO 74848 --- [QiSi-System] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-04T20:03:41.141+08:00  INFO 74848 --- [QiSi-System] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 0 Redis repository interfaces.
+2026-06-04T20:03:41.872+08:00  INFO 74848 --- [QiSi-System] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-04T20:03:41.970+08:00  INFO 74848 --- [QiSi-System] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2305 ms
+2026-06-04T20:03:43.383+08:00  INFO 74848 --- [QiSi-System] [main] c.sc.qisi_system.QiSiSystemApplication   : ✅ 管理员账号已初始化
+2026-06-04T20:03:43.414+08:00  INFO 74848 --- [QiSi-System] [main] c.s.q.config.minio.MinioConfig           : 开始初始化MinIO客户端
+2026-06-04T20:03:43.675+08:00  INFO 74848 --- [QiSi-System] [main] c.s.q.config.minio.MinioConfig           : MinIO客户端初始化完成
+2026-06-04T20:03:45.098+08:00  INFO 74848 --- [QiSi-System] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-06-04T20:03:45.591+08:00  INFO 74848 --- [QiSi-System] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 15 endpoints beneath base path '/actuator'
+2026-06-04T20:03:45.889+08:00  INFO 74848 --- [QiSi-System] [main] m.e.s.MybatisPlusApplicationContextAware : Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1536602f
+2026-06-04T20:03:46.278+08:00  WARN 74848 --- [QiSi-System] [main] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-06-04T20:03:46.481+08:00  INFO 74848 --- [QiSi-System] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-06-04T20:03:46.482+08:00  INFO 74848 --- [QiSi-System] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1b4bc7b9]]
+2026-06-04T20:03:46.483+08:00  INFO 74848 --- [QiSi-System] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-06-04T20:03:46.491+08:00  INFO 74848 --- [QiSi-System] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-06-04T20:03:46.491+08:00  INFO 74848 --- [QiSi-System] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1b4bc7b9]]
+2026-06-04T20:03:46.493+08:00  INFO 74848 --- [QiSi-System] [main] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-06-04T20:03:46.502+08:00  WARN 74848 --- [QiSi-System] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-06-04T20:03:46.545+08:00  INFO 74848 --- [QiSi-System] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-02 21:34:22.198 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+2026-06-04T20:03:46.568+08:00 ERROR 74848 --- [QiSi-System] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
 
 ***************************
 APPLICATION FAILED TO START
@@ -416,34 +36,256 @@ Action:
 
 Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
 
-2026-06-02 21:37:14.975 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 7520 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
-2026-06-02 21:37:14.976 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-06-02 21:37:16.149 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-06-02 21:37:16.152 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-06-02 21:37:16.228 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 0 Redis repository interfaces.
-2026-06-02 21:37:16.777 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-02 21:37:16.853 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1845 ms
-2026-06-02 21:37:17.931 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-06-02 21:37:17.943 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-06-02 21:37:18.065 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-06-02 21:37:18.788 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-06-02 21:37:19.043 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-06-02 21:37:19.192 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-06-02 21:37:19.367 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-06-02 21:37:19.457 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-06-02 21:37:19.457 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@78c9c38a]]
-2026-06-02 21:37:19.459 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-06-02 21:37:19.472 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-06-02 21:37:19.481 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.878 seconds (process running for 5.512)
-2026-06-02 21:37:19.485 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-06-02 21:37:19.630 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-06-02 21:37:19.973 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-06-02 21:37:20.207 [RMI TCP Connection(2)-172.17.120.48] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-02 21:37:20.208 [RMI TCP Connection(2)-172.17.120.48] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
-2026-06-02 21:38:01.646 [http-nio-8080-exec-2] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数类型转换异常] IP= 127.0.0.1, URI= /api/message/create-or-get, METHOD= GET, code=4007, message=参数格式错误 参数: targetUserId
-2026-06-02 21:38:02.490 [http-nio-8080-exec-5] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数类型转换异常] IP= 127.0.0.1, URI= /api/message/create-or-get, METHOD= GET, code=4007, message=参数格式错误 参数: targetUserId
-2026-06-02 21:38:15.738 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-02 21:38:16.009 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-02 21:38:16.010 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-06-02 21:38:16.011 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@78c9c38a]]
-2026-06-02 21:38:16.011 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-06-04 20:04:45.296 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 79084 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-06-04 20:04:45.298 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-06-04 20:04:46.377 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-04 20:04:46.379 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-04 20:04:46.452 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 0 Redis repository interfaces.
+2026-06-04 20:04:46.979 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-04 20:04:47.081 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1754 ms
+2026-06-04 20:04:48.840 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
+2026-06-04 20:04:48.859 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-06-04 20:04:49.047 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-06-04 20:04:50.465 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-06-04 20:04:50.935 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+2026-06-04 20:04:51.208 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
+2026-06-04 20:04:51.551 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-06-04 20:04:51.728 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-06-04 20:04:51.729 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@12d33d7a]]
+2026-06-04 20:04:51.730 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-06-04 20:04:51.736 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-06-04 20:04:51.737 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@12d33d7a]]
+2026-06-04 20:04:51.738 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-06-04 20:04:51.745 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-06-04 20:04:51.796 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-04 20:04:51.817 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-06-04 20:06:57.526 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 77808 (C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem\target\classes started by Lenovo in C:\Users\Lenovo\Desktop\development\my-code\QiSiSystem)
+2026-06-04 20:06:57.528 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-06-04 20:06:58.476 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-04 20:06:58.478 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-04 20:06:58.545 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 56 ms. Found 0 Redis repository interfaces.
+2026-06-04 20:06:59.038 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-06-04 20:06:59.117 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1556 ms
+2026-06-04 20:07:00.071 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
+2026-06-04 20:07:00.081 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-06-04 20:07:00.171 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-06-04 20:07:00.890 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-06-04 20:07:01.149 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+2026-06-04 20:07:01.300 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6256ac4f
+2026-06-04 20:07:01.484 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-06-04 20:07:01.592 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-06-04 20:07:01.593 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@538fb761]]
+2026-06-04 20:07:01.593 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-06-04 20:07:01.608 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-06-04 20:07:01.617 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.538 seconds (process running for 5.046)
+2026-06-04 20:07:01.623 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-06-04 20:07:01.772 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-06-04 20:07:02.203 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-06-04 20:07:02.344 [RMI TCP Connection(3)-172.17.120.48] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-04 20:07:02.346 [RMI TCP Connection(3)-172.17.120.48] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-06-04 20:07:09.462 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
+2026-06-04 20:07:09.463 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/user/info/user-identity-list, METHOD= GET, 异常: Token 已过期
+2026-06-04 20:07:09.487 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
+2026-06-04 20:07:52.946 [http-nio-8080-exec-5] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/user/login, METHOD= POST, code=USER_NOT_FOUND, message=用户不存在
+2026-06-04 20:08:01.574 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-06-04 20:09:15.895 [http-nio-8080-exec-3] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
+2026-06-04 20:09:27.516 [http-nio-8080-exec-7] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
+2026-06-04 20:10:02.786 [http-nio-8080-exec-3] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/user/login, METHOD= POST, code=USER_NOT_FOUND, message=用户不存在
+2026-06-04 20:10:19.489 [clientOutboundChannel-2] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 已强制用户 2058093987570442242 下线，原因：您的账号已在另一台设备登录，您已被迫下线
+2026-06-04 20:12:08.707 [http-nio-8080-exec-1] WARN  c.s.q.c.s.h.SecurityHandlerConfig - [认证失败] IP= 127.0.0.1, URI= /, METHOD= GET, 原因: 认证失败
+2026-06-04 20:14:47.274 [http-nio-8080-exec-5] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/user/login, METHOD= POST, code=PASSWORD_ERROR, message=用户密码错误
+2026-06-04 20:16:55.723 [http-nio-8080-exec-1] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
+2026-06-04 20:17:03.331 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/user/login, METHOD= POST, code=PASSWORD_ERROR, message=用户密码错误
+2026-06-04 20:18:36.548 [http-nio-8080-exec-1] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/demand/apply/query/my-detail, METHOD= GET, code=DEMAND_APPLY_NOT_EXIST, message=该需求申请记录不存在
+2026-06-04 20:18:40.770 [http-nio-8080-exec-4] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/demand/apply/query/my-detail, METHOD= GET, code=DEMAND_APPLY_NOT_EXIST, message=该需求申请记录不存在
+2026-06-04 20:19:16.849 [http-nio-8080-exec-3] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 127.0.0.1, URI= /api/demand/apply/query/my-detail, METHOD= GET, code=DEMAND_APPLY_NOT_EXIST, message=该需求申请记录不存在
+2026-06-04 20:20:53.487 [http-nio-8080-exec-7] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数缺失异常] IP= 127.0.0.1, URI= /api/practice/audit/demand/close, METHOD= PUT, code=4006, message=参数: (Long) demandId
+2026-06-04 20:21:12.953 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [参数缺失异常] IP= 127.0.0.1, URI= /api/practice/audit/demand/close, METHOD= PUT, code=4006, message=参数: (Long) demandId
+2026-06-04 20:21:59.624 [http-nio-8080-exec-9] ERROR c.s.q.c.e.GlobalExceptionHandler - [系统异常] IP= 127.0.0.1, URI= /api/admin/user/ban, METHOD= GET
+jakarta.validation.UnexpectedTypeException: HV000030: No validator could be found for constraint 'jakarta.validation.constraints.NotEmpty' validating type 'java.lang.Long'. Check configuration for 'banUser.userId'
+	at org.hibernate.validator.internal.engine.constraintvalidation.ConstraintTree.getExceptionForNullValidator(ConstraintTree.java:116)
+	at org.hibernate.validator.internal.engine.constraintvalidation.ConstraintTree.getInitializedConstraintValidator(ConstraintTree.java:162)
+	at org.hibernate.validator.internal.engine.constraintvalidation.SimpleConstraintTree.validateConstraints(SimpleConstraintTree.java:58)
+	at org.hibernate.validator.internal.engine.constraintvalidation.ConstraintTree.validateConstraints(ConstraintTree.java:75)
+	at org.hibernate.validator.internal.metadata.core.MetaConstraint.doValidateConstraint(MetaConstraint.java:130)
+	at org.hibernate.validator.internal.metadata.core.MetaConstraint.validateConstraint(MetaConstraint.java:123)
+	at org.hibernate.validator.internal.engine.ValidatorImpl.validateMetaConstraint(ValidatorImpl.java:555)
+	at org.hibernate.validator.internal.engine.ValidatorImpl.validateMetaConstraints(ValidatorImpl.java:537)
+	at org.hibernate.validator.internal.engine.ValidatorImpl.validateParametersForSingleGroup(ValidatorImpl.java:991)
+	at org.hibernate.validator.internal.engine.ValidatorImpl.validateParametersForGroup(ValidatorImpl.java:932)
+	at org.hibernate.validator.internal.engine.ValidatorImpl.validateParametersInContext(ValidatorImpl.java:863)
+	at org.hibernate.validator.internal.engine.ValidatorImpl.validateParameters(ValidatorImpl.java:283)
+	at org.hibernate.validator.internal.engine.ValidatorImpl.validateParameters(ValidatorImpl.java:235)
+	at org.springframework.validation.beanvalidation.MethodValidationAdapter.invokeValidatorForArguments(MethodValidationAdapter.java:261)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:166)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.proceed(AuthorizationManagerBeforeMethodInterceptor.java:268)
+	at org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.attemptAuthorization(AuthorizationManagerBeforeMethodInterceptor.java:263)
+	at org.springframework.security.authorization.method.AuthorizationManagerBeforeMethodInterceptor.invoke(AuthorizationManagerBeforeMethodInterceptor.java:196)
+	at org.springframework.security.config.annotation.method.configuration.DeferringMethodInterceptor.invoke(DeferringMethodInterceptor.java:44)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at com.sc.qisi_system.module.admin.controller.AdminUserController$$SpringCGLIB$$0.banUser(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:490)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:351)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:83)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:129)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:125)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at com.sc.qisi_system.config.security.filter.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:71)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:334)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:225)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2026-06-04 20:28:15.632 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-04 20:28:15.761 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-06-04 20:28:15.765 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-06-04 20:28:15.765 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@538fb761]]
+2026-06-04 20:28:15.765 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.

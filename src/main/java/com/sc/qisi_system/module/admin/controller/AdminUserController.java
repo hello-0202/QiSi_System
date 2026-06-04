@@ -5,7 +5,7 @@ import com.sc.qisi_system.module.admin.dto.SysUserQueryDTO;
 import com.sc.qisi_system.module.admin.service.AdminUserService;
 import com.sc.qisi_system.module.user.dto.SysUserResetPasswordDTO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -65,7 +65,7 @@ public class AdminUserController {
      */
     @GetMapping("/ban")
     public Result banUser(
-            @NotEmpty(message = "id不能为空") @RequestParam Long userId) {
+            @RequestParam @NotNull(message = "id不能为空") Long userId) {
         adminUserService.banUser(userId);
         return Result.success();
     }
@@ -80,7 +80,7 @@ public class AdminUserController {
      */
     @GetMapping("/unban")
     public Result unbanUser(
-            @NotEmpty(message = "id不能为空") @RequestParam Long userId) {
+            @RequestParam @NotNull(message = "id不能为空") Long userId) {
         adminUserService.unbanUser(userId);
         return Result.success();
     }

@@ -134,6 +134,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
         return demandPublicDetailVO;
     }
 
+
     /**
      * 获取我参与的实践需求列表
      */
