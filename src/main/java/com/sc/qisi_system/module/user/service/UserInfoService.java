@@ -65,7 +65,9 @@ public interface UserInfoService {
      */
     void updateEntEmployeeInfo(EntEmployeeInfoVO entEmployeeInfoVO);
 
+
     UserIdentityEnum getUserIdentity();
+
 
     PageResult<MenuRouteVO> getRouters(MenuQueryDTO menuQueryDTO);
 }

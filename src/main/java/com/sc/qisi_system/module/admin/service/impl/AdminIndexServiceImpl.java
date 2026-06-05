@@ -90,10 +90,10 @@ public class AdminIndexServiceImpl implements AdminIndexService {
     public PageResult<MenuRouteVO> getMenuRouteList(MenuQueryDTO menuQueryDTO) {
         // 1. 构建查询条件
         LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<>();
-        if (menuQueryDTO.getParentId() != null) {
-            queryWrapper.eq(SysMenu::getParentId, menuQueryDTO.getParentId());
-        }
-        queryWrapper.orderByAsc(SysMenu::getSort);
+
+        queryWrapper
+                .eq(menuQueryDTO.getParentId() != null, SysMenu::getParentId, menuQueryDTO.getParentId())
+                .orderByAsc(SysMenu::getSort);
 
         // 2. 查询所有菜单数据
         List<SysMenu> allMenuList = sysMenuMapper.selectList(queryWrapper);
@@ -114,8 +114,8 @@ public class AdminIndexServiceImpl implements AdminIndexService {
      * 菜单与业务身份绑定
      */
     @Override
-    public void bindMenuIdentity(Long menuId, Long identityId) {
-        if(!sysMenuMapper.exists(Wrappers.lambdaQuery(SysMenu.class).eq(SysMenu::getParentId, menuId))){
+    public void bindMenuIdentity(Long menuId, Integer identityId) {
+        if(!sysMenuMapper.exists(Wrappers.lambdaQuery(SysMenu.class).eq(SysMenu::getId, menuId))){
             throw new BusinessException(ResultCode.MENU_NOT_EXIST);
         }
         SysRoleMenu sysRoleMenu = new SysRoleMenu();

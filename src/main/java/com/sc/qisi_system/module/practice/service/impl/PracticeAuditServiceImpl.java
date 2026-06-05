@@ -47,7 +47,7 @@ public class PracticeAuditServiceImpl implements PracticeAuditService {
     @Override
     public void submitDemandPlan(DemandPlanDTO demandPlanDTO) {
         // 1. 校验需求是否存在
-        if(demandService.isNotExistsByDemandId(demandPlanDTO.getDemandId())) {
+        if(!demandService.isNotExistsByDemandId(demandPlanDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 

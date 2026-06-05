@@ -113,7 +113,7 @@ logging:
 # MinIO 对象存储（文件上传服务）
 # ==============================
 minio:
-  endpoint: http://172.17.120.48:9000         # MinIO 服务地址
+  endpoint: http://192.168.5.250:9000        # MinIO 服务地址
   access-key: admin                           # 用户名
   secret-key: 12345678                        # 密码
   read-timeout: 6000                          # 读取超时

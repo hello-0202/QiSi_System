@@ -72,7 +72,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     @Override
     public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) throws Exception {
         // 1. 校验需求是否存在
-        if (demandService.isNotExistsByDemandId(demandId)) {
+        if (!demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
@@ -133,7 +133,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     @Override
     public void applyQuitDemand(MemberChangeDTO memberChangeDTO) {
         // 1. 校验需求是否存在
-        if (demandService.isNotExistsByDemandId(memberChangeDTO.getDemandId())) {
+        if (!demandService.isNotExistsByDemandId(memberChangeDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 

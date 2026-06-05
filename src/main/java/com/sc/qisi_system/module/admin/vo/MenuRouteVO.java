@@ -67,9 +67,10 @@ public class MenuRouteVO {
          */
         private String icon;
 
+
         /**
-         * 是否隐藏侧边栏
+         * 绑定的业务身份
          */
-        private Boolean hidden;
+        private List<Integer> identityId;
     }
 }

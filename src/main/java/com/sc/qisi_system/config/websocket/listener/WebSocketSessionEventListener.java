@@ -23,6 +23,7 @@ public class WebSocketSessionEventListener {
     private final RedisService redisService;
     private final WebSocketService webSocketService;
 
+
     @EventListener
     public void handleSessionConnected(SessionConnectedEvent event) {
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(event.getMessage());

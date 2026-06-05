@@ -50,7 +50,7 @@ public interface AdminIndexService {
      * @param menuId 菜单ID
      * @param identityId 业务身份ID
      */
-    void bindMenuIdentity(Long menuId, Long identityId);
+    void bindMenuIdentity(Long menuId, Integer identityId);
 
 
     /**

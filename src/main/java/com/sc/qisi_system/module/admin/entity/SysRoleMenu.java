@@ -32,7 +32,7 @@ public class SysRoleMenu implements Serializable {
     /**
      * 业务身份
      */
-    private Long identityId;
+    private Integer identityId;
 
 
     /**

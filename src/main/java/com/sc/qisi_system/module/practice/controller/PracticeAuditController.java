@@ -48,7 +48,7 @@ public class PracticeAuditController {
      */
     @PutMapping("/research/start")
     public Result startResearch(
-            @NotNull @RequestParam Long demandId) {
+            @RequestParam @NotNull Long demandId) {
         practiceAuditService.startResearch(demandId);
         return Result.success();
     }
@@ -63,7 +63,7 @@ public class PracticeAuditController {
      */
     @PutMapping("/research/complete")
     public Result completeResearch(
-            @NotNull @RequestParam Long demandId) {
+            @RequestParam @NotNull Long demandId) {
         practiceAuditService.completeResearch(demandId);
         return Result.success();
     }
@@ -78,7 +78,7 @@ public class PracticeAuditController {
      */
     @PutMapping("/demand/close")
     public Result closeDemand(
-            @NotNull @RequestParam Long demandId) {
+            @RequestParam @NotNull Long demandId) {
         practiceAuditService.closeDemand(demandId);
         return Result.success();
     }
@@ -93,7 +93,7 @@ public class PracticeAuditController {
      */
     @PutMapping("/audit/resubmit")
     public Result resubmitAudit(
-            @NotNull @RequestParam Long demandId) {
+            @RequestParam @NotNull Long demandId) {
         practiceAuditService.resubmitAudit(demandId);
         return Result.success();
     }

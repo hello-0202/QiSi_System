@@ -5,7 +5,7 @@ import com.sc.qisi_system.module.admin.dto.MenuDTO;
 import com.sc.qisi_system.module.admin.dto.MenuQueryDTO;
 import com.sc.qisi_system.module.admin.service.AdminIndexService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -52,8 +52,8 @@ public class AdminIndexController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/menu/bind-identity")
     public Result bindMenuIdentity(
-            @NotEmpty(message = "菜单ID不能为空") @RequestParam Long menuId,
-            @NotEmpty(message = "身份ID不能为空") @RequestParam Long identityId) {
+             @RequestParam @NotNull(message = "菜单ID不能为空") Long menuId,
+             @RequestParam @NotNull(message = "身份ID不能为空") Integer identityId) {
         adminIndexService.bindMenuIdentity(menuId, identityId);
         return Result.success();
     }
@@ -69,7 +69,7 @@ public class AdminIndexController {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/menu/unbind-identity")
     public Result unbindMenuIdentity(
-            @NotEmpty(message = "ID不能为空") @RequestParam Long id) {
+             @RequestParam @NotNull(message = "ID不能为空") Long id) {
         adminIndexService.unbindMenuIdentity(id);
         return Result.success();
     }

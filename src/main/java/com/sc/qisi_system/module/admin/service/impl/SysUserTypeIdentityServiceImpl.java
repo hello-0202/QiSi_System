@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -107,9 +108,21 @@ public class SysUserTypeIdentityServiceImpl extends ServiceImpl<SysUserTypeIdent
         MenuRouteVO.Meta meta = new MenuRouteVO.Meta();
         meta.setTitle(sysMenu.getTitle());
         meta.setIcon(sysMenu.getIcon());
-        meta.setHidden(sysMenu.getHidden() == 1);
-        vo.setMeta(meta);
 
+        // ========== 修复：正确设置身份权限列表 ==========
+        List<SysRoleMenu> sysRoleMenuList = sysRoleMenuMapper.selectList(
+                new LambdaQueryWrapper<SysRoleMenu>()
+                        .eq(SysRoleMenu::getMenuId, sysMenu.getId())
+                        .select(SysRoleMenu::getIdentityId)
+        );
+
+        List<Integer> identityIds = sysRoleMenuList.stream()
+                .map(SysRoleMenu::getIdentityId)
+                .collect(Collectors.toList());
+
+        meta.setIdentityId(CollUtil.isEmpty(identityIds) ? null : identityIds);
+
+        vo.setMeta(meta);
         return vo;
     }
 }

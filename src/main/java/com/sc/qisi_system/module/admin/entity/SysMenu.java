@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Data
 public class SysMenu implements Serializable {
 
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +26,7 @@ public class SysMenu implements Serializable {
     /**
      * 菜单ID
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
 
@@ -78,12 +79,6 @@ public class SysMenu implements Serializable {
 
 
     /**
-     * 0显示侧边菜单 1隐藏仅路由
-     */
-    private Integer hidden;
-
-
-    /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
@@ -95,5 +90,4 @@ public class SysMenu implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
-
 }
