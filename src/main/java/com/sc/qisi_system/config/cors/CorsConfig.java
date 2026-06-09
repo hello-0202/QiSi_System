@@ -21,7 +21,8 @@ public class CorsConfig {
         config.setAllowedOriginPatterns(Arrays.asList(
                 "http://localhost:*",
                 "http://192.168.*.*",
-                "http://172.*.*.*"
+                "http://172.*.*.*",
+                "http://10.*.*.*"
         ));
 
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));

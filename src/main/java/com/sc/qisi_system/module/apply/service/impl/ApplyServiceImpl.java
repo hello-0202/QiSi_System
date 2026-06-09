@@ -140,16 +140,15 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
                         SysUser::getUserType
                 );
         List<SysUser> sysUserList = sysUserService.list(userQueryWrapper);
+        System.out.println(sysUserList);
 
         // 6. 封装VO
         List<MemberVO> voList = new ArrayList<>();
         for (SysUser sysUser : sysUserList) {
 
             LambdaQueryWrapper<DemandMember> queryWrapper1 = new LambdaQueryWrapper<>();
-            System.out.println("sysUser.getId():" + sysUser.getId());
             queryWrapper1.eq(DemandMember::getUserId, sysUser.getId());
             DemandMember demandMember = demandMemberService.getOne(queryWrapper1);
-            System.out.println(demandMember);
 
             MemberVO vo = new MemberVO();
             vo.setId(sysUser.getId());
@@ -158,8 +157,10 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
 
             UserProfileVO userProfileVO = new UserProfileVO();
             userProfileVO.setName(sysUser.getName());
-            userProfileVO.setAvatar(sysUser.getAvatar());
+            userProfileVO.setAvatar(minioService.getUserAvatarUrl(sysUser.getAvatar()));
             userProfileVO.setUserType(sysUser.getUserType());
+            System.out.println(sysUser.getId());
+            userProfileVO.setId(sysUser.getId());
             vo.setUserProfileVO(userProfileVO);
             DemandMemberVO demandMemberVO = new DemandMemberVO();
 
@@ -209,7 +210,7 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
         if (eduStudent == null) {
             return;
         }
-        BeanUtils.copyProperties(eduStudent, vo.getUserProfileVO());
+        BeanUtils.copyProperties(eduStudent, vo.getUserProfileVO(),"name", "avatarUrl", "userType","id");
     }
 
 
@@ -228,7 +229,7 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
         if (eduTeacher == null) {
             return;
         }
-        BeanUtils.copyProperties(eduTeacher, vo.getUserProfileVO());
+        BeanUtils.copyProperties(eduTeacher, vo.getUserProfileVO(),"name", "avatarUrl", "userType","id");
     }
 
 
@@ -247,6 +248,6 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
         if (entEmployee == null) {
             return;
         }
-        BeanUtils.copyProperties(entEmployee, vo.getUserProfileVO());
+        BeanUtils.copyProperties(entEmployee, vo.getUserProfileVO(),"name", "avatarUrl", "userType","id");
     }
 }

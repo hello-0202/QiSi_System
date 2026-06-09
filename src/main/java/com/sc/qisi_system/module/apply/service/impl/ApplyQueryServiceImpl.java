@@ -170,6 +170,7 @@ public class ApplyQueryServiceImpl implements ApplyQueryService {
         userProfileVO.setEmail(sysUser.getEmail());
         vo.setUserProfileVO(userProfileVO);
         vo.setAvatarUrl(minioService.getUserAvatarUrl(sysUser.getAvatar()));
+        vo.setId(sysUser.getId());
 
         return vo;
     }
