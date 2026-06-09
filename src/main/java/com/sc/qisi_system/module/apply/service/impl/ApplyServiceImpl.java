@@ -146,8 +146,10 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
         for (SysUser sysUser : sysUserList) {
 
             LambdaQueryWrapper<DemandMember> queryWrapper1 = new LambdaQueryWrapper<>();
+            System.out.println("sysUser.getId():" + sysUser.getId());
             queryWrapper1.eq(DemandMember::getUserId, sysUser.getId());
             DemandMember demandMember = demandMemberService.getOne(queryWrapper1);
+            System.out.println(demandMember);
 
             MemberVO vo = new MemberVO();
             vo.setId(sysUser.getId());
@@ -160,6 +162,7 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
             userProfileVO.setUserType(sysUser.getUserType());
             vo.setUserProfileVO(userProfileVO);
             DemandMemberVO demandMemberVO = new DemandMemberVO();
+
             if(demandMember != null) {
                 BeanUtils.copyProperties(demandMember, demandMemberVO);
                 vo.setDemandMemberVO(demandMemberVO);
