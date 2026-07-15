@@ -1,7 +1,7 @@
 package com.sc.qisi_system.module.practice.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
+import com.sc.qisi_system.config.mybatisplusconfig.ResearchPlanTypeHandler;
 import com.sc.qisi_system.module.apply.domain.ResearchPlanStage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,7 +51,7 @@ public class DemandExecutionPlan implements Serializable {
     /**
      * 研究计划
      */
-    @TableField(typeHandler = Fastjson2TypeHandler.class)
+    @TableField(typeHandler = ResearchPlanTypeHandler.class)
     private List<ResearchPlanStage> researchPlan;
 
 

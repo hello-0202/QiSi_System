@@ -120,6 +120,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- 添加 Jackson 支持（如果还没有） -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
 
         <!-- MinIO对象存储Java客户端包 -->
         <dependency>

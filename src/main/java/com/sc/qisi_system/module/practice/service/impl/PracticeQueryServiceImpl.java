@@ -120,17 +120,16 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     @Override
     public DemandPublicDetailVO getPracticeDemandDetail(Long demandId) {
         DemandPublicDetailVO demandPublicDetailVO = demandService.getPublicDemandDetail(demandId);
-        LambdaQueryWrapper<DemandExecutionPlan> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper
-                .eq(DemandExecutionPlan::getDemandId, demandId)
-                .select(DemandExecutionPlan::getResearchPlan);
-        DemandExecutionPlan executionPlan = demandExecutionPlanMapper.selectOne(queryWrapper);
+        System.out.println("demandId: " + demandId);
+        DemandExecutionPlan executionPlan = demandExecutionPlanMapper.selectByDemandIdWithHandler(demandId);
+        System.out.println("executionPlan: " + executionPlan);
 
-        if (executionPlan != null) {
+        if (executionPlan.getResearchPlan() != null) {
             demandPublicDetailVO.setResearchPlan(executionPlan.getResearchPlan());
         } else {
             demandPublicDetailVO.setResearchPlan(null);
         }
+        System.out.println("demandPublicDetailVO: " + demandPublicDetailVO);
         return demandPublicDetailVO;
     }
 
@@ -231,7 +230,10 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                     MemberChangeLogVO memberChangeLogVO = new MemberChangeLogVO();
                     BeanUtils.copyProperties(memberChange, memberChangeLogVO);
                     UserProfileVO userProfileVO = sysUserService.getUserProfile(memberChange.getUserId());
-                    BeanUtils.copyProperties(userProfileVO, memberChangeLogVO.getUserProfileVO());
+                    UserProfileVO userProfileVO1 = new UserProfileVO();
+                    BeanUtils.copyProperties(userProfileVO,userProfileVO1);
+                    memberChangeLogVO.setUserProfileVO(userProfileVO1);
+
                     return memberChangeLogVO;
                 }).toList();
 
@@ -274,7 +276,6 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                     if (sysUser != null) {
                         demandProgressVO.setName(sysUser.getName());
                     }
-
                     return demandProgressVO;
                 }).toList();
 

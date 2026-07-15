@@ -1,6 +1,7 @@
 package com.sc.qisi_system.module.practice.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.enums.DemandStatusEnum;
 import com.sc.qisi_system.common.enums.MemberChangeStatusEnum;
 import com.sc.qisi_system.common.enums.MemberChangeTypeEnum;
@@ -49,6 +50,12 @@ public class PracticeAuditServiceImpl implements PracticeAuditService {
         // 1. 校验需求是否存在
         if(!demandService.isNotExistsByDemandId(demandPlanDTO.getDemandId())) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        }
+
+        if(demandExecutionPlanMapper.selectCount(
+                Wrappers.lambdaQuery(DemandExecutionPlan.class)
+                .eq(DemandExecutionPlan::getDemandId, demandPlanDTO.getDemandId())) > 0){
+            throw new BusinessException(ResultCode.DEMAND_PLAN_ALREADY_EXIST);
         }
 
         // 2. 转换DTO为实体

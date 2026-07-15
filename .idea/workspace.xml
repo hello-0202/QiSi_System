@@ -5,11 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/mybatisplusconfig/ResearchPlanTypeHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/cors/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/config/cors/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/service/impl/ApplyQueryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/service/impl/ApplyQueryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/service/impl/ApplyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/apply/service/impl/ApplyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/controller/PracticeQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/entity/DemandExecutionPlan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/entity/DemandExecutionPlan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/mapper/DemandExecutionPlanMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/mapper/DemandExecutionPlanMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeAuditServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeAuditServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeExecuteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeExecuteServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeQueryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/service/impl/PracticeQueryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/vo/MemberVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/practice/vo/MemberVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +106,7 @@
     &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/Desktop/Qisi/Qisi/qisi-web&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Lenovo/Desktop/Campus-Team-Training-Manager&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -112,6 +121,9 @@
     ]
   }
 }</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Lenovo\Desktop\QiSiSystem\src\main\java\com\sc\qisisystem\module\user" />
@@ -280,15 +292,23 @@
       <workItem from="1780646718136" duration="11833000" />
       <workItem from="1780669682025" duration="3807000" />
       <workItem from="1780926716154" duration="20000" />
-      <workItem from="1780989574206" duration="9879000" />
-    </task>
-    <task id="LOCAL-00025" summary="完成了在线状态功能">
-      <option name="closed" value="true" />
-      <created>1778330215384</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1778330215384</updated>
+      <workItem from="1780989574206" duration="10178000" />
+      <workItem from="1781147853046" duration="16000" />
+      <workItem from="1781180241735" duration="6000" />
+      <workItem from="1781180280910" duration="208000" />
+      <workItem from="1781180760844" duration="380000" />
+      <workItem from="1781182746608" duration="15000" />
+      <workItem from="1781182835512" duration="99000" />
+      <workItem from="1781183138021" duration="118000" />
+      <workItem from="1781183366323" duration="494000" />
+      <workItem from="1781419392834" duration="8863000" />
+      <workItem from="1781689709222" duration="1137000" />
+      <workItem from="1782098135497" duration="115000" />
+      <workItem from="1783932754124" duration="94000" />
+      <workItem from="1783937607004" duration="128000" />
+      <workItem from="1784021668970" duration="18000" />
+      <workItem from="1784033328141" duration="2883000" />
+      <workItem from="1784096973770" duration="10263000" />
     </task>
     <task id="LOCAL-00026" summary="解决了循环依赖问题">
       <option name="closed" value="true" />
@@ -674,7 +694,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780997445045</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1781006524425</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1781006524425</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

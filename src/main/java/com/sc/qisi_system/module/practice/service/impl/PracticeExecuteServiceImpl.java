@@ -15,10 +15,12 @@ import com.sc.qisi_system.module.practice.dto.DemandPlanDTO;
 import com.sc.qisi_system.module.practice.dto.DemandProgressDTO;
 import com.sc.qisi_system.module.practice.dto.MemberChangeDTO;
 import com.sc.qisi_system.module.practice.entity.DemandExecutionPlan;
+import com.sc.qisi_system.module.practice.entity.DemandMember;
 import com.sc.qisi_system.module.practice.entity.DemandMemberChange;
 import com.sc.qisi_system.module.practice.entity.DemandProgress;
 import com.sc.qisi_system.module.practice.mapper.DemandExecutionPlanMapper;
 import com.sc.qisi_system.module.practice.mapper.DemandMemberChangeMapper;
+import com.sc.qisi_system.module.practice.mapper.DemandMemberMapper;
 import com.sc.qisi_system.module.practice.mapper.DemandProgressMapper;
 import com.sc.qisi_system.module.practice.service.PracticeExecuteService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,7 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
 
     private final DemandProgressMapper demandProgressMapper;
     private final DemandExecutionPlanMapper demandExecutionPlanMapper;
+    private final DemandMemberMapper demandMemberMapper;
     private final DemandMemberChangeMapper demandMemberChangeMapper;
     private final DemandService demandService;
     private final MinioService minioService;
@@ -132,28 +135,42 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void applyQuitDemand(MemberChangeDTO memberChangeDTO) {
+        Long loginUserId = SecurityUtils.getCurrentUserId();
+        Long demandId = memberChangeDTO.getDemandId();
+
         // 1. 校验需求是否存在
-        if (!demandService.isNotExistsByDemandId(memberChangeDTO.getDemandId())) {
+        if (!demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
-        // 2. 校验是否重复提交退出申请
-        long count = demandMemberChangeMapper.selectCount(Wrappers.lambdaQuery(DemandMemberChange.class)
-                .eq(DemandMemberChange::getDemandId, memberChangeDTO.getDemandId())
-                .eq(DemandMemberChange::getUserId, SecurityUtils.getCurrentUserId())
-                .eq(DemandMemberChange::getStatus, MemberChangeStatusEnum.PENDING.getCode()));
-        if (count > 0) {
-            throw new BusinessException(ResultCode.DEMAND_QUIT_APPLIED_REPEAT);
+        // 2. 校验当前用户是否在需求成员内
+        long memberCount = demandMemberMapper.selectCount(Wrappers.lambdaQuery(DemandMember.class)
+                .eq(DemandMember::getDemandId, demandId)
+                .eq(DemandMember::getUserId, loginUserId));
+        if (memberCount == 0) {
+            throw new BusinessException(ResultCode.OPERATE_NOT_ALLOWED);
         }
 
-        // 3. 构建退出申请记录
+        // 3. 校验是否存在待审核退出申请，防止重复提交
+        long pendingCount = demandMemberChangeMapper.selectCount(Wrappers.lambdaQuery(DemandMemberChange.class)
+                .eq(DemandMemberChange::getDemandId, demandId)
+                .eq(DemandMemberChange::getUserId, loginUserId)
+                .eq(DemandMemberChange::getStatus, MemberChangeStatusEnum.PENDING.getCode()));
+        if (pendingCount > 0) {
+            throw new BusinessException(ResultCode.DEMAND_QUIT_APPLIED_REPEAT, "已有待审核退出申请，请勿重复提交");
+        }
+
+        // 4. 构建退出申请记录
         DemandMemberChange demandMemberChanged = new DemandMemberChange();
-        BeanUtils.copyProperties(memberChangeDTO, demandMemberChanged);
+
+        demandMemberChanged.setReason(memberChangeDTO.getReason());
+        demandMemberChanged.setUserId(loginUserId);
+        demandMemberChanged.setDemandId(demandId);
         demandMemberChanged.setChangeType(MemberChangeTypeEnum.QUIT_APPLY.getCode());
         demandMemberChanged.setStatus(MemberChangeStatusEnum.PENDING.getCode());
-        demandMemberChanged.setOperatorId(SecurityUtils.getCurrentUserId());
+        demandMemberChanged.setOperatorId(loginUserId);
 
-        // 4. 插入退出申请记录
+        // 5. 插入退出申请记录
         demandMemberChangeMapper.insert(demandMemberChanged);
     }
 }

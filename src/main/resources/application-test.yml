@@ -79,6 +79,7 @@ mybatis-plus:
   configuration:
     # 打印 SQL 日志（方便调试）
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       # 主键生成策略：ASSIGN_ID = 雪花算法（分布式唯一 ID）
@@ -113,7 +114,7 @@ logging:
 # MinIO 对象存储（文件上传服务）
 # ==============================
 minio:
-  endpoint: http://192.168.5.34:9000        # MinIO 服务地址
+  endpoint: http://192.168.43.189:9000        # MinIO 服务地址
   access-key: admin                           # 用户名
   secret-key: 12345678                        # 密码
   read-timeout: 6000                          # 读取超时

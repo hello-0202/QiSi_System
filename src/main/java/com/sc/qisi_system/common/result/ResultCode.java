@@ -90,6 +90,7 @@ public enum ResultCode {
     STUDENT_WHITELIST_NOT_EXIST(4002028, "学生白名单信息不存在"),
     TEACHER_WHITELIST_NOT_EXIST(4002029, "教职工白名单信息不存在"),
     SELF_APPLICATION_FORBIDDEN(4002030, "不允许申请自己的相关内容"),
+    DEMAND_PLAN_ALREADY_EXIST(4002031, "需求计划已存在"),
 
     /**
      * 验证码

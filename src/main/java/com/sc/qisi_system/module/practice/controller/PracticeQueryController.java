@@ -144,7 +144,7 @@ public class PracticeQueryController {
      * @param queryDemandProgressLogDTO  需求日志查询请求体
      * @return 需求日志列表
      */
-    @GetMapping("/demand-progress/log")
+    @PostMapping("/demand-progress/log")
     public Result getDemandProgressLog(
             @Valid @RequestBody QueryDemandProgressLogDTO queryDemandProgressLogDTO) {
         return Result.success(practiceQueryService.getDemandProgressLog(queryDemandProgressLogDTO));

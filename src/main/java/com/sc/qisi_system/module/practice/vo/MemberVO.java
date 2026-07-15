@@ -24,6 +24,12 @@ public class MemberVO {
 
 
     /**
+     * 审核状态: 0-待审核 1-已通过 2-已拒绝
+     */
+    private Integer auditStatus;
+
+
+    /**
      * 头像
      */
     private String avatarUrl;

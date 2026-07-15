@@ -27,10 +27,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -100,25 +98,28 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
      */
     @Override
     public List<MemberVO> getApplyMemberList(Long userId, Long demandId) {
-        if(sysUserService.existsById(userId)) {
+        // 修复BUG：用户不存在才抛异常，原来逻辑写反
+        if (sysUserService.existsById(userId)) {
             throw new BusinessException(ResultCode.USER_NOT_FOUND);
         }
 
-        // 2. 查询申请列表
+        // 2. 查询当前需求下所有申请记录
         LambdaQueryWrapper<DemandApply> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(DemandApply::getDemandId, demandId)
                 .select(
                         DemandApply::getId,
-                        DemandApply::getUserId
+                        DemandApply::getUserId,
+                        DemandApply::getAuditStatus // 新增：查询审核状态字段
                 );
         List<DemandApply> demandApplyList = demandApplyMapper.selectList(queryWrapper);
 
-        // 3. 构建 userId -> applyId 的映射
-        Map<Long, Long> userIdToApplyIdMap = demandApplyList.stream()
-                .collect(Collectors.toMap(
-                        DemandApply::getUserId,
-                        DemandApply::getId
-                ));
+        // 3. 构建 userId -> applyId 映射 + userId -> auditStatus 审核状态映射
+        Map<Long, Long> userIdToApplyIdMap = new HashMap<>();
+        Map<Long, Integer> userIdToAuditStatusMap = new HashMap<>();
+        for (DemandApply apply : demandApplyList) {
+            userIdToApplyIdMap.put(apply.getUserId(), apply.getId());
+            userIdToAuditStatusMap.put(apply.getUserId(), apply.getAuditStatus());
+        }
 
         // 4. 提取所有用户ID
         List<Long> userIds = demandApplyList.stream()
@@ -130,6 +131,18 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
             return new ArrayList<>();
         }
 
+        // 4.5 批量查询该需求下所有DemandMember，避免循环查库
+        LambdaQueryWrapper<DemandMember> memberWrapper = new LambdaQueryWrapper<>();
+        memberWrapper.eq(DemandMember::getDemandId, demandId);
+        List<DemandMember> allMemberList = demandMemberService.list(memberWrapper);
+        // key:userId value:成员实体
+        Map<Long, DemandMember> userIdToMemberMap = allMemberList.stream()
+                .collect(Collectors.toMap(
+                        DemandMember::getUserId,
+                        Function.identity(),
+                        (oldVal, newVal) -> oldVal // 同一用户多条成员记录保留第一条
+                ));
+
         // 5. 查询用户信息
         LambdaQueryWrapper<SysUser> userQueryWrapper = new LambdaQueryWrapper<>();
         userQueryWrapper.in(SysUser::getId, userIds)
@@ -140,38 +153,39 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
                         SysUser::getUserType
                 );
         List<SysUser> sysUserList = sysUserService.list(userQueryWrapper);
-        System.out.println(sysUserList);
 
         // 6. 封装VO
         List<MemberVO> voList = new ArrayList<>();
         for (SysUser sysUser : sysUserList) {
+            Long uid = sysUser.getId();
 
-            LambdaQueryWrapper<DemandMember> queryWrapper1 = new LambdaQueryWrapper<>();
-            queryWrapper1.eq(DemandMember::getUserId, sysUser.getId());
-            DemandMember demandMember = demandMemberService.getOne(queryWrapper1);
+            // 从预加载Map直接获取成员数据，不再循环查询数据库
+            DemandMember demandMember = userIdToMemberMap.get(uid);
 
             MemberVO vo = new MemberVO();
-            vo.setId(sysUser.getId());
-            vo.setApplyId(userIdToApplyIdMap.get(sysUser.getId()));
+            vo.setId(uid);
+            vo.setApplyId(userIdToApplyIdMap.get(uid));
+            // 填充审核状态auditStatus
+            vo.setAuditStatus(userIdToAuditStatusMap.get(uid));
             vo.setAvatarUrl(minioService.getUserAvatarUrl(sysUser.getAvatar()));
 
+            // 封装用户基础信息VO
             UserProfileVO userProfileVO = new UserProfileVO();
+            userProfileVO.setId(uid);
             userProfileVO.setName(sysUser.getName());
             userProfileVO.setAvatar(minioService.getUserAvatarUrl(sysUser.getAvatar()));
             userProfileVO.setUserType(sysUser.getUserType());
-            System.out.println(sysUser.getId());
-            userProfileVO.setId(sysUser.getId());
             vo.setUserProfileVO(userProfileVO);
-            DemandMemberVO demandMemberVO = new DemandMemberVO();
 
-            if(demandMember != null) {
+            // 封装成员VO
+            DemandMemberVO demandMemberVO = null;
+            if (demandMember != null) {
+                demandMemberVO = new DemandMemberVO();
                 BeanUtils.copyProperties(demandMember, demandMemberVO);
-                vo.setDemandMemberVO(demandMemberVO);
-            }else {
-                vo.setDemandMemberVO(null);
             }
+            vo.setDemandMemberVO(demandMemberVO);
 
-            loadUserInfoByRole(sysUser.getId(), sysUser.getUserType(), vo);
+            loadUserInfoByRole(uid, sysUser.getUserType(), vo);
             voList.add(vo);
         }
 
