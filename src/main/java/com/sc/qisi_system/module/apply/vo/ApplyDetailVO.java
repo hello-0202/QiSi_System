@@ -13,6 +13,12 @@ public class ApplyDetailVO {
 
 
     /**
+     * 姓名
+     */
+    private String name;
+
+
+    /**
      * 研究思路
      */
     private String researchIdea;

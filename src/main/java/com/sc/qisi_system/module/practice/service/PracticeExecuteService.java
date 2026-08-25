@@ -29,12 +29,12 @@ public interface PracticeExecuteService {
      * 批量上传实践进度附件
      * 角色: 认领者
      *
-     * @param demandId 需求ID
+     * @param progressId 需求ID
      * @param files 附件文件数组
      * @return 上传结果VO
      * @throws Exception 上传异常
      */
-    AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) throws Exception;
+    AttachmentUploadVO batchUploadProgressAttachments(Long demandId,Long progressId, MultipartFile[] files) throws Exception;
 
 
     /**

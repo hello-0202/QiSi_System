@@ -193,7 +193,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public Result handleIllegalArgumentException(IllegalArgumentException e, HttpServletRequest request) {
 
-        log.warn("[数据异常] {}, code={}, message={}",
+        log.warn("[服务器数据异常] {}, code={}, message={}",
                 requestUtils.getRequestLog(request), ResultCode.PARAM_ERROR.getCode(), e.getMessage());
         return Result.error(ResultCode.PARAM_ERROR.getCode(), ResultCode.PARAM_ERROR.getMessage());
     }

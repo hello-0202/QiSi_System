@@ -102,4 +102,9 @@ public class DemandListVO {
      * 更新时间
      */
     private LocalDateTime updateTime;
+
+    /**
+     * 审核意见
+     */
+    private String auditRemark;
 }

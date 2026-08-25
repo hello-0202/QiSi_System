@@ -50,7 +50,7 @@ public class AdminDemandServiceImpl implements AdminDemandService {
         // 2. 构造查询条件：只查询待审核状态，按创建时间倒序
         LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
-                .eq(Demand::getStatus, DemandStatusEnum.REVIEWING.getCode())
+                .in(Demand::getStatus, DemandStatusEnum.REVIEWING.getCode(),DemandStatusEnum.REJECTED.getCode(),DemandStatusEnum.PUBLISHED.getCode())
                 .orderByDesc(Demand::getCreateTime);
 
         // 3. 分页查询需求数据

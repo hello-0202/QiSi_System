@@ -3,8 +3,10 @@ package com.sc.qisi_system.module.user.controller;
 import com.sc.qisi_system.common.result.Result;
 import com.sc.qisi_system.module.user.dto.LoginDTO;
 import com.sc.qisi_system.module.user.dto.LogoutDTO;
+import com.sc.qisi_system.module.user.dto.ResetDTO;
 import com.sc.qisi_system.module.user.service.LoginService;
 import com.sc.qisi_system.module.user.service.RedisService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,5 +61,15 @@ public class AuthController {
     @PostMapping("/refresh-accessToken")
     public Result refreshAccessToken(@NotBlank @RequestParam String refreshToken) {
         return Result.success(redisService.refreshAccessToken(refreshToken));
+    }
+
+
+    /**
+     * 忘记密码
+     */
+    @PostMapping("/reset-password")
+    public Result resetPassword(@Valid @RequestBody ResetDTO resetDTO) {
+        loginService.resetPassword(resetDTO);
+        return Result.success();
     }
 }

@@ -87,8 +87,6 @@ public class ResearchPlanTypeHandler extends BaseTypeHandler<List<ResearchPlanSt
 
                 result.add(stage);
             }
-
-            log.info("ResearchPlan 解析成功，共 {} 个阶段", result.size());
             return result;
         } catch (Exception e) {
             log.error("解析 ResearchPlan JSON 失败: {}", json, e);

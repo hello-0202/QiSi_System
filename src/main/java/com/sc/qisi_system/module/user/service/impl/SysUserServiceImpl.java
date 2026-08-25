@@ -1,5 +1,6 @@
 package com.sc.qisi_system.module.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sc.qisi_system.common.exception.BusinessException;
@@ -74,6 +75,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public Long countTotalUser() {
         return sysUserMapper.countTotalUser();
+    }
+
+
+    @Override
+    public String selectUserNameById(Long userId) {
+        LambdaQueryWrapper<SysUser> sysUserLambdaQueryWrapper = Wrappers.lambdaQuery();
+        sysUserLambdaQueryWrapper
+                .eq(SysUser::getId, userId)
+                .select(SysUser::getName);
+        SysUser sysUser = sysUserMapper.selectOne(sysUserLambdaQueryWrapper);
+        return sysUser.getName();
     }
 
 

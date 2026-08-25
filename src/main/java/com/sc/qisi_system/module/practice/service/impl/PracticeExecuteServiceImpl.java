@@ -73,14 +73,15 @@ public class PracticeExecuteServiceImpl implements PracticeExecuteService {
      * 批量上传实践进度附件
      */
     @Override
-    public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) throws Exception {
+    public AttachmentUploadVO batchUploadProgressAttachments(Long demandId,Long progressId, MultipartFile[] files) throws Exception {
         // 1. 校验需求是否存在
-        if (!demandService.isNotExistsByDemandId(demandId)) {
-            throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
+        DemandProgress demandProgress = demandProgressMapper.selectById(progressId);
+        if (demandProgress == null) {
+            throw new BusinessException(ResultCode.PROGRESS_NOT_EXIST);
         }
 
         // 2. 调用MinIO服务上传附件
-        return minioService.batchUploadProgressAttachments(demandId, files);
+        return minioService.batchUploadProgressAttachments(demandId,progressId, files);
     }
 
 

@@ -54,10 +54,10 @@ public class PracticeExecuteController {
      */
     @PostMapping("/attachment")
     public Result batchUploadProgressAttachments(
-            @NotNull(message = "需求ID不能为空")
-            @RequestParam Long demandId,
+            @NotNull(message = "需求ID不能为空") @RequestParam Long demandId,
+            @NotNull(message = "进度ID不能为空") @RequestParam Long progressId,
             @RequestParam("files") MultipartFile[] files) throws Exception {
-        return Result.success(practiceExecuteService.batchUploadProgressAttachments(demandId,files));
+        return Result.success(practiceExecuteService.batchUploadProgressAttachments(demandId,progressId,files));
     }
 
 

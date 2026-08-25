@@ -10,6 +10,7 @@ import com.sc.qisi_system.module.admin.entity.SysUserTypeIdentity;
 import com.sc.qisi_system.module.admin.service.SysUserTypeIdentityService;
 import com.sc.qisi_system.module.user.dto.LoginDTO;
 import com.sc.qisi_system.module.user.dto.LogoutDTO;
+import com.sc.qisi_system.module.user.dto.ResetDTO;
 import com.sc.qisi_system.module.user.entity.SysUser;
 import com.sc.qisi_system.module.user.mapper.SysUserMapper;
 import com.sc.qisi_system.module.user.service.CaptchaService;
@@ -107,5 +108,25 @@ public class LoginServiceImpl implements LoginService {
         redisService.logout(logoutDTO);
         // 2. 广播在线用户列表更新
         webSocketService.broadcastOnlineUserList();
+    }
+
+    /**
+     * 重置密码
+     */
+    @Override
+    public void resetPassword(ResetDTO resetDTO) {
+        // 1. 校验验证码
+        captchaService.checkCaptcha(resetDTO.getCaptchaKey(), resetDTO.getCaptchaCode());
+
+        String userName = resetDTO.getUsername();
+        String password = resetDTO.getPassword();
+        QueryWrapper<SysUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", userName);
+        SysUser sysUser = userMapper.selectOne(queryWrapper);
+        if(sysUser == null) {
+            throw new BusinessException(ResultCode.USER_NOT_FOUND);
+        }
+        sysUser.setPassword(passwordEncoder.encode(password));
+        userMapper.updateById(sysUser);
     }
 }

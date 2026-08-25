@@ -88,6 +88,7 @@ public class ApplyServiceImpl extends ServiceImpl<DemandApplyMapper,DemandApply>
         // 3. 转换为VO并返回
         ApplyDetailVO applyDetailVO = new ApplyDetailVO();
         BeanUtils.copyProperties(demandApply, applyDetailVO);
+        applyDetailVO.setName(sysUserService.selectUserNameById(demandApply.getUserId()));
 
         return applyDetailVO;
     }

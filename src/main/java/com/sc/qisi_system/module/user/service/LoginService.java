@@ -2,6 +2,7 @@ package com.sc.qisi_system.module.user.service;
 
 import com.sc.qisi_system.module.user.dto.LoginDTO;
 import com.sc.qisi_system.module.user.dto.LogoutDTO;
+import com.sc.qisi_system.module.user.dto.ResetDTO;
 import com.sc.qisi_system.module.user.vo.LoginUserVO;
 
 
@@ -27,4 +28,10 @@ public interface LoginService {
      * @param logoutDTO 退出登录参数（用户标识、令牌等）
      */
     void logout(LogoutDTO logoutDTO);
+
+
+    /**
+     * 重置密码接口
+     */
+    void resetPassword(ResetDTO resetDTO);
 }

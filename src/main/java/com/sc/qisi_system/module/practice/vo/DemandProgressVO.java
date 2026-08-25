@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class DemandProgressVO {
 
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
     /**
      * 关联需求ID: demand主键

@@ -75,8 +75,9 @@ public class DemandPublishServiceImpl implements DemandPublishService {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
 
-        // 2. 校验是否为草稿状态
-        if (!Objects.equals(demand.getStatus(), DemandStatusEnum.DRAFT.getCode())) {
+        // 2. 校验是否为草稿 或者 驳回状态
+        if (!Objects.equals(demand.getStatus(), DemandStatusEnum.DRAFT.getCode())
+                && !Objects.equals(demand.getStatus(), DemandStatusEnum.REJECTED.getCode())) {
             throw new BusinessException(ResultCode.ONLY_ALLOW_DRAFT_EDIT);
         }
 
@@ -114,7 +115,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         if (demand == null) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
-        if(!demand.getStatus().equals(DemandStatusEnum.DRAFT.getCode())){
+        if (!demand.getStatus().equals(DemandStatusEnum.DRAFT.getCode())) {
             throw new BusinessException(ResultCode.ONLY_ALLOW_DRAFT_EDIT);
         }
         demandMapper.deleteById(draftId);
@@ -133,7 +134,7 @@ public class DemandPublishServiceImpl implements DemandPublishService {
         }
 
         // 2. 校验需求状态
-        if (!Objects.equals(demand.getStatus(), DemandStatusEnum.DRAFT.getCode())) {
+        if (!Objects.equals(demand.getStatus(), DemandStatusEnum.DRAFT.getCode()) && !Objects.equals(demand.getStatus(), DemandStatusEnum.REJECTED.getCode())) {
             throw new BusinessException(ResultCode.DEMAND_STATUS_ERROR);
         }
 

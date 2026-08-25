@@ -57,6 +57,12 @@ public class MenuRouteVO {
 
     @Data
     public static class Meta {
+
+        /**
+         * 主键id
+         */
+        private List<Long> id;
+
         /**
          * 菜单标题
          */

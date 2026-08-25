@@ -59,7 +59,7 @@ public interface MinioService {
      * @return 上传结果VO
      * @throws Exception 上传异常
      */
-    AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) throws Exception;
+    AttachmentUploadVO batchUploadProgressAttachments(Long demandId,Long progressId, MultipartFile[] files) throws Exception;
 
 
     /**

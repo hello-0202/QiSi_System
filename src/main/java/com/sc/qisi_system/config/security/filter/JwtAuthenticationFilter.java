@@ -72,7 +72,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         } catch (BusinessException e) {
             log.warn("[JWT 验证异常]{}, 异常: {}",requestUtils.getRequestLog(request), e.getMessage());
-            responseUtils.writeResult(response, Result.error(e));
+            responseUtils.writeResult(response, Result.error(e), HttpServletResponse.SC_UNAUTHORIZED);
         }
 
     }

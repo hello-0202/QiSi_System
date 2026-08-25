@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.sc.qisi_system.common.exception.BusinessException;
 import com.sc.qisi_system.common.exception.SystemException;
 import com.sc.qisi_system.common.result.ResultCode;
+import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.config.minio.MinioConfig;
 import com.sc.qisi_system.module.demand.entity.DemandAttachment;
 import com.sc.qisi_system.module.demand.service.AsyncFileDeleteService;
@@ -150,12 +151,14 @@ public class MinioServiceImpl implements MinioService {
      * 批量上传实践进度附件
      */
     @Override
-    public AttachmentUploadVO batchUploadProgressAttachments(Long demandId, MultipartFile[] files) {
+    public AttachmentUploadVO batchUploadProgressAttachments(Long demandId,Long progressId, MultipartFile[] files) {
         return commonBatchUpload(
                 demandId,files,
                 "progress/",
                 (demandId1, originalFileName, objectName, bucketName, suffix, fileSize) -> {
                     DemandProgressAttachment attachment = new DemandProgressAttachment();
+                    attachment.setProgressId(progressId);
+                    attachment.setUserId(SecurityUtils.getCurrentUserId());
                     attachment.setDemandId(demandId1);
                     attachment.setFileName(originalFileName);
                     attachment.setObjectName(objectName);

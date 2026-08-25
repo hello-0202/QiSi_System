@@ -42,7 +42,7 @@ public class DemandQueryServiceImpl implements DemandQueryService {
         LambdaQueryWrapper<Demand> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper
                 .eq(Demand::getPublisherId, userId)
-                .eq(Demand::getStatus, DemandStatusEnum.DRAFT.getCode())
+                .in(Demand::getStatus, DemandStatusEnum.DRAFT.getCode(),DemandStatusEnum.REJECTED.getCode(),DemandStatusEnum.REVIEWING.getCode())
                 .orderByDesc(Demand::getCreateTime);
 
         // 3. 分页查询数据

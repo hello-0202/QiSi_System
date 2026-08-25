@@ -50,6 +50,7 @@ public class SysUserTypeIdentityServiceImpl extends ServiceImpl<SysUserTypeIdent
             return null;
         }
 
+
         // 3. 根据菜单ID查询菜单详情并排序
         List<SysMenu> menuList = sysMenuMapper.selectList(
                 new LambdaQueryWrapper<SysMenu>()
@@ -113,14 +114,18 @@ public class SysUserTypeIdentityServiceImpl extends ServiceImpl<SysUserTypeIdent
         List<SysRoleMenu> sysRoleMenuList = sysRoleMenuMapper.selectList(
                 new LambdaQueryWrapper<SysRoleMenu>()
                         .eq(SysRoleMenu::getMenuId, sysMenu.getId())
-                        .select(SysRoleMenu::getIdentityId)
+                        .select(SysRoleMenu::getId, SysRoleMenu::getIdentityId)
         );
 
         List<Integer> identityIds = sysRoleMenuList.stream()
                 .map(SysRoleMenu::getIdentityId)
                 .collect(Collectors.toList());
+        List<Long> ids = sysRoleMenuList.stream()
+                .map(SysRoleMenu::getId)
+                .toList();
 
         meta.setIdentityId(CollUtil.isEmpty(identityIds) ? null : identityIds);
+        meta.setId(CollUtil.isEmpty(ids) ? null : ids);
 
         vo.setMeta(meta);
         return vo;

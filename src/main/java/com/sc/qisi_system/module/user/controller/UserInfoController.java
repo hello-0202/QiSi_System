@@ -126,4 +126,5 @@ public class UserInfoController {
             @RequestBody MenuQueryDTO menuQueryDTO) {
         return Result.success(userInfoService.getRouters(menuQueryDTO));
     }
+
 }

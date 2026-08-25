@@ -93,7 +93,6 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
             myDemandQueryDTO.setStatusList(allowedStatus);
         }
 
-        // 4. 调用服务查询并返回
         return demandService.getMyDemandList(userId, myDemandQueryDTO);
     }
 
@@ -101,7 +100,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     @Override
     public List<MemberVO> getApplyMemberList(Long userId, Long demandId) {
         // 1. 校验需求是否存在
-        if(!demandService.isNotExistsByDemandId(demandId)) {
+        if (!demandService.isNotExistsByDemandId(demandId)) {
             throw new BusinessException(ResultCode.DEMAND_NOT_EXIST);
         }
         return applyService.getApplyMemberList(userId, demandId);
@@ -120,16 +119,13 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
     @Override
     public DemandPublicDetailVO getPracticeDemandDetail(Long demandId) {
         DemandPublicDetailVO demandPublicDetailVO = demandService.getPublicDemandDetail(demandId);
-        System.out.println("demandId: " + demandId);
         DemandExecutionPlan executionPlan = demandExecutionPlanMapper.selectByDemandIdWithHandler(demandId);
-        System.out.println("executionPlan: " + executionPlan);
 
-        if (executionPlan.getResearchPlan() != null) {
+        if (executionPlan != null && executionPlan.getResearchPlan() != null) {
             demandPublicDetailVO.setResearchPlan(executionPlan.getResearchPlan());
         } else {
-            demandPublicDetailVO.setResearchPlan(null);
+            demandPublicDetailVO.setResearchPlan(new ArrayList<>());
         }
-        System.out.println("demandPublicDetailVO: " + demandPublicDetailVO);
         return demandPublicDetailVO;
     }
 
@@ -196,10 +192,13 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                 demandMember -> {
                     MemberVO memberVO = new MemberVO();
                     DemandMemberVO demandMemberVO = new DemandMemberVO();
-                    BeanUtils.copyProperties(demandMember, demandMemberVO);
+                    BeanUtils.copyProperties(demandMember, demandMemberVO, "userInfo");
                     memberVO.setDemandMemberVO(demandMemberVO);
 
-                    BeanUtils.copyProperties(sysUserService.getUserProfile(demandMemberVO.getUserId()), memberVO.getUserProfileVO());
+                    UserProfileVO userProfileVO = new UserProfileVO();
+
+                    BeanUtils.copyProperties(sysUserService.getUserProfile(demandMemberVO.getUserId()), userProfileVO);
+                    memberVO.setUserProfileVO(userProfileVO);
 
                     return memberVO;
                 }).toList();
@@ -231,7 +230,7 @@ public class PracticeQueryServiceImpl implements PracticeQueryService {
                     BeanUtils.copyProperties(memberChange, memberChangeLogVO);
                     UserProfileVO userProfileVO = sysUserService.getUserProfile(memberChange.getUserId());
                     UserProfileVO userProfileVO1 = new UserProfileVO();
-                    BeanUtils.copyProperties(userProfileVO,userProfileVO1);
+                    BeanUtils.copyProperties(userProfileVO, userProfileVO1);
                     memberChangeLogVO.setUserProfileVO(userProfileVO1);
 
                     return memberChangeLogVO;

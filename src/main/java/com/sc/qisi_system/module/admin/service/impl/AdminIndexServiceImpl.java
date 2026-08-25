@@ -97,10 +97,12 @@ public class AdminIndexServiceImpl implements AdminIndexService {
 
         // 2. 查询所有菜单数据
         List<SysMenu> allMenuList = sysMenuMapper.selectList(queryWrapper);
+        System.out.println("allMenuList:" + allMenuList);
 
         // 3. 构建菜单树形结构
         List<MenuRouteVO> treeList = sysUserTypeIdentityService.buildMenuTree(allMenuList);
 
+        System.out.println("treeList:" + treeList);
         // 4. 封装并返回结果
         PageResult<MenuRouteVO> result = new PageResult<>();
         result.setRecords(treeList);
@@ -130,6 +132,7 @@ public class AdminIndexServiceImpl implements AdminIndexService {
      */
     @Override
     public void unbindMenuIdentity(Long id) {
+        System.out.println("unbindMenuIdentity:" + id);
         sysRoleMenuMapper.deleteById(id);
     }
 
