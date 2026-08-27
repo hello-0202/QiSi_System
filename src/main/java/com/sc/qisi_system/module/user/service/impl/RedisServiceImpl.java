@@ -33,6 +33,9 @@ public class RedisServiceImpl implements RedisService {
     private final SysUserMapper sysUserMapper;
 
 
+    @Value("${jwt.access-token-ttl}")
+    private Long accessTokenTTL;
+
     @Value("${token.refresh-token-ttl}")
     private long refreshTokenTtl;
 
@@ -123,15 +126,21 @@ public class RedisServiceImpl implements RedisService {
 
         // 2. 将 AccessToken 加入黑名单
         if (logoutDTO.getAccessToken() != null && jwtTokenProvider.isTokenValid(logoutDTO.getAccessToken())) {
-            long expireSeconds = jwtTokenProvider.getTokenRemainingTimeSeconds(logoutDTO.getAccessToken());
-            if (expireSeconds > 0) {
-                stringRedisTemplate.opsForValue().set(
+//            long expireSeconds = jwtTokenProvider.getTokenRemainingTimeSeconds(logoutDTO.getAccessToken());
+////            if (expireSeconds > 0) {
+////                stringRedisTemplate.opsForValue().set(
+////                        JWT_BLACKLIST_PREFIX + logoutDTO.getAccessToken(),
+////                        "1",
+////                        expireSeconds,
+////                        TimeUnit.SECONDS
+////                );
+////            }
+            stringRedisTemplate.opsForValue().set(
                         JWT_BLACKLIST_PREFIX + logoutDTO.getAccessToken(),
                         "1",
-                        expireSeconds,
+                        accessTokenTTL,
                         TimeUnit.SECONDS
                 );
-            }
         }
 
         // 3. 清理会话映射
