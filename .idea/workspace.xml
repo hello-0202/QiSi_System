@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c1a23002-e2be-4d90-abbf-00bc2454d71a" name="更改" comment="完善代码，修改bug">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/vo/DemandStatVO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/qisi.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/qisi.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/RedisServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/common/result/ResultCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminDemandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/controller/AdminDemandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminDemandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/AdminDemandService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminDemandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/admin/service/impl/AdminDemandServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/demand/controller/DemandPublishController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/dto/StudentTeacherRegisterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/dto/StudentTeacherRegisterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/WhitelistCheckServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sc/qisi_system/module/user/service/impl/WhitelistCheckServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,14 +328,10 @@
       <workItem from="1787664046876" duration="11000" />
       <workItem from="1787666674482" duration="346000" />
       <workItem from="1787834670262" duration="3026000" />
-    </task>
-    <task id="LOCAL-00028" summary="完成了代码的编写">
-      <option name="closed" value="true" />
-      <created>1778401940367</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1778401940367</updated>
+      <workItem from="1787847459140" duration="38000" />
+      <workItem from="1788170131431" duration="1688000" />
+      <workItem from="1788244362845" duration="7890000" />
+      <workItem from="1788330656605" duration="775000" />
     </task>
     <task id="LOCAL-00029" summary="完成了代码的编写">
       <option name="closed" value="true" />
@@ -713,7 +717,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787666781218</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="完善代码，修改bug">
+      <option name="closed" value="true" />
+      <created>1787847487398</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1787847487398</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

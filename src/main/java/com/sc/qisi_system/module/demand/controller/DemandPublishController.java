@@ -80,7 +80,7 @@ public class DemandPublishController {
      * @param demandId 需求ID
      * @return 统一返回结果
      */
-    @PostMapping("/submit-audit")
+    @GetMapping("/submit-audit")
     public Result submitAudit(
             @NotNull(message = "需求ID不能为空")
             @RequestParam Long demandId) {

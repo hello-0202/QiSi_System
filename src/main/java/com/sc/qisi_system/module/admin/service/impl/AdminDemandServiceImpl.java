@@ -12,6 +12,7 @@ import com.sc.qisi_system.common.utils.SecurityUtils;
 import com.sc.qisi_system.module.admin.dto.AdminDemandQueryDTO;
 import com.sc.qisi_system.module.admin.dto.AuditDemandDTO;
 import com.sc.qisi_system.module.admin.service.AdminDemandService;
+import com.sc.qisi_system.module.admin.vo.DemandStatVO;
 import com.sc.qisi_system.module.demand.entity.Demand;
 import com.sc.qisi_system.module.demand.service.DemandService;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,5 +133,37 @@ public class AdminDemandServiceImpl implements AdminDemandService {
 
         // 4. 转换VO
         return demandService.convertToAdminPageResultList(demandIPage);
+    }
+
+
+    /**
+     * 获取需求统计数据
+     * 返回: 待审核数量、今日新增数量、已通过数量、已驳回数量
+     */
+    @Override
+    public DemandStatVO getDemandStatistics() {
+        // 1. 构建统计VO
+        DemandStatVO vo = new DemandStatVO();
+
+        // 2. 今日零点时间
+        LocalDateTime todayStart = LocalDate.now().atStartOfDay();
+
+        // 3. 待审核数量 status=1
+        vo.setWaitAuditCount(demandService.count(new LambdaQueryWrapper<Demand>()
+                .eq(Demand::getStatus, DemandStatusEnum.REVIEWING.getCode())));
+
+        // 4. 今日新增数量 createTime >= 今日零点
+        vo.setTodayNewCount(demandService.count(new LambdaQueryWrapper<Demand>()
+                .ge(Demand::getCreateTime, todayStart)));
+
+        // 5. 已通过数量 status=3(已发布)
+        vo.setPassCount(demandService.count(new LambdaQueryWrapper<Demand>()
+                .eq(Demand::getStatus, DemandStatusEnum.PUBLISHED.getCode())));
+
+        // 6. 已驳回数量 status=2
+        vo.setRejectCount(demandService.count(new LambdaQueryWrapper<Demand>()
+                .eq(Demand::getStatus, DemandStatusEnum.REJECTED.getCode())));
+
+        return vo;
     }
 }

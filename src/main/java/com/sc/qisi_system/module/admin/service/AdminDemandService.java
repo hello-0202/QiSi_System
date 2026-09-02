@@ -3,6 +3,7 @@ package com.sc.qisi_system.module.admin.service;
 import com.sc.qisi_system.common.result.PageResult;
 import com.sc.qisi_system.module.admin.dto.AdminDemandQueryDTO;
 import com.sc.qisi_system.module.admin.dto.AuditDemandDTO;
+import com.sc.qisi_system.module.admin.vo.DemandStatVO;
 import com.sc.qisi_system.module.demand.vo.DemandListVO;
 import com.sc.qisi_system.module.demand.vo.DemandPublicDetailVO;
 
@@ -52,4 +53,6 @@ public interface AdminDemandService {
      * @return 需求分页列表
      */
     PageResult<DemandListVO> getDemandList(AdminDemandQueryDTO adminDemandQueryDTO);
+
+     DemandStatVO getDemandStatistics();
 }

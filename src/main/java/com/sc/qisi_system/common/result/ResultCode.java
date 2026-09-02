@@ -54,6 +54,7 @@ public enum ResultCode {
     WHITELIST_NOT_FOUND(4001006, "没有查到用户信息，无法注册"),
     USER_TYPE_ERROR(4001007, "用户类型错误"),
     USER_NOT_LOGIN(4001008,"用户未登录"),
+    DATA_ERROR(4001009,"数据错误"),
 
 
     /**

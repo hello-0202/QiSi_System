@@ -32,40 +32,56 @@ public class WhitelistCheckServiceImpl implements WhitelistCheckService {
      */
     @Override
     public boolean isInWhitelist(StudentTeacherRegisterDTO request) {
-        // 1. 获取用户类型
         UserTypeEnum userType = UserTypeEnum.getByCode(request.getUserType());
-
         if (userType == null) {
             throw new BusinessException(ResultCode.USER_TYPE_ERROR);
         }
 
-        // 2. 根据用户类型校验白名单
-        return switch (userType) {
-            case STUDENT ->
-                    checkStudentWhitelist(request.getUsername());
-            case TEACHER ->
-                    checkTeacherWhitelist(request.getUsername());
-            default -> throw new BusinessException(ResultCode.USER_TYPE_ERROR);
-        };
+        switch (userType) {
+            case STUDENT: {
+                SchoolStudent schoolStudent = checkStudentWhitelist(request.getUsername());
+                if (schoolStudent == null) {
+                    throw new BusinessException(ResultCode.DATA_ERROR, "学生信息不存在");
+                }
+                if (!schoolStudent.getName().equals(request.getRealName())) {
+                    throw new BusinessException(ResultCode.DATA_ERROR, "真实姓名不相符");
+                }
+                break;
+            }
+            case TEACHER: {
+                SchoolStaff schoolStaff = checkTeacherWhitelist(request.getUsername());
+                if (schoolStaff == null) {
+                    throw new BusinessException(ResultCode.DATA_ERROR, "教师信息不存在");
+                }
+                if (!schoolStaff.getName().equals(request.getRealName())) {
+                    throw new BusinessException(ResultCode.DATA_ERROR, "真实姓名不相符");
+                }
+                break;
+            }
+            default:
+                throw new BusinessException(ResultCode.USER_TYPE_ERROR);
+        }
+        // 全部校验执行完毕，没有抛出异常 = 校验通过
+        return true;
     }
 
 
     /**
      * 校验学生白名单
      */
-    private boolean checkStudentWhitelist(String studentId) {
+    private SchoolStudent checkStudentWhitelist(String studentId) {
         LambdaQueryWrapper<SchoolStudent> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SchoolStudent::getStudentId, studentId);
-        return schoolStudentMapper.selectCount(queryWrapper) > 0;
+        return schoolStudentMapper.selectOne(queryWrapper);
     }
 
 
     /**
      * 校验教师白名单
      */
-    private boolean checkTeacherWhitelist(String personCode) {
+    private SchoolStaff checkTeacherWhitelist(String personCode) {
         LambdaQueryWrapper<SchoolStaff> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(SchoolStaff::getPersonCode, personCode);
-        return schoolStaffMapper.selectCount(queryWrapper) > 0;
+        return schoolStaffMapper.selectOne(queryWrapper);
     }
 }

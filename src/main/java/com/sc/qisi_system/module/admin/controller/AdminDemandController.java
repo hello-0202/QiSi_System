@@ -86,4 +86,10 @@ public class AdminDemandController {
             @Valid @RequestBody AdminDemandQueryDTO adminDemandQueryDTO) {
         return Result.success(adminDemandService.getDemandList(adminDemandQueryDTO));
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/statistics")
+    public Result getDemandStatistics(){
+        return Result.success(adminDemandService.getDemandStatistics());
+    }
 }

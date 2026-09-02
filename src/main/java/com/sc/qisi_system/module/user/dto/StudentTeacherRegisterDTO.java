@@ -9,6 +9,12 @@ public class StudentTeacherRegisterDTO {
 
 
     /**
+     * 真实姓名
+     */
+    @NotBlank
+    private String realName;
+
+    /**
      * 用户名: 学生-学号 教师-工号
      */
     private String username;

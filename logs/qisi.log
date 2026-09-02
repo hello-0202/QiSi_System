@@ -1,218 +1,68 @@
-2026-08-27 20:44:52.424 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 59924 (D:\Dev\development\my-code\QiSiSystem\target\classes started by Lenovo in D:\Dev\development\my-code\QiSiSystem)
-2026-08-27 20:44:52.429 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-08-27 20:44:53.371 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-08-27 20:44:53.373 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-08-27 20:44:53.430 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 43 ms. Found 0 Redis repository interfaces.
-2026-08-27 20:44:53.979 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-08-27 20:44:54.053 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1594 ms
-2026-08-27 20:44:55.243 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-08-27 20:44:55.254 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-08-27 20:44:55.380 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-08-27 20:44:56.100 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-08-27 20:44:56.359 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-08-27 20:44:56.514 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-08-27 20:44:56.700 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-08-27 20:44:56.852 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-08-27 20:44:56.853 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6ff05f85]]
-2026-08-27 20:44:56.853 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-08-27 20:44:56.869 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-08-27 20:44:56.879 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.829 seconds (process running for 5.432)
-2026-08-27 20:44:56.886 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-08-27 20:44:57.017 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-08-27 20:44:57.622 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-08-27 20:44:57.916 [RMI TCP Connection(3)-10.144.144.4] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-08-27 20:44:57.920 [RMI TCP Connection(3)-10.144.144.4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
-2026-08-27 20:45:56.775 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-08-27 20:47:09.962 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:47:09.962 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:47:10.736 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:47:10.736 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:47:10.737 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:47:17.723 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:47:17.723 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:47:17.940 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:47:17.940 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:47:17.942 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:48:17.928 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:49:17.934 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:49:24.142 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:49:24.142 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:49:25.379 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:49:25.379 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:49:25.379 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:49:29.717 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:49:29.717 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:49:34.285 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/logout, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:49:44.602 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/logout, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:50:18.077 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:50:30.443 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:51:18.090 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:51:27.691 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/api/category/1001, METHOD= GET, 异常: Token 格式错误
-2026-08-27 20:51:30.467 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:51:36.281 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/api/category/1002, METHOD= GET, 异常: Token 格式错误
-2026-08-27 20:51:37.131 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/api/category/1003, METHOD= GET, 异常: Token 格式错误
-2026-08-27 20:52:17.940 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:52:30.455 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:17.936 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:30.445 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:43.214 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:43.219 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:43.518 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:43.525 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:43.525 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:44.926 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:44.940 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:45.193 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:45.195 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:45.515 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:45.515 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:45.515 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:46.515 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:46.521 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:47.844 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:47.848 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:48.210 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:48.212 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:48.544 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:48.550 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:48.550 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:50.207 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:50.213 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:50.519 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:50.519 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:50.519 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:50.549 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:50.577 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:52.248 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:52.248 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:54.297 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:54.310 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:54.615 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:54.617 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:54.617 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:55.587 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:55.590 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:53:56.883 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:53:56.883 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:54:34.031 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/api/template/1000010000000001/field/list, METHOD= GET, 异常: Token 格式错误
-2026-08-27 20:54:55.094 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:54:57.448 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:55:55.083 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:55:57.729 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:55:58.592 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:55:58.605 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:55:59.805 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:55:59.805 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:56:06.039 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:56:06.058 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:56:07.104 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:56:07.106 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:56:12.310 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/logout, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:56:19.110 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:56:19.113 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:56:19.452 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:56:19.452 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:56:19.452 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:56:35.740 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/logout, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:03.312 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:03.320 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:03.656 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:03.656 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:03.656 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:09.219 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:09.220 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:09.532 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:09.556 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:09.556 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:22.206 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:22.210 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:22.525 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:22.525 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:22.525 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:23.451 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:23.463 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:25.218 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:25.224 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:25.525 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:25.525 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:25.525 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:27.214 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:27.217 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:27.531 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:27.531 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:27.531 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:29.629 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:29.643 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:31.600 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:31.600 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:34.562 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:34.562 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:57:34.757 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:34.757 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:57:34.757 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:58:05.320 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:05.329 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:05.855 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:05.864 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:06.109 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/latest-demand, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:58:06.109 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/statistics/user-workbench-statistics, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:58:06.109 [http-nio-8080-exec-1] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:58:08.700 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:08.715 [http-nio-8080-exec-8] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:10.653 [http-nio-8080-exec-4] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/message/chat/session/list, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:58:10.653 [http-nio-8080-exec-2] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/base, METHOD= GET, 异常: Token 已过期
-2026-08-27 20:58:15.478 [http-nio-8080-exec-3] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:15.481 [http-nio-8080-exec-9] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:18.361 [http-nio-8080-exec-10] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/refresh-accessToken, METHOD= POST, 异常: Token 已过期
-2026-08-27 20:58:18.376 [http-nio-8080-exec-6] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 10.144.144.2, URI= /api/user/info/user/routers, METHOD= POST, 异常: Token 已过期
-2026-08-27 21:00:09.041 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.2, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
-2026-08-27 21:01:22.855 [http-nio-8080-exec-3] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.2, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
-2026-08-27 21:02:15.457 [http-nio-8080-exec-1] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.2, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
-2026-08-27 21:02:20.866 [http-nio-8080-exec-10] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.2, URI= /api/user/login, METHOD= POST, code=CAPTCHA_EXPIRED_OR_CAPTCHA_ERROR, message=验证码已失效或验证码错误
-2026-08-27 21:15:56.789 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 24], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 3], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 0, completed tasks = 1]
-2026-08-27 21:21:26.028 [http-nio-8080-exec-4] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:21:48.771 [http-nio-8080-exec-7] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:23:36.538 [http-nio-8080-exec-7] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:24:50.654 [http-nio-8080-exec-2] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:27:21.425 [http-nio-8080-exec-5] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:28:28.762 [http-nio-8080-exec-9] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:29:37.708 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-08-27 21:29:37.835 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-08-27 21:29:37.852 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-08-27 21:29:37.852 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6ff05f85]]
-2026-08-27 21:29:37.852 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
-2026-08-27 21:29:42.320 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 60228 (D:\Dev\development\my-code\QiSiSystem\target\classes started by Lenovo in D:\Dev\development\my-code\QiSiSystem)
-2026-08-27 21:29:42.322 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
-2026-08-27 21:29:43.388 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-2026-08-27 21:29:43.390 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
-2026-08-27 21:29:43.452 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 51 ms. Found 0 Redis repository interfaces.
-2026-08-27 21:29:43.987 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-08-27 21:29:44.066 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1709 ms
-2026-08-27 21:29:45.123 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
-2026-08-27 21:29:45.134 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
-2026-08-27 21:29:45.272 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
-2026-08-27 21:29:46.021 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
-2026-08-27 21:29:46.291 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
-2026-08-27 21:29:46.452 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
-2026-08-27 21:29:46.643 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-2026-08-27 21:29:46.741 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
-2026-08-27 21:29:46.742 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@672c4e24]]
-2026-08-27 21:29:46.742 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
-2026-08-27 21:29:46.757 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-08-27 21:29:46.767 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 4.828 seconds (process running for 5.392)
-2026-08-27 21:29:46.777 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
-2026-08-27 21:29:46.883 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
-2026-08-27 21:29:47.032 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-08-27 21:29:47.032 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 0 ms
-2026-08-27 21:29:47.269 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
-2026-08-27 21:30:17.083 [http-nio-8080-exec-2] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:30:46.722 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[2 current WS(2)-HttpStream(0)-HttpPoll(0), 6 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(6)-CONNECTED(6)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 48, active threads = 0, queued tasks = 0, completed tasks = 84], outboundChannel[pool size = 13, active threads = 0, queued tasks = 0, completed tasks = 13], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
-2026-08-27 21:30:52.121 [http-nio-8080-exec-7] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/api/category/1001, METHOD= GET, 异常: Token 格式错误
-2026-08-27 21:30:56.036 [http-nio-8080-exec-5] WARN  c.s.q.c.s.f.JwtAuthenticationFilter - [JWT 验证异常]IP= 127.0.0.1, URI= /api/api/template/1000010000000001/field/list, METHOD= GET, 异常: Token 格式错误
-2026-08-27 21:31:10.466 [http-nio-8080-exec-2] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:31:47.700 [http-nio-8080-exec-9] INFO  c.s.q.m.w.s.i.WebSocketMessageServiceImpl - 全局广播消息：权限配置已更新，请刷新页面
-2026-08-27 21:45:25.137 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-08-27 21:45:25.292 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-08-27 21:45:25.303 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
-2026-08-27 21:45:25.304 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@672c4e24]]
-2026-08-27 21:45:25.304 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-09-02 14:31:10.174 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 33456 (D:\Dev\development\my-code\QiSiSystem\target\classes started by Lenovo in D:\Dev\development\my-code\QiSiSystem)
+2026-09-02 14:31:10.179 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-09-02 14:31:12.231 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-02 14:31:12.233 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-02 14:31:12.293 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 48 ms. Found 0 Redis repository interfaces.
+2026-09-02 14:31:12.789 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-09-02 14:31:12.873 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2659 ms
+2026-09-02 14:31:13.982 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
+2026-09-02 14:31:13.992 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-09-02 14:31:14.125 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-09-02 14:31:14.822 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-02 14:31:15.097 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+2026-09-02 14:31:15.384 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
+2026-09-02 14:31:15.562 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-09-02 14:31:15.668 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-09-02 14:31:15.668 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6fc84468]]
+2026-09-02 14:31:15.670 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-09-02 14:31:15.689 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-09-02 14:31:15.700 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.906 seconds (process running for 11.841)
+2026-09-02 14:31:15.705 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-09-02 14:31:15.810 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-09-02 14:31:16.222 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-09-02 14:32:03.428 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-09-02 14:32:03.430 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-09-02 14:32:15.653 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 1 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(1)-CONNECTED(1)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 12, active threads = 0, queued tasks = 0, completed tasks = 12], outboundChannel[pool size = 1, active threads = 0, queued tasks = 0, completed tasks = 1], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-09-02 14:33:13.279 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-09-02 14:33:13.389 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-09-02 14:33:13.398 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopping...
+2026-09-02 14:33:13.399 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6fc84468]]
+2026-09-02 14:33:13.399 [SpringApplicationShutdownHook] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Stopped.
+2026-09-02 14:33:16.887 [main] INFO  c.s.q.QiSiSystemApplication - Starting QiSiSystemApplication using Java 17.0.12 with PID 39428 (D:\Dev\development\my-code\QiSiSystem\target\classes started by Lenovo in D:\Dev\development\my-code\QiSiSystem)
+2026-09-02 14:33:16.888 [main] INFO  c.s.q.QiSiSystemApplication - The following 1 profile is active: "test"
+2026-09-02 14:33:17.837 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-09-02 14:33:17.839 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-02 14:33:17.904 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 0 Redis repository interfaces.
+2026-09-02 14:33:18.434 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-09-02 14:33:18.504 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1590 ms
+2026-09-02 14:33:19.487 [main] INFO  c.s.q.QiSiSystemApplication - ✅ 管理员账号已初始化
+2026-09-02 14:33:19.497 [main] INFO  c.s.q.config.minio.MinioConfig - 开始初始化MinIO客户端
+2026-09-02 14:33:19.604 [main] INFO  c.s.q.config.minio.MinioConfig - MinIO客户端初始化完成
+2026-09-02 14:33:20.692 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-09-02 14:33:21.173 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 15 endpoints beneath base path '/actuator'
+2026-09-02 14:33:21.603 [main] INFO  c.b.m.e.s.MybatisPlusApplicationContextAware - Register ApplicationContext instances org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@44c79f32
+2026-09-02 14:33:22.028 [main] WARN  o.s.s.c.a.web.builders.WebSecurity - You are asking Spring Security to ignore Deferred [Mvc [pattern='/ws/**'], Ant [pattern='/ws/**']]. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2026-09-02 14:33:22.232 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Starting...
+2026-09-02 14:33:22.233 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@360ccb68]]
+2026-09-02 14:33:22.235 [main] INFO  o.s.m.s.b.SimpleBrokerMessageHandler - Started.
+2026-09-02 14:33:22.267 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-09-02 14:33:22.285 [main] INFO  c.s.q.QiSiSystemApplication - Started QiSiSystemApplication in 5.704 seconds (process running for 6.193)
+2026-09-02 14:33:22.294 [main] INFO  c.s.q.c.startup.MinioStartupRunner - 开始健康检查
+2026-09-02 14:33:22.512 [main] INFO  c.s.q.c.startup.MinioStartupRunner - Minio连接成功
+2026-09-02 14:33:22.970 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-09-02 14:33:22.971 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-09-02 14:33:23.298 [main] INFO  c.s.q.c.startup.RedisStartupRunner - Redis数据库连接成功
+2026-09-02 14:33:23.649 [http-nio-8080-exec-2] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.3, URI= /api/user/refresh-accessToken, METHOD= POST, code=TOKEN_INVALID, message=Token 无效
+2026-09-02 14:33:23.649 [http-nio-8080-exec-1] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.3, URI= /api/user/refresh-accessToken, METHOD= POST, code=TOKEN_INVALID, message=Token 无效
+2026-09-02 14:34:22.197 [MessageBroker-1] INFO  o.s.w.s.c.WebSocketMessageBrokerStats - WebSocketSession[3 current WS(3)-HttpStream(0)-HttpPoll(0), 3 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(3)-CONNECTED(3)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 36, active threads = 0, queued tasks = 0, completed tasks = 36], outboundChannel[pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 5], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2026-09-02 14:38:20.931 [http-nio-8080-exec-3] INFO  c.s.q.m.m.s.impl.MinioServiceImpl - 文件【demand/2095038598335184897/2a6a0aac-08b8-4af3-b796-23087dec6664_20260312.奇思系统需求分析文档（V1.0）.docx】上传到MinIO桶【qisi-system-attachment】成功
+2026-09-02 14:38:20.959 [http-nio-8080-exec-3] INFO  c.s.q.m.m.s.impl.MinioServiceImpl - 成功插入1条附件记录
+2026-09-02 14:38:26.296 [http-nio-8080-exec-6] WARN  c.s.q.c.e.GlobalExceptionHandler - [方法错误] IP= 10.144.144.3, URI= /api/demand/publish/submit-audit, METHOD= POST, code=4005, message=Request method 'POST' is not supported
+2026-09-02 14:38:40.294 [http-nio-8080-exec-10] WARN  c.s.q.c.e.GlobalExceptionHandler - [方法错误] IP= 10.144.144.3, URI= /api/demand/publish/submit-audit, METHOD= POST, code=4005, message=Request method 'POST' is not supported
+2026-09-02 14:38:45.289 [http-nio-8080-exec-9] WARN  c.s.q.c.e.GlobalExceptionHandler - [方法错误] IP= 10.144.144.3, URI= /api/demand/publish/submit-audit, METHOD= POST, code=4005, message=Request method 'POST' is not supported
+2026-09-02 14:39:27.784 [http-nio-8080-exec-8] WARN  c.s.q.c.e.GlobalExceptionHandler - [方法错误] IP= 10.144.144.3, URI= /api/demand/publish/submit-audit, METHOD= POST, code=4005, message=Request method 'POST' is not supported
+2026-09-02 14:42:03.784 [http-nio-8080-exec-2] INFO  c.s.q.m.m.s.impl.MinioServiceImpl - 文件【demand/2095039532612206594/5b0674b4-38eb-407d-99a6-ed1c8bea5567_20260312.奇思系统需求分析文档（V1.0）.docx】上传到MinIO桶【qisi-system-attachment】成功
+2026-09-02 14:42:03.789 [http-nio-8080-exec-2] INFO  c.s.q.m.m.s.impl.MinioServiceImpl - 成功插入1条附件记录
+2026-09-02 14:42:51.240 [http-nio-8080-exec-3] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.3, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-09-02 14:43:08.658 [http-nio-8080-exec-5] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.3, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
+2026-09-02 14:44:44.583 [http-nio-8080-exec-10] WARN  c.s.q.c.e.GlobalExceptionHandler - [业务异常] IP= 10.144.144.3, URI= /api/demand/apply/query/apply-demand-detail, METHOD= GET, code=DEMAND_STATUS_ERROR, message=需求状态不正确，无法操作
